@@ -1011,6 +1011,26 @@
   <b>交叉指引：</b>调试操作与故障排查 → 见《<a href="2-网络调试与运维手册.html" style="color:var(--page-brand);">2-网络调试与运维手册</a>》；项目管理与施工标准 → 见《<a href="3-项目管理与施工标准.html" style="color:var(--page-brand);">3-项目管理与施工标准</a>》；CAD 制图规范 → 见《<a href="4-CAD制图技术要求.html" style="color:var(--page-brand);">4-CAD制图技术要求</a>》。
 </div>
 </nav>
+<div id="keypoints" class="callout" style="background:linear-gradient(180deg,#F3F7F5,#EAF3EF);border:1px solid var(--page-brand-soft,#CFE3DA);border-left:4px solid var(--page-brand,#0F8A66);border-radius:8px;padding:18px 20px;margin:22px 0 6px;">
+  <h2 style="margin:0 0 10px;font-size:1.06rem;color:var(--page-brand-deep,#075A42);">手册技术要点速览（下篇附录为背景，正文先行）</h2>
+  <p style="margin:0 0 8px;font-size:0.9rem;color:#33443E;">先读这一节可建立全书骨架，正文每章再展开细节；附录按需查阅，不必顺序通读。</p>
+  <div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:8px;">
+    <span style="padding:4px 12px;background:#fff;border:1px solid #C9DCD3;border-radius:999px;font-size:0.8rem;font-weight:600;">五层骨架＝云端·网络·网关·总线·终端</span>
+    <span style="padding:4px 12px;background:#fff;border:1px solid #C9DCD3;border-radius:999px;font-size:0.8rem;font-weight:600;">五大角色＝大脑·执行·感知·交互·转换</span>
+    <span style="padding:4px 12px;background:#fff;border:1px solid #C9DCD3;border-radius:999px;font-size:0.8rem;font-weight:600;">主线判定＝先问能不能装网关/要不要平台</span>
+    <span style="padding:4px 12px;background:#fff;border:1px solid #C9DCD3;border-radius:999px;font-size:0.8rem;font-weight:600;">可落地主线仅 3 条：OBUS直控 / OBUS+DALI / 蓝牙自组网</span>
+  </div>
+  <ul style="margin:10px 0 0;padding-left:1.1rem;font-size:0.88rem;line-height:1.75;color:#2A332F;">
+    <li><b>选型顺序固定：</b>需求五问 → 定主线 → 定控制方式与驱动 → 组网/转换模块 → 部署顺序 → 验收交付。</li>
+    <li><b>灯侧要不要 DALI：</b>要逐灯寻址调光、单灯故障查询 → 灯走 DALI（主线②，厂房主力）；只要分区开关、整组统一调光 → 主线① OBUS 直控即可，不必上 DALI。</li>
+    <li><b>DALI 无极性、无需终端电阻，可手拉手/星型/树型/混合拓扑但禁止成环</b>，单总线 ≤64 地址、≤300m；OBUS ≤64 台、≤500m，均用 RVVP 屏蔽线、屏蔽层单端接地。强弱电不共管。</li>
+    <li><b>转换模块四大类 12 款：</b>协议转换 / 功率执行 / 跨协议传感器 / 灯带驱动；组网可转换性三条红线——自组网与 SigMesh 不可同网混用、蓝牙转 DALI 仅广播级不可逐灯寻址、OBUS 总线不可直挂灯具。</li>
+    <li><b>带载校验硬门槛：</b>继电器 ≤1000W、可控硅 ≤250W、0-10V 回路电流 ≤50mA（约10个驱动）、灯带电源预留 1.2 倍安全系数。</li>
+    <li><b>防混淆红线：</b>欧普睿壹系与格兰思贝自组网系协议不通、平台不互通、配件不互换；制图出图前控制方式必须定死。</li>
+    <li><b>现场部署四步：</b>强弱电/桥架先行 → 网关与总线敷设 → 控制设备与灯具接线 → 上电自检与调试点位核对。</li>
+    <li><b>验收交付：</b>现场五查 + 设计交付清单（图纸/点位表/系统图/物料清单），附录二配电计算、附录三协议原理、附录八术语速查供深化。</li>
+  </ul>
+</div>
 <main>
 <section id="ch1">
           <h2>需求判断与方案主线</h2>
@@ -1098,7 +1118,12 @@
 
 <section id="ch2">
           <h2>控制方式与驱动选型</h2>
-          <p>协议决定布线方式、节点容量与设备品牌自由度，做方案第一步就是定协议。常见通信方式有六种，它们的定位与约束如下。<sup><a href="#cite-1">[1]</a></sup></p>
+          <p>控制方式的选择是落在图纸上的第一个结论，它直接决定了布线拓扑、线缆型号、每口节点上限与设备品牌自由度。方案第一步不是挑灯具，而是先锁死总线协议——协议定了，后面的模块、驱动、线材、画图规则才有所依据。<sup><a href="#cite-1">[1]</a></sup>本手册覆盖的有线/无线通信方式共六种，按能否寻址调光、节点容量与布线成本可划分为三档：</p>
+          <ul style="margin:8px 0 12px;padding-left:1.15rem;font-size:0.9rem;line-height:1.7;color:#2A332F;">
+            <li><b>数字可寻址（DALI / OBUS / RS485 / 蓝牙 Mesh）：</b>可逐灯或逐模块寻址，支持双向通信与状态回查，是可控性最强的档位，代价是对线材/屏蔽/接地有规范要求。</li>
+            <li><b>模拟整体调光（0-10V）：</b>一路一信号、只整体调光、单向下发，成本最低，适合"一排灯随自然光同暗"的低要求回路。</li>
+            <li><b>开关量（干接点 DI/DO）：</b>仅开/关信号，无调光，用于消防联动等外部接入。</li>
+          </ul>
 
           <div class="table-wrap">
             <table>
