@@ -671,6 +671,24 @@ tr:nth-child(even) td { background: #F7F9FC; }
         </div>
       </nav>
 
+      <div id="keypoints" style="background:linear-gradient(180deg,#FBF7F0,#F4EEE2);border:1px solid #E3D5BC;border-left:4px solid #D97706;border-radius:8px;padding:18px 20px;margin:22px 0 6px;">
+        <h2 style="margin:0 0 10px;font-size:1.06rem;color:#92400E;">手册技术要点速览（四大部分：网络层 / 睿壹系统 / 自组网系统 / 避坑日记）</h2>
+        <p style="margin:0 0 8px;font-size:0.9rem;color:#5A4632;">现场排障按「先用通用网络基础定位，再进对应系统章节」的顺序走；两套系统严格分开排。</p>
+        <div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:8px;">
+          <span style="padding:4px 12px;background:#fff;border:1px solid #E2D3B6;border-radius:999px;font-size:0.8rem;font-weight:600;">先定系统：睿壹(有网关总线) 还是 自组网(无线Mesh)</span>
+          <span style="padding:4px 12px;background:#fff;border:1px solid #E2D3B6;border-radius:999px;font-size:0.8rem;font-weight:600;">网络定位三件套：IP/掩码/网关 + Ping + traceroute</span>
+          <span style="padding:4px 12px;background:#fff;border:1px solid #E2D3B6;border-radius:999px;font-size:0.8rem;font-weight:600;">自组网现场三通道：串口直连 / 远程 / 网关</span>
+        </div>
+        <ul style="margin:10px 0 0;padding-left:1.1rem;font-size:0.88rem;line-height:1.75;color:#3E2E18;">
+          <li><b>IP 规划（第1章）：</b>静态地址按项目表分配，网关默认 192.168.1.1；广播/组播地址避开冲突；同网段才能互访。</li>
+          <li><b>排障顺序（第3-6章）：</b>链路→地址→网关→DNS→应用逐层收窄；Windows 用 ipconfig/ping/tracert/nslookup，Linux 用 ip addr/ss/ping/traceroute/dig，80% 故障落在 IP 冲突、网段错、网关不通。</li>
+          <li><b>欧普睿壹（第7-10章）：</b>边缘服务器 Linux 诊断 + ACPI 硬件排查 + OBUS/DALI 总线与转换模块排障 + 云平台运维（账号分配制、数据上报不通先查三元信息与端口）。</li>
+          <li><b>格兰思贝自组网（第11-22章）：</b>灯具内置模块=格兰思贝，App「灯控助手」串口直连搜灯→编区组→指哪配哪；上云网关=GS9200安卓盒子，HDMI外接显示器配置，三种入网(RJ45/2.4G WiFi/U盘wifi.json)，三元信息+emq.json私有网络。</li>
+          <li><b>带载与堵点：</b>SigMesh单网关≤150设备；Mesh中继转发开关决定网络覆盖扩不扩；面板关联不上按第19章五步排查；面板编号"莫名变掉"有特定根因（看速查表）。</li>
+          <li><b>避坑日记（第23-26章）：</b>排障结论按模板沉淀成案例，第25章已沉淀案例可直接检索复用，避免重复踩坑。</li>
+        </ul>
+      </div>
+
 <section id="ch1">
 <h2><span class="chap-num">1</span>网络IP规划与划分</h2>
 

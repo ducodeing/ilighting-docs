@@ -133,7 +133,18 @@
   </ol>
 </nav>
 
-<!-- ============ 1 ============ -->
+<div id="keypoints" style="background:linear-gradient(180deg,#F5F0FA,#EAE1F5);border:1px solid #D9C9EC;border-left:4px solid #7C3AED;border-radius:8px;padding:16px 20px;margin:20px 0;">
+  <div style="font-weight:700;color:#5B21B6;font-size:0.92rem;margin-bottom:8px;">第三方对接技术要点速览</div>
+  <ul style="margin:0;padding-left:1.1rem;font-size:0.86rem;line-height:1.7;color:#342157;">
+    <li><b>四种对接方式（s1）：</b>华为云 IoTDA / Modbus / BACnet / 节目单导入导出。先按甲方平台类型定一种，不要混接。</li>
+    <li><b>网关后台访问（s2）：</b>出厂默认 IP=192.168.1.1，上云后变更为路由器 DHCP 分配 IP；调试电脑须与网关同网段，否则后台登不进。</li>
+    <li><b>华为云（s3）：</b>11 字段设备清单、5 类核心 MQTT Topic、属性上报/命令下发标准 JSON、8883 加密端口；产品 ID 为十六进制。</li>
+    <li><b>Modbus（s4）：</b>从站默认地址1、波特率9600无校验；功能码固定 04 读状态 / 16 写控制；字节序数据域大端、校验小端；场景控制用功能维度标识码而非设备云ID。</li>
+    <li><b>BACnet（s5）：</b>支持 AI/AO/BI/BO/Device 标准对象，注意设备实例号不冲突、遵循 Priority_Array 优先级机制。</li>
+    <li><b>节目单（s6）：</b>双向批量导入导出，字段含场景名称/标识码/亮度0-1023/色温2700-6500；批量导入前先导出备份，避免覆盖丢失。</li>
+    <li><b>联调与排错（s7-s8）：</b>按通用检查清单逐层核对地址、端口、数据格式；先短报文连通、再传完整数据。</li>
+  </ul>
+</div>
 <section id="s1">
   <h2 class="sec"><span class="no">1</span>对接总览：四种方式与选型</h2>
   <p>欧普智能照明平台通过网关对外提供<b>控制</b>与<b>状态读取</b>两类能力。后台「第三方平台对接配置」区域提供四种对接方式，先按需求选型，再按对应章节操作。</p>

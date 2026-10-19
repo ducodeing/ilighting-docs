@@ -57,7 +57,7 @@ mark{background:#FDE68A;color:#92400E;border-radius:3px;padding:0 1px}
         <input id="q" type="text" placeholder="输入关键词，如：DALI / 自组网 / 睿壹 / 三防灯 / 皓II / Modbus …" autocomplete="off">
         <button id="btn" type="button">搜索</button>
       </div>
-      <div class="hint">示例：换算模块 · 组网 · 排查 · 验收 · 昆仑电源 · 投光灯 · 电梯间方案</div>
+      <div class="hint">支持多个空格分隔关键词（AND 匹配）· 示例：DALI 调光 · 转换模块 · 自组网 · 昆仑电源 · 排查 · 验收</div>
     </div>
   </div>
   <div id="status" class="status"></div>
@@ -83,62 +83,95 @@ mark{background:#FDE68A;color:#92400E;border-radius:3px;padding:0 1px}
   var docs=window.SEARCH_DOCS||[],srcs=window.SEARCH_SRCS||[],bigSet=new Set(window.SEARCH_BIG||[]),place=window.SEARCH_PLACEHOLDERS||{};
 
   function esc(s){return (s+'').replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
-  function mark(s,kh){if(!kh)return esc(s);var i=s.toLowerCase().indexOf(kh);if(i<0)return esc(s);return esc(s.slice(0,i))+'<mark>'+esc(s.slice(i,i+kh.length))+'</mark>'+esc(s.slice(i+kh.length));}
+  function norm(kw){return kw.trim().toLowerCase().split(/\s+/).filter(Boolean);}
+  function markAll(s,terms){
+    if(!terms.length)return esc(s);
+    var lo=s.toLowerCase(),ranges=[],i;
+    terms.forEach(function(t){i=0;while((i=lo.indexOf(t,i))>=0){ranges.push({s:i,e:i+t.length});i+=t.length;}});
+    if(!ranges.length)return esc(s);
+    ranges.sort(function(a,b){return a.s-b.s});
+    var merged=[];ranges.forEach(function(r){var L=merged[merged.length-1];if(L&&r.s<=L.e){if(r.e>L.e)L.e=r.e;}else merged.push({s:r.s,e:r.e});});
+    var out='',pos=0;merged.forEach(function(r){out+=esc(s.slice(pos,r.s))+'<mark>'+esc(s.slice(r.s,r.e))+'</mark>';pos=r.e;});
+    return out+esc(s.slice(pos));
+  }
+  function anyHit(lo,terms){var p=-1;terms.forEach(function(t){var i=lo.indexOf(t);if(i>=0&&(p<0||i<p))p=i;});return p;}
+  function allHit(lo,terms){return terms.every(function(t){return lo.indexOf(t)>=0;});}
+  function snippet(txt,idx,kw,terms){
+    var start=Math.max(0,idx-40);var s=txt.slice(start,Math.min(txt.length,idx+120)).replace(/\s+/g,' ');
+    var lo=s.toLowerCase(),p=anyHit(lo,terms);
+    if(p<0)return esc(s.slice(0,80));
+    return markAll(s,terms);
+  }
+  function headingsOf(html){
+    var out=[],re=/<h([1-3])([^>]*>)([\s\S]*?)<\/h\1>/gi,m;
+    while((m=re.exec(html))){
+      var idm=m[2].match(/id="([^"]+)"/);
+      var t=m[3].replace(/<[^>]+>/g,'').replace(/&nbsp;/g,' ').trim();
+      if(t&&idm)out.push({id:idm[1],pos:m.index,lvl:+m[1],title:t});
+    }
+    return out;
+  }
+  function targetId(anchors,hitPos){var id=null;for(var k=0;k<anchors.length;k++){if(anchors[k].pos<=hitPos)id=anchors[k].id;else break;}return id;}
 
   function run(){
     var kw=input.value.trim();
     docsEl.innerHTML='';srcsEl.innerHTML='';bigNote.innerHTML='';
     if(!kw){statusEl.textContent='请输入关键词';return;}
-    var khl=kw.toLowerCase();
+    var terms=norm(kw);
     statusEl.textContent='正在搜索「'+kw+'」…';
     reswrap.style.display='block';noneEl.style.display='none';
-    var docP=[],bigP=[];
-    docs.forEach(function(d){docP.push(fetchDoc(d,khl,kw));});
+    var srcCards=[],docCards=[],bigP=[];
+
     srcs.forEach(function(s){
-      var hay=(s.file+' '+s.name).toLowerCase();
-      if(hay.indexOf(khl)>=0){
-        var card=document.createElement('a');
-        card.className='dcard';
-        var isBig=bigSet.has(s.file);
-        if(isBig){ card.href=esc(place[s.file]||'#'); }
-        else { card.href=esc(s.file); }
-        var meta = s.big ? '<span class="dmeta" style="color:#A33">（超大文件未上云 · 点击查看说明占位页）</span>' : (s.size>0?('<span class="dmeta">'+s.size+' MB</span>'):'<span class="dmeta">源文件</span>');
-        card.innerHTML='<div class="dhead"><span class="tag tag-src">原始资料</span><span class="tag" style="background:#0D9488">'+mark(s.file.split('/')[1],khl)+'</span></div>'+
-          '<div class="dtitle">'+mark(s.name,khl)+'</div>'+
-          '<div class="dmeta" style="margin-top:4px">'+esc(s.file)+'</div>'+meta;
-        srcsEl.appendChild(card);
-        if(isBig) bigP.push(card);
-      }
+      if(!allHit((s.file+' '+s.name).toLowerCase(),terms))return;
+      var card=document.createElement('a');
+      card.className='dcard';
+      var isBig=bigSet.has(s.file);
+      card.href=esc(isBig?(place[s.file]||'#'):s.file);
+      var meta = s.big ? '<span class="dmeta" style="color:#A33">（超大文件未上云 · 点击查看说明占位页）</span>' : (s.size>0?('<span class="dmeta">'+s.size+' MB</span>'):'<span class="dmeta">源文件</span>');
+      card.innerHTML='<div class="dhead"><span class="tag tag-src">原始资料</span><span class="tag" style="background:#0D9488">'+markAll(s.file.split('/')[1],terms)+'</span></div>'+
+        '<div class="dtitle">'+markAll(s.name,terms)+'</div>'+
+        '<div class="dmeta" style="margin-top:4px">'+esc(s.file)+'</div>'+meta;
+      srcCards.push(card);
+      if(isBig)bigP.push(card);
     });
-    Promise.all(docP).then(function(){
-      var dcount=0,scount=0;
-      reswrap.querySelectorAll('#docs .dcard').forEach(function(){dcount++;});
-      reswrap.querySelectorAll('#srcs .dcard').forEach(function(){scount++;});
+    srcCards.forEach(function(c){srcsEl.appendChild(c);});
+
+    var docPromises=docs.map(function(d){
+      return fetch(d.file).then(function(r){return r.ok?r.text():'';}).then(function(html){
+        var txt=html.replace(/<script[\s\S]*?<\/script>/gi,'').replace(/<style[\s\S]*?<\/style>/gi,'');
+        var lo=txt.toLowerCase();
+        if(!allHit(lo,terms))return null;
+        var p=anyHit(lo,terms);
+        var anchors=headingsOf(html);
+        var pid=targetId(anchors,p);
+        return {d:d,txt:lo,hit:p,pid:pid};
+      }).catch(function(){return null;});
+    });
+    Promise.all(docPromises).then(function(rows){
+      rows=rows.filter(Boolean);
+      // 排序：命中词越多越靠前，命中位置越靠前越靠前
+      rows.sort(function(a,b){
+        var ta=terms.filter(function(t){return a.txt.indexOf(t)>=0;}).length;
+        var tb=terms.filter(function(t){return b.txt.indexOf(t)>=0;}).length;
+        if(ta!==tb)return tb-ta;
+        return a.hit-b.hit;
+      });
+      rows.forEach(function(row){
+        var doc=document.createElement('a');
+        doc.className='dcard';
+        doc.href=esc(row.d.file+(row.pid?'#'+row.pid:''));
+        doc.innerHTML='<div class="dhead"><span class="tag tag-book">手册</span><span class="dtitle" style="margin:0">'+markAll(row.d.name,terms)+'</span></div>'+
+          '<div class="dsub" style="margin-top:6px">'+snippet(row.txt,row.hit,kw,terms)+'</div>'+
+          '<div class="dmeta">'+esc(row.d.file)+(row.pid?(' · '+esc(row.pid)):'')+' · 命中关键词</div>';
+        docCards.push(doc);
+      });
+      docCards.forEach(function(c){docsEl.appendChild(c);});
+      var dcount=docCards.length,scount=srcCards.length;
       if(!dcount&&!scount)noneEl.style.display='block';
       docCount.textContent=dcount;srcCount.textContent=scount;
-      if(bigP.length){bigNote.innerHTML='<b>提示：</b>以下超大文件已超出 GitHub 100MB 上传上限，未上云，搜索结果中仅保留索引（点击无跳转，请下载本地原始资料查看）：<br>'+bigP.map(function(c){var n=c.querySelector('.dtitle').textContent;return '· '+esc(n);}).join('<br>');}
+      if(bigP.length){bigNote.innerHTML='<b>提示：</b>以下超大文件已超出 GitHub 100MB 上传上限，未上云，搜索结果中仅保留索引（点击无跳转，请下载本地原始资料查看）：<br>'+bigP.map(function(c){return '· '+esc(c.querySelector('.dtitle').textContent);}).join('<br>');}
     });
-  }
-  function fetchDoc(d,khl,kw){
-    return fetch(d.file).then(function(r){return r.ok?r.text():'';}).then(function(html){
-      var re=/<h([1-3])[^>]*id="([^"]+)"[^>]*>([\s\S]*?)<\/h\1>/gi,m,anchors=[];
-      while((m=re.exec(html))){var t=m[3].replace(/<[^>]+>/g,'').replace(/&nbsp;/g,' ').trim();if(t)anchors.push({id:m[2],lvl:+m[1],title:t});}
-      var txt=html.replace(/<script[\s\S]*?<\/script>/gi,'').replace(/<style[\s\S]*?<\/style>/gi,'');
-      var idx=txt.toLowerCase().indexOf(khl);
-      if(idx<0)return;
-      var doc=document.createElement('a');
-      doc.className='dcard';doc.href=esc(d.file);
-      doc.innerHTML='<div class="dhead"><span class="tag tag-book">手册</span><span class="dtitle" style="margin:0">'+mark(d.name,khl)+'</span></div>'+
-        '<div class="dsub" style="margin-top:6px">'+snippet(txt,idx,kw,khl)+'</div>'+
-        '<div class="dmeta">'+esc(d.file)+' · 命中关键词</div>';
-      docsEl.appendChild(doc);
-    }).catch(function(){});
-  }
-  function snippet(txt,idx,kw,khl){
-    var start=Math.max(0,idx-40);var s=txt.slice(start,idx+80).replace(/\s+/g,' ');
-    var i=s.toLowerCase().indexOf(khl);
-    if(i<0)return esc(s.slice(0,80));
-    return mark(s.slice(0,i)+'···'+s.slice(i),khl);
   }
   btn.addEventListener('click',run);
   input.addEventListener('keydown',function(e){if(e.key==='Enter')run();});
