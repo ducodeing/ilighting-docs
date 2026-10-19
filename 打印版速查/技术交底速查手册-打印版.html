@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>伊尔莱德商用照明 · 技术交底速查手册（打印版）</title>
+<style>
+  :root{
+    --green:#0F8A66; --green-deep:#075A42; --green-soft:#EEF6F2;
+    --line:#C9D6D0; --ink:#1A2621; --sub:#31403A; --mut:#5D6D66;
+    --blue:#1F6FB2; --blue-soft:#EAF3FB;
+    --amber:#B36A0A; --amber-soft:#FDF3E0;
+    --red:#C0392B; --red-soft:#FBEEEC;
+  }
+  *{box-sizing:border-box; -webkit-print-color-adjust:exact; print-color-adjust:exact;}
+  body{margin:0;color:var(--ink);font-family:"Microsoft YaHei","PingFang SC","Segoe UI",sans-serif;font-size:12px;line-height:1.55;background:#fff;}
+  .wrap{max-width:190mm;margin:0 auto;padding:12px 10px 20px;}
+
+  /* ===== 打印页设置 ===== */
+  @page{ size:A4; margin:11mm 9mm 12mm; }
+
+  /* ===== 打印工具条（不打印） ===== */
+  .print-bar{position:sticky;top:0;z-index:5;background:#fff;border-bottom:1px solid var(--line);padding:8px 10px;margin:-12px -10px 12px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;}
+  .print-bar .tip{font-size:12px;color:var(--sub);}
+  .btn{background:var(--green);color:#fff;border:none;border-radius:5px;padding:8px 18px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;}
+  .btn:hover{background:var(--green-deep);}
+
+  /* ===== 标题区 ===== */
+  .doc-head{border-bottom:3px solid var(--green);padding-bottom:10px;margin-bottom:12px;}
+  .doc-head h1{margin:0;font-size:20px;color:var(--green-deep);letter-spacing:1px;}
+  .doc-head .sub{color:var(--sub);font-size:12px;margin-top:3px;}
+  .doc-head .meta{display:flex;gap:14px;flex-wrap:wrap;margin-top:6px;font-size:10.5px;color:var(--mut);}
+  .tag{display:inline-block;background:var(--green);color:#fff;border-radius:3px;padding:1px 8px;font-size:10.5px;font-weight:600;vertical-align:2px;margin-left:6px;}
+
+  /* ===== 章节块 ===== */
+  .sec{margin-bottom:10px;page-break-inside:auto;}
+  .sec-head{display:flex;align-items:baseline;gap:9px;border-left:5px solid var(--green);background:linear-gradient(90deg,var(--green-soft),#fff);padding:5px 10px;margin-bottom:6px;page-break-after:avoid;}
+  .sec-head h2{margin:0;font-size:15px;color:var(--green-deep);}
+  .sec-head .desc{font-size:11px;color:var(--mut);}
+
+  /* ===== 图例 ===== */
+  .legend{display:flex;gap:12px;flex-wrap:wrap;background:var(--green-soft);border:1px solid var(--line);border-radius:6px;padding:6px 12px;margin-bottom:10px;font-size:10.5px;color:var(--sub);}
+  .lg-item{display:flex;align-items:center;gap:5px;}
+  .dot{width:10px;height:10px;border-radius:2px;display:inline-block;flex:none;}
+
+  /* ===== 通用表格 ===== */
+  table{width:100%;border-collapse:collapse;font-size:10.5px;}
+  th,td{border:1px solid var(--line);padding:3px 6px;text-align:left;vertical-align:top;}
+  thead th{background:var(--green);color:#fff;font-weight:700;white-space:nowrap;}
+  tbody tr:nth-child(even) td{background:#FAFCFB;}
+  .row-head th{background:var(--green-soft);color:var(--green-deep);font-weight:700;white-space:nowrap;}
+  td .h{color:var(--green-deep);font-weight:700;}
+  .k{color:var(--green-deep);font-weight:700;}
+  .warn{color:var(--red);font-weight:700;}
+  .blue{color:var(--blue);}
+  .qty{color:var(--mut);font-size:9.5px;}
+
+  /* 参数卡：两列排布省纸 */
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .card{border:1px solid var(--line);border-radius:6px;overflow:hidden;page-break-inside:avoid;}
+  .card .c-head{background:var(--green-soft);color:var(--green-deep);font-weight:700;padding:4px 9px;font-size:12px;border-bottom:1px solid var(--line);}
+  .card .c-body{padding:6px 9px;}
+  .card .c-body table{font-size:10px;}
+  .card .c-body th,.card .c-body td{padding:3px 5px;}
+
+  /* 红线提示条 */
+  .redline{border-left:4px solid var(--red);background:var(--red-soft);border-radius:4px;padding:6px 10px;font-size:10.5px;color:#7A2B22;page-break-inside:avoid;margin-bottom:8px;}
+  .redline b{color:var(--red);}
+
+  /* 命令卡 */
+  .code-shell{border:1px solid var(--line);border-left:4px solid var(--green);border-radius:5px;padding:7px 11px;background:#F7F9F8;font-family:Consolas,"Courier New",monospace;font-size:10px;line-height:1.72;page-break-inside:avoid;}
+  .code-shell .cmd{color:var(--green-deep);font-weight:700;}
+  .code-shell .cmt{color:#8A9791;}
+
+  .foot{text-align:center;color:#B9C4BF;font-size:9px;padding:10px 0 2px;}
+
+  /* ===== 打印微调 ===== */
+  @media print{
+    .no-print{display:none !important;}
+    .wrap{padding:0;}
+    table{font-size:9.8px;}
+    th,td{padding:2.5px 5px;}
+    body{font-size:11px;}
+    .sec{page-break-inside:auto;}
+  }
+</style>
+</head>
+<body>
+<div class="print-bar no-print">
+  <span class="tip">打印提示：浏览器按 Ctrl+P，纸张 A4、边距「默认」，勾选「背景图形」可保留色块；建议打印为 PDF 存档</span>
+  <button class="btn" onclick="window.print()">打印 / 存 PDF</button>
+</div>
+
+<div class="wrap">
+
+  <div class="doc-head">
+    <h1>伊尔莱德商用照明 · 技术交底速查手册</h1>
+    <div class="sub">现场随身速查 · 核心硬参数 + 项目八阶段 + 在售产品分类 + 排错命令 <span class="tag">技术交底版</span></div>
+    <div class="meta">
+      <span>数据源：商用项目渠道在售清单 20260826</span>
+      <span>依据：内部技术方案四册 + IEC 62386（DALI）</span>
+      <span>版本：v1.1 · 2026-09</span>
+    </div>
+  </div>
+
+  <div class="legend">
+    <span class="lg-item"><span class="dot" style="background:#FFD9D9;"></span><b>红字</b>=预退市款（停新增，仅存量）</span>
+    <span class="lg-item"><span class="dot" style="background:#E8F4FF;"></span><b>蓝字</b>=地产/商业/办公专项方案</span>
+    <span class="lg-item"><span class="dot" style="background:#FFF6E0;"></span><b>★</b>=需查上市配置清单</span>
+    <span class="lg-item">括号内数字=品项/型号数，仅供参考</span>
+  </div>
+
+  <!-- ============ 一、核心硬参数速查 ============ -->
+  <div class="sec">
+    <div class="sec-head"><h2>一 · 核心硬参数速查</h2><span class="desc">容量红线 + 总线布线，出图/验收前逐路对照</span></div>
+
+    <table>
+      <thead><tr><th style="width:15%">控制方式</th><th style="width:22%">本质</th><th style="width:24%">适用场景</th><th>容量 / 布线红线</th></tr></thead>
+      <tbody>
+        <tr><th class="row-head">0-10V</th><td>模拟调光，整组统一</td><td>成本敏感、只做整组调光</td><td>调光驱动 ≤50mA/路</td></tr>
+        <tr><th class="row-head">DALI</th><td>数字寻址，逐灯可调可查</td><td>要分区/单灯/故障查询</td><td>≤64 地址/总线、≤300m；RVVP 2×0.75-1.5mm² 屏蔽双绞线，无极性</td></tr>
+        <tr><th class="row-head">OBUS</th><td>回路级开关/统一调光</td><td>普通灯分区开关、高空间厂房</td><td>≤64 台/口、≤500m（含压降 2V）</td></tr>
+        <tr><th class="row-head">蓝牙 Mesh</th><td>网关组网，免布线支线</td><td>改造区、不能停产的补点</td><td>≤150 节点/网关 + 1 路 DALI + 1 路 RS485；六类 UTP，PoE 8 芯全通，≤90m</td></tr>
+        <tr><th class="row-head">灯内自组网</th><td>整灯内置模块，换装即组网</td><td>新建中小项目、整灯换装</td><td>≤150 节点/网，网关覆盖直径 100~150m</td></tr>
+      </tbody>
+    </table>
+
+    <div class="grid2" style="margin-top:8px;">
+      <div class="card">
+        <div class="c-head">末端负载容量红线（回路校验）</div>
+        <div class="c-body">
+          <table>
+            <tbody>
+              <tr><td class="k">继电器回路</td><td>≤1000W</td><td>超限→拆回路/换大容量模块</td></tr>
+              <tr><td class="k">可控硅调光</td><td>≤250W</td><td>超限→减载/换调光方式</td></tr>
+              <tr><td class="k">0-10V 驱动</td><td>≤50mA/路</td><td>超限→减驱动/加模块</td></tr>
+              <tr><td class="k">断路器余量</td><td>≤80%</td><td>回路功率 ≤ 断路器 80%</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card">
+        <div class="c-head">DALI / Mesh 布线要点</div>
+        <div class="c-body">
+          <table>
+            <tbody>
+              <tr><td class="k">DALI 拓扑</td><td>手拉手/星型/树型，<span class="warn">禁成环</span></td></tr>
+              <tr><td class="k">DALI 屏蔽层</td><td>单端接地（网关端），<span class="warn">禁双端接地</span></td></tr>
+              <tr><td class="k">强弱电间距</td><td>平行 ≥200mm，交叉 90° 正交</td></tr>
+              <tr><td class="k">Mesh 网关</td><td>高度 2.5~3.5m，覆盖区域中心</td></tr>
+              <tr><td class="k">Mesh 跳数</td><td>建议 ≤5 跳，极限 7 跳</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="redline" style="margin-top:8px;"><b>两条施工红线：</b>① 强弱电不得共管、不得共接线盒——否则 DALI 调光闪烁、网络丢包、传感器误触发；② DALI 屏蔽层必须单端接地，双端接地会形成地环路。③ 控制方式必须在出图前定死，漏答等于把「改拓扑」留到施工期。</div>
+  </div>
+
+  <!-- ============ 二、项目八阶段一览 ============ -->
+  <div class="sec">
+    <div class="sec-head"><h2>二 · 项目八阶段一览</h2><span class="desc">每阶段核心动作 + 判断红线 + 交付物</span></div>
+    <table>
+      <thead><tr><th style="width:11%">阶段</th><th style="width:31%">核心动作</th><th style="width:33%">关键判断标准（红线）</th><th>交付物</th></tr></thead>
+      <tbody>
+        <tr><th class="row-head">1 了解需求</th><td>五问 → 场景·预算·功能·验收·控制方式</td><td>控制方式漏答，后期改拓扑比改型号贵</td><td>需求五要素清单</td></tr>
+        <tr><th class="row-head">2 现场勘测</th><td>八大维度实测：净高·柱距·进线必量</td><td>净高·柱距·进线位置只能实测</td><td>勘测记录表 + 照片</td></tr>
+        <tr><th class="row-head">3 确定方案</th><td>选组网 A/B/C/D，算回路容量</td><td>继电器≤1000W、可控硅≤250W、0-10V≤50mA/路</td><td>方案书 + 回路校验表</td></tr>
+        <tr><th class="row-head">4 图纸深化</th><td>五件套图纸 + 图层 + 走线四铁律</td><td>图例·引线·设计说明三处数值唯一</td><td>齐套深化图 + 版本号</td></tr>
+        <tr><th class="row-head">5 施工交底</th><td>九项交底逐条签认，参数抄给施工队</td><td>强弱电不共管；DALI 屏蔽单端接地</td><td>交底纪要 + 签字单</td></tr>
+        <tr><th class="row-head">6 现场指导</th><td>隐蔽验收、封槽看线、点位核编号</td><td>关键节点不在场，不进下一道工序</td><td>隐蔽验收记录 + 变更单</td></tr>
+        <tr><th class="row-head">7 后期调试</th><td>七层定位 + 命令 + 指哪配哪编组</td><td>一次只改一个变量</td><td>调试验收报告</td></tr>
+        <tr><th class="row-head">8 验收交付</th><td>现场五查 + 逐项打勾 + 资料归档</td><td>功能未达不签、资料不齐不结尾款</td><td>竣工验收单 + 资料包</td></tr>
+      </tbody>
+    </table>
+
+    <div class="grid2" style="margin-top:8px;">
+      <div class="card">
+        <div class="c-head">现场五查（交付前最后核对）</div>
+        <div class="c-body">
+          <table>
+            <tbody>
+              <tr><td class="k">1 口容量</td><td>OBUS ≤64台/≤500m、DALI ≤64台/≤300m</td></tr>
+              <tr><td class="k">2 OBUS供电</td><td>外接 DC24V 只一个供电点，模块多务必外接</td></tr>
+              <tr><td class="k">3 驱动匹配</td><td>DALI 灯只进 DALI 口；普通/0-10V 只接模块输出</td></tr>
+              <tr><td class="k">4 末端负载</td><td>继电器≤1000W、可控硅≤250W、0-10V≤50mA/路</td></tr>
+              <tr><td class="k">5 平台边界</td><td>欧享家/睿壹专属不混用，退市型号不进清单</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card">
+        <div class="c-head">变更处理四步</div>
+        <div class="c-body">
+          <table>
+            <tbody>
+              <tr><td class="k">1</td><td>评估影响：改线？改回路？影响验收口径？</td></tr>
+              <tr><td class="k">2</td><td>报价：新增成本、工期影响</td></tr>
+              <tr><td class="k">3</td><td>书面确认：客户/甲方签字</td></tr>
+              <tr><td class="k">4</td><td>实施：按变更单执行并记录</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 三、在售产品分类总表 ============ -->
+  <div class="sec">
+    <div class="sec-head"><h2>三 · 在售产品分类总表</h2><span class="desc">十大门类（含智控系统）· 按分层标记供应状态</span></div>
+
+    <!-- 1 筒灯 -->
+    <div style="page-break-inside:avoid;margin-bottom:8px;">
+      <div style="font-weight:700;color:var(--green-deep);font-size:12px;padding:2px 0 3px;">1 · 筒灯　<span style="font-weight:400;color:var(--mut);font-size:10.5px;">嵌入式 / 明装</span></div>
+      <table>
+        <thead><tr><th style="width:14%">子类</th><th>基础款</th><th>预退市款</th><th>地产</th><th>商业店铺</th><th>办公</th></tr></thead>
+        <tbody>
+          <tr><th class="row-head">嵌入式</th><td>星耀 <span class="qty">(2)</span> · 皓筒灯 <span class="qty">(174)</span></td><td><span class="warn">皓筒灯 (174)</span></td><td>佳II <span class="qty">(56)</span> · 佳SE <span class="qty">(15)</span></td><td>铂钻V <span class="qty">(15)</span></td><td>铂钻V感应 <span class="qty">(9)</span></td></tr>
+          <tr><th class="row-head">明装</th><td>佳II明装 <span class="qty">(40)</span></td><td><span class="warn">铂钻Ⅳ明装 (40)</span></td><td>—</td><td>—</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 2 射灯 -->
+    <div style="page-break-inside:avoid;margin-bottom:8px;">
+      <div style="font-weight:700;color:var(--green-deep);font-size:12px;padding:2px 0 3px;">2 · 射灯　<span style="font-weight:400;color:var(--mut);font-size:10.5px;">嵌入式 / 格栅式 / 吸顶式</span></div>
+      <table>
+        <thead><tr><th style="width:14%">子类</th><th>基础款</th><th>预退市款</th><th>地产</th><th>地产PLC</th><th>商业店铺</th><th>办公</th></tr></thead>
+        <tbody>
+          <tr><th class="row-head">嵌入式</th><td>星璇 <span class="qty">(8)</span></td><td><span class="warn">尚II (38)</span> · <span class="warn">灵清II大功率 (16)</span></td><td>尚II配置 <span class="qty">(1519)</span> · 灵清III RA90 <span class="qty">(36)</span></td><td>皓II 配置 <span class="qty">(2921)</span></td><td>佳II深嵌 <span class="qty">(81)</span></td><td>佳II深嵌 配置 <span class="qty">(495)</span></td></tr>
+          <tr><th class="row-head">格栅式</th><td>佳II格栅 <span class="qty">(12)</span></td><td><span class="warn">灵清III RA90 (18)</span></td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><th class="row-head">吸顶式</th><td>合Ⅱ <span class="qty">(27)</span></td><td>—</td><td>灵众III明装 <span class="qty">(16)</span></td><td>灵众III平板 <span class="qty">(12)</span></td><td>—</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 3 线形 -->
+    <div style="page-break-inside:avoid;margin-bottom:8px;">
+      <div style="font-weight:700;color:var(--green-deep);font-size:12px;padding:2px 0 3px;">3 · 线形　<span style="font-weight:400;color:var(--mut);font-size:10.5px;">线形灯具 / 低压轨道 / 高压轨道</span></div>
+      <table>
+        <thead><tr><th style="width:14%">子类</th><th>基础款</th><th>预退市款</th><th>地产</th><th>地产PLC</th><th>商业店铺</th><th>办公</th></tr></thead>
+        <tbody>
+          <tr><th class="row-head">线形灯具</th><td>朗界 <span class="qty">(50)</span></td><td><span class="warn">MG30配置</span></td><td>朗型III ★<span style="color:var(--mut);">见上市配置清单</span></td><td>朗逸III</td><td>朗型加高款</td><td>朗逸III自组网</td></tr>
+          <tr><th class="row-head">低压轨道</th><td>CX20 <span class="qty">(49)</span></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><th class="row-head">高压轨道</th><td>旭辰轨道（含蓝牙）</td><td><span class="warn">旭兴导轨 (10)</span></td><td>射灯配件-导轨 <span class="qty">(16)</span></td><td>—</td><td>—</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 4 光源 -->
+    <div style="page-break-inside:avoid;margin-bottom:8px;">
+      <div style="font-weight:700;color:var(--green-deep);font-size:12px;padding:2px 0 3px;">4 · 光源　<span style="font-weight:400;color:var(--mut);font-size:10.5px;">支架 / 灯管 / 灯带 / 球泡</span></div>
+      <table>
+        <thead><tr><th style="width:14%">子类</th><th>基础款</th><th>预退市款</th><th>地产</th><th>地产PLC</th><th>商业店铺</th><th>办公</th></tr></thead>
+        <tbody>
+          <tr><th class="row-head">支架</th><td>众T5支架 <span class="qty">(20)</span></td><td><span class="warn">众空体支架 (4)</span></td><td>品睿支架</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><th class="row-head">灯管</th><td>亮易感应II <span class="qty">(1)</span></td><td><span class="warn">亮易高光效 (3)</span></td><td>亮易无线自组网 <span class="qty">(1)</span></td><td>亮易V <span class="qty">(5)</span></td><td>亮易V lite <span class="qty">(3)</span></td><td>T8灯管 亮易-高耐温</td></tr>
+          <tr><th class="row-head">灯带</th><td>虹昀V</td><td><span class="warn">虹昀Ⅲ</span></td><td>虹煦IV PRO</td><td>众II灯带 <span class="qty">(13)</span></td><td>昆仑24V恒压驱动 <span class="qty">(5)</span></td><td>昆仑II-24V电源 <span class="qty">(4)</span></td></tr>
+          <tr><th class="row-head">球泡</th><td>耀光玉米泡</td><td><span class="warn">心晨II-飞碟灯</span></td><td>心悦5代球泡</td><td>—</td><td>—</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 5 灯盘 -->
+    <div style="page-break-inside:avoid;margin-bottom:8px;">
+      <div style="font-weight:700;color:var(--green-deep);font-size:12px;padding:2px 0 3px;">5 · 灯盘　<span style="font-weight:400;color:var(--mut);font-size:10.5px;">教育灯盘 / 常规灯盘</span></div>
+      <table>
+        <thead><tr><th style="width:14%">子类</th><th>基础款</th><th>预退市款</th><th>地产</th><th>地产PLC</th><th>商业店铺</th><th>办公</th></tr></thead>
+        <tbody>
+          <tr><th class="row-head">教育/常规</th>
+            <td>佳IV-蓝牙组网 · 佳II侧发光 <span class="qty">(25)</span> · 博阅II <span class="qty">(15)</span></td>
+            <td><span class="warn">佳IV-高光效</span> · <span class="warn">众Ⅲ侧小 (4)</span> · <span class="warn">博阅II 蓝牙 (12)</span></td>
+            <td>佳IV <span class="qty">(32)</span> · 众Ⅱ侧小 <span class="qty">(11)</span> · 朗阅II Ra90</td>
+            <td>佳Ⅱ直下 <span class="qty">(6)</span> · T8空体灯盘 <span class="qty">(3)</span> · 朗阅III</td>
+            <td>悦居高PF <span class="qty">(6)</span></td>
+            <td>乐居Ⅱ <span class="qty">(8)</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 6 吸顶灯 -->
+    <div style="page-break-inside:avoid;margin-bottom:8px;">
+      <div style="font-weight:700;color:var(--green-deep);font-size:12px;padding:2px 0 3px;">6 · 吸顶灯　<span style="font-weight:400;color:var(--mut);font-size:10.5px;">常规 / 感应</span></div>
+      <table>
+        <thead><tr><th style="width:14%">子类</th><th>基础款</th><th>预退市款</th></tr></thead>
+        <tbody>
+          <tr><th class="row-head">常规吸顶</th><td>简尚-全白大灯套系 <span class="qty">(5)</span> · 旭恒防水</td><td><span class="warn">旭恒防水</span></td></tr>
+          <tr><th class="row-head">感应吸顶</th><td>简尚全白微波感应+高PF</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 7 工业产品 -->
+    <div style="page-break-inside:avoid;margin-bottom:8px;">
+      <div style="font-weight:700;color:var(--green-deep);font-size:12px;padding:2px 0 3px;">7 · 工业产品　<span style="font-weight:400;color:var(--mut);font-size:10.5px;">天棚 / 三防 / 洁净 / 工业支架 / 防爆 / 配套</span></div>
+      <table>
+        <thead><tr><th style="width:12%">子类</th><th>基础款</th><th>预退市款</th><th>地产</th><th>地产PLC</th><th>商业店铺</th><th>办公</th></tr></thead>
+        <tbody>
+          <tr><th class="row-head">天棚灯</th><td>鹏晖V/VP <span class="qty">(76)</span></td><td><span class="warn">昊II-高挂灯盘 (7)</span></td><td>鹏辰II <span class="qty">(32)</span></td><td>鹏皓III <span class="qty">(15)</span></td><td>品航 <span class="qty">(6)</span></td><td>品致 <span class="qty">(15)</span></td></tr>
+          <tr><th class="row-head">三防灯</th><td>佳三防灯 <span class="qty">(10)</span></td><td><span class="warn">佳三防灯-高光效&amp;组网 (6)</span></td><td>昊II空体 <span class="qty">(3)</span></td><td>臻皓III <span class="qty">(7)</span></td><td>—</td><td>—</td></tr>
+          <tr><th class="row-head">洁净灯</th><td>尚II-洁净灯盘</td><td><span class="warn">佳II-洁净灯盘 (28)</span></td><td>昊-洁净灯盘 <span class="qty">(10)</span></td><td>黄光灯管 <span class="qty">(1)</span></td><td>昊II-洁净灯盘 <span class="qty">(4)</span></td><td>—</td></tr>
+          <tr><th class="row-head">工业支架</th><td>尚II-泪滴灯 <span class="qty">(4)</span></td><td><span class="warn">昊II-洁净支架 (6)</span></td><td>洁净空体 <span class="qty">(2)</span></td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><th class="row-head">防爆灯</th><td>辉恒-隔爆平台灯 <span class="qty">(6)</span></td><td><span class="warn">辉钛FB-方型灯</span></td><td>辉钛FB-通用配件</td><td>辉钛FB-支架灯</td><td>—</td><td>—</td></tr>
+          <tr><th class="row-head">工业配套</th><td>—</td><td><span class="warn">旭恒防水壁灯 (11)</span></td><td>品旭防潮灯 <span class="qty">(4)</span></td><td>—</td><td>—</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 8 户外产品 -->
+    <div style="page-break-inside:avoid;margin-bottom:8px;">
+      <div style="font-weight:700;color:var(--green-deep);font-size:12px;padding:2px 0 3px;">8 · 户外产品　<span style="font-weight:400;color:var(--mut);font-size:10.5px;">洗墙 / 线条 / 投光 / 配件</span></div>
+      <table>
+        <thead><tr><th style="width:12%">子类</th><th>基础款</th><th>预退市款</th><th>地产</th><th>地产PLC</th></tr></thead>
+        <tbody>
+          <tr><th class="row-head">洗墙灯</th><td>—</td><td><span class="warn">A60 (16)</span></td><td>—</td><td>—</td></tr>
+          <tr><th class="row-head">线条灯</th><td>—</td><td><span class="warn">C02 (7)</span></td><td>B60 <span class="qty">(5)</span></td><td>—</td></tr>
+          <tr><th class="row-head">投光灯</th><td>Y01 <span class="qty">(42)</span></td><td><span class="warn">E01 (25)</span></td><td>E05 <span class="qty">(6)</span></td><td>熠耀</td></tr>
+          <tr><th class="row-head">户外配件</th><td>—</td><td><span class="warn">户外配线 (18)</span></td><td>—</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 9 其他产品 -->
+    <div style="page-break-inside:avoid;margin-bottom:8px;">
+      <div style="font-weight:700;color:var(--green-deep);font-size:12px;padding:2px 0 3px;">9 · 其他产品　<span style="font-weight:400;color:var(--mut);font-size:10.5px;">其他 / 地脚灯 / 橱柜灯 / 壁灯</span></div>
+      <table>
+        <thead><tr><th style="width:12%">子类</th><th>基础款</th><th>预退市款</th><th>地产</th></tr></thead>
+        <tbody>
+          <tr><th class="row-head">其他</th><td>—</td><td><span class="warn">小白 (2)</span> · <span class="warn">橱柜灯 (2)</span></td><td>—</td></tr>
+          <tr><th class="row-head">地脚灯</th><td>星朗 <span class="qty">(1)</span></td><td><span class="warn">星夜S (4)</span></td><td>感应式地脚灯 <span class="qty">(4)</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 10 智控系统 -->
+    <div style="page-break-inside:avoid;margin-bottom:8px;">
+      <div style="font-weight:700;color:var(--green-deep);font-size:12px;padding:2px 0 3px;">10 · 智控系统　<span style="font-weight:400;color:var(--mut);font-size:10.5px;">睿壹系列 / 格兰思贝自组网 / 地产PLC</span></div>
+      <table>
+        <thead><tr><th style="width:16%">系统</th><th>设备 / 组件</th></tr></thead>
+        <tbody>
+          <tr>
+            <th class="row-head">睿壹<br><span style="font-weight:400;font-size:9.5px;">有线/无线智控</span></th>
+            <td>
+              <span class="h">中控层</span>：睿壹边缘服务器（RY-IOT-EDGE-E01） · X02中控屏 · 触摸屏（进欧享家）<br>
+              <span class="h">网关层</span>：睿壹OBUS-网关（2路OBUS 250mA） · 睿壹DALI-网关（2路DALI） · OBUS/DALI混合网关（1路OBUS+1路DALI）<br>
+              <span class="h">面板/传感</span>：8键面板 · inno485面板 · inno蓝牙面板（多色） · 蓝牙五孔网关 · 智能温控面板 · 触屏旋钮开关 · 传感器转换控制器（DALI-BLE/485） · 微波感应配件<br>
+              <span class="h">扩展</span>：商用SigMesh网关 · SigMesh转换模块 · SigMesh面板 · 线控网关（对接中央空调） · 24V灯带调光/调色温/RGB模块
+            </td>
+          </tr>
+          <tr>
+            <th class="row-head">自组网设备<br><span style="font-weight:400;font-size:9.5px;">格兰思贝</span></th>
+            <td>
+              <span class="h">面板</span>：智能蓝牙面板-6键-灰色 · 蓝牙智控面板-6键-电池版<br>
+              <span class="h">组网/调试</span>：云上网关 GS-Linker（覆盖直径 100~150m 常规工况） · USB调试器 GS2011
+            </td>
+          </tr>
+          <tr>
+            <th class="row-head">地产PLC<br><span style="font-weight:400;font-size:9.5px;">载波方案</span></th>
+            <td>
+              <span class="h">PLC端子线</span>：单色驱动端子 7W/12W · 低压灯带单色/双色驱动端子<br>
+              <span class="h">转换板</span>：CV-CC 恒流转换板（单路7W / 双路7W）
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ============ 四、网络排错命令速查卡 ============ -->
+  <div class="sec">
+    <div class="sec-head"><h2>四 · 网络排错命令速查卡</h2><span class="desc">Windows / Linux 双平台，调试现场随身查</span></div>
+
+    <div class="grid2">
+      <div>
+        <div style="font-weight:700;color:var(--green-deep);margin-bottom:4px;font-size:12px;">Windows 侧 8 条必背</div>
+        <div class="code-shell">
+<span class="cmd">ipconfig /all</span>                         <span class="cmt">看本机 IP/网关/DNS</span><br>
+<span class="cmd">ping</span> 192.168.1.1                           <span class="cmt">先 ping 网关</span><br>
+<span class="cmd">ping -t</span> 192.168.1.100                      <span class="cmt">持续 ping 看丢包（Ctrl+C 停）</span><br>
+<span class="cmd">tracert -d</span> 192.168.1.100                   <span class="cmt">追踪路由，看卡在哪一跳</span><br>
+<span class="cmd">telnet</span> 192.168.1.100 80                     <span class="cmt">测端口（黑屏=通）</span><br>
+<span class="cmd">Test-NetConnection</span> 192.168.1.100 -Port 80  <span class="cmt">Win10/11 替代 telnet</span><br>
+<span class="cmd">arp -a</span>                                      <span class="cmt">看同网段设备</span><br>
+<span class="cmd">netstat -ano | findstr ":1883"</span>            <span class="cmt">查端口占用（MQTT）</span>
+        </div>
+      </div>
+      <div>
+        <div style="font-weight:700;color:var(--green-deep);margin-bottom:4px;font-size:12px;">Linux 侧必会命令</div>
+        <div class="code-shell">
+<span class="cmd">ip addr show</span>                              <span class="cmt">看本机 IP/网卡</span><br>
+<span class="cmd">ping</span> 192.168.1.1                           <span class="cmt">先 ping 网关</span><br>
+<span class="cmd">ping -c 4</span> 192.168.1.100                    <span class="cmt">只发 4 个包看丢包</span><br>
+<span class="cmd">traceroute</span> 192.168.1.100                   <span class="cmt">追踪路由</span><br>
+<span class="cmd">nc -zv</span> 192.168.1.100 80                    <span class="cmt">测端口</span><br>
+<span class="cmd">ss -tulnp | grep :1883</span>                    <span class="cmt">查端口占用与进程</span><br>
+<span class="cmd">ip neigh</span>                                    <span class="cmt">看同网段邻居</span><br>
+<span class="cmd">systemctl status 服务名</span>                    <span class="cmt">看服务状态 / restart 重启</span><br>
+<span class="cmd">df -h</span> · <span class="cmd">free -h</span>                         <span class="cmt">磁盘 / 内存</span><br>
+<span class="cmd">journalctl -u 服务名 -f</span>                    <span class="cmt">实时滚动服务日志</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:6px;font-size:10.5px;color:var(--mut);">排查顺序（照做）：先看自己 IP → ping 网关 → ping 服务器 → 追路由 → 测端口。注意「ping 不通 ≠ 设备离线」，很多设备禁了 ICMP，要用 Test-NetConnection / nc 测具体端口。</div>
+  </div>
+
+  <div class="foot">— 伊尔莱德照明技术方案 · 技术交底速查手册 · 打印版 2026-09 —</div>
+
+</div>
+</body>
+</html>

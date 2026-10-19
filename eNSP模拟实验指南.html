@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>eNSP模拟实验指南 — 照明项目网络通信仿真</title>
+<style>
+:root {
+  --bg: #f8f9fa;
+  --surface: #ffffff;
+  --surface-muted: #f0f2f5;
+  --border: #e4e7eb;
+  --text: #1a1a2e;
+  --text-muted: #6c757d;
+  --brand: #7c3aed;
+  --brand-light: #ede9fe;
+  --accent: #2563eb;
+  --warn: #f59e0b;
+  --warn-light: #fef3c7;
+  --danger: #dc2626;
+  --danger-light: #fee2e2;
+  --success: #059669;
+  --success-light: #d1fae5;
+  --code-bg: #1e1e2e;
+  --code-text: #cdd6f4;
+  --code-comment: #7f849c;
+  --code-keyword: #cba6f7;
+  --code-string: #a6e3a1;
+  --radius: 8px;
+  --radius-card: 12px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Microsoft YaHei', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.8;
+  font-size: 15px;
+}
+.container { max-width: 960px; margin: 0 auto; padding: 24px 20px 60px; }
+h1 {
+  font-size: 28px; font-weight: 700; margin-bottom: 8px;
+  background: linear-gradient(135deg, var(--brand), var(--accent));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+h2 {
+  font-size: 22px; font-weight: 600; margin-top: 40px; margin-bottom: 12px;
+  padding-bottom: 8px; border-bottom: 2px solid var(--brand);
+}
+h3 { font-size: 18px; font-weight: 600; margin-top: 28px; margin-bottom: 10px; color: var(--brand); }
+h4 { font-size: 16px; font-weight: 600; margin-top: 20px; margin-bottom: 8px; }
+p { margin-bottom: 12px; }
+ul, ol { margin-left: 20px; margin-bottom: 12px; }
+li { margin-bottom: 4px; }
+code {
+  font-family: 'SF Mono', Consolas, 'Courier New', monospace;
+  background: var(--surface-muted);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 13px;
+  color: var(--brand);
+}
+pre {
+  background: var(--code-bg);
+  color: var(--code-text);
+  padding: 16px 20px;
+  border-radius: var(--radius);
+  overflow-x: auto;
+  margin: 12px 0;
+  font-size: 13px;
+  line-height: 1.6;
+}
+pre code {
+  background: none;
+  color: inherit;
+  padding: 0;
+  font-size: 13px;
+}
+.cmd-comment { color: var(--code-comment); font-style: italic; }
+.cmd-keyword { color: var(--code-keyword); font-weight: 600; }
+.cmd-string { color: var(--code-string); }
+.callout {
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  margin: 16px 0;
+  border-left: 4px solid;
+}
+.callout-info { background: var(--brand-light); border-color: var(--brand); }
+.callout-tip { background: var(--success-light); border-color: var(--success); }
+.callout-warn { background: var(--warn-light); border-color: var(--warn); }
+.callout-danger { background: var(--danger-light); border-color: var(--danger); }
+.callout strong { display: inline-block; margin-bottom: 4px; }
+table.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: 13px;
+}
+table.data-table th {
+  background: var(--surface-muted);
+  padding: 10px 12px;
+  text-align: left;
+  font-weight: 600;
+  border-bottom: 2px solid var(--border);
+}
+table.data-table td {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+}
+table.data-table tr:nth-child(even) { background: var(--surface-muted); }
+.topo-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 20px;
+  margin: 16px 0;
+  font-family: 'SF Mono', Consolas, monospace;
+  font-size: 13px;
+  line-height: 1.8;
+  white-space: pre;
+  overflow-x: auto;
+}
+.diagram-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 20px;
+  margin: 16px 0;
+  text-align: center;
+}
+.diagram-box svg { max-width: 100%; height: auto; }
+.step-list { counter-reset: step; list-style: none; margin-left: 0; }
+.step-list > li {
+  counter-increment: step;
+  position: relative;
+  padding-left: 40px;
+  margin-bottom: 12px;
+}
+.step-list > li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0; top: 0;
+  width: 28px; height: 28px;
+  background: var(--brand);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+}
+.toc {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 20px 24px;
+  margin: 20px 0;
+}
+.toc h3 { margin-top: 0; color: var(--text); }
+.toc ol { margin-left: 20px; }
+.toc a { color: var(--brand); text-decoration: none; }
+.toc a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>eNSP模拟实验指南 — 照明项目网络通信仿真</h1>
+
+<p>本指南基于华为eNSP仿真平台，完整重现照明项目的网络通信拓扑——
+从核心交换机VLAN划分、DHCP分配、路由器NAT出口，到终端设备（网关/服务器/摄像头）的跨VLAN通信验证。
+跟着做一遍，项目的网络原理就全通了。</p>
+
+<div class="callout info">
+  <strong>前置条件</strong>
+  <br>• 已安装eNSP（推荐eNSP V100R003C00或更高版本）
+  <br>• 已安装VirtualBox（eNSP依赖VirtualBox运行PC和路由器镜像）
+  <br>• 已安装Wireshark（eNSP内置抓包需要）
+  <br>• 如遇路由器/交换机启动失败，检查eNSP → 工具 → 设置 → VirtualBox路径是否正确
+</div>
+
+<div class="toc">
+  <h3>目录</h3>
+  <ol>
+    <li><a href="#ch1">实验目标与拓扑设计</a></li>
+    <li><a href="#ch2">eNSP设备选型与放置</a></li>
+    <li><a href="#ch3">设备连线方案</a></li>
+    <li><a href="#ch4">核心交换机配置（S5700）</a></li>
+    <li><a href="#ch5">接入交换机配置（S3700）</a></li>
+    <li><a href="#ch6">出口路由器配置（AR2220）</a></li>
+    <li><a href="#ch7">终端PC配置</a></li>
+    <li><a href="#ch8">云平台模拟（Internet）</a></li>
+    <li><a href="#ch9">连通性验证</a></li>
+    <li><a href="#ch10">抓包分析与协议验证</a></li>
+    <li><a href="#ch11">保存与导出</a></li>
+  </ol>
+</div>
+
+<!-- ===== 第1章 ===== -->
+<h2 id="ch1">1 实验目标与拓扑设计</h2>
+
+<h3>1.1 实验目标</h3>
+<ul>
+  <li><strong>重现项目网络拓扑</strong>：4个VLAN（照明/服务器/安防/管理）+ 路由器出口 + 云平台</li>
+  <li><strong>验证DHCP分配</strong>：交换机做DHCP服务器，终端自动获取IP</li>
+  <li><strong>验证跨VLAN通信</strong>：不同VLAN的设备能互相ping通</li>
+  <li><strong>验证NAT出口</strong>：内网设备能访问"公网"（模拟云平台）</li>
+  <li><strong>抓包验证协议</strong>：用Wireshark抓取DHCP/ARP/ICMP报文</li>
+</ul>
+
+<h3>1.2 拓扑总览</h3>
+
+<div class="topo-box">┌─────────────────────────────────────────────────────────────────┐
+│                    eNSP 模拟拓扑总览                             │
+│                                                                 │
+│         ┌──────────┐                                            │
+│         │  Cloud    │  ← 模拟公网/云平台 (iotdrl.opple.com)      │
+│         │ (Internet)│                                            │
+│         └─────┬─────┘                                            │
+│               │ GE0/0/2 (公网侧: 202.1.1.2/30)                    │
+│         ┌─────┴─────┐                                            │
+│         │  AR2220    │  ← 出口路由器                              │
+│         │  Router    │     GE0/0/0: 192.168.1.254 (内网网关)      │
+│         └─────┬─────┘                                            │
+│               │ GE0/0/0                                          │
+│         ┌─────┴─────────────────────────────────────────────┐    │
+│         │  S5700 核心三层交换机                              │    │
+│         │  VLANIF1:  192.168.1.1/24   (管理)                 │    │
+│         │  VLANIF10: 192.168.10.1/24  (照明)                 │    │
+│         │  VLANIF20: 192.168.20.1/24  (服务器)               │    │
+│         │  VLANIF30: 192.168.30.1/24  (安防)                  │    │
+│         │  DHCP Server (4个地址池)                           │    │
+│         └──┬───────┬───────┬───────┬───────┬─────────────────┘    │
+│            │GE0/1  │GE0/2  │GE0/10 │GE0/20 │GE0/24               │
+│            │Trunk   │Trunk  │Access │Access │Access              │
+│     ┌──────┴──┐  │  ┌──────┴──┐  │  │      │                    │
+│     │S3700    │  │  │ S3700   │  │  │      │                    │
+│     │接入交换 │  │  │ 接入交换│  │  │      │                    │
+│     │(PoE模拟)│  │  │(PoE模拟)│  │  │      │                    │
+│     └──┬──┬──┘  │  └──┬──┬──┘  │  │      │                    │
+│     GE0/1 GE0/2│  GE0/1 GE0/2│  │      │                    │
+│        │     │  │     │     │  │  │      │                    │
+│     ┌──┴──┐┌──┴──┐┌──┴──┐┌──┴──┐│┌──┴──┐┌──┴──┐                │
+│     │PC1  ││PC2  ││PC3  ││PC4  │││PC5  ││PC6  │                │
+│     │网关1││网关2││网关3││传感 │││服务 ││调试 │                │
+│     │VLAN ││VLAN ││VLAN ││VLAN │││VLAN ││VLAN │                │
+│     │  10 ││  10 ││  10 ││  10 │││  20 ││  1  │                │
+│     └─────┘└─────┘└─────┘└─────┘└└─────┘└─────┘                │
+│                                            ┌──────┐             │
+│                          GE0/20 ──────────│ PC7  │             │
+│                                            │NVR   │             │
+│                                            │VLAN30│             │
+│                                            └──────┘             │
+└─────────────────────────────────────────────────────────────────┘</div>
+
+<!-- ===== 第2章 ===== -->
+<h2 id="ch2">2 eNSP设备选型与放置</h2>
+
+<p>打开eNSP，新建拓扑。在左侧设备栏中拖入以下设备：</p>
+
+<table class="data-table">
+  <thead>
+    <tr>
+      <th>eNSP设备</th>
+      <th>型号</th>
+      <th>对应项目设备</th>
+      <th>数量</th>
+      <th>用途</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>路由器</td>
+      <td>AR2220</td>
+      <td>出口路由器/防火墙</td>
+      <td>1</td>
+      <td>NAT转换、公网出口</td>
+    </tr>
+    <tr>
+      <td>三层交换机</td>
+      <td>S5700-28C-HI</td>
+      <td>核心交换机</td>
+      <td>1</td>
+      <td>VLAN网关、DHCP服务器、跨VLAN路由</td>
+    </tr>
+    <tr>
+      <td>二层交换机</td>
+      <td>S3700-26C-HI</td>
+      <td>PoE接入交换机</td>
+      <td>2</td>
+      <td>接入层端口分配VLAN</td>
+    </tr>
+    <tr>
+      <td>PC</td>
+      <td>PC（终端）</td>
+      <td>睿壹网关/DALI网关/蓝牙网关</td>
+      <td>4</td>
+      <td>模拟VLAN10照明设备</td>
+    </tr>
+    <tr>
+      <td>PC</td>
+      <td>PC（终端）</td>
+      <td>边缘服务器</td>
+      <td>1</td>
+      <td>模拟VLAN20服务器</td>
+    </tr>
+    <tr>
+      <td>PC</td>
+      <td>PC（终端）</td>
+      <td>NVR录像机</td>
+      <td>1</td>
+      <td>模拟VLAN30安防设备</td>
+    </tr>
+    <tr>
+      <td>PC</td>
+      <td>PC（终端）</td>
+      <td>调试电脑</td>
+      <td>1</td>
+      <td>模拟VLAN1管理设备</td>
+    </tr>
+    <tr>
+      <td>Cloud</td>
+      <td>Cloud（STM）</td>
+      <td>模拟Internet/云平台</td>
+      <td>1</td>
+      <td>通过本机网卡桥接模拟公网</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="callout tip">
+  <strong>eNSP设备放置提示</strong>
+  <br>• 路由器选AR2220（带2个GE口，够用）
+  <br>• 三层交换机选S5700（支持VLANIF和DHCP服务器）
+  <br>• 接入交换机选S3700（二层交换，便宜够用）
+  <br>• 如果eNSP里没有S5700，可以用S5720或CE6800替代，命令通用
+  <br>• Cloud设备用于桥接本机网卡，模拟公网出口
+</div>
+
+<h3>2.1 设备重命名</h3>
+<p>放置设备后，双击每个设备修改显示名称，方便后续管理：</p>
+
+<pre><code><span class="cmd-comment"># 在eNSP拓扑界面上右键设备 → 重命名</span>
+AR2220    → Router-Edge        <span class="cmd-comment"># 出口路由器</span>
+S5700     → Core-Switch        <span class="cmd-comment"># 核心交换机</span>
+S3700-1   → Access-SW-1F       <span class="cmd-comment"># 1楼接入交换机</span>
+S3700-2   → Access-SW-2F       <span class="cmd-comment"># 2楼接入交换机</span>
+PC1       → GW-Lighting-1      <span class="cmd-comment"># 睿壹网关#1</span>
+PC2       → GW-DALI-2          <span class="cmd-comment"># DALI网关#2</span>
+PC3       → GW-BLE-3           <span class="cmd-comment"># 蓝牙网关#3</span>
+PC4       → Sensor-1           <span class="cmd-comment"># 传感器</span>
+PC5       → Edge-Server        <span class="cmd-comment"># 边缘服务器</span>
+PC6       → Debug-PC           <span class="cmd-comment"># 调试电脑</span>
+PC7       │ NVR-1              <span class="cmd-comment"># 安防NVR</span>
+Cloud     │ Internet-Cloud     <span class="cmd-comment"># 模拟公网</span></code></pre>
+
+<!-- ===== 第3章 ===== -->
+<h2 id="ch3">3 设备连线方案</h2>
+
+<p>设备放置好后，用eNSP的连线工具（左侧第二个图标）按以下方案连接。</p>
+
+<h3>3.1 连线表</h3>
+
+<table class="data-table">
+  <thead>
+    <tr>
+      <th>序号</th>
+      <th>源设备</th>
+      <th>源端口</th>
+      <th>→</th>
+      <th>目标设备</th>
+      <th>目标端口</th>
+      <th>链路类型</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>Cloud</td><td>UDP/GE0</td><td>→</td><td>Router-Edge</td><td>GE0/0/2</td><td>Access</td><td>公网出口</td></tr>
+    <tr><td>2</td><td>Router-Edge</td><td>GE0/0/0</td><td>→</td><td>Core-Switch</td><td>GE0/0/24</td><td>Access VLAN1</td><td>内网上联</td></tr>
+    <tr><td>3</td><td>Core-Switch</td><td>GE0/0/1</td><td>→</td><td>Access-SW-1F</td><td>GE0/0/1</td><td>Trunk</td><td>下联1楼交换机</td></tr>
+    <tr><td>4</td><td>Core-Switch</td><td>GE0/0/2</td><td>→</td><td>Access-SW-2F</td><td>GE0/0/1</td><td>Trunk</td><td>下联2楼交换机</td></tr>
+    <tr><td>5</td><td>Core-Switch</td><td>GE0/0/10</td><td>→</td><td>Edge-Server (PC5)</td><td>GE0/0/1</td><td>Access VLAN20</td><td>服务器直连</td></tr>
+    <tr><td>6</td><td>Core-Switch</td><td>GE0/0/20</td><td>→</td><td>NVR-1 (PC7)</td><td>GE0/0/1</td><td>Access VLAN30</td><td>NVR直连</td></tr>
+    <tr><td>7</td><td>Access-SW-1F</td><td>GE0/0/2</td><td>→</td><td>GW-Lighting-1 (PC1)</td><td>GE0/0/1</td><td>Access VLAN10</td><td>网关1</td></tr>
+    <tr><td>8</td><td>Access-SW-1F</td><td>GE0/0/3</td><td>→</td><td>GW-DALI-2 (PC2)</td><td>GE0/0/1</td><td>Access VLAN10</td><td>网关2</td></tr>
+    <tr><td>9</td><td>Access-SW-2F</td><td>GE0/0/2</td><td>→</td><td>GW-BLE-3 (PC3)</td><td>GE0/0/1</td><td>Access VLAN10</td><td>网关3</td></tr>
+    <tr><td>10</td><td>Access-SW-2F</td><td>GE0/0/3</td><td>→</td><td>Sensor-1 (PC4)</td><td>GE0/0/1</td><td>Access VLAN10</td><td>传感器</td></tr>
+    <tr><td>11</td><td>Core-Switch</td><td>GE0/0/23</td><td>→</td><td>Debug-PC (PC6)</td><td>GE0/0/1</td><td>Access VLAN1</td><td>调试电脑</td></tr>
+  </tbody>
+</table>
+
+<div class="callout warn">
+  <strong>eNSP连线注意事项</strong>
+  <br>• eNSP中PC只有1个网口（Ethernet0/0/1），路由器和交换机用GigabitEthernet
+  <br>• 连线时先选源设备端口，再选目标设备端口
+  <br>• 线类型统一选"Copper"（铜缆）或"Auto"
+  <br>• Cloud设备需要先添加UDP绑定才能连线（见第8章）
+  <br>• 连线后端口灯应变绿（如果不变绿，启动设备后等待几秒）
+</div>
+
+<h3>3.2 连线后检查</h3>
+<pre><code><span class="cmd-comment"># 所有设备启动后，在每台交换机上检查端口状态</span>
+<span class="cmd-comment"># Core-Switch 上：</span>
+display interface brief
+<span class="cmd-comment"># 预期：GE0/0/1、GE0/0/2、GE0/0/10、GE0/0/20、GE0/0/23、GE0/0/24 均为 UP</span>
+
+<span class="cmd-comment"># Access-SW-1F 上：</span>
+display interface brief
+<span class="cmd-comment"># 预期：GE0/0/1（上联）、GE0/0/2、GE0/0/3 均为 UP</span>
+
+<span class="cmd-comment"># 如果端口是 DOWN，检查：</span>
+<span class="cmd-comment"># 1. 线是否连对端口</span>
+<span class="cmd-comment"># 2. 对端设备是否已启动（双击设备启动）</span>
+<span class="cmd-comment"># 3. shutdown/undo shutdown 重置端口</span></code></pre>
+
+<!-- ===== 第4章 ===== -->
+<h2 id="ch4">4 核心交换机配置（S5700）</h2>
+
+<p>双击Core-Switch打开CLI，按以下顺序配置。这是整个实验的核心。</p>
+
+<h3>4.1 VLAN创建</h3>
+<pre><code><span class="cmd-keyword">system-view</span>
+sysname Core-Switch
+
+<span class="cmd-comment"># 批量创建VLAN</span>
+vlan batch 10 20 30
+
+<span class="cmd-comment"># 验证</span>
+display vlan</code></pre>
+
+<h3>4.2 VLANIF接口配置（各VLAN网关）</h3>
+<pre><code><span class="cmd-comment"># VLAN1 管理网关</span>
+interface Vlanif 1
+ ip address 192.168.1.1 255.255.255.0
+ quit
+
+<span class="cmd-comment"># VLAN10 照明网关</span>
+interface Vlanif 10
+ ip address 192.168.10.1 255.255.255.0
+ quit
+
+<span class="cmd-comment"># VLAN20 服务器网关</span>
+interface Vlanif 20
+ ip address 192.168.20.1 255.255.255.0
+ quit
+
+<span class="cmd-comment"># VLAN30 安防网关</span>
+interface Vlanif 30
+ ip address 192.168.30.1 255.255.255.0
+ quit
+
+<span class="cmd-comment"># 验证所有VLANIF</span>
+display interface Vlanif brief</code></pre>
+
+<h3>4.3 端口划分VLAN</h3>
+<pre><code><span class="cmd-comment"># GE0/0/1 → 下联Access-SW-1F（Trunk模式）</span>
+interface GigabitEthernet0/0/1
+ port link-type trunk
+ port trunk allow-pass vlan 1 10 20 30
+ description To-Access-SW-1F
+ quit
+
+<span class="cmd-comment"># GE0/0/2 → 下联Access-SW-2F（Trunk模式）</span>
+interface GigabitEthernet0/0/2
+ port link-type trunk
+ port trunk allow-pass vlan 1 10 20 30
+ description To-Access-SW-2F
+ quit
+
+<span class="cmd-comment"># GE0/0/10 → Edge-Server（Access VLAN20）</span>
+interface GigabitEthernet0/0/10
+ port link-type access
+ port default vlan 20
+ description To-Edge-Server
+ quit
+
+<span class="cmd-comment"># GE0/0/20 → NVR（Access VLAN30）</span>
+interface GigabitEthernet0/0/20
+ port link-type access
+ port default vlan 30
+ description To-NVR
+ quit
+
+<span class="cmd-comment"># GE0/0/23 → Debug-PC（Access VLAN1）</span>
+interface GigabitEthernet0/0/23
+ port link-type access
+ port default vlan 1
+ description To-Debug-PC
+ quit
+
+<span class="cmd-comment"># GE0/0/24 → 上联Router（Access VLAN1）</span>
+interface GigabitEthernet0/0/24
+ port link-type access
+ port default vlan 1
+ description Uplink-To-Router
+ quit
+
+<span class="cmd-comment"># 验证端口VLAN</span>
+display port vlan</code></pre>
+
+<h3>4.4 DHCP服务器配置</h3>
+<pre><code><span class="cmd-comment"># 全局开启DHCP</span>
+dhcp enable
+
+<span class="cmd-comment"># VLAN1 地址池（管理）</span>
+ip pool VLAN1-POOL
+ network 192.168.1.0 mask 255.255.255.0
+ gateway-list 192.168.1.1
+ dns-list 8.8.8.8 114.114.114.114
+ lease day 1 hour 0 minute 0
+ excluded-ip-address 192.168.1.1
+ excluded-ip-address 192.168.1.254
+ quit
+
+<span class="cmd-comment"># VLAN10 地址池（照明）</span>
+ip pool VLAN10-POOL
+ network 192.168.10.0 mask 255.255.255.0
+ gateway-list 192.168.10.1
+ dns-list 8.8.8.8 114.114.114.114
+ lease day 7 hour 0 minute 0
+ excluded-ip-address 192.168.10.1
+ excluded-ip-address 192.168.10.2 192.168.10.99
+ excluded-ip-address 192.168.10.201 192.168.10.254
+
+ <span class="cmd-comment"># DHCP静态绑定（模拟网关IP+MAC绑定）</span>
+ static-bind ip-address 192.168.10.110 mac-address 00E0-FC12-3456
+ static-bind ip-address 192.168.10.111 mac-address 00E0-FC12-3457
+ quit
+
+<span class="cmd-comment"># VLAN20 地址池（服务器段，预留少量DHCP）</span>
+ip pool VLAN20-POOL
+ network 192.168.20.0 mask 255.255.255.0
+ gateway-list 192.168.20.1
+ dns-list 8.8.8.8 114.114.114.114
+ lease day 1 hour 0 minute 0
+ excluded-ip-address 192.168.20.1
+ excluded-ip-address 192.168.20.2 192.168.20.99
+ quit
+
+<span class="cmd-comment"># VLAN30 地址池（安防）</span>
+ip pool VLAN30-POOL
+ network 192.168.30.0 mask 255.255.255.0
+ gateway-list 192.168.30.1
+ dns-list 8.8.8.8 114.114.114.114
+ lease day 1 hour 0 minute 0
+ excluded-ip-address 192.168.30.1
+ excluded-ip-address 192.168.30.2 192.168.30.49
+ quit
+
+<span class="cmd-comment"># 在VLANIF接口上应用DHCP</span>
+interface Vlanif 1
+ dhcp select global
+ quit
+interface Vlanif 10
+ dhcp select global
+ quit
+interface Vlanif 20
+ dhcp select global
+ quit
+interface Vlanif 30
+ dhcp select global
+ quit
+
+<span class="cmd-comment"># 验证DHCP</span>
+display ip pool name VLAN10-POOL all</code></pre>
+
+<h3>4.5 静态路由（指向出口路由器）</h3>
+<pre><code><span class="cmd-comment"># 核心交换机的默认路由指向路由器内网口</span>
+ip route-static 0.0.0.0 0.0.0.0 192.168.1.254
+
+<span class="cmd-comment"># 验证路由表</span>
+display ip routing-table</code></pre>
+
+<h3>4.6 保存配置</h3>
+<pre><code>save force
+<span class="cmd-comment"># eNSP会弹出确认框，点"是"</span></code></pre>
+
+<!-- ===== 第5章 ===== -->
+<h2 id="ch5">5 接入交换机配置（S3700）</h2>
+
+<p>两台接入交换机配置类似，以下以1楼交换机为例。</p>
+
+<h3>5.1 Access-SW-1F 配置</h3>
+<pre><code><span class="cmd-keyword">system-view</span>
+sysname Access-SW-1F
+
+<span class="cmd-comment"># 创建VLAN（和核心交换机一致）</span>
+vlan batch 10 20 30
+
+<span class="cmd-comment"># GE0/0/1 → 上联核心交换机（Trunk）</span>
+interface GigabitEthernet0/0/1
+ port link-type trunk
+ port trunk allow-pass vlan 1 10 20 30
+ description Uplink-To-Core
+ quit
+
+<span class="cmd-comment"># GE0/0/2 → 网关1（Access VLAN10）</span>
+interface GigabitEthernet0/0/2
+ port link-type access
+ port default vlan 10
+ description To-GW-Lighting-1
+ quit
+
+<span class="cmd-comment"># GE0/0/3 → 网关2（Access VLAN10）</span>
+interface GigabitEthernet0/0/3
+ port link-type access
+ port default vlan 10
+ description To-GW-DALI-2
+ quit
+
+<span class="cmd-comment"># 管理IP（方便远程管理）</span>
+interface Vlanif 1
+ ip address 192.168.1.253 255.255.255.0
+ quit
+
+<span class="cmd-comment"># 默认网关</span>
+ip route-static 0.0.0.0 0.0.0.0 192.168.1.1
+
+save force</code></pre>
+
+<h3>5.2 Access-SW-2F 配置</h3>
+<pre><code><span class="cmd-keyword">system-view</span>
+sysname Access-SW-2F
+
+vlan batch 10 20 30
+
+<span class="cmd-comment"># GE0/0/1 → 上联核心交换机（Trunk）</span>
+interface GigabitEthernet0/0/1
+ port link-type trunk
+ port trunk allow-pass vlan 1 10 20 30
+ description Uplink-To-Core
+ quit
+
+<span class="cmd-comment"># GE0/0/2 → 网关3（Access VLAN10）</span>
+interface GigabitEthernet0/0/2
+ port link-type access
+ port default vlan 10
+ description To-GW-BLE-3
+ quit
+
+<span class="cmd-comment"># GE0/0/3 → 传感器（Access VLAN10）</span>
+interface GigabitEthernet0/0/3
+ port link-type access
+ port default vlan 10
+ description To-Sensor-1
+ quit
+
+<span class="cmd-comment"># 管理IP</span>
+interface Vlanif 1
+ ip address 192.168.1.252 255.255.255.0
+ quit
+
+ip route-static 0.0.0.0 0.0.0.0 192.168.1.1
+
+save force</code></pre>
+
+<!-- ===== 第6章 ===== -->
+<h2 id="ch6">6 出口路由器配置（AR2220）</h2>
+
+<p>路由器负责NAT转换——把内网私有IP转成公网IP，模拟项目现场的防火墙/出口网关。</p>
+
+<h3>6.1 接口IP配置</h3>
+<pre><code><span class="cmd-keyword">system-view</span>
+sysname Router-Edge
+
+<span class="cmd-comment"># GE0/0/0 → 内网侧（接核心交换机）</span>
+interface GigabitEthernet0/0/0
+ ip address 192.168.1.254 255.255.255.0
+ description To-Core-Switch
+ quit
+
+<span class="cmd-comment"># GE0/0/2 → 公网侧（接Cloud）</span>
+interface GigabitEthernet0/0/2
+ ip address 202.1.1.2 255.255.255.252
+ description To-Internet
+ quit
+
+<span class="cmd-comment"># 验证接口</span>
+display ip interface brief</code></pre>
+
+<h3>6.2 默认路由（指向Cloud/公网）</h3>
+<pre><code><span class="cmd-comment"># 默认路由指向Cloud侧的网关（202.1.1.1）</span>
+ip route-static 0.0.0.0 0.0.0.0 202.1.1.1
+
+<span class="cmd-comment"># 验证路由表</span>
+display ip routing-table</code></pre>
+
+<h3>6.3 NAT配置（Easy IP方式）</h3>
+<pre><code><span class="cmd-comment"># 1. 定义ACL匹配内网网段</span>
+acl number 2000
+ rule permit source 192.168.0.0 0.0.255.255
+ quit
+
+<span class="cmd-comment"># 2. 在公网口上配置NAT（Easy IP = 用接口IP做转换）</span>
+interface GigabitEthernet0/0/2
+ nat outbound 2000
+ quit
+
+<span class="cmd-comment"># 3. 验证NAT</span>
+display nat outbound
+display nat session all</code></pre>
+
+<h3>6.4 DHCP中继（可选）</h3>
+<pre><code><span class="cmd-comment"># 本实验DHCP服务器在核心交换机上，终端直连核心交换机的端口</span>
+<span class="cmd-comment"># 不需要DHCP中继。如果终端在接入交换机后面，Trunk链路会透传DHCP广播</span>
+<span class="cmd-comment"># 所以这里不需要额外配置DHCP中继</span></code></pre>
+
+<h3>6.5 保存</h3>
+<pre><code>save force</code></pre>
+
+<!-- ===== 第7章 ===== -->
+<h2 id="ch7">7 终端PC配置</h2>
+
+<p>eNSP中的PC需要双击打开 → 基础配置 → 设置IP获取方式。</p>
+
+<h3>7.1 DHCP自动获取的PC（VLAN10设备）</h3>
+
+<p>双击每个PC，在"基础配置"页面设置：</p>
+
+<table class="data-table">
+  <thead>
+    <tr>
+      <th>PC</th>
+      <th>对应设备</th>
+      <th>IP获取方式</th>
+      <th>VLAN</th>
+      <th>预期获取的IP</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>PC1 (GW-Lighting-1)</td><td>睿壹网关#1</td><td>DHCP</td><td>VLAN10</td><td>192.168.10.110（静态绑定）</td></tr>
+    <tr><td>PC2 (GW-DALI-2)</td><td>DALI网关#2</td><td>DHCP</td><td>VLAN10</td><td>192.168.10.111（静态绑定）</td></tr>
+    <tr><td>PC3 (GW-BLE-3)</td><td>蓝牙网关#3</td><td>DHCP</td><td>VLAN10</td><td>192.168.10.100-.149动态</td></tr>
+    <tr><td>PC4 (Sensor-1)</td><td>传感器</td><td>DHCP</td><td>VLAN10</td><td>192.168.10.100-.149动态</td></tr>
+  </tbody>
+</table>
+
+<div class="callout info">
+  <strong>PC DHCP设置方法</strong>
+  <br>1. 双击PC → 切换到"基础配置"页签
+  <br>2. 域名 → 随便填（如 GW-Lighting-1）
+  <br>3. IPv4配置 → 选择"DHCP"
+  <br>4. 点击"应用"
+  <br>5. 切换到"命令行"页签 → 输入 <code>ipconfig</code> 查看获取的IP
+  <br>6. 如果没有获取到IP，在命令行输入 <code>ipconfig /renew</code> 重新获取
+</div>
+
+<h3>7.2 静态IP的PC</h3>
+
+<table class="data-table">
+  <thead>
+    <tr>
+      <th>PC</th>
+      <th>对应设备</th>
+      <th>IP地址</th>
+      <th>子网掩码</th>
+      <th>默认网关</th>
+      <th>DNS</th>
+      <th>VLAN</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>PC5 (Edge-Server)</td><td>边缘服务器</td><td>192.168.20.100</td><td>255.255.255.0</td><td>192.168.20.1</td><td>8.8.8.8</td><td>VLAN20</td></tr>
+    <tr><td>PC6 (Debug-PC)</td><td>调试电脑</td><td>DHCP</td><td>-</td><td>-</td><td>-</td><td>VLAN1</td></tr>
+    <tr><td>PC7 (NVR-1)</td><td>NVR录像机</td><td>192.168.30.10</td><td>255.255.255.0</td><td>192.168.30.1</td><td>8.8.8.8</td><td>VLAN30</td></tr>
+  </tbody>
+</table>
+
+<div class="callout tip">
+  <strong>PC静态IP设置方法</strong>
+  <br>1. 双击PC → "基础配置"页签
+  <br>2. IPv4配置 → 选择"静态"
+  <br>3. 填入IP地址、子网掩码、默认网关、DNS
+  <br>4. 点击"应用"
+  <br>5. 切换到"命令行" → <code>ipconfig</code> 验证
+</div>
+
+<h3>7.3 PC MAC地址查看</h3>
+<pre><code><span class="cmd-comment"># PC MAC地址在eNSP中如何查看：</span>
+<span class="cmd-comment"># 方法一：在PC命令行输入</span>
+ipconfig /all
+<span class="cmd-comment"># 找到"物理地址"一行的值，如 00:E0:FC:12:34:56</span>
+
+<span class="cmd-comment"># 方法二：在核心交换机上查ARP表</span>
+display arp
+<span class="cmd-comment"># 方法三：在核心交换机上查MAC地址表</span>
+display mac-address
+
+<span class="cmd-comment"># 注意：如果要做DHCP静态绑定，需要先获取PC的MAC地址</span>
+<span class="cmd-comment"># 然后在交换机上配 static-bind（见第4章4.4节）</span>
+<span class="cmd-comment"># eNSP中PC的MAC地址通常是 00E0-FC 开头的</span></code></pre>
+
+<!-- ===== 第8章 ===== -->
+<h2 id="ch8">8 云平台模拟（Internet）</h2>
+
+<p>eNSP的Cloud设备用于桥接本机网络，模拟公网出口。</p>
+
+<h3>8.1 Cloud配置</h3>
+
+<ol class="step-list">
+  <li>双击Cloud设备，打开"Cloud配置"窗口</li>
+  <li>在"绑定信息"区域，选择"UDP" → 点击"增加"
+    <ul>
+      <li>绑定信息：UDP</li>
+      <li>本地端口：1000（随意，不冲突即可）</li>
+      <li>对端端口：1001</li>
+      <li>对端IP：127.0.0.1</li>
+    </ul>
+  </li>
+  <li>再选"GE" → 选一个本机网卡 → 点击"增加"
+    <ul>
+      <li>这样Cloud的GE口桥接到本机的物理网卡</li>
+      <li>如果你的电脑能上网，内网PC就能通过NAT访问真公网</li>
+    </ul>
+  </li>
+  <li>或者，只添加UDP绑定，不桥接本机网卡——
+    这样Cloud只是一个"黑洞"接口，模拟公网连通性即可，
+    不需要真正联网</li>
+  <li>关闭Cloud配置窗口</li>
+</ol>
+
+<div class="callout warn">
+  <strong>Cloud配置注意</strong>
+  <br>• 如果eNSP弹出VirtualBox错误，说明Cloud的GE桥接需要VirtualBox支持
+  <br>• 如果只是模拟内网通信，不验证NAT出口，可以不用Cloud设备
+  <br>• Cloud的IP地址需要在路由器上手动配（见第6章，公网侧IP 202.1.1.1/30）
+  <br>• eNSP的Cloud不像路由器能配IP，它只是一个二层桥接设备
+</div>
+
+<h3>8.2 替代方案：用路由器模拟公网</h3>
+
+<p>如果Cloud不好用，可以用另一台路由器模拟公网侧：</p>
+
+<pre><code><span class="cmd-comment"># 在拓扑中再加一台AR2220，命名为 ISP-Router</span>
+<span class="cmd-comment"># ISP-Router 配置：</span>
+system-view
+sysname ISP-Router
+
+interface GigabitEthernet0/0/0
+ ip address 202.1.1.1 255.255.255.252
+ quit
+
+<span class="cmd-comment"># 模拟云平台服务器（开个Loopback口）</span>
+interface LoopBack0
+ ip address 139.224.67.85 255.255.255.255
+ description Simulate-OPPLE-Cloud
+ quit
+
+<span class="cmd-comment"># 配置静态路由回指（让回包能回来）</span>
+ip route-static 192.168.0.0 255.255.0.0 202.1.1.2
+
+save force
+
+<span class="cmd-comment"># 这样内网设备 ping 139.224.67.85 就能通</span>
+<span class="cmd-comment"># 模拟网关 → 路由器NAT → ISP路由器 → 云平台IP</span></code></pre>
+
+<!-- ===== 第9章 ===== -->
+<h2 id="ch9">9 连通性验证</h2>
+
+<p>所有配置完成后，按以下步骤验证网络连通性。</p>
+
+<h3>9.1 PC获取IP验证</h3>
+<pre><code><span class="cmd-comment"># 在每台PC的命令行中执行：</span>
+ipconfig
+
+<span class="cmd-comment"># 预期结果：</span>
+<span class="cmd-comment"># PC1 (GW-Lighting-1): 192.168.10.110  ← DHCP静态绑定</span>
+<span class="cmd-comment"># PC2 (GW-DALI-2):     192.168.10.111  ← DHCP静态绑定</span>
+<span class="cmd-comment"># PC3 (GW-BLE-3):      192.168.10.1xx  ← DHCP动态分配</span>
+<span class="cmd-comment"># PC4 (Sensor-1):      192.168.10.1xx  ← DHCP动态分配</span>
+<span class="cmd-comment"># PC5 (Edge-Server):   192.168.20.100  ← 静态配置</span>
+<span class="cmd-comment"># PC6 (Debug-PC):      192.168.1.xx    ← DHCP动态分配</span>
+<span class="cmd-comment"># PC7 (NVR-1):         192.168.30.10   ← 静态配置</span>
+
+<span class="cmd-comment"># 如果PC没有获取到IP：</span>
+ipconfig /release
+ipconfig /renew</code></pre>
+
+<h3>9.2 交换机上验证DHCP分配</h3>
+<pre><code><span class="cmd-comment"># 在Core-Switch上执行：</span>
+display ip pool name VLAN10-POOL all
+<span class="cmd-comment"># 应显示：已用2（静态绑定），空闲若干</span>
+
+display dhcp server ip-in-use
+<span class="cmd-comment"># 应显示：VLAN10段有租约记录</span>
+
+display arp
+<span class="cmd-comment"># 应显示：每个IP对应的MAC地址和接口</span></code></pre>
+
+<h3>9.3 同VLAN ping测试</h3>
+<pre><code><span class="cmd-comment"># PC1 (192.168.10.110) ping PC2 (192.168.10.111)</span>
+<span class="cmd-comment"># 在PC1命令行：</span>
+ping 192.168.10.111
+<span class="cmd-comment"># 预期：4个Reply，0%丢失</span>
+
+<span class="cmd-comment"># PC1 ping PC3 (同VLAN10)</span>
+ping 192.168.10.1xx
+<span class="cmd-comment"># 预期：通</span></code></pre>
+
+<h3>9.4 跨VLAN ping测试</h3>
+<pre><code><span class="cmd-comment"># PC1 (VLAN10, 192.168.10.110) ping PC5 (VLAN20, 192.168.20.100)</span>
+<span class="cmd-comment"># 在PC1命令行：</span>
+ping 192.168.20.100
+<span class="cmd-comment"># 预期：通（三层交换机VLANIF做路由）</span>
+
+<span class="cmd-comment"># PC1 ping PC7 (VLAN30, 192.168.30.10)</span>
+ping 192.168.30.10
+<span class="cmd-comment"># 预期：通</span>
+
+<span class="cmd-comment"># PC6 (VLAN1) ping PC5 (VLAN20)</span>
+ping 192.168.20.100
+<span class="cmd-comment"># 预期：通</span>
+
+<span class="cmd-comment"># PC6 (VLAN1) ping PC1 (VLAN10)</span>
+ping 192.168.10.110
+<span class="cmd-comment"># 预期：通</span></code></pre>
+
+<div class="callout danger">
+  <strong>跨VLAN ping不通排查</strong>
+  <br>1. 检查PC的默认网关是否指向对应VLAN的VLANIF IP
+  <br>2. 检查交换机 display ip routing-table 是否有直连路由
+  <br>3. 检查Trunk端口是否放行了对应VLAN：display port vlan
+  <br>4. 检查接入交换机端口VLAN是否正确：display port vlan
+  <br>5. 检查PC的IP/掩码/网关是否在同一网段
+</div>
+
+<h3>9.5 NAT出口验证</h3>
+<pre><code><span class="cmd-comment"># PC1 ping ISP-Router的Loopback口（模拟云平台）</span>
+<span class="cmd-comment"># 在PC1命令行：</span>
+ping 139.224.67.85
+<span class="cmd-comment"># 预期：通（经过NAT转换）</span>
+
+<span class="cmd-comment"># 在Router-Edge上查看NAT转换表</span>
+display nat session all
+<span class="cmd-comment"># 应显示：192.168.10.110 → 202.1.1.2 的转换条目</span>
+
+<span class="cmd-comment"># PC5 (服务器) ping 模拟云平台</span>
+ping 139.224.67.85
+<span class="cmd-comment"># 预期：通</span></code></pre>
+
+<h3>9.6 全链路验证清单</h3>
+
+<table class="data-table">
+  <thead>
+    <tr>
+      <th>序号</th>
+      <th>源</th>
+      <th>→</th>
+      <th>目标</th>
+      <th>测试命令</th>
+      <th>预期</th>
+      <th>验证点</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>PC1</td><td>→</td><td>PC2</td><td>ping 192.168.10.111</td><td>通</td><td>同VLAN通信</td></tr>
+    <tr><td>2</td><td>PC1</td><td>→</td><td>PC5</td><td>ping 192.168.20.100</td><td>通</td><td>跨VLAN路由</td></tr>
+    <tr><td>3</td><td>PC1</td><td>→</td><td>PC7</td><td>ping 192.168.30.10</td><td>通</td><td>跨VLAN路由</td></tr>
+    <tr><td>4</td><td>PC6</td><td>→</td><td>PC1</td><td>ping 192.168.10.110</td><td>通</td><td>管理→照明</td></tr>
+    <tr><td>5</td><td>PC1</td><td>→</td><td>192.168.10.1</td><td>ping 192.168.10.1</td><td>通</td><td>DHCP网关</td></tr>
+    <tr><td>6</td><td>PC1</td><td>→</td><td>202.1.1.1</td><td>ping 202.1.1.1</td><td>通</td><td>到公网网关</td></tr>
+    <tr><td>7</td><td>PC1</td><td>→</td><td>139.224.67.85</td><td>ping 139.224.67.85</td><td>通</td><td>NAT到云平台</td></tr>
+    <tr><td>8</td><td>PC1</td><td>→</td><td>192.168.1.254</td><td>ping 192.168.1.254</td><td>通</td><td>到出口路由器</td></tr>
+  </tbody>
+</table>
+
+<!-- ===== 第10章 ===== -->
+<h2 id="ch10">10 抓包分析与协议验证</h2>
+
+<p>eNSP内置Wireshark，可以在任何链路上抓包，验证协议交互过程。</p>
+
+<h3>10.1 抓取DHCP分配过程</h3>
+
+<ol class="step-list">
+  <li>在eNSP拓扑中，找到PC1到Access-SW-1F的连线</li>
+  <li>右键连线 → "抓包" → 自动打开Wireshark</li>
+  <li>在PC1命令行执行：<code>ipconfig /release</code> 然后立刻 <code>ipconfig /renew</code></li>
+  <li>回到Wireshark，观察抓到的DHCP报文</li>
+</ol>
+
+<pre><code><span class="cmd-comment"># DHCP完整交互过程（4个报文）：</span>
+<span class="cmd-comment"># 1. DHCP Discover  (PC → 0.0.0.0 → 255.255.255.255)</span>
+<span class="cmd-comment">#    PC广播"我需要IP"，源IP=0.0.0.0，目的IP=广播</span>
+
+<span class="cmd-comment"># 2. DHCP Offer     (交换机 → 255.255.255.255)</span>
+<span class="cmd-comment">#    交换机回复"给你192.168.10.110"</span>
+
+<span class="cmd-comment"># 3. DHCP Request   (PC → 255.255.255.255)</span>
+<span class="cmd-comment">#    PC广播"我要192.168.10.110这个IP"</span>
+
+<span class="cmd-comment"># 4. DHCP Ack       (交换机 → 255.255.255.255)</span>
+<span class="cmd-comment">#    交换机确认"分配给你了，租约7天"</span>
+
+<span class="cmd-comment"># 在Wireshark过滤栏输入 bootp 或 dhcp 过滤</span>
+<span class="cmd-comment"># 可以清楚看到4个报文的交互时序</span></code></pre>
+
+<h3>10.2 抓取ARP解析过程</h3>
+<pre><code><span class="cmd-comment"># 在PC1到交换机连线上抓包</span>
+<span class="cmd-comment"># PC1 ping PC5 时先发ARP请求：</span>
+
+<span class="cmd-comment"># 1. ARP Request  (PC1 → 广播)</span>
+<span class="cmd-comment">#    "谁是192.168.10.1？请告诉我"（PC1先要找自己的网关MAC）</span>
+
+<span class="cmd-comment"># 2. ARP Reply    (交换机VLANIF10 → PC1)</span>
+<span class="cmd-comment">#    "192.168.10.1的MAC是xx-xx-xx-xx"</span>
+
+<span class="cmd-comment"># 在Wireshark过滤栏输入 arp 过滤</span>
+<span class="cmd-comment"># ARP是二层协议，只在同VLAN内广播，跨VLAN时网关代答</span></code></pre>
+
+<h3>10.3 抓取ICMP跨VLAN过程</h3>
+<pre><code><span class="cmd-comment"># PC1 ping PC5 (跨VLAN10→VLAN20)</span>
+<span class="cmd-comment"># 在Core-Switch的GE0/0/1口抓包，可以看到：</span>
+
+<span class="cmd-comment"># 1. PC1 → 交换机：ICMP Echo Request
+<span class="cmd-comment">#    源MAC=PC1_MAC, 目的MAC=VLANIF10_MAC（网关）</span>
+<span class="cmd-comment">#    源IP=192.168.10.110, 目的IP=192.168.20.100</span>
+
+<span class="cmd-comment"># 2. 交换机 → PC5：ICMP Echo Request（已改MAC）</span>
+<span class="cmd-comment">#    源MAC=VLANIF20_MAC, 目的MAC=PC5_MAC</span>
+<span class="cmd-comment">#    源IP=192.168.10.110, 目的IP=192.168.20.100 (IP不变)</span>
+
+<span class="cmd-comment"># 3. PC5 → 交换机：ICMP Echo Reply</span>
+<span class="cmd-comment"># 4. 交换机 → PC1：ICMP Echo Reply（已改MAC）</span>
+
+<span class="cmd-comment"># 关键理解：跨VLAN时，IP地址不变，MAC地址在每跳都变</span>
+<span class="cmd-comment"># 这就是三层路由的本质</span></code></pre>
+
+<h3>10.4 抓取NAT转换过程</h3>
+<pre><code><span class="cmd-comment"># 在Router-Edge的GE0/0/2（公网口）抓包</span>
+<span class="cmd-comment"># PC1 ping 139.224.67.85 时：</span>
+
+<span class="cmd-comment"># 出方向（PC1 → 公网）：</span>
+<span class="cmd-comment"># 源IP从 192.168.10.110 → 被NAT改成 202.1.1.2</span>
+<span class="cmd-comment"># 目的IP不变 139.224.67.85</span>
+
+<span class="cmd-comment"># 回方向（公网 → PC1）：</span>
+<span class="cmd-comment"># 目的IP从 202.1.1.2 → 被NAT改回 192.168.10.110</span>
+
+<span class="cmd-comment"># 在Wireshark中可以看到NAT转换前后的IP对比</span></code></pre>
+
+<!-- ===== 第11章 ===== -->
+<h2 id="ch11">11 保存与导出</h2>
+
+<h3>11.1 保存拓扑文件</h3>
+<pre><code><span class="cmd-comment"># eNSP → 文件 → 保存（或 Ctrl+S）</span>
+<span class="cmd-comment"># 保存为 .topo 文件</span>
+<span class="cmd-comment"># 建议命名：照明项目网络模拟_v1.topo</span></code>
+
+<h3>11.2 导出设备配置</h3>
+<pre><code><span class="cmd-comment"># 在每台交换机/路由器的CLI中：</span>
+display current-configuration
+<span class="cmd-comment"># 全选复制，保存为txt文件</span>
+
+<span class="cmd-comment"># 或者在eNSP中：右键设备 → 导出配置 → 保存为 .cfg 文件</span></code>
+
+<h3>11.3 拓扑快照（恢复点）</h3>
+<pre><code><span class="cmd-comment"># eNSP → 工具 → 拓扑快照管理</span>
+<span class="cmd-comment"># 可以保存当前所有设备配置的快照</span>
+<span class="cmd-comment"># 后续配错了可以一键回滚</span>
+<span class="cmd-comment"># 建议在以下时间点打快照：</span>
+<span class="cmd-comment"># 1. 所有设备连线完成后（"连线完成"快照）</span>
+<span class="cmd-comment"># 2. 核心交换机配置完成后（"核心配完"快照）</span>
+<span class="cmd-comment"># 3. 全部配置完成后（"全部完成"快照）</span></code></pre>
+
+<div class="callout tip">
+  <strong>eNSP实验小结</strong>
+  <br>完成本实验后，你应该理解了以下项目网络原理：
+  <br>• <strong>VLAN隔离</strong>：不同VLAN的二层广播域是隔离的，跨VLAN通信必须经过三层设备（VLANIF）
+  <br>• <strong>DHCP分配</strong>：交换机做DHCP服务器，终端通过Discover→Offer→Request→Ack四步获取IP
+  <br>• <strong>静态绑定</strong>：IP+MAC绑定确保网关设备每次拿到固定IP
+  <br>• <strong>Trunk链路</strong>：核心和接入交换机之间用Trunk放行多个VLAN
+  <br>• <strong>NAT出口</strong>：内网私有IP通过NAT转换为公网IP访问云平台
+  <br>• <strong>跨VLAN路由</strong>：三层交换机VLANIF接口做网关，实现VLAN间路由
+  <br>
+  <br>这些原理在现场调试时就是排查问题的底层逻辑——
+  ping不通先看VLAN对不对、DHCP分配对不对、网关指没指对。
+</div>
+
+<div class="callout warn">
+  <strong>从eNSP到现场的区别</strong>
+  <br>• eNSP中PC代表实际项目中的网关/服务器/摄像头等设备
+  <br>• 现场设备的IP配置在各自的Web后台，不是在命令行
+  <br>• 现场的DALI总线、蓝牙Mesh等不在eNSP模拟范围内（eNSP只模拟以太网层）
+  <br>• 现场可能有PoE供电问题、网线质量问题等物理层故障，eNSP中没有
+  <br>• eNSP用于理解网络原理和验证配置命令，现场实施还需结合设备实际情况
+</div>
+
+</div>
+</body>
+</html>

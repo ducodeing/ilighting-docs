@@ -1,0 +1,127 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>伊尔莱德照明技术方案 · 总索引</title>
+<style>
+  @font-face { font-family:'Instrument Sans'; src:url('_shared/fonts/InstrumentSans-Regular.ttf') format('truetype'); font-weight:400; font-display:swap; }
+  @font-face { font-family:'Instrument Sans'; src:url('_shared/fonts/InstrumentSans-Bold.ttf') format('truetype'); font-weight:700; font-display:swap; }
+</style>
+<style>
+:root{--bg:#EEF1F0;--surface:#fff;--text:#16211E;--muted:#5F6E6A;--brand:#0F8A66;--brand-deep:#075A42;--border:#D8E1DE}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:'Instrument Sans','PingFang SC','Microsoft YaHei','Noto Sans CJK SC',sans-serif;line-height:1.7;font-size:1rem}
+.wrap{max-width:1080px;margin:0 auto;padding:40px 24px 80px}
+.hero{background:linear-gradient(135deg,#075A42,#0F8A66);border-radius:16px;padding:44px 40px;color:#fff;position:relative;overflow:hidden}
+.hero h1{margin:0;font-size:2rem;line-height:1.2}
+.hero p{margin:14px 0 0;opacity:.92;max-width:40rem;font-size:1.05rem}
+.chip{display:inline-block;background:rgba(255,255,255,.16);padding:3px 12px;border-radius:999px;font-size:.82rem;margin-right:8px;margin-top:16px}
+.section-title{margin:36px 0 6px;font-size:1.05rem;font-weight:700;color:var(--brand-deep)}
+.section-desc{margin:4px 0 16px;color:var(--muted);font-size:.92rem}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px 22px;text-decoration:none;color:inherit;display:flex;flex-direction:column;transition:.18s}
+.card:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(22,33,30,.10);border-color:var(--brand)}
+.card .num{font-size:.78rem;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.card .num b{color:#fff;border-radius:8px;padding:2px 9px;font-size:.75rem}
+.b1 b{background:#7C3AED}.b2 b{background:#1F6FB2}.b3 b{background:#D97706}.b4 b{background:#C0392B}.b5 b{background:#0D9488}.b6 b{background:#DB2777}.b7 b{background:#4338CA}
+.card h3{margin:2px 0 8px;font-size:1.18rem}
+.card p{margin:0;color:var(--muted);font-size:.9rem;flex:1}
+.card .abs{margin-top:14px;font-size:.82rem;color:var(--muted);border-top:1px dashed var(--border);padding-top:10px}
+.card .abs b{color:var(--brand)}
+.note{background:#EAF6F2;border:1px solid #BFE5D6;border-radius:12px;padding:16px 20px;margin:24px 0;font-size:.9rem}
+.note b{color:var(--brand-deep)}
+@media(max-width:720px){.grid{grid-template-columns:1fr}.hero{padding:32px 24px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <h1>伊尔莱德照明技术方案 · 总索引</h1>
+    <p>一套编号 0–7 的知识主线：四大手册（设计 · 调试 · 实施 · 制图）+ 三方对接 + 全流程执行 + 网络仿真，外加打印版速查与原始资料归档。从任一入口进入对应资料，交叉引用已全部重写为有效链接。</p>
+    <div class="div"></div>
+    <span class="chip">工业 · 商业照明</span>
+    <span class="chip">睿壹OBUS</span>
+    <span class="chip">蓝牙自组网(格兰思贝)</span>
+    <span class="chip">DALI调光</span>
+    <span class="chip">CAD制图</span>
+    <span class="chip">三方对接</span>
+  </div>
+
+  <div class="section-title">四大主题手册</div>
+  <div class="section-desc">原 9 册已整合为 4 本手册，主题边界清晰，按需直达。</div>
+  <div class="grid">
+    <a class="card b1" href="1-照明方案与产品设计.html">
+      <div class="num"><b>1</b>设计域</div>
+      <h3>照明方案 · 产品与设计支撑</h3>
+      <p>需求判断与方案主线、控制/组网选型、<b>转换模块家族与组网可转换性</b>、产品树与行业选型、速记与交付自查，另附网络基础/协议/配电/线材/标准/术语等 8 章知识背景。</p>
+      <div class="abs">上篇 9 章 + 下篇附录 8 章 · 含 12 款转换模块矩阵</div>
+    </a>
+    <a class="card b2" href="2-网络调试与运维手册.html">
+      <div class="num"><b>2</b>调试域</div>
+      <h3>网络 · 设备调试与运维手册</h3>
+      <p>分层排查法、网络规划与诊断、边缘服务器与硬件、智控系统调试（含 SigMesh 转换模块排障）、自组网 APP 操作、常见故障速查与项目避坑案例。</p>
+      <div class="abs">四大部分 · 网络层 / 系统层 / 自组网 APP / 避坑日记</div>
+    </a>
+    <a class="card b3" href="3-项目管理与施工标准.html">
+      <div class="num"><b>3</b>实施域</div>
+      <h3>项目管理与施工标准</h3>
+      <p>角色职责、项目全流程与各阶段、施工标准、线缆敷设、强弱电分离、质量控制与验收、交付文档与模板。</p>
+      <div class="abs">合入原 <b>6项目管理</b> · <b>7施工标准</b> 共 20 章</div>
+    </a>
+    <a class="card b4" href="4-CAD制图技术要求.html">
+      <div class="num"><b>4</b>制图域</div>
+      <h3>CAD制图技术要求</h3>
+      <p>图层、线型、标注、图例与出图规范，面向方案图纸与竣工图绘制的制图标准专项。</p>
+      <div class="abs">原 <b>1 CAD制图</b> · 共 8 章</div>
+    </a>
+    <a class="card b5" href="伊尔莱德智能照明第三方对接指导.html">
+      <div class="num"><b>5</b>对接域</div>
+      <h3>智能照明第三方对接指导</h3>
+      <p>华为云 IoTDA（设备影子/Topic/属性上报/命令下发）、Modbus TCP/RTU、BACnet、节目单导入导出四种对接方式的技术详情与排障 FAQ。</p>
+      <div class="abs">四种对接方式并列 · 含 Python pymodbus 调试示例</div>
+    </a>
+    <a class="card b6" href="项目全流程执行指南.html">
+      <div class="num"><b>6</b>流程域</div>
+      <h3>项目全流程执行指南</h3>
+      <p>了解需求 → 现场勘测 → 确定方案 → 图纸深化 → 施工交底 → 现场指导 → 后期调试 → 验收交付，八阶段一条龙速查。</p>
+      <div class="abs">八阶段 · 一页看懂 · 五查/七层排查模型</div>
+    </a>
+    <a class="card b7" href="eNSP模拟实验指南.html">
+      <div class="num"><b>7</b>仿真域</div>
+      <h3>eNSP 网络仿真实验指南</h3>
+      <p>照明项目网络拓扑仿真：VLAN 划分、DHCP、跨 VLAN 路由、NAT 出口，含设备选型与交换机/路由器配置命令。</p>
+      <div class="abs">华为 eNSP 实验 · 含安装说明</div>
+    </a>
+  </div>
+
+  <div class="section-title">打印版速查</div>
+  <div class="section-desc">现场技术交底直接打印使用的精简材料。</div>
+  <div class="grid">
+    <a class="card b6" href="打印版速查/技术交底速查手册-打印版.html">
+      <div class="num"><b>印</b>技术交底</div>
+      <h3>技术交底速查手册（打印版）</h3>
+      <p>施工与调试一线常用的速查条目浓缩版，便于打印带走、现场核对。</p>
+    </a>
+    <a class="card b1" href="打印版速查/产品分类总表-打印版.html">
+      <div class="num"><b>印</b>产品分类</div>
+      <h3>产品分类总表（打印版）</h3>
+      <p>商用项目在售产品分类总表，按品类/系列速查，选型与报价用。</p>
+    </a>
+  </div>
+
+  <div class="section-title">原始资料归档</div>
+  <div class="note" style="background:#F3F4F6;border-color:#D1D5DB">
+    <b>原始资料：</b>未加工的产品 PDF/PPTX、行业报告、在售清单、手册 PDF、照明图纸、解决方案 PPT、产品样图与软件安装文件，统一归档于 <b>原始资料\</b> 目录，作为知识手册的源依据，不改动、按品类分类存放。其中「灯具样图」和「灯具控制方式分类清单」已随产品资料归位。
+  </div>
+
+  <div class="section-title">推荐阅读路径</div>
+  <div class="note">
+    <b>完整项目主线：</b>接项目 → <a href="1-照明方案与产品设计.html" style="color:var(--brand)">1 设计手册</a> 判断需求与选型 → <a href="3-项目管理与施工标准.html" style="color:var(--brand)">3 实施手册</a> 走流程与施工 → <a href="2-网络调试与运维手册.html" style="color:var(--brand)">2 调试手册</a> 现场调试验收。制图单独进 <a href="4-CAD制图技术要求.html" style="color:var(--brand)">4 制图手册</a>。
+  </div>
+  <div class="note" style="background:#FBF6EC;border-color:#F0E4C8">
+    <b>高速排查：</b>现场灯不亮 / 连不上 / 面板控不了灯 → 直进 <a href="2-网络调试与运维手册.html" style="color:var(--brand);font-weight:600">2 调试手册</a> 的「常见故障速查表」章节，按现象查原因，避坑案例同域可检索。
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,3796 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2-网络调试与运维手册.html · 伊尔莱德照明技术方案</title>
+<style>@font-face {
+    font-family: 'Instrument Sans';
+    src: url('./_shared/fonts/InstrumentSans-Regular.ttf') format('truetype');
+    font-weight: 400; font-style: normal; font-display: swap;
+  }
+@font-face {
+    font-family: 'Instrument Sans';
+    src: url('./_shared/fonts/InstrumentSans-Bold.ttf') format('truetype');
+    font-weight: 700; font-style: normal; font-display: swap;
+  }
+@font-face {
+    font-family: 'JetBrains Mono';
+    src: url('./_shared/fonts/JetBrainsMono-Regular.ttf') format('truetype');
+    font-weight: 400; font-style: normal; font-display: swap;
+  }
+@font-face { font-family:'Instrument Sans'; src:url('./_shared/fonts/InstrumentSans-Regular.ttf') format('truetype'); font-weight:400; font-display:swap; }
+@font-face { font-family:'Instrument Sans'; src:url('./_shared/fonts/InstrumentSans-Bold.ttf') format('truetype'); font-weight:700; font-display:swap; }
+@font-face { font-family:'JetBrains Mono'; src:url('./_shared/fonts/JetBrainsMono-Regular.ttf') format('truetype'); font-weight:400; font-display:swap; }
+@font-face { font-family:'JetBrains Mono'; src:url('./_shared/fonts/JetBrainsMono-Bold.ttf') format('truetype'); font-weight:700; font-display:swap; }
+@font-face {
+    font-family: 'JetBrains Mono';
+    src: url('./_shared/fonts/JetBrainsMono-Bold.ttf') format('truetype');
+    font-weight: 700; font-style: normal; font-display: swap;
+  }</style>
+<style>
+  @font-face {
+    font-family: 'Instrument Sans';
+    src: url('./_shared/fonts/InstrumentSans-Regular.ttf') format('truetype');
+    font-weight: 400; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: 'Instrument Sans';
+    src: url('./_shared/fonts/InstrumentSans-Bold.ttf') format('truetype');
+    font-weight: 700; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: 'JetBrains Mono';
+    src: url('./_shared/fonts/JetBrainsMono-Regular.ttf') format('truetype');
+    font-weight: 400; font-style: normal; font-display: swap;
+  }
+
+
+:root {
+  --page-bg: #FFFFFF;
+  --page-surface: #F6F8F7;
+  --page-surface-muted: #EDF2F0;
+  --page-text: #16211E;
+  --page-text-secondary: #33413D;
+  --page-text-muted: #5F6E6A;
+  --page-border: #D8E1DE;
+  --page-brand: #0F8A66;
+  --page-brand-hover: #0B7254;
+  --page-brand-active: #075A42;
+  --page-brand-soft: #EAF6F2;
+  --accent2: #1F6FB2;
+  --danger: #E03131;
+  --warning: #F08C00;
+  --success: #2F9E44;
+  --code-bg: #1E293B;
+  --code-text: #E2E8F0;
+  --code-comment: #64748B;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--page-bg);
+  color: var(--page-text);
+  font-family: 'Instrument Sans', 'PingFang SC', 'Microsoft YaHei', 'Noto Sans CJK SC', sans-serif;
+  font-size: 1rem;
+  line-height: 1.75;
+}
+.report-intro { width: 100%; padding: 48px 20px 36px; }
+.report-intro__surface {
+  position: relative; overflow: hidden;
+  max-width: 1000px; margin: 0 auto;
+  padding: 48px 32px;
+  background: var(--page-brand-soft);
+  border: 1px solid var(--page-border);
+  border-radius: 12px;
+}
+.report-intro__surface::before {
+  content: ""; position: absolute; z-index: 0;
+  width: 250px; height: 250px; right: -100px; top: -120px;
+  background: #D6EDE6; border-radius: 999px; pointer-events: none;
+}
+.report-intro__content { position: relative; z-index: 1; max-width: 46rem; }
+h1 { margin: 0; font-size: 1.8rem; line-height: 1.25; font-weight: 700; color: var(--page-brand-active); }
+.report-intro__summary { margin: 16px 0 0; font-size: 1.05rem; color: var(--page-text-secondary); }
+.report-intro__meta { margin: 12px 0 0; font-size: 0.875rem; color: var(--page-text-muted); }
+
+.page__content { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+
+nav.toc {
+  margin: 24px 0 32px;
+  padding: 20px 24px 16px;
+  background: var(--page-surface);
+  border: 1px solid var(--page-border);
+  border-radius: 12px;
+}
+nav.toc h2 { margin: 0 0 12px; font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.08em; color: var(--page-text-muted); }
+nav.toc ol { margin: 0; padding-left: 20px; display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 6px 24px; }
+nav.toc li { font-size: 0.95rem; }
+nav.toc a { color: var(--page-brand); text-decoration: none; }
+nav.toc a:hover { text-decoration: underline; }
+
+section.chapter { margin: 40px 0; }
+h2 {
+  font-size: 1.5rem; font-weight: 700;
+  color: var(--page-text);
+  margin: 0 0 20px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--page-brand);
+  display: flex; align-items: center; gap: 10px;
+}
+h2 .chap-num {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px;
+  background: var(--page-brand);
+  color: #fff;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+h3 { font-size: 1.15rem; font-weight: 700; margin: 28px 0 12px; color: var(--page-text); }
+h4 { font-size: 1rem; font-weight: 700; margin: 20px 0 8px; color: var(--page-text-secondary); }
+p { margin: 8px 0; }
+
+.callout {
+  padding: 14px 18px;
+  border-radius: 8px;
+  margin: 16px 0;
+  font-size: 0.95rem;
+  border-left: 4px solid;
+}
+.callout.warn { background: #FFF9DB; border-color: var(--warning); }
+.callout.danger { background: #FFE3E3; border-color: var(--danger); }
+.callout.tip { background: #EAF6F2; border-color: var(--success); }
+.callout.info { background: #E7F5FF; border-color: var(--accent2); }
+.callout strong { display: block; margin-bottom: 4px; }
+
+pre {
+  background: var(--code-bg);
+  color: var(--code-text);
+  padding: 16px 20px;
+  border-radius: 8px;
+  overflow-x: auto;
+  font-family: 'JetBrains Mono', 'Consolas', monospace;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  margin: 12px 0;
+}
+code {
+  font-family: 'JetBrains Mono', 'Consolas', monospace;
+  font-size: 0.875em;
+  background: var(--page-surface-muted);
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: var(--page-brand-active);
+}
+pre code { background: none; padding: 0; color: inherit; }
+.cmd-prompt { color: #68D391; }
+.cmd-comment { color: var(--code-comment); font-style: italic; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: 0.9375rem;
+}
+th, td {
+  border: 1px solid var(--page-border);
+  padding: 10px 14px;
+  text-align: left;
+  vertical-align: top;
+}
+th {
+  background: var(--page-surface);
+  font-weight: 700;
+  color: var(--page-text);
+}
+tr:nth-child(even) td { background: #F7F9FC; }
+
+.step-list { counter-reset: step; padding-left: 0; list-style: none; margin: 16px 0; }
+.step-list li {
+  counter-increment: step;
+  position: relative;
+  padding: 10px 0 10px 48px;
+  border-bottom: 1px dashed var(--page-border);
+}
+.step-list li:last-child { border-bottom: none; }
+.step-list li::before {
+  content: counter(step);
+  position: absolute; left: 0; top: 10px;
+  width: 32px; height: 32px;
+  background: var(--page-brand);
+  color: #fff;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 0.875rem;
+}
+
+.checklist { list-style: none; padding-left: 0; margin: 12px 0; }
+.checklist li {
+  padding: 6px 0 6px 28px;
+  position: relative;
+  font-size: 0.95rem;
+}
+.checklist li::before {
+  content: "☐";
+  position: absolute; left: 0;
+  color: var(--page-brand);
+  font-size: 1.1rem;
+}
+
+.tab-group { margin: 16px 0; border: 1px solid var(--page-border); border-radius: 8px; overflow: hidden; }
+.tab-header { display: flex; background: var(--page-surface); border-bottom: 1px solid var(--page-border); }
+.tab-btn {
+  padding: 10px 20px; cursor: pointer;
+  font-weight: 600; font-size: 0.9rem;
+  border: none; background: transparent;
+  color: var(--page-text-muted);
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+}
+.tab-btn.active { color: var(--page-brand); border-bottom-color: var(--page-brand); background: #fff; }
+.tab-content { padding: 16px 20px; display: none; }
+.tab-content.active { display: block; }
+
+.trouble-shoot {
+  border: 1px solid var(--page-border);
+  border-radius: 8px;
+  margin: 12px 0;
+  overflow: hidden;
+}
+.trouble-shoot summary {
+  padding: 12px 16px;
+  cursor: pointer;
+  font-weight: 600;
+  background: var(--page-surface);
+  list-style: none;
+}
+.trouble-shoot summary::before {
+  content: "▶ ";
+  color: var(--page-brand);
+  font-size: 0.75rem;
+  margin-right: 6px;
+}
+.trouble-shoot[open] summary::before { content: "▼ "; }
+.trouble-shoot .trouble-body { padding: 12px 16px; }
+
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-right: 6px;
+}
+.badge-win { background: #0078D4; color: #fff; }
+.badge-lin { background: #F48024; color: #fff; }
+.badge-hw { background: #718096; color: #fff; }
+.badge-net { background: #38B2AC; color: #fff; }
+
+@media (max-width: 768px) {
+  nav.toc ol { grid-template-columns: 1fr; }
+  .report-intro { padding: 32px 12px 24px; }
+  .report-intro__surface { padding: 32px 20px; }
+  h1 { font-size: 1.4rem; }
+}
+
+.ip-box {
+  background: #F0F9FF;
+  border: 1px solid #BAE6FD;
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin: 12px 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9rem;
+}
+.ip-box .ip-title {
+  font-weight: 700;
+  color: #0369A1;
+  margin-bottom: 8px;
+  font-family: 'Instrument Sans', sans-serif;
+}
+.vlan-tag {
+  display: inline-block;
+  padding: 2px 8px;
+  background: #7C3AED;
+  color: #fff;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-right: 4px;
+}
+.vlan-tag.green { background: #059669; }
+.vlan-tag.orange { background: #D97706; }
+.vlan-tag.red { background: #DC2626; }
+
+.flow-diagram {
+  background: var(--page-surface);
+  border: 1px solid var(--page-border);
+  border-radius: 8px;
+  padding: 16px;
+  margin: 12px 0;
+  font-size: 0.9rem;
+  line-height: 2;
+}
+.flow-diagram .arrow { color: var(--page-brand); font-weight: 700; }
+
+.cmd-cat {
+  margin: 20px 0 8px;
+  padding: 6px 12px;
+  background: var(--page-brand-soft);
+  border-left: 4px solid var(--page-brand);
+  font-weight: 700;
+  font-size: 0.95rem;
+  border-radius: 0 6px 6px 0;
+}
+
+
+  @font-face { font-family:'Instrument Sans'; src:url('./_shared/fonts/InstrumentSans-Regular.ttf') format('truetype'); font-weight:400; font-display:swap; }
+  @font-face { font-family:'Instrument Sans'; src:url('./_shared/fonts/InstrumentSans-Bold.ttf') format('truetype'); font-weight:700; font-display:swap; }
+  @font-face { font-family:'JetBrains Mono'; src:url('./_shared/fonts/JetBrainsMono-Regular.ttf') format('truetype'); font-weight:400; font-display:swap; }
+  @font-face { font-family:'JetBrains Mono'; src:url('./_shared/fonts/JetBrainsMono-Bold.ttf') format('truetype'); font-weight:700; font-display:swap; }
+
+
+:root{
+  --page-bg:#FFFFFF; --page-surface:#F6F8F7; --page-surface-muted:#EDF2F0;
+  --page-text:#16211E; --page-text-secondary:#33413D; --page-text-muted:#5F6E6A;
+  --page-border:#D8E1DE; --page-brand:#0F8A66; --page-brand-hover:#0B7254; --page-brand-active:#075A42;
+  --page-brand-soft:#EAF6F2; --accent2:#1F6FB2; --danger:#E03131; --warning:#F08C00; --success:#2F9E44;
+  --code-bg:#1E293B; --code-text:#E2E8F0; --code-comment:#64748B;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--page-bg);color:var(--page-text);font-family:'Instrument Sans','PingFang SC','Microsoft YaHei','Noto Sans CJK SC',sans-serif;font-size:1rem;line-height:1.75}
+.report-intro{width:100%;padding:48px 20px 36px}
+.report-intro__surface{position:relative;overflow:hidden;max-width:1000px;margin:0 auto;padding:48px 32px;background:var(--page-brand-soft);border:1px solid var(--page-border);border-radius:12px}
+.report-intro__surface::before{content:"";position:absolute;width:250px;height:250px;right:-100px;top:-120px;background:#D6EDE6;border-radius:999px;pointer-events:none}
+.report-intro__content{position:relative;z-index:1;max-width:46rem}
+h1{margin:0;font-size:1.8rem;line-height:1.25;font-weight:700;color:var(--page-brand-active)}
+.report-intro__summary{margin:16px 0 0;font-size:1.05rem;color:var(--page-text-secondary)}
+.report-intro__meta{margin:12px 0 0;font-size:0.875rem;color:var(--page-text-muted)}
+.role-banner{margin:24px auto 8px;max-width:1000px;padding:0 20px}
+.role-banner__inner{margin:0 auto;padding:16px 20px;max-width:960px;background:#FFF7ED;border:1px solid #FDBA74;border-radius:8px;border-left:4px solid #EA580C;font-size:0.9rem;color:#7C2D12;line-height:1.7}
+.page__content{max-width:1000px;margin:0 auto;padding:0 20px}
+nav.toc{margin:24px 0 32px;padding:20px 24px 16px;background:var(--page-surface);border:1px solid var(--page-border);border-radius:12px}
+nav.toc h2{margin:0 0 12px;font-size:0.8125rem;font-weight:700;letter-spacing:0.08em;color:var(--page-text-muted)}
+nav.toc ol{margin:0;padding-left:20px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 24px}
+nav.toc li{font-size:0.95rem}
+nav.toc a{color:var(--page-brand);text-decoration:none}
+nav.toc a:hover{text-decoration:underline}
+section.chapter{margin:40px 0}
+h2{font-size:1.5rem;font-weight:700;color:var(--page-text);margin:0 0 20px;padding-bottom:12px;border-bottom:2px solid var(--page-brand);display:flex;align-items:center;gap:10px}
+h2 .chap-num{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;background:var(--page-brand);color:#fff;border-radius:8px;font-size:1rem}
+h3{font-size:1.15rem;font-weight:700;margin:28px 0 12px;color:var(--page-text)}
+h4{font-size:1rem;font-weight:700;margin:20px 0 8px;color:var(--page-text-secondary)}
+p{margin:8px 0}
+.callout{padding:14px 18px;border-radius:8px;margin:16px 0;font-size:0.95rem;border-left:4px solid}
+.callout.warn{background:#FFF9DB;border-color:var(--warning)}
+.callout.danger{background:#FFE3E3;border-color:var(--danger)}
+.callout.tip{background:#EAF6F2;border-color:var(--success)}
+.callout.info{background:#E7F5FF;border-color:var(--accent2)}
+.callout strong{display:block;margin-bottom:4px}
+pre{background:var(--code-bg);color:var(--code-text);padding:16px 20px;border-radius:8px;overflow-x:auto;font-family:'JetBrains Mono','Consolas',monospace;font-size:0.875rem;line-height:1.6;margin:12px 0}
+code{font-family:'JetBrains Mono','Consolas',monospace;font-size:0.875em;background:var(--page-surface-muted);padding:2px 6px;border-radius:4px;color:var(--page-brand-active)}
+pre code{background:none;padding:0;color:inherit}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:0.9375rem}
+th,td{border:1px solid var(--page-border);padding:10px 14px;text-align:left;vertical-align:top}
+th{background:var(--page-surface);font-weight:700;color:var(--page-text)}
+tr:nth-child(even) td{background:#F7F9FC}
+.badge{display:inline-block;padding:2px 10px;border-radius:999px;font-size:0.75rem;font-weight:700;background:var(--page-surface-muted);color:var(--page-text-muted)}
+.badge--brand{background:var(--page-brand-soft);color:var(--page-brand-active)}
+.badge--warn{background:#FFF9DB;color:#92400E}
+.step{display:flex;gap:12px;margin:10px 0;align-items:flex-start}
+.step__num{flex:0 0 28px;height:28px;background:var(--page-brand);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.875rem}
+@media (max-width:768px){nav.toc ol{grid-template-columns:1fr}.report-intro{padding:32px 12px 24px}.report-intro__surface{padding:32px 20px}h1{font-size:1.4rem}}
+
+
+  @font-face {
+    font-family: 'Instrument Sans';
+    src: url('./_shared/fonts/InstrumentSans-Regular.ttf') format('truetype');
+    font-weight: 400; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: 'Instrument Sans';
+    src: url('./_shared/fonts/InstrumentSans-Bold.ttf') format('truetype');
+    font-weight: 700; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: 'JetBrains Mono';
+    src: url('./_shared/fonts/JetBrainsMono-Regular.ttf') format('truetype');
+    font-weight: 400; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: 'JetBrains Mono';
+    src: url('./_shared/fonts/JetBrainsMono-Bold.ttf') format('truetype');
+    font-weight: 700; font-style: normal; font-display: swap;
+  }
+
+
+:root {
+  --page-bg: #FFFFFF;
+  --page-surface: #F6F8F7;
+  --page-surface-muted: #EDF2F0;
+  --page-text: #16211E;
+  --page-text-secondary: #33413D;
+  --page-text-muted: #5F6E6A;
+  --page-border: #D8E1DE;
+  --page-brand: #0F8A66;
+  --page-brand-hover: #0B7254;
+  --page-brand-active: #075A42;
+  --page-brand-soft: #EAF6F2;
+  --accent2: #1F6FB2;
+  --danger: #E03131;
+  --warning: #F08C00;
+  --success: #2F9E44;
+  --code-bg: #1E293B;
+  --code-text: #E2E8F0;
+  --code-comment: #64748B;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--page-bg);
+  color: var(--page-text);
+  font-family: 'Instrument Sans', 'PingFang SC', 'Microsoft YaHei', 'Noto Sans CJK SC', sans-serif;
+  font-size: 1rem;
+  line-height: 1.75;
+}
+.report-intro { width: 100%; padding: 48px 20px 36px; }
+.report-intro__surface {
+  position: relative; overflow: hidden;
+  max-width: 1000px; margin: 0 auto;
+  padding: 48px 32px;
+  background: var(--page-brand-soft);
+  border: 1px solid var(--page-border);
+  border-radius: 12px;
+}
+.report-intro__surface::before {
+  content: ""; position: absolute; z-index: 0;
+  width: 250px; height: 250px; right: -100px; top: -120px;
+  background: #D6EDE6; border-radius: 999px; pointer-events: none;
+}
+.report-intro__content { position: relative; z-index: 1; max-width: 46rem; }
+h1 { margin: 0; font-size: 1.8rem; line-height: 1.25; font-weight: 700; color: var(--page-brand-active); }
+.report-intro__summary { margin: 16px 0 0; font-size: 1.05rem; color: var(--page-text-secondary); }
+.report-intro__meta { margin: 12px 0 0; font-size: 0.875rem; color: var(--page-text-muted); }
+
+.page__content { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+
+nav.toc {
+  margin: 24px 0 32px;
+  padding: 20px 24px 16px;
+  background: var(--page-surface);
+  border: 1px solid var(--page-border);
+  border-radius: 12px;
+}
+nav.toc h2 { margin: 0 0 12px; font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.08em; color: var(--page-text-muted); }
+nav.toc ol { margin: 0; padding-left: 20px; display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 6px 24px; }
+nav.toc li { font-size: 0.95rem; }
+nav.toc a { color: var(--page-brand); text-decoration: none; }
+nav.toc a:hover { text-decoration: underline; }
+
+section.chapter { margin: 40px 0; }
+h2 {
+  font-size: 1.5rem; font-weight: 700;
+  color: var(--page-text);
+  margin: 0 0 20px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--page-brand);
+  display: flex; align-items: center; gap: 10px;
+}
+h2 .chap-num {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px;
+  background: var(--page-brand);
+  color: #fff;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+h3 { font-size: 1.15rem; font-weight: 700; margin: 28px 0 12px; color: var(--page-text); }
+h4 { font-size: 1rem; font-weight: 700; margin: 20px 0 8px; color: var(--page-text-secondary); }
+p { margin: 8px 0; }
+
+.callout {
+  padding: 14px 18px;
+  border-radius: 8px;
+  margin: 16px 0;
+  font-size: 0.95rem;
+  border-left: 4px solid;
+}
+.callout.warn { background: #FFF9DB; border-color: var(--warning); }
+.callout.danger { background: #FFE3E3; border-color: var(--danger); }
+.callout.tip { background: #EAF6F2; border-color: var(--success); }
+.callout.info { background: #E7F5FF; border-color: var(--accent2); }
+.callout strong { display: block; margin-bottom: 4px; }
+
+pre {
+  background: var(--code-bg);
+  color: var(--code-text);
+  padding: 16px 20px;
+  border-radius: 8px;
+  overflow-x: auto;
+  font-family: 'JetBrains Mono', 'Consolas', monospace;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  margin: 12px 0;
+}
+code {
+  font-family: 'JetBrains Mono', 'Consolas', monospace;
+  font-size: 0.875em;
+  background: var(--page-surface-muted);
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: var(--page-brand-active);
+}
+pre code { background: none; padding: 0; color: inherit; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: 0.9375rem;
+}
+th, td {
+  border: 1px solid var(--page-border);
+  padding: 10px 14px;
+  text-align: left;
+  vertical-align: top;
+}
+th { background: var(--page-surface); font-weight: 700; color: var(--page-text); }
+tr:nth-child(even) td { background: #F7F9FC; }
+
+.diary-entry {
+  border: 1px solid var(--page-border);
+  border-radius: 10px;
+  margin: 20px 0;
+  overflow: hidden;
+  background: var(--page-surface);
+}
+.diary-entry__head {
+  padding: 12px 18px;
+  background: var(--page-surface);
+  border-bottom: 1px solid var(--page-border);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.diary-entry__title { font-weight: 700; color: var(--page-text); }
+.badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: var(--radius-full, 999px);
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: var(--page-surface-muted);
+  color: var(--page-text-muted);
+}
+.badge--danger { background: #FFE3E3; color: #991B1B; }
+.badge--warn { background: #FFF9DB; color: #92400E; }
+.badge--ok { background: #E6F7ED; color: #0F5132; }
+.badge--brand { background: var(--page-brand-soft); color: var(--page-brand-active); }
+.diary-entry__body {
+  padding: 16px 18px;
+  background: #fff;
+}
+.diary-entry__body h5 {
+  margin: 14px 0 6px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--page-text-muted);
+  letter-spacing: 0.03em;
+}
+.diary-entry__body h5:first-child { margin-top: 0; }
+.diary-entry__body ul { margin: 4px 0 8px; padding-left: 18px; }
+
+@media (max-width: 768px) {
+  nav.toc ol { grid-template-columns: 1fr; }
+  .report-intro { padding: 32px 12px 24px; }
+  .report-intro__surface { padding: 32px 20px; }
+  h1 { font-size: 1.4rem; }
+}
+
+.svg-scroll{width:100%;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;margin:8px 0 4px}
+.svg-scroll::-webkit-scrollbar{height:8px}
+.svg-scroll::-webkit-scrollbar-thumb{background:#CFD9D5;border-radius:4px}
+.fig-topology{margin:20px 0;padding:14px;background:var(--page-surface, #F6F8F7);border:1px solid var(--page-border, #D8E1DE);border-radius:10px}
+.fig-caption{font-weight:700;font-size:.92rem;color:var(--page-text, #16211E);margin-bottom:4px}
+</style>
+</head>
+<body>
+<div class="report-intro">
+  <div class="report-intro__surface">
+    <div class="report-intro__content">
+      <h1>网络·设备调试与运维手册</h1>
+      <p class="report-intro__summary">
+        面向欧普照明智控项目现场调试与运维人员。从Windows笔记本出发，覆盖网络连通性排查、
+        边缘服务器Linux诊断、硬件故障处理、DALI/蓝牙/睿壹三套控制体系的调试要点，
+        最后附常见故障速查表，遇到问题先查表、再按步骤走。
+      </p>
+      <p class="report-intro__meta">
+        适用体系：欧普睿壹智控（OBUS/SigMesh/DALI）· 格兰思贝自组网 · 工业/商业照明项目 · 本地部署边缘服务器
+      </p>
+    </div>
+  </div>
+</div>
+
+
+<div class="page__content">
+
+<main>
+<nav class="toc" aria-label="目录">
+        <h2>目录（共 26 章）</h2>
+
+        <h3 style="margin:16px 0 8px;font-size:0.95rem;color:var(--page-text-muted);">第一部分 · 通用网络基础（第1-6章）</h3>
+        <ol style="margin-top:8px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));">
+        <li><a href="#ch1">1. 网络IP规划与划分</a></li>
+        <li><a href="#ch2">2. 组网方案与网络设备配置</a></li>
+        <li><a href="#ch3">3. Windows侧网络排查工具箱</a></li>
+        <li><a href="#ch4">4. Linux侧网络诊断大全</a></li>
+        <li><a href="#ch5">5. 网络故障分类与排查方案</a></li>
+        <li><a href="#ch6">6. 常见故障速查表</a></li>
+        </ol>
+
+        <h3 style="margin:16px 0 8px;font-size:0.95rem;color:#1F6FB2;">第二部分 · 欧普睿壹智控系统（第7-10章）</h3>
+        <ol style="margin-top:8px;">
+        <li><a href="#ch7">7. 边缘服务器Linux诊断</a></li>
+        <li><a href="#ch8">8. 服务器硬件故障排查（含ACPI）</a></li>
+        <li><a href="#ch9">9. 欧普睿壹智控系统调试排查</a></li>
+        <li><a href="#ch10">10. 欧普睿壹云平台操作与运维</a></li>
+        </ol>
+
+        <h3 style="margin:16px 0 8px;font-size:0.95rem;color:#D97706;">第三部分 · 格兰思贝自组网系统（第11-22章）</h3>
+        <ol style="margin-top:8px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));">
+        <li><a href="#ch11">11. 格兰思贝自组网系统与App入门</a></li>
+        <li><a href="#ch12">12. App主界面：区组号筛选与灯光控制</a></li>
+        <li><a href="#ch13">13. 设备搜索与定位</a></li>
+        <li><a href="#ch14">14. 设备配置：批量设参与一键设置</a></li>
+        <li><a href="#ch15">15. 设备编号：批量编地址与配组</a></li>
+        <li><a href="#ch16">16. 指哪配哪：现场配网核心入口</a></li>
+        <li><a href="#ch17">17. 工具箱与进阶参数详解</a></li>
+        <li><a href="#ch18">18. 常见操作流水（现场怎么做）</a></li>
+        <li><a href="#ch19">19. 故障排查</a></li>
+        <li><a href="#ch20">20. 自组网灯具调试全流程（官方手册）</a></li>
+        <li><a href="#ch21">21. 调试注意事项与避坑（官方手册）</a></li>
+        <li><a href="#ch22">22. 格兰思贝平台操作与上云对接</a></li>
+        </ol>
+
+        <h3 style="margin:16px 0 8px;font-size:0.95rem;color:#C0392B;">第四部分 · 附录·项目避坑日记（第23-26章）</h3>
+        <ol style="margin-top:8px;">
+        <li><a href="#ch23">23. 避坑日记使用说明</a></li>
+        <li><a href="#ch24">24. 避坑日记模板</a></li>
+        <li><a href="#ch25">25. 已沉淀的避坑案例</a></li>
+        <li><a href="#ch26">26. 避坑索引与检索</a></li>
+        </ol>
+
+        <div style="margin-top:16px;padding:10px 14px;background:var(--page-brand-soft, #EAF6F2);border-radius:6px;font-size:0.85rem;color:var(--page-brand-text, #075A42);">
+          <b>两套系统独立：</b>欧普睿壹智控系统（第7-10章）与格兰思贝自组网系统（第11-22章）是两套完全独立的体系，
+          协议不通、平台不同、配件不可互换。先确认项目用哪套，再看对应章节。
+          <br>方案设计与产品选型 → 见《<a href="1-照明方案与产品设计.html" style="color:var(--page-brand, #0F8A66);">1-照明方案与产品设计</a>》；项目管理与施工标准 → 见《<a href="3-项目管理与施工标准.html" style="color:var(--page-brand, #0F8A66);">3-项目管理与施工标准</a>》。
+        </div>
+      </nav>
+
+<section id="ch1">
+<h2><span class="chap-num">1</span>网络IP规划与划分</h2>
+
+
+<p>做照明项目前先把IP规划弄清楚，调试时能少走很多弯路。一个典型的工厂/园区照明项目，
+网络通常按以下逻辑划分。</p>
+
+<h3>1.1 为什么要划分VLAN</h3>
+
+<div class="callout info">
+  <strong>VLAN（虚拟局域网）的三个作用</strong>
+  <br><strong>1. 隔离广播域：</strong>照明设备的广播/组播流量不会影响办公网，反之亦然
+  <br><strong>2. 安全隔离：</strong>照明网和办公网分开，防止误操作或安全问题扩散
+  <br><strong>3. 排查方便：</strong>出问题先看是哪个VLAN的，快速缩小范围
+</div>
+
+<h3>1.2 典型项目IP规划方案</h3>
+
+<p>以一个厂区项目为例，推荐按以下方式规划：</p>
+
+<div class="ip-box">
+  <div class="ip-title">厂区照明项目推荐IP划分（192.168.x.0/24）</div>
+  <table style="font-size:0.85rem;margin:0">
+    <thead>
+      <tr><th>VLAN</th><th>网段</th><th>用途</th><th>可用IP数</th><th>网关</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><span class="vlan-tag green">VLAN 10</span></td><td>192.168.10.0/24</td><td>照明设备VLAN（灯具网关/传感器）</td><td>254</td><td>192.168.10.1</td></tr>
+      <tr><td><span class="vlan-tag">VLAN 20</span></td><td>192.168.20.0/24</td><td>边缘服务器/平台VLAN</td><td>254</td><td>192.168.20.1</td></tr>
+      <tr><td><span class="vlan-tag orange">VLAN 30</span></td><td>192.168.30.0/24</td><td>摄像头/安防VLAN</td><td>254</td><td>192.168.30.1</td></tr>
+      <tr><td><span class="vlan-tag red">VLAN 1</span></td><td>192.168.1.0/24</td><td>办公/管理VLAN（你的电脑）</td><td>254</td><td>192.168.1.1</td></tr>
+      <tr><td>—</td><td>10.0.0.0/8</td><td>设备回传/管理网（按需）</td><td>—</td><td>—</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h3>1.3 照明项目常用设备默认IP与端口</h3>
+
+<table>
+  <thead>
+    <tr><th>设备类型</th><th>默认IP</th><th>常用端口</th><th>说明</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>边缘服务器</td><td>192.168.1.100 / 192.168.20.10</td><td>22(SSH), 80/443(Web), 1883(MQTT)</td><td>项目常用地址</td></tr>
+    <tr><td>睿壹网关</td><td>192.168.1.110 或 DHCP</td><td>80(配置页), 47808(BACnet)</td><td>有线网关</td></tr>
+    <tr><td>蓝牙网关</td><td>DHCP获取</td><td>80, MQTT 1883</td><td>自组网云网关</td></tr>
+    <tr><td>DALI网关</td><td>192.168.1.x</td><td>厂商自定义</td><td>DALI转以太网</td></tr>
+    <tr><td>PoE交换机</td><td>192.168.1.253 / 192.168.0.1</td><td>80(Web), 23(Telnet), 22(SSH)</td><td>看品牌</td></tr>
+    <tr><td>工业交换机</td><td>192.168.1.1 / 192.168.0.1</td><td>80, 23, 22</td><td>各品牌不同</td></tr>
+    <tr><td>路由器/防火墙</td><td>192.168.1.1 / 192.168.0.1</td><td>80/443(Web), 22(SSH)</td><td>出口网关</td></tr>
+  </tbody>
+</table>
+
+<h3>1.4 IP地址计算速查</h3>
+
+<div class="callout tip">
+  <strong>快速判断两个IP在不在同一个网段</strong>
+  <br>看子网掩码，最常见的是 <code>/24</code>（即 255.255.255.0）—— 前3段相同就是同一网段。
+  <br>例：192.168.1.100 和 192.168.1.200 → 前3段相同，同一网段 ✅
+  <br>例：192.168.1.100 和 192.168.2.100 → 第3段不同，不是同一网段 ❌
+</div>
+
+<table>
+  <thead>
+    <tr><th>掩码长度</th><th>子网掩码</th><th>可用IP数</th><th>适用场景</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>/24</td><td>255.255.255.0</td><td>254</td><td>标准楼层/区域，最常用</td></tr>
+    <tr><td>/25</td><td>255.255.255.128</td><td>126</td><td>对半划分，较小区域</td></tr>
+    <tr><td>/26</td><td>255.255.255.192</td><td>62</td><td>小区域，设备较少</td></tr>
+    <tr><td>/22</td><td>255.255.252.0</td><td>1022</td><td>较大区域，设备多时用</td></tr>
+    <tr><td>/16</td><td>255.255.0.0</td><td>65534</td><td>大型园区（不推荐单VLAN这么大）</td></tr>
+  </tbody>
+</table>
+
+<h3>1.5 现场调试时获取IP信息的方法</h3>
+
+<pre><code><span class="cmd-comment">:: Windows - 看自己的IP、网关、DNS</span>
+ipconfig /all
+
+<span class="cmd-comment">:: Windows - 看自己在哪个VLAN（需要网卡驱动支持）</span>
+<span class="cmd-comment">:: 或直接看交换机端口配置</span>
+
+<span class="cmd-comment"># Linux - 看IP和子网</span>
+ip addr
+ip a    <span class="cmd-comment"># 简写</span>
+
+<span class="cmd-comment"># Linux - 看网关（默认路由）</span>
+ip route
+route -n
+
+<span class="cmd-comment"># 查看DNS</span>
+cat /etc/resolv.conf     <span class="cmd-comment"># Linux</span>
+ipconfig /all | findstr "DNS"  <span class="cmd-comment"># Windows</span></code></pre>
+
+<div class="callout warn">
+  <strong>调试时最常犯的IP错误</strong>
+  <br>1. <strong>IP冲突：</strong>两个设备设了同一个IP，表现为时而通时而不通 → 用arp -a查MAC确认
+  <br>2. <strong>网关设错：</strong>能ping同网段但ping不通外网/其他VLAN → 检查默认网关
+  <br>3. <strong>子网掩码设错：</strong>本来应该/24设成了/16，导致路由混乱
+  <br>4. <strong>VLAN划错口：</strong>交换机端口VLAN设错了，设备插上去拿不到IP
+  <br>5. <strong>DHCP地址池用完：</strong>设备太多，DHCP没地址可分了
+</div>
+
+</section>
+<section id="ch2">
+<h2><span class="chap-num">2</span>组网方案与网络设备配置</h2>
+
+<p>设备全部部署完之后，网络配置是决定系统能不能跑起来的关键一步。
+欧普照明智控系统主要有三大组网路线，每种方案在网络层面要做的事情不一样。
+本章按方案逐一讲解，从交换机到网关到终端设备，全流程配置操作。</p>
+
+<h3>2.1 有线组网方案（DALI + 以太网）</h3>
+
+<p><strong>适用场景：</strong>大型厂房、办公楼、地下车库等点位密集、要求稳定可靠的项目。
+DALI总线负责调光控制，以太网负责网关与平台通信。</p>
+
+<h4>2.1.1 网络拓扑结构</h4>
+
+<figure class="fig-topology">
+  <div class="fig-caption">图 2.1　典型有线组网拓扑（DALI 调光 + 以太网平台）</div>
+  <div class="svg-scroll">
+    <svg viewBox="0 0 980 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="核心-汇聚-楼层交换机与DALI网关接线拓扑" style="width:100%;height:auto;max-width:960px;background:#FDFEFE;border:1px solid #D8E1DE;border-radius:8px">
+      <defs>
+        <marker id="nwArr" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+          <path d="M0,0 L7,3 L0,6 Z" fill="#0F8A66"/>
+        </marker>
+        <linearGradient id="swG" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#0F8A66"/><stop offset="1" stop-color="#075A42"/>
+        </linearGradient>
+      </defs>
+
+      <!-- 边缘服务器 -->
+      <rect x="40" y="56" width="150" height="48" rx="7" fill="#F1F4F3" stroke="#0F8A66" stroke-width="2"/>
+      <text x="115" y="76" font-size="12.5" font-weight="700" fill="#075A42" text-anchor="middle">边缘服务器</text>
+      <text x="115" y="94" font-size="10" fill="#5F6E6A" text-anchor="middle">平台 / 中心</text>
+
+      <!-- 核心交换机 -->
+      <rect x="320" y="56" width="150" height="48" rx="7" fill="url(#swG)"/>
+      <text x="395" y="76" font-size="12.5" font-weight="700" fill="#fff" text-anchor="middle">核心交换机</text>
+      <text x="395" y="94" font-size="10" fill="#EAF6F2" text-anchor="middle">核心 / 汇聚</text>
+
+      <!-- 边缘->核心 -->
+      <line x1="190" y1="80" x2="318" y2="80" stroke="#0F8A66" stroke-width="3" marker-end="url(#nwArr)"/>
+      <text x="254" y="72" font-size="10" fill="#5F6E6A" text-anchor="middle">以太网</text>
+
+      <!-- 核心 -> 楼层PoE -->
+      <line x1="395" y1="104" x2="395" y2="180" stroke="#0F8A66" stroke-width="3" marker-end="url(#nwArr)"/>
+      <rect x="320" y="184" width="150" height="40" rx="7" fill="#F1F4F3" stroke="#0F8A66" stroke-width="2"/>
+      <text x="395" y="202" font-size="12" font-weight="700" fill="#075A42" text-anchor="middle">楼层 PoE 交换机</text>
+      <text x="395" y="218" font-size="10" fill="#5F6E6A" text-anchor="middle">VLAN / trunk / edge-port</text>
+
+      <!-- 楼层 -> DALI网关 (到网关旁) -->
+      <line x1="470" y1="204" x2="620" y2="204" stroke="#0F8A66" stroke-width="3" marker-end="url(#nwArr)"/>
+      <rect x="624" y="184" width="120" height="40" rx="7" fill="url(#swG)"/>
+      <text x="684" y="202" font-size="12" font-weight="700" fill="#fff" text-anchor="middle">DALI 网关</text>
+      <text x="684" y="218" font-size="10" fill="#EAF6F2" text-anchor="middle">PoE / DC 供电</text>
+
+      <!-- DALI 总线 -> 灯具 -->
+      <line x1="684" y1="224" x2="684" y2="300" stroke="#1F6FB2" stroke-width="3" marker-end="url(#nwArr)"/>
+      <text x="700" y="265" font-size="10.5" fill="#1F6FB2" font-weight="700">DALI 总线 DA+/DA- 两线无极性</text>
+
+      <!-- 灯具串联 -->
+      <line x1="684" y1="304" x2="760" y2="304" stroke="#1F6FB2" stroke-width="3" marker-end="url(#nwArr)"/>
+      <rect x="764" y="286" width="58" height="36" rx="6" fill="#E7F5FF" stroke="#1F6FB2" stroke-width="2"/>
+      <text x="793" y="303" font-size="11" fill="#1F6FB2" text-anchor="middle">灯具1</text>
+      <text x="793" y="317" font-size="9" fill="#5F6E6A" text-anchor="middle">DALI驱动</text>
+      <line x1="822" y1="304" x2="870" y2="304" stroke="#1F6FB2" stroke-width="3" marker-end="url(#nwArr)"/>
+      <rect x="874" y="286" width="58" height="36" rx="6" fill="#E7F5FF" stroke="#1F6FB2" stroke-width="2"/>
+      <text x="903" y="303" font-size="11" fill="#1F6FB2" text-anchor="middle">灯具2</text>
+      <text x="903" y="317" font-size="9" fill="#5F6E6A" text-anchor="middle">DALI驱动</text>
+      <text x="932" y="290" font-size="9" fill="#1F6FB2">…</text>
+      <text x="793" y="345" font-size="10" fill="#1F6FB2">自由拓扑：可手拉手 / 星型，禁止成环；每口 ≤64 台 / ≤300m</text>
+
+      <!-- 灯具强电 -->
+      <rect x="60" y="286" width="96" height="36" rx="6" fill="#FDF1EF" stroke="#E0A0A0" stroke-width="1.8"/>
+      <text x="108" y="303" font-size="10.5" fill="#B25E5E" text-anchor="middle">220V 强电 L/N</text>
+      <text x="108" y="317" font-size="9" fill="#C08585" text-anchor="middle">另敷，与总线分开</text>
+      <line x1="156" y1="304" x2="764" y2="304" stroke="#E0A0A0" stroke-width="1.5" stroke-dasharray="4,3"/>
+      <line x1="156" y1="304" x2="874" y2="304" stroke="#E0A0A0" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+      <!-- 底部说明 -->
+      <text x="40" y="470" font-size="11.5" fill="#5F6E6A">要点：网关 PoE/DC 通电 → 网线接交换机 → DALI+/DALI- 接 DALI 总线；交换机端口设 Access + 照明 VLAN、接网关端口开 PoE 并设为 edge-port。</text>
+    </svg>
+  </div>
+  <figcaption style="font-size:0.85rem;color:#5F6E6A;margin-top:8px">有线路由：核心 ↔ 汇聚 ↔ 楼层 PoE ↔ DALI 网关 ↔ DALI 总线（灯具驱动）</figcaption>
+</figure>
+
+<h4>2.1.2 交换机配置要点</h4>
+
+<p>项目中最常用的是<strong>PoE交换机</strong>（给网关/传感器供电）和<strong>工业交换机</strong>（环境恶劣场合）。
+不管什么品牌，核心配置项都是这几个：</p>
+
+<h5>① VLAN划分</h5>
+<pre><code><span class="cmd-comment"># 华为/H3C交换机通用配置逻辑（命令行示例，各品牌语法略有不同）</span>
+<span class="cmd-comment"># 创建VLAN</span>
+vlan 10
+ name ZM_LIGHT        <span class="cmd-comment"># 照明设备VLAN</span>
+vlan 20
+ name ZM_SERVER       <span class="cmd-comment"># 服务器VLAN</span>
+vlan 30
+ name ZM_CAMERA       <span class="cmd-comment"># 安防VLAN</span>
+
+<span class="cmd-comment"># 把端口加入对应VLAN（access模式，接终端设备）</span>
+interface GigabitEthernet0/1
+ port link-type access
+ port default vlan 10
+ poe enable            <span class="cmd-comment"># 开启PoE供电（接网关/AP时）</span>
+
+<span class="cmd-comment"># 上联口设为trunk，允许多个VLAN通过</span>
+interface GigabitEthernet0/24
+ port link-type trunk
+ port trunk allow-pass vlan 10 20 30</code></pre>
+
+<div class="callout tip">
+  <strong>VLAN规划原则</strong>
+  <br>• 照明网关/传感器单独一个VLAN，和办公网隔离
+  <br>• 服务器单独一个VLAN，方便做安全策略
+  <br>• 每个楼层/区域可以再细分VLAN（如VLAN11=1楼照明、VLAN12=2楼照明）
+  <br>• VLAN数量不多的话也可以全项目一个照明VLAN
+</div>
+
+<h5>② PoE供电配置</h5>
+
+<pre><code><span class="cmd-comment"># 开启PoE（全局）</span>
+poe enable
+
+<span class="cmd-comment"># 单个端口开启PoE</span>
+interface GigabitEthernet0/5
+ poe enable
+ poe max-power 30000    <span class="cmd-comment"># 最大供电功率30W（按需设置）</span>
+
+<span class="cmd-comment"># 查看PoE状态</span>
+display poe power-state interface GigabitEthernet0/5
+show poe interface gi0/5       <span class="cmd-comment"># 其他品牌</span></code></pre>
+
+<div class="callout warn">
+  <strong>PoE功率预算很重要！</strong>
+  <br>先算清楚所有PoE设备的总功率，不能超过交换机PoE总功率预算。
+  <br>例：24口PoE交换机总功率370W，接20个网关（每个15W）= 300W ✓
+  <br>如果接满24个15W设备 = 360W，接近上限，留余量更安全。
+</div>
+
+<h5>③ STP生成树（防环路）</h5>
+
+<pre><code><span class="cmd-comment"># 全局开启STP/RSTP/MSTP（防止网络环路导致广播风暴）</span>
+stp mode rstp          <span class="cmd-comment"># 快速生成树，比传统STP收敛快</span>
+stp enable
+
+<span class="cmd-comment"># 接终端设备的端口设为边缘端口（不参与STP计算，加速接入）</span>
+interface GigabitEthernet0/1 to GigabitEthernet0/20
+ stp edged-port enable
+
+<span class="cmd-comment"># 查看STP状态</span>
+display stp brief
+show spanning-tree</code></pre>
+
+<h5>④ DHCP Snooping（防私接DHCP）</h5>
+<pre><code><span class="cmd-comment"># 开启DHCP Snooping，防止用户私接路由器导致IP混乱</span>
+dhcp-snooping enable
+interface GigabitEthernet0/24    <span class="cmd-comment"># 上联口（接DHCP服务器方向）</span>
+ dhcp-snooping trust</code></pre>
+
+<h4>2.1.3 DALI网关配置流程</h4>
+
+<ol class="step-list">
+  <li><strong>物理连接：</strong>网关通电（PoE或DC电源），网线接交换机，DALI总线接DALI+ / DALI-端子。</li>
+  <li><strong>获取IP：</strong>默认DHCP获取IP，在交换机后台或路由器DHCP列表里找网关IP。或用厂商搜索工具（如OP搜索工具）扫描同网段设备。</li>
+  <li><strong>登录配置页：</strong>浏览器输入网关IP，默认账号密码看说明书（通常admin/admin）。</li>
+  <li><strong>网络配置：</strong>
+    <ul>
+      <li>IP模式：DHCP或静态IP（推荐静态，避免地址变化）</li>
+      <li>子网掩码、网关、DNS：按项目规划填写</li>
+      <li>服务器地址：填入边缘服务器IP或云平台地址</li>
+      <li>端口号：MQTT默认1883，按实际情况修改</li>
+    </ul>
+  </li>
+  <li><strong>DALI配置：</strong>
+    <ul>
+      <li>进入DALI配置页面，扫描总线上的驱动设备</li>
+      <li>分配短地址（0-63，每盏灯唯一）</li>
+      <li>配置组地址和场景</li>
+      <li>测试单灯调光是否正常</li>
+    </ul>
+  </li>
+  <li><strong>确认在线：</strong>保存配置后，看网关状态灯，或在平台上看设备是否上线。</li>
+</ol>
+
+<h4>2.1.4 有线组网常见网络问题</h4>
+
+<table>
+  <thead>
+    <tr><th>现象</th><th>排查方向</th><th>解决</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>网关搜不到 / IP获取失败</td>
+      <td>交换机VLAN划错了？PoE供电了吗？DHCP开了吗？</td>
+      <td>检查端口VLAN、确认PoE供电、手动设静态IP测试</td>
+    </tr>
+    <tr>
+      <td>网关能ping通但平台显示离线</td>
+      <td>服务器地址/端口设对了吗？防火墙拦了吗？MQTT通不通？</td>
+      <td>检查平台地址配置、测1883端口、看网关日志</td>
+    </tr>
+    <tr>
+      <td>DALI灯不响应</td>
+      <td>总线电压正常吗？地址分配成功了吗？线接反了？</td>
+      <td>测DALI电压11.5-22.5V、重新寻址、确认接线</td>
+    </tr>
+    <tr>
+      <td>整层灯都不在线</td>
+      <td>楼层交换机死机了？PoE过载保护了？网关挂了？</td>
+      <td>看交换机灯、测PoE输出、重启交换机/网关</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>2.2 蓝牙Mesh组网方案（睿壹SigMesh）</h3>
+
+<p><strong>适用场景：</strong>改造项目、布线困难的场所、需要灵活调整布局的区域。
+基于蓝牙SigMesh标准，网关负责接入以太网，灯具之间通过Mesh自组网通信。</p>
+
+<h4>2.2.1 网络拓扑结构</h4>
+
+<figure class="fig-topology">
+  <div class="fig-caption">图 2.2　蓝牙 Mesh 组网拓扑</div>
+  <div class="svg-scroll">
+    <svg viewBox="0 0 980 500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="蓝牙Mesh网关与灯具面板传感器节点互联拓扑" style="width:100%;height:auto;max-width:960px;background:#FDFEFE;border:1px solid #D8E1DE;border-radius:8px">
+      <defs>
+        <marker id="mshArr" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+          <path d="M0,0 L7,3 L0,6 Z" fill="#1F6FB2"/>
+        </marker>
+        <linearGradient id="mshSwG" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#0F8A66"/><stop offset="1" stop-color="#075A42"/>
+        </linearGradient>
+      </defs>
+
+      <!-- 上行链路: 服务器->核心->楼层->网关 -->
+      <rect x="40" y="52" width="120" height="40" rx="6" fill="#F1F4F3" stroke="#0F8A66" stroke-width="2"/>
+      <text x="100" y="76" font-size="12" font-weight="700" fill="#075A42" text-anchor="middle">边缘服务器</text>
+      <line x1="160" y1="72" x2="250" y2="72" stroke="#0F8A66" stroke-width="2.6" marker-end="url(#mshArr)"/>
+      <rect x="254" y="52" width="120" height="40" rx="6" fill="url(#mshSwG)"/>
+      <text x="314" y="76" font-size="12" font-weight="700" fill="#fff" text-anchor="middle">核心 / 汇聚交换机</text>
+      <line x1="374" y1="72" x2="464" y2="72" stroke="#0F8A66" stroke-width="2.6" marker-end="url(#mshArr)"/>
+      <rect x="468" y="52" width="120" height="40" rx="6" fill="#F1F4F3" stroke="#0F8A66" stroke-width="2"/>
+      <text x="528" y="76" font-size="12" font-weight="700" fill="#075A42" text-anchor="middle">楼层交换机</text>
+      <line x1="588" y1="72" x2="700" y2="72" stroke="#0F8A66" stroke-width="2.6" marker-end="url(#mshArr)"/>
+      <text x="714" y="64" font-size="10" fill="#5F6E6A">以太网</text>
+
+      <!-- Mesh网关 -->
+      <rect x="700" y="48" width="130" height="48" rx="7" fill="#1F6FB2"/>
+      <text x="765" y="68" font-size="12.5" font-weight="700" fill="#fff" text-anchor="middle">Mesh 网关</text>
+      <text x="765" y="86" font-size="9.5" fill="#DFF2FF" text-anchor="middle">以太网 + 蓝牙</text>
+
+      <!-- 网关下到mesh区域 -->
+      <line x1="765" y1="96" x2="765" y2="168" stroke="#1F6FB2" stroke-width="3" marker-end="url(#mshArr)"/>
+      <text x="780" y="130" font-size="10" fill="#1F6FB2">蓝牙</text>
+
+      <!-- Mesh 节点群（多节点网状互联） -->
+      <!-- 节点A 灯具 -->
+      <circle cx="300" cy="300" r="34" fill="#E7F5FF" stroke="#1F6FB2" stroke-width="2.5"/>
+      <text x="300" y="295" font-size="11.5" font-weight="700" fill="#1F6FB2" text-anchor="middle">灯具</text>
+      <text x="300" y="311" font-size="9" fill="#1F6FB2" text-anchor="middle">Mesh节点</text>
+      <!-- 节点B 面板 -->
+      <circle cx="600" cy="260" r="34" fill="#E7F5FF" stroke="#1F6FB2" stroke-width="2.5"/>
+      <text x="600" y="255" font-size="11.5" font-weight="700" fill="#1F6FB2" text-anchor="middle">面板</text>
+      <text x="600" y="271" font-size="9" fill="#1F6FB2" text-anchor="middle">Mesh节点</text>
+      <!-- 节点C 传感器 -->
+      <circle cx="470" cy="400" r="34" fill="#E7F5FF" stroke="#1F6FB2" stroke-width="2.5"/>
+      <text x="470" y="395" font-size="11.5" font-weight="700" fill="#1F6FB2" text-anchor="middle">传感器</text>
+      <text x="470" y="411" font-size="9" fill="#1F6FB2" text-anchor="middle">Mesh节点</text>
+      <!-- 节点D 灯具 -->
+      <circle cx="760" cy="360" r="34" fill="#E7F5FF" stroke="#1F6FB2" stroke-width="2.5"/>
+      <text x="760" y="355" font-size="11.5" font-weight="700" fill="#1F6FB2" text-anchor="middle">灯具</text>
+      <text x="760" y="371" font-size="9" fill="#1F6FB2" text-anchor="middle">Mesh节点</text>
+      <!-- 节点E 灯具 -->
+      <circle cx="180" cy="360" r="34" fill="#E7F5FF" stroke="#1F6FB2" stroke-width="2.5"/>
+      <text x="180" y="355" font-size="11.5" font-weight="700" fill="#1F6FB2" text-anchor="middle">灯具</text>
+      <text x="180" y="371" font-size="9" fill="#1F6FB2" text-anchor="middle">Mesh节点</text>
+
+      <!-- mesh互联连线（多跳转发） -->
+      <line x1="765" y1="168" x2="300" y2="286" stroke="#BBD7EE" stroke-width="2"/>
+      <line x1="765" y1="168" x2="600" y2="246" stroke="#BBD7EE" stroke-width="2"/>
+      <line x1="765" y1="180" x2="760" y2="326" stroke="#BBD7EE" stroke-width="2"/>
+      <line x1="300" y1="286" x2="254" y2="356" stroke="#1F6FB2" stroke-width="2.5" marker-end="url(#mshArr)"/>
+      <line x1="300" y1="334" x2="470" y2="366" stroke="#1F6FB2" stroke-width="2.5" marker-end="url(#mshArr)"/>
+      <line x1="470" y1="366" x2="606" y2="286" stroke="#1F6FB2" stroke-width="2.5" marker-end="url(#mshArr)"/>
+      <line x1="760" y1="326" x2="726" y2="356" stroke="#1F6FB2" stroke-width="2.5" marker-end="url(#mshArr)"/>
+      <line x1="330" y1="286" x2="566" y2="254" stroke="#1F6FB2" stroke-width="2.5" marker-end="url(#mshArr)"/>
+
+      <text x="470" y="460" font-size="11.5" fill="#1F6FB2" font-weight="600">节点间多跳转发：任意两节点可经相邻节点接力通信，故障少走一路仍可连通</text>
+      <text x="470" y="482" font-size="10.5" fill="#5F6E6A">网关经以太网上行；Mesh 内灯具/面板/传感器自组网，免布线、适合改造补点（≤150 节点/网关）</text>
+    </svg>
+  </div>
+  <figcaption style="font-size:0.85rem;color:#5F6E6A;margin-top:8px">Mesh 网关接入以太网，灯具/面板/传感器经蓝牙 Mesh 自组网多跳通信</figcaption>
+</figure>
+
+<h4>2.2.2 交换机侧配置</h4>
+
+<p>Mesh网关通过以太网接入网络，交换机侧配置和有线DALI方案基本一样：</p>
+
+<ul>
+  <li><strong>VLAN：</strong>Mesh网关划入照明设备VLAN（VLAN10）</li>
+  <li><strong>PoE：</strong>如果网关支持PoE供电，开启对应端口PoE</li>
+  <li><strong>端口模式：</strong>Access口，PVID设为照明VLAN</li>
+  <li><strong>STP边缘端口：</strong>接网关的端口设为edged-port</li>
+</ul>
+
+<h4>2.2.3 Mesh网关配置</h4>
+
+<ol class="step-list">
+  <li><strong>网关上线：</strong>通电、插网线，等待网关启动（通常1-2分钟）。状态灯变绿/常亮表示正常。</li>
+  <li><strong>获取IP：</strong>DHCP自动获取，在交换机/路由器后台查看，或用厂商搜索工具。</li>
+  <li><strong>登录网关后台：</strong>浏览器输入IP，进入配置页面。</li>
+  <li><strong>网络配置：</strong>
+    <ul>
+      <li>IP：建议改静态IP，方便后续维护</li>
+      <li>服务器地址：平台IP + 端口（MQTT 1883 / 8883）</li>
+      <li>设备ID/密钥：按项目配置，用于平台鉴权</li>
+    </ul>
+  </li>
+  <li><strong>Mesh网络配置：</strong>
+    <ul>
+      <li>创建Mesh网络：设置网络名称（NetKey）、应用密钥（AppKey）</li>
+      <li>配置网关角色：通常设为Provisioner（配网节点）+ Proxy（代理节点）</li>
+      <li>记录好NetKey/AppKey，后续配灯要用到</li>
+    </ul>
+  </li>
+  <li><strong>设备配网（Provisioning）：</strong>
+    <ul>
+      <li>方式一：用手机APP蓝牙配网 — 打开APP → 扫描设备 → 逐个添加到网络 → 分配地址</li>
+      <li>方式二：用网关自动配网 — 灯具上电后自动被网关发现并加入（需支持）</li>
+      <li>方式三：批量导入 — 预配置的设备地址表导入网关</li>
+    </ul>
+  </li>
+  <li><strong>分组与场景：</strong>在平台上按区域分组，配置场景（亮度/色温组合）。</li>
+</ol>
+
+<h4>2.2.4 Mesh网络注意事项</h4>
+
+<div class="callout warn">
+  <strong>蓝牙Mesh网络规划要点</strong>
+  <br>• <strong>单网节点数：</strong>一个Mesh网络理论支持32767个节点，但睿壹 SigMesh 建议单网关不超过150个设备
+  <br>• <strong>网关覆盖：</strong>室内空旷30-50米，有遮挡减半。每2-3层楼放一个网关
+  <br>• <strong>节点密度：</strong>相邻灯具间距建议不超过10米，保证多跳路径冗余
+  <br>• <strong>多网关协同：</strong>大面积项目用多个网关，同一个Mesh网络内网关越多越稳定
+  <br>• <strong>2.4G干扰：</strong>避开WiFi 1/6/11信道附近的频率，蓝牙Mesh会自动跳频但干扰大了还是慢
+</div>
+
+<h4>2.2.5 常见问题排查</h4>
+
+<table>
+  <thead>
+    <tr><th>现象</th><th>排查方向</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>设备配网失败</td>
+      <td>设备是否上电？距离网关太远？已被加入其他网络？（先恢复出厂）</td>
+    </tr>
+    <tr>
+      <td>部分设备时离线时在线</td>
+      <td>Mesh路径不稳定，中间节点太少 → 加中继节点或调整位置</td>
+    </tr>
+    <tr>
+      <td>控制延迟大</td>
+      <td>跳数太多（建议不超过5跳，极限7跳）、干扰大、网关处理不过来</td>
+    </tr>
+    <tr>
+      <td>整网离线</td>
+      <td>网关断网了？先看网关在平台上在线不在线</td>
+    </tr>
+    <tr>
+      <td>设备搜不到</td>
+      <td>没进入配网模式？有些设备需要长按复位键或特定操作进入配网</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>2.3 交换机通用配置与运维</h3>
+
+<h4>2.3.1 必做的基础配置</h4>
+
+<pre><code><span class="cmd-comment"># 1. 修改管理密码（出厂密码一定要改！）</span>
+system-view
+ local-user admin
+  password simple 新密码
+  quit
+
+<span class="cmd-comment"># 2. 配置管理IP（远程管理用）</span>
+interface Vlanif 1
+ ip address 192.168.1.253 255.255.255.0
+quit
+ip route-static 0.0.0.0 0.0.0.0 192.168.1.1   <span class="cmd-comment"># 默认网关</span>
+
+<span class="cmd-comment"># 3. 开启必要的远程管理服务</span>
+telnet server enable       <span class="cmd-comment"># Telnet（不推荐，明文）</span>
+ssh server enable          <span class="cmd-comment"># SSH（推荐，加密）</span>
+
+<span class="cmd-comment"># 4. 保存配置（重要！断电不丢失）</span>
+save
+write memory               <span class="cmd-comment"># 部分品牌写法</span></code></pre>
+
+<h4>2.3.2 现场排查交换机常用命令</h4>
+
+<pre><code><span class="cmd-comment"># 查看设备基本信息</span>
+display version             <span class="cmd-comment"># 型号、固件版本、运行时间</span>
+display device              <span class="cmd-comment"># 设备状态</span>
+
+<span class="cmd-comment"># 查看端口状态</span>
+display interface brief     <span class="cmd-comment"># 所有端口状态总览（最常用）</span>
+display interface GigabitEthernet0/1   <span class="cmd-comment"># 单个端口详细信息</span>
+display interface description          <span class="cmd-comment"># 端口描述</span>
+
+<span class="cmd-comment"># 查看VLAN</span>
+display vlan                <span class="cmd-comment"># VLAN列表和端口成员</span>
+display port vlan           <span class="cmd-comment"># 各端口属于哪个VLAN</span>
+
+<span class="cmd-comment"># 查看MAC地址表（找设备在哪个口）</span>
+display mac-address
+display mac-address vlan 10
+display mac-address 0011-2233-4455
+
+<span class="cmd-comment"># 查看PoE状态</span>
+display poe information
+display poe power-state
+display poe interface
+
+<span class="cmd-comment"># 查看日志</span>
+display logbuffer           <span class="cmd-comment"># 系统日志</span>
+display trapbuffer          <span class="cmd-comment"># Trap告警</span>
+
+<span class="cmd-comment"># 测试用</span>
+ping 192.168.1.100          <span class="cmd-comment"># 从交换机ping设备</span>
+tracert 192.168.20.100      <span class="cmd-comment"># 追踪路由</span></code></pre>
+
+<h4>2.3.3 交换机常见故障</h4>
+
+<table>
+  <thead>
+    <tr><th>现象</th><th>可能原因</th><th>排查/解决</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>端口灯不亮</td>
+      <td>线坏了、设备没上电、端口坏了、端口被shutdown</td>
+      <td>换线/换口测试、display interface看状态、undo shutdown开启端口</td>
+    </tr>
+    <tr>
+      <td>端口频繁up/down</td>
+      <td>网线接触不良、双工模式不匹配、设备端不稳定</td>
+      <td>重做水晶头、强制速率双工模式、换端口</td>
+    </tr>
+    <tr>
+      <td>PoE设备不供电</td>
+      <td>PoE没开、功率超了、设备不支持PoE、网线线序错</td>
+      <td>display poe看状态、检查总功率预算、确认设备PoE标准</td>
+    </tr>
+    <tr>
+      <td>同VLAN不通</td>
+      <td>端口VLAN划错了、端口隔离开了、MAC地址学错了</td>
+      <td>display port vlan确认、display mac-address看学到没</td>
+    </tr>
+    <tr>
+      <td>交换机死机/无响应</td>
+      <td>硬件故障、固件bug、广播风暴</td>
+      <td>断电重启、升级固件、排查环路</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>2.4 项目交付时网络验收检查清单</h3>
+
+<ul class="checklist">
+  <li>所有交换机管理IP已配置，能远程登录管理</li>
+  <li>VLAN划分符合规划，端口分配正确</li>
+  <li>PoE功率有冗余，不会过载</li>
+  <li>STP/RSTP已开启，边缘端口配置正确</li>
+  <li>所有网关/服务器静态IP已设置，标签齐全</li>
+  <li>防火墙/安全组规则已配置，必要端口已放行</li>
+  <li>网络拓扑图已更新，IP地址表完整</li>
+  <li>所有设备账号密码已修改并记录</li>
+  <li>交换机配置已保存（save/write）</li>
+  <li>上行链路带宽满足需求，无拥塞</li>
+  <li>各VLAN之间访问控制符合要求（能通的通，该隔的隔）</li>
+  <li>DNS配置正确，域名解析正常</li>
+  <li>时间同步（NTP）已配置，设备时间准确</li>
+</ul>
+
+</section>
+<section id="ch3">
+<h2><span class="chap-num">3</span>Windows侧网络排查工具箱</h2>
+
+
+<p>现场调试90%的网络问题，用Windows自带的命令就能定位。不用装任何工具，<code>Win+R</code>
+输入 <code>cmd</code> 回车就能开始。</p>
+
+<h3>3.1 必背的8条命令</h3>
+
+<pre><code><span class="cmd-comment">:: 1. 查看本机IP、网关、DNS（先确认自己在哪）</span>
+ipconfig /all
+
+<span class="cmd-comment">:: 2. 测试目标是否通（最常用，先ping网关再ping服务器）</span>
+ping 192.168.1.1
+ping 192.168.1.100       <span class="cmd-comment">:: 边缘服务器IP</span>
+ping -t 192.168.1.100     <span class="cmd-comment">:: 持续ping，看有没有丢包（Ctrl+C停止）</span>
+
+<span class="cmd-comment">:: 3. 追踪路由路径，看卡在哪一跳</span>
+tracert 192.168.1.100
+tracert -d 8.8.8.8        <span class="cmd-comment">:: -d 不解析域名，更快</span>
+
+<span class="cmd-comment">:: 4. 检查端口通不通（服务在不在）</span>
+telnet 192.168.1.100 80   <span class="cmd-comment">:: 测HTTP端口（黑屏就是通的，Ctrl+]退出）</span>
+telnet 192.168.1.100 22   <span class="cmd-comment">:: 测SSH端口</span>
+
+<span class="cmd-comment">:: 5. PowerShell替代telnet（Win10/11推荐）</span>
+Test-NetConnection 192.168.1.100 -Port 80
+Test-NetConnection 192.168.1.100 -Port 22 -InformationLevel Detailed
+
+<span class="cmd-comment">:: 6. 查看ARP表（确认设备在不在同一个二层网络）</span>
+arp -a
+
+<span class="cmd-comment">:: 7. 查看本机端口占用（排查端口冲突）</span>
+netstat -ano | findstr ":80"
+netstat -ano | findstr ":1883"    <span class="cmd-comment">:: MQTT端口</span>
+
+<span class="cmd-comment">:: 8. 刷新DNS缓存（域名解析不对时用）</span>
+ipconfig /flushdns</code></pre>
+
+<h3>3.2 排查顺序（照做就行）</h3>
+
+<ol class="step-list">
+  <li><strong>先看自己：</strong><code>ipconfig</code> 确认IP和网关对不对。如果IP是 <code>169.254.x.x</code>，说明没拿到DHCP地址，先查网线/WiFi。</li>
+  <li><strong>ping 网关：</strong><code>ping 网关IP</code>。不通 → 物理链路问题（网线、交换机、WiFi信号）。</li>
+  <li><strong>ping 服务器：</strong>通 → 网络是好的，问题在服务或应用层。不通 → 走下一步。</li>
+  <li><strong>tracert 服务器：</strong>看在哪一跳超时。在第1跳就超时 → 网关问题；到某一跳后超时 → 中间路由或防火墙。</li>
+  <li><strong>测端口：</strong>ping通但系统登不上，用 <code>Test-NetConnection</code> 测80/443/22端口。端口不通 → 服务没启动或被防火墙拦了。</li>
+</ol>
+
+<div class="callout warn">
+  <strong>注意：ping 不通 ≠ 设备离线</strong>
+  很多服务器和网络设备禁了ICMP（ping）响应。ping不通时，先用telnet或Test-NetConnection
+  测具体端口，端口通的话设备就是好的，只是禁了ping而已。
+</div>
+
+
+<h3>3.3 进阶网络诊断命令</h3>
+
+<pre><code><span class="cmd-comment">:: 查看本机ARP缓存（找同网段设备）</span>
+arp -a
+arp -a 192.168.1.100    <span class="cmd-comment">:: 查看某个IP的MAC地址</span>
+
+<span class="cmd-comment">:: 查看路由表</span>
+route print
+route print 192.168.*     <span class="cmd-comment">:: 过滤特定网段路由</span>
+
+<span class="cmd-comment">:: 查看本机所有网络连接</span>
+netstat -ano               <span class="cmd-comment">:: 所有连接+PID</span>
+netstat -ano | findstr "LISTENING"   <span class="cmd-comment">:: 只看监听的端口</span>
+netstat -ano | findstr "ESTABLISHED" <span class="cmd-comment">:: 只看已建立的连接</span>
+
+<span class="cmd-comment">:: DNS诊断</span>
+nslookup api.opple.com
+nslookup api.opple.com 8.8.8.8   <span class="cmd-comment">:: 指定DNS服务器查询</span>
+ping -a 192.168.1.100           <span class="cmd-comment">:: 反向解析IP的主机名</span>
+
+<span class="cmd-comment">:: 测试MTU（最大传输单元）</span>
+ping -l 1472 -f 192.168.1.100   <span class="cmd-comment">:: -l 包大小 -f 不分片，1500-28=1472</span>
+
+<span class="cmd-comment">:: 查看网卡速度和状态</span>
+wmic nic where "NetConnectionID!=null" get Name,Speed,NetConnectionID
+netsh interface show interface
+
+<span class="cmd-comment">:: 持续ping并记录时间戳（看什么时候断的）</span>
+ping -t 192.168.1.100 | foreach {"{0} - {1}" -f (Get-Date), $_}
+
+<span class="cmd-comment">:: PowerShell 测试端口（比telnet好用）</span>
+Test-NetConnection 192.168.1.100 -Port 80
+Test-NetConnection 192.168.1.100 -Port 1883 -InformationLevel Detailed
+tnc 192.168.1.100 -Port 22     <span class="cmd-comment">:: 简写</span>
+
+<span class="cmd-comment">:: PowerShell 扫描一段端口</span>
+1..100 | % { Test-NetConnection -Port $_ -ComputerName 192.168.1.100 -InformationLevel Quiet -WarningAction SilentlyContinue }
+
+<span class="cmd-comment">:: 查看WiFi信号强度和信息</span>
+netsh wlan show interfaces
+netsh wlan show networks mode=bssid   <span class="cmd-comment">:: 扫描附近WiFi</span>
+
+<span class="cmd-comment">:: 刷新网络（改完配置后用）</span>
+ipconfig /release        <span class="cmd-comment">:: 释放IP</span>
+ipconfig /renew          <span class="cmd-comment">:: 重新获取IP</span>
+ipconfig /flushdns       <span class="cmd-comment">:: 刷新DNS缓存</span>
+netsh winsock reset      <span class="cmd-comment">:: 重置Winsock（网络异常时终极手段）</span></code></pre>
+
+<h3>3.4 常见端口速查</h3>
+
+<table>
+  <thead>
+    <tr><th>端口</th><th>协议</th><th>用途</th><th>照明项目中常见于</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>21</td><td>FTP</td><td>文件传输</td><td>固件升级、配置文件上传</td></tr>
+    <tr><td>22</td><td>SSH</td><td>远程登录</td><td>服务器、交换机、网关调试</td></tr>
+    <tr><td>23</td><td>Telnet</td><td>远程登录（明文）</td><td>老交换机、工业设备</td></tr>
+    <tr><td>53</td><td>DNS</td><td>域名解析</td><td>所有需要域名访问的设备</td></tr>
+    <tr><td>80</td><td>HTTP</td><td>网页</td><td>设备配置页面、平台</td></tr>
+    <tr><td>443</td><td>HTTPS</td><td>加密网页</td><td>云平台、加密管理</td></tr>
+    <tr><td>1883</td><td>MQTT</td><td>消息推送</td><td>物联网设备上报、智控系统</td></tr>
+    <tr><td>8883</td><td>MQTTS</td><td>加密MQTT</td><td>加密的物联网通信</td></tr>
+    <tr><td>502</td><td>Modbus TCP</td><td>工业通信</td><td>BAS楼宇系统对接</td></tr>
+    <tr><td>47808</td><td>BACnet/IP</td><td>楼宇自动化</td><td>楼宇自控系统对接</td></tr>
+    <tr><td>3306</td><td>MySQL</td><td>数据库</td><td>服务器本地数据库</td></tr>
+    <tr><td>5432</td><td>PostgreSQL</td><td>数据库</td><td>服务器本地数据库</td></tr>
+    <tr><td>6379</td><td>Redis</td><td>缓存</td><td>平台缓存</td></tr>
+    <tr><td>9000/9001</td><td>TCP</td><td>平台Web服务</td><td>欧普智控平台常用</td></tr>
+  </tbody>
+</table>
+
+<h3>3.5 SSH登录边缘服务器</h3>
+
+<p>Windows 10/11 自带OpenSSH客户端，直接在cmd里用：</p>
+
+<pre><code><span class="cmd-comment">:: 基本登录</span>
+ssh root@192.168.1.100
+ssh admin@192.168.1.100 -p 2222    <span class="cmd-comment">:: -p 指定端口</span>
+
+<span class="cmd-comment">:: 如果连不上，先看是不是端口问题</span>
+Test-NetConnection 192.168.1.100 -Port 22</code></pre>
+
+<div class="callout tip">
+  <strong>SSH登录失败的三个常见原因</strong>
+  <br>1. <strong>Connection refused</strong> → 服务器上sshd服务没开或端口不对
+  <br>2. <strong>Connection timed out</strong> → 网络不通或被防火墙拦截
+  <br>3. <strong>Permission denied</strong> → 用户名/密码错了，或密钥不匹配
+</div>
+
+</section>
+<section id="ch4">
+<h2><span class="chap-num">4</span>Linux侧网络诊断大全</h2>
+
+
+<p>Linux里查网络的工具比Windows丰富得多。按"从整体到细节"的顺序来。</p>
+
+<h3>4.1 网络接口状态</h3>
+
+<pre><code><span class="cmd-comment"># 看所有网卡的IP和状态（最常用）</span>
+ip addr
+ip a            <span class="cmd-comment"># 简写</span>
+ip -4 addr      <span class="cmd-comment"># 只看IPv4</span>
+ip -6 addr      <span class="cmd-comment"># 只看IPv6</span>
+
+<span class="cmd-comment"># 看网卡链路状态（up/down、速度、双工模式）</span>
+ip link show
+ip link show eth0    <span class="cmd-comment"># 只看某张网卡</span>
+
+<span class="cmd-comment"># 看网卡统计（收发包、错误、丢包）</span>
+ip -s link show eth0
+ip -stats link show eth0
+
+<span class="cmd-comment"># 老版本命令（也常用）</span>
+ifconfig
+ifconfig eth0
+netstat -i            <span class="cmd-comment"># 网卡统计</span></code></pre>
+
+<div class="callout warn">
+  <strong>网卡异常的判断</strong>
+  <br>• <code>state UP</code> 正常 / <code>state DOWN</code> 线没插好或网卡禁用
+  <br>• RX/TX errors > 0 → 网线质量差、干扰、双工模式不匹配
+  <br>• RX/TX dropped > 0 → 缓冲区满了、流量过大
+  <br>• 速度不对（本该1G只显示100M）→ 网线/端口协商失败
+</div>
+
+<h3>4.2 路由与网关</h3>
+
+<pre><code><span class="cmd-comment"># 查看路由表</span>
+ip route
+ip r            <span class="cmd-comment"># 简写</span>
+route -n        <span class="cmd-comment"># 老命令，数字显示不解析</span>
+netstat -rn     <span class="cmd-comment"># 同上</span>
+
+<span class="cmd-comment"># 查看默认网关</span>
+ip route show default
+route -n | grep "^0.0.0.0"
+
+<span class="cmd-comment"># 添加/删除路由（临时，重启失效）</span>
+ip route add 192.168.30.0/24 via 192.168.20.1 dev eth0
+ip route del 192.168.30.0/24
+
+<span class="cmd-comment"># 查看走哪条路到某个IP</span>
+ip route get 8.8.8.8
+ip route get 192.168.30.100</code></pre>
+
+<h3>4.3 端口与连接</h3>
+
+<pre><code><span class="cmd-comment"># 查看所有监听端口（最常用）</span>
+ss -tlnp           <span class="cmd-comment"># TCP监听，数字显示，显示进程</span>
+ss -ulnp           <span class="cmd-comment"># UDP监听</span>
+ss -tulnp          <span class="cmd-comment"># TCP+UDP都看</span>
+
+<span class="cmd-comment"># 查看所有已建立的连接</span>
+ss -tnp            <span class="cmd-comment"># TCP已建立连接</span>
+ss -tanp           <span class="cmd-comment"># TCP所有状态（监听+已建立+等待）</span>
+
+<span class="cmd-comment"># 看某个端口被谁占用</span>
+ss -tlnp | grep :80
+lsof -i :80        <span class="cmd-comment"># 需要安装lsof</span>
+fuser 80/tcp       <span class="cmd-comment"># 另一种方式</span>
+
+<span class="cmd-comment"># 看某个进程的连接</span>
+ss -tnp | grep nginx
+
+<span class="cmd-comment"># 统计各种状态的连接数</span>
+ss -tan | awk '{print $1}' | sort | uniq -c | sort -rn
+
+<span class="cmd-comment"># 老版本netstat（也很常见）</span>
+netstat -tlnp
+netstat -anp | grep 1883</code></pre>
+
+<h3>4.4 网络连通性测试</h3>
+
+<pre><code><span class="cmd-comment"># ping测试</span>
+ping 192.168.1.1
+ping -c 4 192.168.1.1    <span class="cmd-comment"># 只发4个包（Windows默认就是4个）</span>
+ping -i 0.5 192.168.1.1  <span class="cmd-comment"># 0.5秒发一个（更快）</span>
+ping -s 1472 -M do 192.168.1.1  <span class="cmd-comment"># 测MTU，不分片</span>
+
+<span class="cmd-comment"># 路由追踪</span>
+traceroute 192.168.30.100
+traceroute -n 8.8.8.8    <span class="cmd-comment"># 不解析域名，更快</span>
+tracepath 8.8.8.8        <span class="cmd-comment"># 不需要root权限</span>
+mtr 192.168.1.100        <span class="cmd-comment"># 动态追踪，比traceroute强（需安装）</span>
+
+<span class="cmd-comment"># 端口测试</span>
+telnet 192.168.1.100 80
+nc -zv 192.168.1.100 1883    <span class="cmd-comment"># netcat测试，推荐</span>
+nc -zv -w 2 192.168.1.100 1-100  <span class="cmd-comment"># 扫一段端口</span>
+curl -v telnet://192.168.1.100:22  <span class="cmd-comment"># 用curl测端口</span>
+
+<span class="cmd-comment"># HTTP/HTTPS测试</span>
+curl -I http://192.168.1.100       <span class="cmd-comment"># 只看响应头</span>
+curl -v http://192.168.1.100/api   <span class="cmd-comment"># 看详细过程</span>
+curl -k https://192.168.1.100      <span class="cmd-comment"># 忽略证书验证</span>
+wget http://192.168.1.100/test.zip <span class="cmd-comment"># 下载测试速度</span>
+
+<span class="cmd-comment"># DNS测试</span>
+nslookup api.opple.com
+dig api.opple.com
+dig @8.8.8.8 api.opple.com   <span class="cmd-comment"># 指定DNS服务器</span>
+dig -x 192.168.1.100         <span class="cmd-comment"># 反向解析</span>
+host 192.168.1.100           <span class="cmd-comment"># 另一种反向解析</span></code></pre>
+
+<h3>4.5 ARP与MAC地址</h3>
+
+<pre><code><span class="cmd-comment"># 查看ARP缓存</span>
+arp -a
+ip neigh            <span class="cmd-comment"># 新命令，更详细</span>
+ip -s neigh         <span class="cmd-comment"># 带统计</span>
+
+<span class="cmd-comment"># 清空ARP缓存</span>
+ip neigh flush all
+
+<span class="cmd-comment"># 查看MAC地址</span>
+ip link show eth0 | grep link/ether
+cat /sys/class/net/eth0/address
+
+<span class="cmd-comment"># 扫描同网段存活设备（需要arping或nmap）</span>
+arping -I eth0 192.168.1.100     <span class="cmd-comment"># 二层ping，IP冲突检测神器</span>
+nmap -sn 192.168.1.0/24           <span class="cmd-comment"># 扫描整个网段（需安装nmap）</span></code></pre>
+
+<h3>4.6 防火墙规则</h3>
+
+<pre><code><span class="cmd-comment"># iptables（通用）</span>
+iptables -L -n -v              <span class="cmd-comment"># 查看所有规则，带计数器</span>
+iptables -L INPUT -n -v        <span class="cmd-comment"># 只看INPUT链</span>
+iptables -t nat -L -n -v       <span class="cmd-comment"># 看NAT表</span>
+
+<span class="cmd-comment"># firewalld（CentOS/RHEL）</span>
+firewall-cmd --state           <span class="cmd-comment"># 运行状态</span>
+firewall-cmd --list-all        <span class="cmd-comment"># 所有规则</span>
+firewall-cmd --list-ports      <span class="cmd-comment"># 开放的端口</span>
+firewall-cmd --list-services   <span class="cmd-comment"># 开放的服务</span>
+
+<span class="cmd-comment"># ufw（Ubuntu）</span>
+ufw status
+ufw status verbose
+
+<span class="cmd-comment"># 临时关防火墙（排查用，记得开回来）</span>
+systemctl stop firewalld       <span class="cmd-comment"># CentOS</span>
+ufw disable                    <span class="cmd-comment"># Ubuntu</span>
+iptables -F                    <span class="cmd-comment"># 清空所有规则（危险，只在调试时用）</span></code></pre>
+
+<h3>4.7 抓包分析（高级）</h3>
+
+<pre><code><span class="cmd-comment"># tcpdump抓包</span>
+tcpdump -i any                              <span class="cmd-comment"># 抓所有网卡的包</span>
+tcpdump -i eth0                             <span class="cmd-comment"># 只抓eth0</span>
+tcpdump -i eth0 port 1883                   <span class="cmd-comment"># 只抓MQTT端口</span>
+tcpdump -i eth0 host 192.168.1.50           <span class="cmd-comment"># 只抓和某个IP的通信</span>
+tcpdump -i eth0 src 192.168.1.50            <span class="cmd-comment"># 只抓源IP</span>
+tcpdump -i eth0 dst 192.168.1.100           <span class="cmd-comment"># 只抓目的IP</span>
+tcpdump -i eth0 -c 100 -w /tmp/cap.pcap     <span class="cmd-comment"># 抓100个包存文件</span>
+tcpdump -r /tmp/cap.pcap                    <span class="cmd-comment"># 读取保存的抓包文件</span>
+tcpdump -i eth0 -nn -s0 -X port 80          <span class="cmd-comment"># 显示包内容（-X）</span>
+
+<span class="cmd-comment"># 常用过滤表达式组合</span>
+tcpdump -i eth0 "tcp port 80 and host 192.168.1.50"
+tcpdump -i eth0 "icmp or arp"
+tcpdump -i eth0 "udp port 53"               <span class="cmd-comment"># DNS查询</span></code></pre>
+
+<div class="callout tip">
+  <strong>抓包技巧</strong>
+  <br>• 现场调试时先抓包存文件（<code>-w</code>），带回办公室用Wireshark慢慢分析
+  <br>• <code>-s0</code> 抓完整包（默认只抓68字节），但文件大
+  <br>• <code>-c</code> 限制数量，避免抓太大
+  <br>• 先用 <code>port</code> 和 <code>host</code> 过滤，减少无关包
+</div>
+
+<h3>4.8 网络性能测试</h3>
+
+<pre><code><span class="cmd-comment"># 带宽测试（iperf3）</span>
+<span class="cmd-comment"># 服务端：</span>
+iperf3 -s
+<span class="cmd-comment"># 客户端：</span>
+iperf3 -c 192.168.1.100 -t 10    <span class="cmd-comment"># 测10秒</span>
+iperf3 -c 192.168.1.100 -R       <span class="cmd-comment"># 反向测试（服务端→客户端）</span>
+
+<span class="cmd-comment"># 网速测试（下载测速）</span>
+wget -O /dev/null http://speedtest.xxx.com/test.zip
+curl -o /dev/null http://speedtest.xxx.com/test.zip
+
+<span class="cmd-comment"># 延迟抖动测试</span>
+ping -i 0.2 -c 100 192.168.1.100 | tail -5    <span class="cmd-comment"># 看mdev值就是抖动</span>
+mtr --report 192.168.1.100                     <span class="cmd-comment"># 逐跳延迟和丢包率</span></code></pre>
+
+</section>
+<section id="ch5">
+<h2><span class="chap-num">5</span>网络故障分类与排查方案</h2>
+
+
+<p>把网络故障按现象分类，每一类对应一套标准排查流程。遇到问题直接翻到对应章节照着做。</p>
+
+<h3>5.1 完全不通类（ping不通）</h3>
+
+<div class="flow-diagram">
+  <strong>排查流程：</strong>
+  <br>电脑自己IP对不对？ <span class="arrow">→</span> ping网关通不通？ <span class="arrow">→</span> ping目标通不通？
+  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓不对&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓不通&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓不通
+  <br>&nbsp;&nbsp;查IP/网线/DHCP&nbsp;&nbsp;&nbsp;&nbsp;查交换机/VLAN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;查路由/防火墙
+</div>
+
+<h4>排查步骤：</h4>
+
+<ol class="step-list">
+  <li><strong>先查自己：</strong><code>ipconfig</code> 确认IP地址。169.254.x.x = DHCP失败；0.0.0.0 = 网卡没起来。</li>
+  <li><strong>ping 127.0.0.1：</strong>ping不通说明本机TCP/IP协议栈有问题，重启网卡或重装驱动。</li>
+  <li><strong>ping 网关：</strong>不通 → 问题在本机到网关之间（网线、交换机、VLAN、无线信号）。</li>
+  <li><strong>ping 同网段其他设备：</strong>都不通 → 你自己的问题；有的通有的不通 → 对方设备或配置问题。</li>
+  <li><strong>ping 其他网段：</strong>同网段通但跨网段不通 → 网关/路由/防火墙问题。</li>
+  <li><strong>tracert 目标：</strong>看卡在哪一跳，定位是哪一段的问题。</li>
+  <li><strong>物理层检查：</strong>换网线、换交换机口、看交换机灯亮不亮、测线仪测网线。</li>
+</ol>
+
+<div class="callout warn">
+  <strong>ping不通 ≠ 网络不通</strong>
+  <br>很多设备禁了ICMP（ping响应），这时候用 <code>telnet</code> 或 <code>Test-NetConnection</code> 测具体端口。
+  <br>另外防火墙也可能只禁ping但允许其他端口通过。
+</div>
+
+<h3>5.2 时通时断类（间歇性丢包）</h3>
+
+<h4>可能原因和排查：</h4>
+
+<table>
+  <thead>
+    <tr><th>可能原因</th><th>排查方法</th><th>解决</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>IP地址冲突</td>
+      <td><code>arp -a</code> 看有没有两个IP对应一个MAC；用 <code>arping</code> 检测</td>
+      <td>修改冲突设备的IP，或改成DHCP自动分配</td>
+    </tr>
+    <tr>
+      <td>网线/接头接触不良</td>
+      <td>看交换机端口指示灯有没有闪烁；换网线测试</td>
+      <td>重做水晶头、换网线</td>
+    </tr>
+    <tr>
+      <td>交换机端口故障</td>
+      <td>换个端口测试；看交换机日志</td>
+      <td>更换端口或交换机</td>
+    </tr>
+    <tr>
+      <td>网络环路/广播风暴</td>
+      <td>交换机端口流量异常高；抓包看大量广播包</td>
+      <td>找环路断开；开启STP生成树协议</td>
+    </tr>
+    <tr>
+      <td>无线干扰（WiFi）</td>
+      <td>用WiFi分析仪看信道拥挤度、信号强度</td>
+      <td>改信道、加AP、减少干扰源</td>
+    </tr>
+    <tr>
+      <td>设备负载过高</td>
+      <td>看CPU/内存使用率（top、free）</td>
+      <td>优化程序、升级硬件</td>
+    </tr>
+    <tr>
+      <td>双工模式不匹配</td>
+      <td><code>ethtool eth0</code> 看速度和双工模式</td>
+      <td>两端设为一致的自动协商或固定模式</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>5.3 能ping通但端口不通类</h3>
+
+<div class="flow-diagram">
+  <strong>排查流程：</strong>
+  <br>服务启动了吗？ <span class="arrow">→</span> 监听地址对吗？ <span class="arrow">→</span> 防火墙开了吗？ <span class="arrow">→</span> 中间有设备拦吗？
+</div>
+
+<pre><code><span class="cmd-comment"># 第1步：在服务器上确认服务在监听</span>
+ss -tlnp | grep :80
+netstat -tlnp | grep :80
+
+<span class="cmd-comment"># 第2步：在服务器本地测试端口</span>
+curl http://127.0.0.1:80
+telnet 127.0.0.1 80
+
+<span class="cmd-comment"># 第3步：看防火墙规则</span>
+iptables -L INPUT -n -v
+firewall-cmd --list-ports
+ufw status
+
+<span class="cmd-comment"># 第4步：确认监听地址（是不是只监听了127.0.0.1）</span>
+<span class="cmd-comment"># 如果显示 127.0.0.1:80 说明只能本机访问</span>
+<span class="cmd-comment"># 应该是 0.0.0.0:80 或 :::80 才对外</span>
+
+<span class="cmd-comment"># 第5步：用抓包确认包到没到</span>
+tcpdump -i eth0 port 80     <span class="cmd-comment"># 服务器上抓，看有没有请求进来</span>
+
+<span class="cmd-comment"># 第6步：中间设备（防火墙/路由器）有没有端口映射或ACL</span></code></pre>
+
+<h3>5.4 速度慢/丢包类</h3>
+
+<pre><code><span class="cmd-comment"># 1. 看网卡错误和丢包计数</span>
+ip -s link show eth0
+netstat -i
+
+<span class="cmd-comment"># 2. 看哪一跳丢包</span>
+mtr --report --report-cycles 100 目标IP
+traceroute -n 目标IP       <span class="cmd-comment"># 看哪一跳超时或*号多</span>
+
+<span class="cmd-comment"># 3. 带宽测试</span>
+iperf3 -s                    <span class="cmd-comment"># 服务端</span>
+iperf3 -c 服务器IP -t 30     <span class="cmd-comment"># 客户端测30秒</span>
+
+<span class="cmd-comment"># 4. 看系统网络缓冲</span>
+ss -ti                   <span class="cmd-comment"># 看TCP连接详细信息</span>
+cat /proc/net/sockstat   <span class="cmd-comment"># socket使用情况</span>
+
+<span class="cmd-comment"># 5. 看是不是半连接队列满了（SYN攻击）</span>
+netstat -s | grep -i "listen queue"
+ss -lnt                 <span class="cmd-comment"># 看Send-Q是不是很大</span></code></pre>
+
+<h3>5.5 DNS解析故障类</h3>
+
+<pre><code><span class="cmd-comment"># 1. 确认是不是DNS问题</span>
+ping 8.8.8.8          <span class="cmd-comment"># IP能通</span>
+ping baidu.com        <span class="cmd-comment"># 域名不通 → DNS问题</span>
+
+<span class="cmd-comment"># 2. 查当前DNS配置</span>
+cat /etc/resolv.conf   <span class="cmd-comment"># Linux</span>
+ipconfig /all | findstr "DNS"  <span class="cmd-comment"># Windows</span>
+
+<span class="cmd-comment"># 3. 用指定DNS测试</span>
+nslookup baidu.com 8.8.8.8
+dig @8.8.8.8 baidu.com
+
+<span class="cmd-comment"># 4. 清DNS缓存</span>
+systemctl restart nscd     <span class="cmd-comment"># Linux（如果有nscd）</span>
+ipconfig /flushdns         <span class="cmd-comment"># Windows</span>
+
+<span class="cmd-comment"># 5. 检查DNS端口通不通</span>
+nc -zv 8.8.8.8 53
+nslookup -type=any baidu.com</code></pre>
+
+<h3>5.6 无线网络故障类（WiFi/蓝牙Mesh）</h3>
+
+<table>
+  <thead>
+    <tr><th>现象</th><th>可能原因</th><th>排查工具/方法</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>搜不到设备</td>
+      <td>距离太远、遮挡、设备未上电、信道干扰</td>
+      <td>靠近设备再试、检查供电、WiFi分析仪看信道</td>
+    </tr>
+    <tr>
+      <td>连上但经常断</td>
+      <td>信号弱、干扰、漫游切换问题</td>
+      <td>看信号强度（RSSI）、测丢包率、加AP/中继</td>
+    </tr>
+    <tr>
+      <td>速度很慢</td>
+      <td>干扰严重、用户太多、带宽不够</td>
+      <td>WiFi分析仪看信道占用、限速测试</td>
+    </tr>
+    <tr>
+      <td>Mesh设备离线</td>
+      <td>节点掉线导致断网、关键节点断电</td>
+      <td>看网关后台设备列表、逐区域排查</td>
+    </tr>
+    <tr>
+      <td>配对失败</td>
+      <td>设备已在另一个网络、距离太远、APP版本不兼容</td>
+      <td>先恢复出厂设置、靠近重试、升级APP/固件</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>5.7 标准排查流程图（照着走就行）</h3>
+
+<div class="callout info">
+  <strong>5步法通用排查</strong>
+  <br><strong>第1步 现象确认：</strong>是完全不通？时通时断？还是慢？哪些设备有问题？
+  <br><strong>第2步 范围界定：</strong>是单个设备？一个区域？还是整个项目都有问题？
+  <br><strong>第3步 分层定位：</strong>从物理层→链路层→网络层→传输层→应用层，逐层排除
+  <br><strong>第4步 对比验证：</strong>用好的设备/线路/端口替换测试，确认问题点
+  <br><strong>第5步 记录留证：</strong>截图、抓包、记日志，方便后续分析和汇报
+</div>
+
+</section>
+<section id="ch6">
+<h2><span class="chap-num">6</span>常见故障速查表</h2>
+
+
+<p>遇到问题先翻这张表，按现象找原因和解决方法，按顺序试。</p>
+
+<h3>6.1 物理层与链路故障</h3>
+
+<details class="trouble-shoot">
+  <summary>网线插了灯不亮 / 完全没反应</summary>
+  <div class="trouble-body">
+    <ul class="checklist">
+      <li>换个交换机端口试试</li>
+      <li>换根网线试试</li>
+      <li>测线仪测网线是否通（8芯全通才是千兆）</li>
+      <li>看设备端网口灯亮不亮 → 不亮可能设备坏了或没上电</li>
+      <li>交换机端口有没有被shutdown/禁用</li>
+      <li>光纤的话检查光模块和光纤头是否干净</li>
+    </ul>
+  </div>
+</details>
+
+<details class="trouble-shoot">
+  <summary>100M而不是1000M（协商失败）</summary>
+  <div class="trouble-body">
+    <ul class="checklist">
+      <li>网线是不是超五类以上？（千兆需要至少超五类）</li>
+      <li>8芯是不是全通？（百兆只用4芯，千兆需要8芯）</li>
+      <li>水晶头是不是打错线序了？</li>
+      <li>交换机端口是不是强制百兆了？改自动协商试试</li>
+      <li>设备网卡是不是只支持百兆？</li>
+    </ul>
+  </div>
+</details>
+
+<h3>6.2 网络层与传输层故障</h3>
+
+<details class="trouble-shoot">
+  <summary>获取不到IP（169.254.x.x）</summary>
+  <div class="trouble-body">
+    <ul class="checklist">
+      <li>先确认网线/无线连接正常</li>
+      <li>同网段其他设备能拿到IP吗？ → 都拿不到是DHCP服务器问题</li>
+      <li>交换机端口VLAN是不是划错了？</li>
+      <li>DHCP地址池用完了？</li>
+      <li>设备有没有设静态IP？改成自动获取</li>
+      <li>手动指定一个同网段IP试试，看能不能通</li>
+    </ul>
+  </div>
+</details>
+
+<details class="trouble-shoot">
+  <summary>同网段通，跨网段不通</summary>
+  <div class="trouble-body">
+    <ul class="checklist">
+      <li>默认网关设对了吗？ip route / route print 检查</li>
+      <li>网关设备（路由器/三层交换机）在运行吗？ping网关试试</li>
+      <li>目标网段的路由有没有？</li>
+      <li>防火墙/ACL规则有没有拦截？</li>
+      <li>目标设备的默认网关对不对？（回程路由也要对）</li>
+      <li>tracert看卡在哪一跳</li>
+    </ul>
+  </div>
+</details>
+
+<details class="trouble-shoot">
+  <summary>能ping通但端口不通</summary>
+  <div class="trouble-body">
+    <ul class="checklist">
+      <li>服务启动了吗？ss -tlnp 检查</li>
+      <li>服务是不是只监听了127.0.0.1？</li>
+      <li>服务器防火墙开了吗？iptables -L / firewall-cmd</li>
+      <li>中间的防火墙/安全组有没有放行端口？</li>
+      <li>用tcpdump抓包确认请求到没到服务器</li>
+      <li>端口号有没有搞错？（常见笔误）</li>
+    </ul>
+  </div>
+</details>
+
+<details class="trouble-shoot">
+  <summary>域名解析失败</summary>
+  <div class="trouble-body">
+    <ul class="checklist">
+      <li>先ping IP，确认不是网络不通</li>
+      <li>检查DNS配置：cat /etc/resolv.conf</li>
+      <li>用nslookup/dig指定DNS测试，确认是DNS服务器问题还是本地配置</li>
+      <li>DNS服务器能ping通吗？</li>
+      <li>防火墙有没有拦53端口（UDP+TCP）？</li>
+      <li>换个公共DNS试试（8.8.8.8 / 114.114.114.114）</li>
+    </ul>
+  </div>
+</details>
+
+<details class="trouble-shoot">
+  <summary>网络时好时坏 / 间歇性丢包</summary>
+  <div class="trouble-body">
+    <ul class="checklist">
+      <li>检查是不是IP冲突：arp -a / arping 检测</li>
+      <li>看网卡统计有没有errors/dropped：ip -s link</li>
+      <li>mtr看哪一跳丢包，定位到具体设备</li>
+      <li>网线/光纤接头重新插拔</li>
+      <li>交换机端口错误计数有没有增长</li>
+      <li>有没有广播风暴/网络环路</li>
+      <li>设备CPU/内存是不是过高</li>
+    </ul>
+  </div>
+</details>
+
+<details class="trouble-shoot">
+  <summary>速度特别慢</summary>
+  <div class="trouble-body">
+    <ul class="checklist">
+      <li>先确认带宽：iperf3测试端到端速度</li>
+      <li>看是不是双工不匹配：ethtool eth0</li>
+      <li>看丢包率：mtr / ping -f</li>
+      <li>看CPU是不是跑满了（影响网络处理速度）</li>
+      <li>检查TCP重传：netstat -s | grep retrans</li>
+      <li>无线的话看信号强度和干扰</li>
+      <li>是不是被限速了（QoS/带宽控制）</li>
+    </ul>
+  </div>
+</details>
+
+<h3>6.3 服务器与应用类</h3>
+
+<details class="trouble-shoot">
+  <summary>系统平台打不开 / 登录不了</summary>
+  <div class="trouble-body">
+    <ul class="checklist">
+      <li>ping 服务器IP → 通不通？</li>
+      <li>测80/443端口 → Test-NetConnection IP -Port 443</li>
+      <li>ssh登服务器，看nginx服务在不在：systemctl status nginx</li>
+      <li>看应用服务状态：systemctl status opple-app（看具体服务名）</li>
+      <li>看数据库在不在：systemctl status mysql / postgresql</li>
+      <li>看磁盘满没满：df -h</li>
+    </ul>
+  </div>
+</details>
+
+<details class="trouble-shoot">
+  <summary>服务器ping不通</summary>
+  <div class="trouble-body">
+    <ul class="checklist">
+      <li>先ping网关，判断是电脑侧还是服务器侧</li>
+      <li>去服务器现场，接显示器看是否开机</li>
+      <li>看服务器网卡灯亮不亮，换网线/交换机口测试</li>
+      <li>接键盘显示器进系统，看IP配置：ip addr</li>
+      <li>看网卡有没有起来：ip link（UP状态才是好的）</li>
+      <li>重启网卡：systemctl restart network 或 ifup eth0</li>
+    </ul>
+  </div>
+</details>
+
+<details class="trouble-shoot">
+  <summary>服务器启动卡住 / ACPI报错</summary>
+  <div class="trouble-body">
+    <ul class="checklist">
+      <li>重启一次试试</li>
+      <li>进BIOS恢复默认设置</li>
+      <li>BIOS里关Secure Boot、关Fast Boot</li>
+      <li>BIOS里关C-States（CPU节能）</li>
+      <li>GRUB加acpi=off参数临时启动</li>
+      <li>升级BIOS固件</li>
+      <li>拔插内存、清CMOS</li>
+      <li>检查CPU散热和温度</li>
+    </ul>
+  </div>
+</details>
+
+<details class="trouble-shoot">
+  <summary>SSH连不上</summary>
+  <div class="trouble-body">
+    <ul class="checklist">
+      <li>先ping通不通</li>
+      <li>测22端口：Test-NetConnection IP -Port 22</li>
+      <li>端口不通 → 服务器sshd没启动 / 防火墙拦截</li>
+      <li>Connection refused → sshd没开，接显示器进系统启动sshd</li>
+      <li>Permission denied → 密码错了或用户不存在</li>
+    </ul>
+  </div>
+</details>
+
+<h3>6.4 控制与灯具类</h3>
+
+<details class="trouble-shoot">
+  <summary>所有灯都不响应 / 全离线</summary>
+  <div class="trouble-body">
+    <ul class="checklist">
+      <li>先看平台上网关/控制器是不是离线</li>
+      <li>网关离线 → 查网关供电、查网线、ping网关</li>
+      <li>网关在线但灯都离线 → 网关配置丢了或程序异常，重启网关</li>
+      <li>强电有没有断电？配电箱开关跳了没？</li>
+      <li>总线/无线有没有物理损坏（施工挖断了？）</li>
+    </ul>
+  </div>
+</details>
+
+<details class="trouble-shoot">
+  <summary>单盏灯不亮 / 不调光</summary>
+  <div class="trouble-body">
+    <ul class="checklist">
+      <li>先看灯有没有电：直接通220V测试灯体是否好的</li>
+      <li>灯体好的 → 查驱动：测驱动输出电压</li>
+      <li>驱动有输出但不调光 → 控制线/无线模块问题</li>
+      <li>DALI的话：测DALI电压、查地址有没有重复</li>
+      <li>蓝牙的话：看灯有没有入网，重新配网试试</li>
+      <li>最后换驱动测试</li>
+    </ul>
+  </div>
+</details>
+
+<details class="trouble-shoot">
+  <summary>DALI调光闪烁 / 不同步</summary>
+  <div class="trouble-body">
+    <ul class="checklist">
+      <li>检查DALI总线电压是否稳定</li>
+      <li>总线有没有接反？（DALI无极性，但有些老驱动不支持）</li>
+      <li>总线是不是太长？超过300米加中继</li>
+      <li>DALI线和强电线是不是同管了？干扰会导致闪烁</li>
+      <li>驱动是不是同一型号/固件？不同驱动调光曲线可能不一样</li>
+      <li>有没有地址冲突？重新编址试试</li>
+    </ul>
+  </div>
+</details>
+
+<details class="trouble-shoot">
+  <summary>蓝牙自组网灯时断时续</summary>
+  <div class="trouble-body">
+    <ul class="checklist">
+      <li>是不是WiFi干扰？查附近2.4G信道拥挤程度</li>
+      <li>金属吊顶/混凝土墙遮挡 → 加中继节点</li>
+      <li>设备间距是不是太大？空旷10-15米，有遮挡更短</li>
+      <li>微波炉、无线鼠标等2.4G设备干扰 → 移开或换信道</li>
+      <li>灯具固件版本是不是最新？老版本可能有bug</li>
+    </ul>
+  </div>
+</details>
+
+<details class="trouble-shoot">
+  <summary>面板搜得到、能改名，但按键控制不了灯（关联对不上）</summary>
+  <div class="trouble-body">
+    <p><strong>这是格兰思贝现场最高频的坑，第一嫌疑是"绑定关系"，不是信号/网络。</strong></p>
+    <ul class="checklist">
+      <li>绑定写在<strong>灯具</strong>端 → 做"灯具→设备关联→选面板"，不是在面板端做</li>
+      <li>关联框<strong>下拉选面板名</strong>，不是手动输入、不是对编号（手输查不到）</li>
+      <li>绑定成功标志=<strong>被绑定的灯闪一下</strong>；没闪=没绑上=控制不了</li>
+      <li>面板能搜到、能改名 → 说明入网和通信没问题，别急着重新配网</li>
+    </ul>
+    <p style="margin-top:8px">完整流程见 <a href="2-网络调试与运维手册.html" style="color:var(--page-brand);font-weight:600;">第8册·第11章</a>。</p>
+  </div>
+</details>
+
+<details class="trouble-shoot">
+  <summary>面板名字/编号改了，过一会或断电又变回默认</summary>
+  <div class="trouble-body">
+    <ul class="checklist">
+      <li><strong>改≠写：</strong>改名字必须点「起名」，改编号/区号必须点「设置」，否则只改了输入框缓存，没下发进设备</li>
+      <li>界面显示"成功"不代表写入设备，断电/刷新就回默认</li>
+      <li>验证写入：<strong>断电重启后名字/编号还在＝写入成功</strong></li>
+      <li>面板名与软编号是<strong>两个独立配置项</strong>，要分别操作（起名+设置）才都写进设备</li>
+    </ul>
+  </div>
+</details>
+
+<details class="trouble-shoot">
+  <summary>传感器不触发 / 场景不联动</summary>
+  <div class="trouble-body">
+    <ul class="checklist">
+      <li>传感器本身有没有检测到？看指示灯或后台状态</li>
+      <li>传感器在线吗？离线 → 查供电和通信</li>
+      <li>平台规则配置对吗？触发条件和执行动作检查一遍</li>
+      <li>执行器（灯/驱动）在线吗？</li>
+      <li>看平台日志有没有触发记录，定位是没触发还是没执行</li>
+    </ul>
+  </div>
+</details>
+
+<h3>6.5 应急恢复流程</h3>
+
+<div class="callout danger">
+  <strong>现场紧急恢复优先级</strong>
+  <br>1. <strong>先让灯亮起来</strong> — DALI的切手动、蓝牙的直接开关、实在不行直接给强电
+  <br>2. <strong>再恢复控制</strong> — 重启网关/服务器，检查配置
+  <br>3. <strong>最后查原因</strong> — 看日志、留证据，事后写报告
+</div>
+
+<pre><code><span class="cmd-comment"># 服务器应急重启流程（按这个顺序，别直接拔电源）</span>
+<span class="cmd-comment"># 1. 尝试正常重启</span>
+reboot
+shutdown -r now
+
+<span class="cmd-comment"># 2. 如果ssh都连不上，接显示器键盘进系统</span>
+<span class="cmd-comment"># 还能操作的话，安全重启</span>
+systemctl reboot
+
+<span class="cmd-comment"># 3. 完全死机了 → 按电源键5秒强制关机，等10秒再开机</span>
+<span class="cmd-comment"># （尽量少用，会有数据丢失风险）</span>
+
+<span class="cmd-comment"># 4. 重启后检查</span>
+systemctl list-units --type=service --state=failed   # 看哪些服务没起来
+journalctl -b -p err                                  # 本次启动的错误日志</code></pre>
+
+</section>
+<section id="ch7">
+<h2><span class="chap-num">7</span>边缘服务器Linux诊断</h2>
+
+
+<div class="callout tip">
+  <strong>怎么访问这台边缘服务器：</strong>
+  <br>现场本地部署的边缘服务器<b>默认地址 <code>192.168.1.100</code></b>，电脑 IP 须设到<b>同一网段</b>（如 <code>192.168.1.x</code>，掩码 255.255.255.0）才能互访。三种进入方式：
+  <br>• <b>本地网页：</b>浏览器输入 <code>192.168.1.100</code>
+  <br>• <b>云平台网页：</b>浏览器访问 <code>https://iot2.opple.com/install</code>
+  <br>• <b>SSH 命令行：</b><code>ssh 用户名@192.168.1.100</code>（本章下面的排查命令都在这后执行）
+</div>
+
+<p>连上服务器后，按这个顺序查，从整体到局部。</p>
+
+<h3>7.1 先看系统整体状态</h3>
+
+<pre><code><span class="cmd-comment"># 1. 看系统资源（CPU、内存、负载）</span>
+top          <span class="cmd-comment"># 动态查看，按q退出；按P按CPU排序，按M按内存排序</span>
+htop         <span class="cmd-comment"># 更友好的top（如果装了的话）</span>
+uptime       <span class="cmd-comment"># 快速看负载和运行时间</span>
+
+<span class="cmd-comment"># 2. 看内存使用</span>
+free -h      <span class="cmd-comment"># -h 人类可读格式</span>
+
+<span class="cmd-comment"># 3. 看磁盘空间（磁盘满了什么都可能出问题）</span>
+df -h
+df -i        <span class="cmd-comment"># 看inode用量，小文件太多也会满</span>
+
+<span class="cmd-comment"># 4. 看系统日志（最近有没有报错）</span>
+journalctl -xe                    <span class="cmd-comment"># 最新系统日志</span>
+journalctl -u opple-service       <span class="cmd-comment"># 看某个服务的日志</span>
+journalctl --since "1 hour ago"   <span class="cmd-comment"># 最近1小时的日志</span>
+
+<span class="cmd-comment"># 5. 看服务状态</span>
+systemctl status nginx
+systemctl status opple-app
+systemctl list-units --type=service --state=running   <span class="cmd-comment"># 所有运行中的服务</span></code></pre>
+
+<h3>7.2 网络层面排查</h3>
+
+<pre><code><span class="cmd-comment"># 1. 看网卡状态和IP</span>
+ip addr
+ip link show                 <span class="cmd-comment"># 看网卡up/down</span>
+
+<span class="cmd-comment"># 2. 看网络连接</span>
+ss -tlnp                     <span class="cmd-comment"># 所有监听的TCP端口（比netstat快）</span>
+ss -tulnp                    <span class="cmd-comment"># TCP+UDP</span>
+netstat -tlnp                <span class="cmd-comment"># 老版本用这个</span>
+
+<span class="cmd-comment"># 3. 看防火墙规则</span>
+iptables -L -n
+firewall-cmd --list-all      <span class="cmd-comment"># CentOS/RHEL的firewalld</span>
+ufw status                   <span class="cmd-comment"># Ubuntu的ufw</span>
+
+<span class="cmd-comment"># 4. 抓包（高级用法，确认数据有没有到）</span>
+tcpdump -i any port 1883     <span class="cmd-comment"># 抓MQTT端口的包</span>
+tcpdump -i eth0 host 192.168.1.50  <span class="cmd-comment"># 抓与某个IP的通信</span>
+
+<span class="cmd-comment"># 5. DNS解析测试</span>
+nslookup api.opple.com
+dig api.opple.com</code></pre>
+
+<h3>7.3 进程与服务异常排查</h3>
+
+<pre><code><span class="cmd-comment"># 服务启动失败？看详细错误</span>
+systemctl status 服务名 -l
+journalctl -u 服务名 --no-pager | tail -50
+
+<span class="cmd-comment"># 进程假死？看它在干什么</span>
+ps aux | grep 进程名
+strace -p PID               <span class="cmd-comment"># 跟踪系统调用（需要安装strace）</span>
+
+<span class="cmd-comment"># Java应用OOM？看JVM参数</span>
+jps -l
+jmap -heap PID              <span class="cmd-comment"># 看堆内存</span></code></pre>
+
+<h3>7.4 快速健康检查一条命令</h3>
+
+<pre><code><span class="cmd-comment"># 一条命令看CPU/内存/磁盘/负载/网络连接，用于快速体检</span>
+echo "=== Uptime ===" && uptime && \
+echo "=== Memory ===" && free -h && \
+echo "=== Disk ===" && df -h && \
+echo "=== CPU Top ===" && top -bn1 | head -20 && \
+echo "=== Listening Ports ===" && ss -tlnp</code></pre>
+
+</section>
+<section id="ch8">
+<h2><span class="chap-num">8</span>服务器硬件故障排查（含ACPI）</h2>
+
+
+<p>服务器启动不了、频繁死机、启动卡住不动，很可能是硬件或BIOS层面的问题。
+ACPI故障是其中最常见的一类。</p>
+
+<h3>8.1 什么是ACPI故障</h3>
+
+<p><strong>ACPI</strong>（Advanced Configuration and Power Interface，高级配置与电源接口）
+是BIOS与操作系统之间的电源管理标准。ACPI故障表现为：</p>
+
+<ul>
+  <li>开机卡在品牌LOGO或启动画面不动</li>
+  <li>Linux启动过程中黑屏、键盘无响应</li>
+  <li>系统运行中随机死机或自动重启</li>
+  <li>休眠/唤醒后异常</li>
+</ul>
+
+<h3>8.2 定位ACPI故障的方法</h3>
+
+<h4>方法一：看内核启动日志</h4>
+
+<p>如果能进系统（哪怕是单用户模式）：</p>
+
+<pre><code><span class="cmd-comment"># 查内核日志里的ACPI报错</span>
+dmesg | grep -i acpi
+dmesg | grep -i "acpi error"
+dmesg | grep -i "gpe"        <span class="cmd-comment"># GPE风暴是常见ACPI问题</span>
+
+<span class="cmd-comment"># 更详细：看启动日志</span>
+journalctl -k | grep -i acpi
+cat /var/log/syslog | grep -i acpi    <span class="cmd-comment"># Ubuntu/Debian</span>
+cat /var/log/messages | grep -i acpi  <span class="cmd-comment"># CentOS/RHEL</span></code></pre>
+
+<p><strong>典型报错关键词：</strong></p>
+<ul>
+  <li><code>ACPI Error: No handler or method for GPE</code> → GPE中断风暴，CPU占用高</li>
+  <li><code>ACPI BIOS Error (bug)</code> → BIOS有bug，升级BIOS可能解决</li>
+  <li><code>ACPI: Probe failed</code> → ACPI表加载失败</li>
+  <li><code>ACPI Exception: AE_NOT_FOUND</code> → 缺少ACPI表项</li>
+</ul>
+
+<h4>方法二：加启动参数绕过ACPI</h4>
+
+<p>如果系统启动卡在ACPI阶段，可以在GRUB启动菜单里加参数临时禁用：</p>
+
+<pre><code><span class="cmd-comment"># 启动时在GRUB菜单按e，找到linux那一行，末尾加：</span>
+acpi=off        <span class="cmd-comment"># 完全禁用ACPI（最彻底，但可能影响电源管理）</span>
+acpi=ht         <span class="cmd-comment"># 只启用ACPI的超线程相关部分</span>
+pci=noacpi      <span class="cmd-comment"># PCI不用ACPI分配中断</span>
+noapic          <span class="cmd-comment"># 禁用IO APIC（和中断相关）</span>
+nolapic         <span class="cmd-comment"># 禁用本地APIC</span></code></pre>
+
+<div class="callout warn">
+  <strong>注意</strong>
+  <code>acpi=off</code> 是应急手段，不能长期用。禁用后可能会失去电源管理、风扇调速、
+  CPU节能等功能。用它先进系统，然后再找根本原因。
+</div>
+
+<h3>8.3 ACPI故障的常见原因和解决步骤</h3>
+
+<ol class="step-list">
+  <li><strong>重启试试：</strong>偶发的ACPI错误可能重启就好，先做最简单的。</li>
+  <li><strong>进BIOS恢复默认：</strong>关机按F2/Del/ESC进BIOS（看开机画面提示），找到 "Load Defaults" 或 "Restore Defaults"，恢复出厂设置再试。</li>
+  <li><strong>关闭Secure Boot：</strong>有些Linux版本和Secure Boot不兼容，在BIOS里把Secure Boot设为Disabled。</li>
+  <li><strong>关闭Fast Boot：</strong>快速启动会跳过硬件初始化，可能导致ACPI异常。BIOS里把Fast Boot/Quick Boot设为Disabled。</li>
+  <li><strong>调整电源管理：</strong>BIOS里找到CPU Power Management，把C-States（CPU节能状态）设为Disabled，或将电源模式从"节能"改为"高性能"或"OS Controlled"。</li>
+  <li><strong>升级BIOS固件：</strong>如果是已知兼容性问题，刷最新版BIOS能解决。去服务器/主板厂商官网下载对应型号的BIOS更新包，按说明操作。</li>
+  <li><strong>硬件排查：</strong>以上都不行的话，拔插内存条（擦一下金手指）、清CMOS、检查CPU是否插紧。逐件替换测试（先换内存，再换电源，最后换主板）。</li>
+  <li><strong>散热问题：</strong>进BIOS看CPU温度，或开机后进系统用 <code>sensors</code> 命令看温度。温度过高也会导致死机。清灰、检查风扇。</li>
+</ol>
+
+<h3>8.4 其他常见硬件故障现象</h3>
+
+<table>
+  <thead>
+    <tr><th>现象</th><th>可能原因</th><th>排查方法</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>开机完全没反应，电源灯不亮</td>
+      <td>电源坏了 / 电源线松了 / 电源开关坏了</td>
+      <td>换电源线、测电源输出、短接电源24pin的绿线和黑线测试</td>
+    </tr>
+    <tr>
+      <td>开机风扇转一下就停</td>
+      <td>电源保护 / 主板短路 / CPU没插好</td>
+      <td>最小化测试（只留CPU+1条内存+电源），看能不能点亮</td>
+    </tr>
+    <tr>
+      <td>开机嘀嘀嘀报警</td>
+      <td>内存没插好 / 显卡没插好</td>
+      <td>根据报警声查主板说明书，重新拔插内存/显卡</td>
+    </tr>
+    <tr>
+      <td>运行一段时间后死机</td>
+      <td>散热问题 / 电源功率不够</td>
+      <td>看温度传感器、检查风扇、换更大功率电源测试</td>
+    </tr>
+    <tr>
+      <td>硬盘找不到</td>
+      <td>硬盘坏了 / SATA线松了 / BIOS里关了</td>
+      <td>换SATA线和接口、进BIOS看能不能识别、用SMART查健康</td>
+    </tr>
+  </tbody>
+</table>
+
+</section>
+<section id="ch9">
+<h2><span class="chap-num">9</span>欧普睿壹智控系统调试排查</h2>
+
+
+<p>本章排查的是<strong>欧普睿壹智控系统</strong>——一套「有线 OBUS + 无线 SigMesh + DALI」多协议融合的智控体系。它和<strong>格兰思贝自组网</strong>是<strong>两套完全独立、互不相通的系统</strong>，先认准项目用的是哪一套，别混着排。</p>
+
+<table>
+  <thead>
+    <tr><th style="width:16%">维度</th><th>欧普睿壹智控系统</th><th>格兰思贝自组网系统</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>通信方式</td><td>有线 OBUS + 无线 SigMesh + DALI 三协议融合</td><td>2.4G 去中心化 Mesh</td></tr>
+    <tr><td>控制 App</td><td>欧普智控 App</td><td>GS200 灯控 App（格兰思贝）</td></tr>
+    <tr><td>云平台</td><td><code>iot2.opple.com</code></td><td><code>iot.ground-space.com</code></td></tr>
+    <tr><td>本地服务</td><td>边缘服务器 <code>192.168.1.100</code></td><td>本地客户端（PC 软件）</td></tr>
+    <tr><td>调试位置</td><td>本章（第二部分·第7-10章）</td><td>第三部分·格兰思贝自组网系统（第11-22章）</td></tr>
+    <tr><td>能否互通</td><td colspan="2"><b>协议隔离，不能同网混用、配件不可互换</b></td></tr>
+  </tbody>
+</table>
+
+<div class="callout warn">
+  <strong>格兰思贝自组网（独立系统）调试在哪？</strong>
+  <br>自组网是独立的 2.4G Mesh 系统，完整调试（GS200 App 操作、面板绑定、上云对接）见 <a href="#ch11" style="color:var(--page-brand);font-weight:600;">第三部分·格兰思贝自组网系统（第11-22章）</a>。两条高频坑先记牢：
+  <br>① 面板能搜到但控不了灯 → 查「灯具→设备关联」是否下拉选中面板、灯是否闪一下；
+  <br>② 面板编号/改名回默认 → 改名必须点「起名」、改编号必须点「设置」下发，光在输入框改不算写入。
+</div>
+
+<div class="tab-group">
+  <div class="tab-header">
+    <button class="tab-btn active" onclick="switchTab(event, 'tab-dali')">DALI调光</button>
+    <button class="tab-btn" onclick="switchTab(event, 'tab-obus')">睿壹OBUS</button>
+    <button class="tab-btn" onclick="switchTab(event, 'tab-sigmesh')">SigMesh转换模块</button>
+  </div>
+
+  <div id="tab-dali" class="tab-content active">
+    <h4>DALI调光系统调试要点</h4>
+
+    <p><strong>DALI总线基础知识：</strong>两线制（DA+/DA-，无极性）、采用 IEC 62386 的<strong>自由拓扑</strong>（手拉手/菊花链最推荐，允许星型或树枝/树型，禁止成环）、一条总线最多64个短地址、16个组、
+16个场景。总线电压通常在11.5V-22.5V之间。</p>
+
+    <p><strong>调试步骤：</strong></p>
+    <ol class="step-list">
+      <li><strong>测总线电压：</strong>用万用表测DALI总线两根线之间的电压。空载时约16V左右，带负载时会稍低。电压为0 → 电源坏了或总线短路。</li>
+      <li><strong>查总线是否短路：</strong>断开DALI电源，用万用表通断档测两根线，不应该导通。导通 → 总线某处短路，分段排查。</li>
+      <li><strong>设备编址：</strong>用DALI调试工具（如DALITEK）逐个寻址。每个驱动分配唯一短地址（0-63）。如果地址分配失败 → 驱动DALI接口坏了或总线太长。</li>
+      <li><strong>单灯测试：</strong>用调试工具对单个地址发送调光指令，看灯是否响应。不响应 → 驱动DALI部分故障，换驱动。</li>
+      <li><strong>分组测试：</strong>设置组地址，对组发送指令，看组内所有灯是否同步。</li>
+      <li><strong>场景测试：</strong>保存场景值，调用场景看是否正确恢复。</li>
+    </ol>
+
+    <div class="callout warn">
+      <strong>DALI总线常见坑</strong>
+      <br>• 总线长度不要超过300米（标准），太长加中继
+      <br>• DALI线不能和强电线同管敷设，会有干扰
+      <br>• 总线两端不要都加电源，会冲突
+      <br>• 驱动的DALI拨码要设对，有些驱动需要手动拨到DALI模式
+    </div>
+  </div>
+
+  <div id="tab-obus" class="tab-content">
+    <h4>睿壹OBUS智控系统调试要点</h4>
+
+    <div class="callout tip">
+      <strong>访问入口（先记下）</strong>
+      <br><b>云端登录：</b>浏览器访问 <code>https://iot2.opple.com/install</code>
+      <br><b>本地登录：</b>本地边缘服务器默认地址 <code>192.168.1.100</code>，电脑 IP 须设在同一网段（如 <code>192.168.1.x</code>，子网掩码 255.255.255.0）后，用浏览器直访该地址。
+      <br><b>别登错：</b>这是<strong>欧普睿壹智控系统</strong>的入口，与自组网（格兰斯贝）云平台 <code>iot.ground-space.com</code> 是<strong>两套互不相通的平台</strong>，按项目实际用的体系选对入口。
+    </div>
+
+    <p><strong>睿壹体系：</strong>有线OBUS + 无线SigMesh + DALI多协议融合。
+    核心设备：网关、面板、传感器、转换模块、灯具。</p>
+
+    <p><strong>调试步骤：</strong></p>
+    <ol class="step-list">
+      <li><strong>检查网关：</strong>浏览器登网关后台（默认IP看说明书），确认网关在线、固件版本正常。</li>
+      <li><strong>OBUS总线：</strong>检查OBUS总线各节点是否在线。离线 → 查接线、查地址冲突。</li>
+      <li><strong>SigMesh配网：</strong>用手机APP或专业工具，把蓝牙设备加入Mesh网络。</li>
+      <li><strong>DALI总线：</strong>确认DALI网关能扫描到所有驱动，地址分配正常。</li>
+      <li><strong>场景联动：</strong>在平台配置场景（如"有人开灯、无人关灯"），触发传感器看是否执行。</li>
+      <li><strong>平台对接：</strong>确认网关能连上云平台（<code>iot2.opple.com</code>），数据能正常上报。</li>
+    </ol>
+
+    <div class="callout info">
+      <strong>睿壹常见排查点</strong>
+      <br>• 平台登不上 → 先确认网关IP能ping通、80/443端口通
+      <br>• 设备全部离线 → 网关故障或网络断了，先查网关
+      <br>• 部分设备离线 → 查对应区域的总线或Mesh节点
+      <br>• 场景不联动 → 传感器没触发 / 规则配置错了 / 执行器离线
+      <br>• 灯具不调光 → 驱动模式设错了（开关/0-10V/DALI/蓝牙要对应）
+    </div>
+  </div>
+
+  <div id="tab-sigmesh" class="tab-content">
+    <h4>SigMesh 转换模块调试与排障</h4>
+
+    <p><strong>SigMesh 转换模块的定位：</strong>它们是"胶水设备"，一头连 SigMesh 无线网络，另一头接各种灯侧接口（DALI / 0-10V / 可控硅 / 干接点 / 24V 灯带）。
+    排查时要分两段看：<strong>蓝牙侧</strong>（模块有没有入网、能不能收到指令）和 <strong>负载侧</strong>（输出对不对、负载有没有问题）。两段都通了灯才会亮。</p>
+
+    <p><strong>通用调试步骤（所有转换模块都适用）：</strong></p>
+    <ol class="step-list">
+      <li><strong>确认供电：</strong>模块就近取 AC220V，先看指示灯（如有）是否常亮。灯不亮 → 没电或模块坏。</li>
+      <li><strong>确认入网：</strong>在睿壹 APP / 平台里搜索设备，看能不能搜到。搜不到 → 模块没上电 / 距离网关太远 / 被遮挡。</li>
+      <li><strong>下发开关指令测试：</strong>在 APP 里对模块点"开/关"，看继电器/调光有没有动作。有动作但灯不亮 → 负载侧问题；没动作 → 蓝牙侧或模块本身问题。</li>
+      <li><strong>测输出端电压/信号：</strong>用万用表量模块输出端。继电器 → 220V 通断；0-10V → DIM+ / DIM- 之间 0-10V 直流；DALI → DA+ / DA- 之间 11.5-22.5V 脉动。</li>
+      <li><strong>换个已知好的负载试：</strong>比如拿个普通灯泡接继电器输出，排除灯具本身故障。</li>
+    </ol>
+
+    <h5>蓝牙转 0-10V 模块（<code>821017002900</code>）专项</h5>
+    <ul>
+      <li><strong>调光范围不对（如只能从 10% 调到 80%）：</strong>检查驱动的 0-10V 接口类型——是"正逻辑"还是"反逻辑"（正逻辑 10V 最亮，反逻辑 10V 最暗）。驱动侧可改的话改驱动，不行就在模块端调整调光曲线。</li>
+      <li><strong>调不到最暗 / 灯微亮：</strong>0-10V 调光的"最低亮度"由驱动自身决定，不是所有驱动都能调到 0V 全灭。要完全灭灯必须用模块自带的 1000W 继电器断电。</li>
+      <li><strong>多个驱动不同步：</strong>检查每个驱动的 0-10V 输入阻抗是否一致，总电流不超过 50mA（约 10 个驱动）。超了就加一个模块分开带。</li>
+      <li><strong>调光有频闪：</strong>常见原因是 0-10V 信号线与强电线共管产生干扰，或者驱动调光曲线不匹配。信号线单独走弱电桥架试试。</li>
+    </ul>
+
+    <h5>蓝牙转 DALI 模块（<code>821017003100</code>）专项</h5>
+    <ul>
+      <li><strong>注意：只能广播级调光，不能逐灯寻址。</strong>如果你想要单灯控制，必须走有线 DALI 网关（混合网关或 DALI 网关），蓝牙转 DALI 做不到。</li>
+      <li><strong>DALI 灯群完全没反应：</strong>先量 DA+/DA- 电压，11.5-22.5V 说明总线供电正常；0V 说明短路或模块 DALI 输出坏了。断开所有灯再测，电压恢复了就是某盏灯的 DALI 口短路，逐盏排除。</li>
+      <li><strong>灯能开关但调不了光：</strong>检查驱动是不是在 DALI 模式，有些驱动有 0-10V / DALI 拨码开关，拨错了就不认 DALI 信号。</li>
+      <li><strong>部分灯不响应：</strong>DALI 总线超 300m、灯数超 64 盏、或某盏灯 DALI 接口故障都会拖慢总线。先数灯数和总线长度，再分段排查。</li>
+    </ul>
+
+    <h5>蓝牙转可控硅模块（<code>821017003500</code>）专项</h5>
+    <ul>
+      <li><strong>负载上限 250W，不能超。</strong>超了模块会过热保护甚至烧。多灯就加模块，不要硬扛。</li>
+      <li><strong>调光有最低亮度下限：</strong>切相调光的 LED 驱动通常有最低导通角，低于某个亮度灯就灭了或闪。这是驱动特性，不是模块坏了。</li>
+      <li><strong>前后切相要匹配：</strong>模块可配置前切 / 后切，必须和驱动的调光类型对应。后切（Trailing Edge）配 LED 驱动更稳、噪声更小，前切（Leading Edge）适合白炽灯。</li>
+      <li><strong>嗡嗡响 / 闪烁：</strong>大概率是切相类型与驱动不匹配，或驱动本身不支持切相调光。确认驱动规格书里有没有"可控硅调光"支持。</li>
+    </ul>
+
+    <h5>SIGMESH-1000W 继电器（<code>821017003700</code>）专项</h5>
+    <ul>
+      <li><strong>单路 ≤1000W，阻性负载。</strong>带电机 / 风扇等感性负载要降额使用（建议不超过 500W），启动电流大容易烧触点。</li>
+      <li><strong>带功率计量功能：</strong>在平台上能看到实时功率，如果功率读数是 0 但灯明明亮着 → 计量模块故障或接线时 CT 方向反了。</li>
+      <li><strong>继电器有动作声但灯不亮：</strong>量输出端有没有 220V。有电压 → 灯或灯线坏了；没电压 → 继电器触点粘死或烧毁。</li>
+    </ul>
+
+    <h5>蓝牙 8 路干接点模块（<code>821017003300</code>）专项</h5>
+    <ul>
+      <li><strong>无源干接点输入，不能接带电压的信号。</strong>接入前确认外部信号是"通/断"型，不是 220V 或 24V 有源信号。</li>
+      <li><strong>8 路自定义命名：</strong>每一路在平台里可以单独命名（如"消防联动1"、"门磁-东门"），调试时先把名字配好再接线，避免接反了不知道是哪路。</li>
+      <li><strong>触发没反应：</strong>先短接输入端子测试（用一根线把 DI 和 COM 短接一下），平台能收到就是外部信号源的问题；收不到就是模块没入网或通道坏了。</li>
+    </ul>
+
+    <h5>灯带驱动（调光 / 调色温 / RGB）专项</h5>
+    <ul>
+      <li><strong>电源必须够：</strong>灯带驱动输出 24V 恒压，但前级 220V 转 24V 的开关电源要自己配。先算灯带总功率 × 1.2 安全系数 → 选对应功率的昆仑电源。</li>
+      <li><strong>单色 / 双色温 / RGB 不能混接：</strong>三个型号（<code>826002000500</code> 单色 / <code>822010000600</code> 双色温 / <code>822010000700</code> RGB）输出通道数不同，接错了要么不亮要么颜色不对。</li>
+      <li><strong>RGB 灯带颜色不对：</strong>检查 R/G/B 三根线有没有接反，红色线接 R 端子、绿色接 G、蓝色接 B。接反一色就整体偏色。</li>
+      <li><strong>灯带末端变暗：</strong>灯带太长（超过 5m）有压降，两端供电或加放大器。</li>
+    </ul>
+
+    <div class="callout warn">
+      <strong>SigMesh 转换模块排查四步走（记住顺序，能少走很多弯路）</strong>
+      <br>① <strong>供电</strong> → 先看模块有没有电、指示灯亮不亮
+      <br>② <strong>入网</strong> → APP / 平台能不能搜到这个设备（搜不到 = 蓝牙侧问题）
+      <br>③ <strong>输出</strong> → 万用表量输出端，继电器量 220V 通断、0-10V 量直流电压、DALI 量总线电压
+      <br>④ <strong>负载</strong> → 输出正常但灯不亮 = 灯或灯线的问题，换个已知好的灯验证
+    </div>
+  </div>
+</div>
+
+</section>
+<section id="ch10">
+<h2><span class="chap-num">10</span>欧普睿壹云平台操作与运维</h2>
+
+<p>本章介绍<strong>欧普睿壹智控系统</strong>的云平台与本地边缘服务器的日常操作与运维方法。
+欧普睿壹平台地址：<code>https://iot2.opple.com</code>，本地边缘服务器默认地址 <code>192.168.1.100</code>。</p>
+
+<div class="callout warn">
+  <strong>注意：这是欧普睿壹系统的平台，与格兰思贝自组网平台（iot.ground-space.com）是两套完全独立的系统，账号不通用、数据不互通。</strong>
+</div>
+
+<h3>10.1 平台登录与界面概览</h3>
+
+<h4>10.1.1 登录方式</h4>
+<ol class="step-list">
+  <li><strong>云端登录：</strong>浏览器访问 <code>https://iot2.opple.com/install</code>，输入账号密码登录。</li>
+  <li><strong>本地登录：</strong>电脑连接到项目局域网，IP设为 192.168.1.x 网段，浏览器访问 <code>http://192.168.1.100</code>。</li>
+  <li><strong>首次登录：</strong>使用默认管理员账号（见设备说明书），登录后立即修改密码。</li>
+</ol>
+
+<h4>10.1.2 平台主界面</h4>
+<table>
+  <thead><tr><th>模块</th><th>功能</th></tr></thead>
+  <tbody>
+    <tr><td>首页看板</td><td>项目概览、设备在线率、能耗统计、告警信息</td></tr>
+    <tr><td>设备管理</td><td>网关、面板、传感器、灯具等设备的添加、删除、配置、分组</td></tr>
+    <tr><td>场景管理</td><td>情景模式配置、定时任务、传感器联动规则</td></tr>
+    <tr><td>能耗分析</td><td>用电量统计、能耗趋势、对比分析、报表导出</td></tr>
+    <tr><td>告警中心</td><td>设备离线告警、故障告警、异常记录、告警处理</td></tr>
+    <tr><td>系统设置</td><td>用户管理、权限分配、项目信息、日志查询</td></tr>
+  </tbody>
+</table>
+
+<h3>10.2 设备管理操作</h3>
+
+<h4>10.2.1 添加网关</h4>
+<ol class="step-list">
+  <li>进入「设备管理 → 网关管理」，点击「添加网关」</li>
+  <li>选择网关型号，输入网关SN码或扫码添加</li>
+  <li>配置网关名称、所属区域、网络参数</li>
+  <li>确认网关在线（状态显示绿灯）</li>
+</ol>
+
+<h4>10.2.2 设备分组与区域管理</h4>
+<ol class="step-list">
+  <li>进入「设备管理 → 区域管理」，按楼层/区域创建分组</li>
+  <li>将设备（灯具、面板、传感器）分配到对应区域</li>
+  <li>支持多级分组（项目 → 楼栋 → 楼层 → 区域）</li>
+  <li>分组后可按区域批量控制、批量配置场景</li>
+</ol>
+
+<h4>10.2.3 设备固件升级</h4>
+<div class="callout tip">
+  <strong>升级前检查：</strong>
+  <br>• 确认设备在线、供电稳定
+  <br>• 备份当前配置（导出设备参数）
+  <br>• 选择业务低峰期升级（如夜间）
+  <br>• 升级过程中断电可能导致设备变砖，务必确保供电稳定
+</div>
+<ol class="step-list">
+  <li>进入「设备管理 → 固件管理」，查看可升级设备列表</li>
+  <li>选择目标设备和固件版本</li>
+  <li>点击「批量升级」或单设备升级</li>
+  <li>升级完成后验证设备功能是否正常</li>
+</ol>
+
+<h3>10.3 场景与联动配置</h3>
+
+<h4>10.3.1 情景模式配置</h4>
+<ol class="step-list">
+  <li>进入「场景管理 → 情景模式」，点击「新建情景」</li>
+  <li>选择适用区域，设置各回路/灯具的亮度、色温、开关状态</li>
+  <li>保存后可在面板、APP、平台上调用</li>
+  <li>支持设置为"默认情景"（上电自动恢复）</li>
+</ol>
+
+<h4>10.3.2 传感器联动规则</h4>
+<ol class="step-list">
+  <li>进入「场景管理 → 联动规则」，点击「新建规则」</li>
+  <li>设置触发条件（如：人体传感器检测到人、照度低于阈值）</li>
+  <li>设置执行动作（如：打开指定区域灯具、调到指定亮度）</li>
+  <li>设置生效时间段（如工作日 8:00-18:00）</li>
+  <li>保存后触发测试，验证联动是否正常</li>
+</ol>
+
+<h4>10.3.3 定时任务</h4>
+<ol class="step-list">
+  <li>进入「场景管理 → 定时任务」，点击「新建定时」</li>
+  <li>设置执行时间（支持单次、每天、每周重复）</li>
+  <li>选择执行动作（切换情景、开关灯、调光）</li>
+  <li>选择生效区域和设备</li>
+</ol>
+
+<h3>10.4 日常运维与巡检</h3>
+
+<h4>10.4.1 每日巡检要点</h4>
+<table>
+  <thead><tr><th>检查项</th><th>检查方法</th><th>异常处理</th></tr></thead>
+  <tbody>
+    <tr><td>网关在线状态</td><td>平台首页看板 → 网关在线率</td><td>离线网关查供电、查网络、ping测试</td></tr>
+    <tr><td>设备离线告警</td><td>告警中心 → 设备离线告警</td><td>按区域排查，确认是否批量离线（网关问题）或单设备离线（灯具/接线问题）</td></tr>
+    <tr><td>服务器状态</td><td>系统设置 → 服务器状态 / SSH登录查看</td><td>CPU/内存/磁盘使用率，见第7章Linux诊断</td></tr>
+    <tr><td>能耗异常</td><td>能耗分析 → 同比/环比</td><td>能耗突增查是否有灯具常亮、传感器失效导致不灭灯</td></tr>
+  </tbody>
+</table>
+
+<h4>10.4.2 数据备份与恢复</h4>
+<ol class="step-list">
+  <li><strong>配置备份：</strong>进入「系统设置 → 数据管理」，导出项目配置（设备列表、场景、联动规则）</li>
+  <li><strong>定时备份：</strong>建议每周自动备份一次，重要项目每天备份</li>
+  <li><strong>数据恢复：</strong>选择备份文件导入，确认后恢复（会覆盖当前配置，操作前先备份当前状态）</li>
+  <li><strong>日志备份：</strong>定期导出操作日志和告警日志，保留至少3个月</li>
+</ol>
+
+<h4>10.4.3 用户与权限管理</h4>
+<ul>
+  <li><strong>管理员：</strong>全部权限，仅限项目负责人使用</li>
+  <li><strong>运维人员：</strong>设备管理、场景配置、告警处理权限</li>
+  <li><strong>普通用户：</strong>仅查看和手动控制权限，不能修改配置</li>
+  <li>人员变动时及时禁用/删除账号，禁止共享账号</li>
+</ul>
+
+<h3>10.5 平台常见问题排查</h3>
+
+<details class="trouble-shoot">
+  <summary>平台打不开 / 登录页加载不出来</summary>
+  <div class="trouble-body">
+    <ul class="checklist">
+      <li>先确认网络是否正常：ping <code>iot2.opple.com</code></li>
+      <li>浏览器是否兼容：推荐 Chrome / Edge，不建议 IE</li>
+      <li>清除浏览器缓存后重试</li>
+      <li>本地服务器的话：ping <code>192.168.1.100</code>，确认服务器在运行</li>
+      <li>SSH登录服务器，检查 nginx 和应用服务状态（见第7章）</li>
+    </ul>
+  </div>
+</details>
+
+<details class="trouble-shoot">
+  <summary>设备全部显示离线</summary>
+  <div class="trouble-body">
+    <ul class="checklist">
+      <li>先看网关是不是也都离线 → 是 = 网络或服务器问题</li>
+      <li>检查服务器网络连接、网关网络连接</li>
+      <li>确认MQTT服务是否正常运行</li>
+      <li>单个网关下设备全离线 → 网关故障或网关网络断了，重启网关试试</li>
+    </ul>
+  </div>
+</details>
+
+<details class="trouble-shoot">
+  <summary>场景不联动 / 定时不执行</summary>
+  <div class="trouble-body">
+    <ul class="checklist">
+      <li>检查场景/定时规则是否启用（有没有被禁用）</li>
+      <li>检查生效时间段设置是否正确</li>
+      <li>检查关联的设备是否在线</li>
+      <li>手动触发一次场景，看设备是否响应 → 不响应 = 设备问题，响应 = 规则配置问题</li>
+      <li>查看平台日志，看规则有没有被触发</li>
+    </ul>
+  </div>
+</details>
+
+<div class="callout info">
+  <strong>欧普睿壹 vs 格兰思贝 平台对照</strong>
+  <table style="margin-top:8px">
+    <thead><tr><th>项目</th><th>欧普睿壹平台</th><th>格兰思贝平台</th></tr></thead>
+    <tbody>
+      <tr><td>访问地址</td><td><code>iot2.opple.com</code></td><td><code>iot.ground-space.com</code></td></tr>
+      <tr><td>本地服务</td><td>边缘服务器 192.168.1.100</td><td>本地客户端（PC软件）</td></tr>
+      <tr><td>适用系统</td><td>OBUS / SigMesh / DALI</td><td>GS-LINKER 2.4G自组网</td></tr>
+      <tr><td>网关类型</td><td>有线网关 / 混合网关</td><td>4G网关 / 安卓网关</td></tr>
+      <tr><td>调试工具</td><td>欧普智控App / 平台</td><td>GS200灯控App + USB控制器</td></tr>
+    </tbody>
+  </table>
+</div>
+
+</section>
+<section id="ch11">
+<h2><span class="chap-num">11</span>格兰思贝自组网系统与App入门</h2>
+
+<div class="callout info">
+  <strong>本章定位：</strong>格兰思贝自组网是一套独立的 2.4G Mesh 系统，
+  与欧普睿壹智控系统（OBUS/SigMesh/DALI）<b>协议不通、配件不通用、平台不互通</b>。
+  项目用哪套系统，就看哪部分章节，别混着排。
+</div>
+
+<h3>11.1 系统概述与网络拓扑</h3>
+
+<p><strong>适用场景：</strong>中小项目、改造项目、不想拉控制线的场合。
+灯灯自组网、免网关（或只有云网关）、面板直连控制，施工最简单。</p>
+
+<h4>11.1.1 网络拓扑结构</h4>
+
+<figure class="fig-topology">
+  <div class="fig-caption">图 11.1　自组网方案拓扑（本地控制为主）</div>
+  <div class="svg-scroll">
+    <svg viewBox="0 0 980 470" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="自组网蓝牙面板与灯具互联及可选云网关拓扑" style="width:100%;height:auto;max-width:960px;background:#FDFEFE;border:1px solid #D8E1DE;border-radius:8px">
+      <defs>
+        <marker id="znArr" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+          <path d="M0,0 L7,3 L0,6 Z" fill="#7C3AED"/>
+        </marker>
+        <marker id="znArrG" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+          <path d="M0,0 L7,3 L0,6 Z" fill="#0F8A66"/>
+        </marker>
+      </defs>
+
+      <!-- 蓝牙面板 -->
+      <rect x="40" y="120" width="140" height="54" rx="8" fill="#F3EEFF" stroke="#7C3AED" stroke-width="2.2"/>
+      <text x="110" y="142" font-size="12.5" font-weight="700" fill="#6D28D9" text-anchor="middle">蓝牙面板</text>
+      <text x="110" y="160" font-size="9.5" fill="#7C3AED" text-anchor="middle">手动场景控制</text>
+
+      <!-- 灯具 A B C 串联自组网 -->
+      <line x1="180" y1="147" x2="250" y2="147" stroke="#7C3AED" stroke-width="2.8" marker-end="url(#znArr)"/>
+      <rect x="254" y="120" width="110" height="54" rx="8" fill="#F3EEFF" stroke="#7C3AED" stroke-width="2.2"/>
+      <text x="309" y="142" font-size="12.5" font-weight="700" fill="#6D28D9" text-anchor="middle">灯具 A</text>
+      <text x="309" y="160" font-size="9.5" fill="#7C3AED" text-anchor="middle">内置自组网模组</text>
+
+      <line x1="364" y1="147" x2="430" y2="147" stroke="#7C3AED" stroke-width="2.8" marker-end="url(#znArr)"/>
+      <rect x="434" y="120" width="110" height="54" rx="8" fill="#F3EEFF" stroke="#7C3AED" stroke-width="2.2"/>
+      <text x="489" y="142" font-size="12.5" font-weight="700" fill="#6D28D9" text-anchor="middle">灯具 B</text>
+      <text x="489" y="160" font-size="9.5" fill="#7C3AED" text-anchor="middle">内置自组网模组</text>
+
+      <line x1="544" y1="147" x2="610" y2="147" stroke="#7C3AED" stroke-width="2.8" marker-end="url(#znArr)"/>
+      <rect x="614" y="120" width="110" height="54" rx="8" fill="#F3EEFF" stroke="#7C3AED" stroke-width="2.2"/>
+      <text x="669" y="142" font-size="12.5" font-weight="700" fill="#6D28D9" text-anchor="middle">灯具 C</text>
+      <text x="669" y="160" font-size="9.5" fill="#7C3AED" text-anchor="middle">内置自组网模组</text>
+      <text x="744" y="147" font-size="11" fill="#7C3AED">…</text>
+
+      <!-- 灯具两两互联示意(自组网多向) -->
+      <line x1="309" y1="174" x2="489" y2="205" stroke="#C9BFF5" stroke-width="1.8"/>
+      <line x1="489" y1="174" x2="669" y2="205" stroke="#C9BFF5" stroke-width="1.8"/>
+      <text x="489" y="222" font-size="11" fill="#7C3AED" text-anchor="middle">灯具之间自组网（上电自动组网，无需网关）</text>
+
+      <!-- 可选云网关 -->
+      <rect x="40" y="300" width="150" height="50" rx="8" fill="#EAF6F2" stroke="#0F8A66" stroke-width="2"/>
+      <text x="115" y="322" font-size="12" font-weight="700" fill="#075A42" text-anchor="middle">云网关（可选）</text>
+      <text x="115" y="340" font-size="9.5" fill="#5F6E6A" text-anchor="middle">加装后可手机远程</text>
+
+      <!-- 灯具A <-> 云网关 -->
+      <line x1="254" y1="174" x2="200" y2="298" stroke="#0F8A66" stroke-width="2.4" stroke-dasharray="5,4" marker-end="url(#znArrG)"/>
+      <text x="212" y="240" font-size="9.5" fill="#5F6E6A">蓝牙</text>
+
+      <!-- 云平台/APP -->
+      <rect x="300" y="300" width="170" height="50" rx="8" fill="#F1F4F3" stroke="#0F8A66" stroke-width="2"/>
+      <text x="385" y="322" font-size="12" font-weight="700" fill="#075A42" text-anchor="middle">云平台 / 手机 APP</text>
+      <text x="385" y="340" font-size="9.5" fill="#5F6E6A" text-anchor="middle">远程监控 / 场景</text>
+      <line x1="190" y1="325" x2="298" y2="325" stroke="#0F8A66" stroke-width="2.4" marker-end="url(#znArrG)"/>
+      <text x="244" y="318" font-size="9.5" fill="#5F6E6A">以太网</text>
+
+      <!-- 强调本地运行 -->
+      <text x="470" y="420" font-size="11.5" font-weight="600" fill="#6D28D9">核心：免网关本地运行 —— 不上云也能用，灯具/面板直接通信；加云网关才支持手机远程</text>
+    </svg>
+  </div>
+  <figcaption style="font-size:0.85rem;color:#5F6E6A;margin-top:8px">自组网灯具免网关本地运行，蓝牙面板直连灯具，可选云网关实现远程</figcaption>
+</figure>
+
+<div class="callout tip">
+  <strong>自组网的核心特点：免网关本地运行</strong>
+  <br>• 灯具内置格兰思贝模组，上电自动组网
+  <br>• 蓝牙面板直接和灯具通信，不经过网关
+  <br>• 没有网关也能用（本地控制），加云网关可以手机远程控制
+  <br>• 调试工具：GS2011 USB蓝牙调试器 + 电脑调试软件
+</div>
+
+<h4>11.1.2 网络层面配置（云网关场景）</h4>
+
+<p>纯本地自组网不需要网络配置（蓝牙通信不经过IP网络）。
+如果需要远程控制/平台接入，才需要配置云网关：</p>
+
+<ol class="step-list">
+  <li><strong>云网关接线：</strong>插网线、DC 12V供电。</li>
+  <li><strong>获取IP：</strong>DHCP自动获取，在路由器后台查看设备列表。</li>
+  <li><strong>配置网络：</strong>
+    <ul>
+      <li>浏览器登网关后台，配置WiFi或有线网络</li>
+      <li>配置云平台地址和设备凭证</li>
+      <li>确认网关连上云平台（状态灯/后台显示在线）</li>
+    </ul>
+  </li>
+  <li><strong>关联灯具网络：</strong>
+    <ul>
+      <li>用调试软件把灯具网络信息同步到网关</li>
+      <li>或用网关扫描附近的自组网，加入网络</li>
+    </ul>
+  </li>
+  <li><strong>验证：</strong>手机APP远程控制灯具，确认云→网关→灯具通路正常。</li>
+</ol>
+
+<h4>11.1.3 自组网调试工具使用（GS2011）</h4>
+
+<p>这是自组网项目最常用的调试工具，USB插电脑上，安装驱动后用配套软件操作：</p>
+
+<ol class="step-list">
+  <li><strong>安装驱动和软件：</strong>安装GS2011驱动和格兰思贝调试软件。</li>
+  <li><strong>连接调试器：</strong>USB插电脑，打开软件，选择对应串口号，连接。</li>
+  <li><strong>扫描设备：</strong>点击"扫描设备"，软件会列出附近所有格兰思贝蓝牙设备（灯具/面板/传感器）。</li>
+  <li><strong>创建网络：</strong>
+    <ul>
+      <li>新建网络，设置网络名称和密码</li>
+      <li>把扫描到的设备逐个（或批量）加入网络</li>
+      <li>设备加入后会自动分配网络内地址</li>
+    </ul>
+  </li>
+  <li><strong>分组配置：</strong>按楼层/区域分组，如"1F-办公区"、"1F-走廊"等。</li>
+  <li><strong>场景配置：</strong>设置场景（全开/半亮/夜间等），保存到设备中。</li>
+  <li><strong>面板配置：</strong>把蓝牙面板加入网络，配置每个按键对应的组/场景。</li>
+  <li><strong>测试验证：</strong>用面板控制、用软件控制，确认所有灯都能响应。</li>
+</ol>
+
+<h4>11.1.4 自组网网络规划要点</h4>
+
+<table>
+  <thead>
+    <tr><th>项目</th><th>建议值</th><th>说明</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>单网络设备数</td>
+      <td>≤ 200台</td>
+      <td>数量太多会影响响应速度和稳定性，超了就分多个网络</td>
+    </tr>
+    <tr>
+      <td>节点间距</td>
+      <td>≤ 10米（室内）</td>
+      <td>有遮挡（墙、金属吊顶）要缩短距离</td>
+    </tr>
+    <tr>
+      <td>网络跳数</td>
+      <td>≤ 10跳</td>
+      <td>跳数越多延迟越大，长条形建筑注意</td>
+    </tr>
+    <tr>
+      <td>云网关覆盖</td>
+      <td>1-2层/个</td>
+      <td>云网关只要能连到网络中任意一个设备就能控制全网</td>
+    </tr>
+  </tbody>
+</table>
+
+
+<h3>11.2 认识 GS200 灯控 App</h3>
+
+
+<h4>11.2.1 这是什么</h4>
+<p>这是<strong>欧普自组网灯具的控制系统</strong>，灯具内部使用的是<strong>格兰思贝（GranSpace）自组网模块</strong>。对应 App 包名<code>com.groundspace.lightcontrol</code>，你现场使用的为 <strong>OPPLE 工程界面版，软件版本 v1.1.314</strong>。</p>
+<p>本册的每一个界面都与你录屏的真实画面核对过，不是通用功能猜测——你在这 App 里能看到的页面和按钮，就是下面这几页。</p>
+
+<h4>11.2.2 系统构成</h4>
+<table>
+  <thead><tr><th>组成</th><th>作用</th></tr></thead>
+  <tbody>
+    <tr><td>手机 App</td><td>下发控制指令、配置设备参数、查看状态</td></tr>
+    <tr><td>自组网灯具</td><td>内置格兰思贝模块的 LED 灯，通电后自组 Mesh 网络</td></tr>
+    <tr><td>网关</td><td>桥接局域网与灯具 Mesh，实现远程/网关通道控制</td></tr>
+    <tr><td>面板/传感器</td><td>本地触发设备，直接接入 Mesh，不依赖手机</td></tr>
+  </tbody>
+</table>
+
+<h4>11.2.3 App 的真实功能架构（逆向+录屏确认）</h4>
+<ul>
+  <li><strong>三种通信通道</strong>：串口（USB 直连调试）、远程（网络）、网关——顶部单选切换。</li>
+  <li><strong>区组号两级定位</strong>：所有区 / 所有组 + 搜索框，用于快速圈定一批设备。</li>
+  <li><strong>设备类型分类</strong>：灯具 / 智能面板 / 独立传感器 / 照度传感器 / 智能继电器 / 调光。</li>
+  <li><strong>指令体系</strong>：对应源码 <code>ILampCommand</code>，支持调光 DIM、色温 CCT、场景 SCENE、能耗 EMETER、传感器 SEN、PWM、射频 RF、断电重启等数据点。</li>
+  <li><strong>能源计量</strong>：设备能耗、智能电表（EMETER），可用于零碳/能效验收。</li>
+  <li><strong>OTA</strong>：固件飞升（无线升级灯具固件）。</li>
+</ul>
+
+<div class="callout warn">
+  <strong>权限提示</strong>
+  配网/蓝牙扫描需<strong>定位+蓝牙权限</strong>；扫码需<strong>相机</strong>；导入导出需<strong>存储</strong>。现场调试若"扫不到设备、加不进网络"，优先检查这几项权限是否开全。
+</div>
+
+</section>
+<section id="ch12">
+<h2><span class="chap-num">12</span>App主界面：区组号筛选与灯光控制</h2>
+
+
+<p>打开 App 后默认是<strong>主控制界面</strong>（底部"情景模式"Tab 选中）。这是你日常控制和筛选设备的出发点。</p>
+
+<h3>12.1 顶部标题栏</h3>
+<table>
+  <thead><tr><th>元素</th><th>作用</th></tr></thead>
+  <tbody>
+    <tr><td>串口 / 远程 / 网关（三状态点）</td><td>显示当前各通道连接状态（紫=连通/灰=未通/橙=进行中）</td></tr>
+    <tr><td>调试 打开/关闭</td><td>切换调试模式——现场排障时打开可观察更多通信状态</td></tr>
+    <tr><td>重置串口</td><td>串口通信异常时复位</td></tr>
+    <tr><td>切换密码</td><td>更换操作密码</td></tr>
+  </tbody>
+</table>
+
+<h3>12.2 区组号筛选</h3>
+<div class="step"><div class="step__num">1</div><div>「所有区」下拉：按区定位（可对应楼层/分区）。</div></div>
+<div class="step"><div class="step__num">2</div><div>「所有组」下拉：按组定位（可对应房间/回路）。</div></div>
+<div class="step"><div class="step__num">3</div><div>搜索框：输入编号快速定位。</div></div>
+<div class="step"><div class="step__num">4</div><div>右侧「组号控灯」「设备列表」：组号批量控制 / 查看设备清单。</div></div>
+<p><strong>默认"所有区/所有组"= 全量</strong>；缩到某一区/组 = 只控制那批灯。这就是"批量圈定设备"的第一步。</p>
+
+<h3>12.3 灯光设置（6 键）</h3>
+<table>
+  <thead><tr><th>键</th><th>含义</th></tr></thead>
+  <tbody>
+    <tr><td>感应</td><td>传感器感应自动开关</td></tr>
+    <tr><td>常灭</td><td>持续关闭</td></tr>
+    <tr><td>休眠</td><td>低功耗/夜间模式（录屏中曾选中）</td></tr>
+    <tr><td>常亮</td><td>持续点亮</td></tr>
+    <tr><td>闪一闪 / 停止闪</td><td>闪烁测试 / 停止闪烁</td></tr>
+  </tbody>
+</table>
+<p>右边两个大按钮：<strong>调光调色</strong>（亮度/色温精细调节）、<strong>七彩球泡</strong>（RGB 彩光）。</p>
+
+<h3>12.4 情景模式（模式一 ~ 六）</h3>
+<p>一键调用预设场景，对应源码 SCENE 指令。点击即对当前筛选的灯组应用该模式。</p>
+
+<div class="callout tip">
+  <strong>怎么用</strong>：先选"区/组"圈定范围 → 点灯效（感应/常亮等）或情景模式 → 需要精细调光就点"调光调色"。
+</div>
+
+</section>
+<section id="ch13">
+<h2><span class="chap-num">13</span>设备搜索与定位</h2>
+
+
+<p>这 App 里<strong>没有消费级"添加设备/搜索设备"按钮</strong>，搜索/定位是靠"通信通道 + 区组筛选 + 设备列表"三层完成。</p>
+
+<h3>13.1 选对通信通道（最关键）</h3>
+<p>顶部单选：<code>● 串口　○ 远程　○ 网关</code></p>
+<ul>
+  <li><strong>串口</strong>：现场 USB 直连调试（最稳定，录屏默认使用）。</li>
+  <li><strong>远程</strong>：通过局域网走网络通道。</li>
+  <li><strong>网关</strong>：经网关接入 Mesh。</li>
+</ul>
+
+<h3>13.2 用区/组/搜索定位</h3>
+<div class="step"><div class="step__num">1</div><div>在上方选择「所有区」具体区号（或保持"所有区"= 全量）。</div></div>
+<div class="step"><div class="step__num">2</div><div>选择「所有组」具体组号。</div></div>
+<div class="step"><div class="step__num">3</div><div>或用搜索框直接输编号。</div></div>
+
+<h3>13.3 打开设备列表查看/勾选</h3>
+<p>点右上角<strong>「设备列表」</strong>，可在当前筛选范围内看到（并勾选）设备。——这是"查看我圈定范围里有哪些设备"的入口。</p>
+
+<div class="callout warn">
+  <strong>录屏中你遇到的报错</strong>：选择串口后点操作出现<strong>"打开设备失败，设备未找到！"</strong>。按此排查：
+  <br>① 设备是否<strong>已通电</strong>（没电必然找不到）；
+  <br>② 设备是否<strong>已在当前网络</strong>（首次未配网也找不到）；
+  <br>③ 通信方式是否<strong>选对</strong>（现场直连用串口）；
+  <br>④ 点<strong>「重置串口」</strong>后重试；
+  <br>⑤ 如用远程/网关，核对手机与网关是否同一网段（见第5册）。
+</div>
+
+</section>
+<section id="ch14">
+<h2><span class="chap-num">14</span>设备配置：批量设参与一键设置</h2>
+
+
+<p>进入：主界面 / 设备 → <strong>「设备配置」</strong>（或工具箱 → 设备配置）。这是你对灯具、传感器等<strong>批量下发参数</strong>的核心页。</p>
+
+<h3>14.1 页面上半部分（通用）</h3>
+<table>
+  <thead><tr><th>控件</th><th>作用</th></tr></thead>
+  <tbody>
+    <tr><td>设备类型 Tab</td><td>灯具 / 智能面板 / 独立传感器 / 照度传感器 / 智能继电器 / 调光——<strong>先切到要配置的品类</strong></td></tr>
+    <tr><td>串口/远程/网关</td><td>当前通信通道</td></tr>
+    <tr><td>调试 打开/关闭</td><td>调试模式开关</td></tr>
+    <tr><td>重置串口</td><td>复位串口</td></tr>
+    <tr><td>设备列表</td><td>查看/勾选设备</td></tr>
+  </tbody>
+</table>
+
+<h3>14.2 “一键设置”= 你要的批量配置</h3>
+<p>每个配置面板都有两种下发方式，<strong>关键区别</strong>：</p>
+<table>
+  <thead><tr><th>按钮</th><th>作用</th></tr></thead>
+  <tbody>
+    <tr><td>每个参数旁的<strong>「发送」</strong></td><td>单项下发（精确调单参）</td></tr>
+    <tr><td>面板顶部的<strong>「一键设置」</strong></td><td><strong>整组批量下发</strong>——对当前圈定的所有设备统一生效</td></tr>
+    <tr><td>「读取配置」</td><td>从设备<strong>回读当前实际参数</strong>（验证是否生效）</td></tr>
+  </tbody>
+</table>
+<p><strong>批量设置的标准动作</strong>：圈定区/组 → 切到要配的品类 → 在各面板调好参数 → 点「一键设置」批量下发 →「读取配置」回读验证 → 必要时「重启设备」。</p>
+
+<h3>14.3 灯具的核心配置面板</h3>
+<table>
+  <thead><tr><th>面板</th><th>项目</th></tr></thead>
+  <tbody>
+    <tr><td>常用设置</td><td>传感器开关、联动开关、转发开关（其他/转发）、重启设备</td></tr>
+    <tr><td>运行模式</td><td>分组 / 学习 / 简易（<strong>学习模式用于配网</strong>）</td></tr>
+    <tr><td>基本设置</td><td>当前情景号（指定默认调用哪个情景）</td></tr>
+    <tr><td>色温调节</td><td>色温增高速度、降低速度</td></tr>
+    <tr><td>感应距离等级</td><td>发射功率（默认 8）</td></tr>
+    <tr><td>雷达灵敏度</td><td>灵敏度档位（最迟钝 ~ 最灵敏）</td></tr>
+    <tr><td>电源工频</td><td>50 / 60Hz</td></tr>
+    <tr><td>调光曲线</td><td>线性 ~ 平方根（平滑或对数调光）</td></tr>
+    <tr><td>射频设置</td><td>发射功率（影响数据跳数/稳定性）</td></tr>
+    <tr><td>能耗参数</td><td>通电时长、感应时长、等效亮灯时长、实际能耗、功率（EMETER）</td></tr>
+    <tr><td>PWM 设置</td><td>PWM 频率（默认 2000Hz）、模式（CW 等）</td></tr>
+  </tbody>
+</table>
+
+<div class="callout tip">
+  <strong>记忆点</strong>：<strong>"发送"=调一个，"一键设置"=批量，"读取配置"=验证。</strong>批量部署大量灯具，就用"一键设置+读取配置"这套组合。
+</div>
+
+</section>
+<section id="ch15">
+<h2><span class="chap-num">15</span>设备编号：批量编地址与配组</h2>
+
+
+<p>进入：任意配置页右上角 <strong>「设备编号」</strong>。这里是<strong>把设备编进"区号+组号"组织架构</strong>的入口，是"选一个区组批量控制"的前提。</p>
+
+<h3>15.1 遥控器选中操作</h3>
+<p>通过<strong>组号+区号</strong>组合，对一批设备做选中/取消：</p>
+<table>
+  <thead><tr><th>控件</th><th>作用</th></tr></thead>
+  <tbody>
+    <tr><td>组号 / 区号（下拉）</td><td>选要操作的目标区域</td></tr>
+    <tr><td>选中</td><td>批量选中该区/组的设备</td></tr>
+    <tr><td>取消 / 全部取消</td><td>撤销选中</td></tr>
+    <tr><td>设置</td><td>把选中状态写下去</td></tr>
+    <tr><td>邻组地址 + 添加/删除</td><td>跨组联动（把相邻组加入联动范围）</td></tr>
+  </tbody>
+</table>
+
+<h3>15.2 编号设置</h3>
+<p>为单个/批量设备分配地址码：</p>
+<ul>
+  <li><strong>编号</strong> → 输入 →「设置」（设备地址码）</li>
+  <li><strong>组号</strong> → 下拉 →「设置」（归属组）</li>
+  <li><strong>区号</strong> → 下拉 →「设置」（归属区）</li>
+  <li><strong>密码</strong> → 「设置密码」（设备保护密码）</li>
+</ul>
+
+<div class="callout warn">
+  <strong>现场提示</strong>
+  编地址前务必确认设备已在当前网络；编错区/组会导致"找不到设备"。编码前可用「设备列表」核对当前已有哪些设备。
+</div>
+
+</section>
+<section id="ch16">
+<h2><span class="chap-num">16</span>指哪配哪：现场配网核心入口</h2>
+
+
+<p>进入：<strong>工具箱 → 滚到底 → 「指哪配哪」</strong>（绿色高亮按钮），或设备编号页底部。这是本 App 配网的核心入口——<strong>其实现场"指着某一台设备，把它配进指定区组"</strong>。</p>
+
+<h3>16.1 操作流程</h3>
+<div class="step"><div class="step__num">1</div><div>确保上方<strong>通信方式</strong>选对（现场直连用串口）。</div></div>
+<div class="step"><div class="step__num">2</div><div>先切好<strong>设备类型</strong>（灯具/面板/传感器等）。</div></div>
+<div class="step"><div class="step__num">3</div><div>如需配单灯，区/组可先保持"所有区/所有组"。</div></div>
+<div class="step"><div class="step__num">4</div><div>点绿色<strong>「指哪配哪」</strong> → App 进入监听状态。</div></div>
+<div class="step"><div class="step__num">5</div><div><strong>物理触发目标设备</strong>（快速开关数次 / 长按面板按键 / 或设备发信标），让 App 识别到你指的这台。</div></div>
+<div class="step"><div class="step__num">6</div><div>弹窗<strong>确认设备</strong> → 为它分配区号/组号/编号 → 完成绑定。</div></div>
+
+<div class="callout info">
+  <strong>同页配套</strong>
+  「设备关联/打标签」：选设备 →「关联」挂到某区组 /「查询」看状态；「邻组设置」：让相邻组建立联动。「导出设备列表」「导入设备列表」：批量备份/恢复/复制配置到同型项目。
+</div>
+
+</section>
+<section id="ch17">
+<h2><span class="chap-num">17</span>工具箱与进阶参数详解</h2>
+
+<h3>17.1 工具箱：全部功能导航</h3>
+
+
+<p>底部「工具箱」Tab → 进入聚合页（卡片网格，<strong>向下滚动</strong>能看到更多功能）。这是 App 所有高级功能的入口。</p>
+
+<table>
+  <thead><tr><th>功能</th><th>作用</th></tr></thead>
+  <tbody>
+    <tr><td>设备配置</td><td>各类设备参数配置（第14章）</td></tr>
+    <tr><td>设备编号</td><td>批量编地址/配组（第15章）</td></tr>
+    <tr><td>指哪配哪</td><td>现场配网核心（第16章）</td></tr>
+    <tr><td>连多网关</td><td>多个网关接入管理</td></tr>
+    <tr><td>功能选择 / 高级功能</td><td>高级功能开关 / 入口</td></tr>
+    <tr><td>传感器触发</td><td>传感器联动触发规则</td></tr>
+    <tr><td>情景模式</td><td>场景编排</td></tr>
+    <tr><td>数据上云</td><td>数据上报云端</td></tr>
+    <tr><td>远程协助</td><td>远程技术支持介入</td></tr>
+    <tr><td>设置标签</td><td>给设备打标签</td></tr>
+    <tr><td>固件飞升</td><td>OTA 固件升级（升级时勿断电）</td></tr>
+    <tr><td>设备能耗 / 智能电表</td><td>能耗计量（EMETER）</td></tr>
+    <tr><td>一键换灯</td><td>故障灯快速替换配网</td></tr>
+    <tr><td>蓝牙信标</td><td>BLE 信号调测</td></tr>
+    <tr><td>定时任务</td><td>定时开关（schedule）</td></tr>
+    <tr><td>字典管理 / 切换语言</td><td>参数字典 / 语言切换</td></tr>
+    <tr><td>检查更新 / 更新说明</td><td>App 版本与更新</td></tr>
+  </tbody>
+</table>
+
+
+<h3>17.2 进阶参数详解（灯具）</h3>
+
+
+<p>这些参数在灯具「设备配置」里，部分较专业，现场调节影响组网稳定性与灯光表现。</p>
+
+<table>
+  <thead><tr><th>参数</th><th>含义</th><th>现场调多大</th></tr></thead>
+  <tbody>
+    <tr><td>数据跳数</td><td>Mesh 多跳上限</td><td>3 左右（默认）</td></tr>
+    <tr><td>传感器跳数</td><td>传感器数据可跳转次数</td><td>3 左右</td></tr>
+    <tr><td>重发次数</td><td>指令重发，增强可靠性</td><td>信号弱时调大</td></tr>
+    <tr><td>转发开关（其他/转发）</td><td>是否作为数据中继</td><td>密集区域通常"转发"</td></tr>
+    <tr><td>PWM 频率</td><td>调光载波频率</td><td>2000Hz（默认）</td></tr>
+    <tr><td>调光曲线</td><td>线性/对数调光</td><td>视觉平滑用平方根</td></tr>
+    <tr><td>发射功率</td><td>射频信号强度</td><td>默认 8，覆盖弱时调大</td></tr>
+  </tbody>
+</table>
+
+<div class="callout warn">
+  <strong>组网稳定性</strong>
+  灯具间距尽量 ≤10m，避开金属桥架遮挡。跳数/发射功率调大虽覆盖面广，但同频干扰和数据时延也会上升——先保证"同区域灯具 2-3 跳内可达"。
+</div>
+
+</section>
+<section id="ch18">
+<h2><span class="chap-num">18</span>常见操作流水（现场怎么做）</h2>
+
+
+<h3>18.1 现场新装一批灯，要批量配网+编地址</h3>
+<div class="step"><div class="step__num">1</div><div>主界面确认<strong>串口</strong>连通，顶部状态点紫色。</div></div>
+<div class="step"><div class="step__num">2</div><div>工具箱 →「指哪配哪」，物理触发逐台把灯加进网络。</div></div>
+<div class="step"><div class="step__num">3</div><div>主界面选「所有区/所有组」+ 设备列表核对已加入的灯。</div></div>
+<div class="step"><div class="step__num">4</div><div>进「设备编号」，按楼层房间分配区号/组号/编号。</div></div>
+<div class="step"><div class="step__num">5</div><div>进「设备配置」，调好参数后用「一键设置」批量下发。</div></div>
+<div class="step"><div class="step__num">6</div><div>「读取配置」抽查回读，确认生效。</div></div>
+
+<h3>18.2 现场某灯调光异常/不同步</h3>
+<div class="step"><div class="step__num">1</div><div>查该灯是否在网（设备列表在线状态）。</div></div>
+<div class="step"><div class="step__num">2</div><div>查它与就近节点距离、有无金属遮挡。</div></div>
+<div class="step"><div class="step__num">3</div><div>必要时在「设备编号」邻组设置补联动地址。</div></div>
+
+<h3>18.3 需要把 A 项目配置搬到 B 项目</h3>
+<div class="step"><div class="step__num">1</div><div>A 项目设备编号页「导出设备列表」存文件。</div></div>
+<div class="step"><div class="step__num">2</div><div>B 项目同样页面「导入设备列表」批量恢复。</div></div>
+
+</section>
+<section id="ch19">
+<h2><span class="chap-num">19</span>故障排查</h2>
+
+
+<table>
+  <thead><tr><th>现象</th><th>可能原因</th><th>排查方法</th></tr></thead>
+  <tbody>
+    <tr><td>打开设备失败，未找到</td><td>未通电 / 未入网 / 通信方式错</td><td>确认供电、确认入网、串口选对、重置串口</td></tr>
+    <tr><td>灯具扫描不到</td><td>定位/蓝牙权限未开 / 距离远</td><td>开权限、靠近灯具、确认通电</td></tr>
+    <tr><td>控制无响应/延迟</td><td>不在同网 / 跳数多 / 信号弱</td><td>核对网段、缩短距离、调发射功率</td></tr>
+    <tr><td>部分灯离线</td><td>间距大 / 遮挡 / 同频干扰</td><td>调间距≤10m、避金属、换信道</td></tr>
+    <tr><td>个别灯调光不同步</td><td>多跳延迟 / 信号弱</td><td>重测距离、补邻组地址</td></tr>
+    <tr><td>串口连不上</td><td>驱动/线路/占用</td><td>重置串口、查连接线、重启 App</td></tr>
+    <tr><td>App 登录/连接不了</td><td>IP 不通 / 通道没连上</td><td>按第5册分层排障：串口→远程→网关</td></tr>
+  </tbody>
+</table>
+
+<div class="callout tip">
+  <strong>与资料联动</strong>：这里是 App 操作层面的排障；系统/网络级（IP、VLAN、网关、服务器）故障看 <a href="2-网络调试与运维手册.html" style="color:var(--page-brand);font-weight:600;">第5册</a>，踩过的坑记入 <a href="2-网络调试与运维手册.html" style="color:var(--page-brand);font-weight:600;">第9册避坑日记</a>，全流程看 <a href="3-项目管理与施工标准.html" style="color:var(--page-brand);font-weight:600;">第6册</a>。
+</div>
+
+</section>
+<section id="ch20">
+<h2><span class="chap-num">20</span>自组网灯具调试全流程（官方手册）</h2>
+
+
+<p>本章依据格兰思贝官方《GS200平台手机APP使用手册2.9》整理，是现场完整调试的<strong>标准动作序列</strong>，按顺序做即可。核心逻辑：<strong>接好串口 → 按项目选运行模式 → 指哪配哪/近距离选中编区组 → 配置参数 → 关联面板/传感器 → 设情景 → 上云。</strong></p>
+
+<h3>20.1 调试准备：连接与设置</h3>
+<div class="step"><div class="step__num">1</div><div>安卓手机（Type-C）+ <strong>USB控制器</strong> + Type-C转USB3.0转接头，连接后 USB 控制器<strong>蓝光=正常供电</strong>。</div></div>
+<div class="step"><div class="step__num">2</div><div><strong>关键：手机需打开 OTG</strong>——设置→其他网络与连接→OTG→打开（<strong>OTG 5分钟不用会自动关闭</strong>，扫不到灯先看它）。</div></div>
+<div class="step"><div class="step__num">3</div><div>打开 App，弹出"允许灯控助手访问 CH57x"点允许；未弹则右上角点「重置串口」触发；串口标识<strong>绿色</strong>=连接正常。</div></div>
+
+<h3>20.2 搜灯与确认位置</h3>
+<div class="step"><div class="step__num">1</div><div>点「设备列表」，区组号筛选的「所有区」填现场区号（未调试填 <strong>0</strong>）。</div></div>
+<div class="step"><div class="step__num">2</div><div>点「搜灯」或「近距搜灯」（近距需固件≥V5.3.33），灯具数量不再增长后点「停止搜灯」。</div></div>
+<div class="step"><div class="step__num">3</div><div>选中一盏灯点「闪」→ 灯进入闪烁 → 点「停」→ 停止，用此法逐台确认安装位置。</div></div>
+<div class="callout warn"><strong>注意</strong>：这里搜出的只是灯具列表，<strong>不包含其他智能设备</strong>（面板/传感器需在各自类型下另搜）。</div>
+
+<h3>20.3 修改区组号（批量编地址）</h3>
+<div class="step"><div class="step__num">1</div><div>主界面下方「快捷设置」→ 右上角「设备编号」→ 选「灯具」设备类型 →「设备列表」。</div></div>
+<div class="step"><div class="step__num">2</div><div>在「编号设置」中改区号/组号，<strong>每改一项都必须点该项右侧的「设置」生效，灯闪一下=接收确认</strong>。</div></div>
+<div class="step"><div class="step__num">3</div><div>批量法：用「指哪配哪」近距离选灯（见11.4），或框定筛选后批量改。</div></div>
+
+<h3>20.4 指哪配哪：批量选中+编区组核心</h3>
+<table>
+  <thead><tr><th>控件/按钮</th><th>作用</th></tr></thead>
+  <tbody>
+    <tr><td><strong>上下翻转</strong></td><td>整个界面翻转，<strong>手机插着USB调试器选中上方灯具时务必开启</strong>！</td></tr>
+    <tr><td>区组号筛选</td><td>指定选中灯具的区组范围</td></tr>
+    <tr><td>区/组/起始号</td><td>给选中灯具编号。无起始号=只改区组；有起始号=每灯加1自动编号</td></tr>
+    <tr><td>选灯距离</td><td>控制选中距离，越靠左越近，可用近/远微调</td></tr>
+    <tr><td>「选中」</td><td>发送近距选中命令（灯进入呼吸/闪烁态）</td></tr>
+    <tr><td>「自动选中」/「自动取消」/「停止」</td><td>每0.5秒自动发选中/取消指令，可停止</td></tr>
+    <tr><td>「开始编号」</td><td>按给的区、组、起始号开始编号</td></tr>
+    <tr><td>「全部取消」</td><td>发送全部取消命令并清空列表</td></tr>
+  </tbody>
+</table>
+<div class="callout warn"><strong>关键提示</strong>：若退出「指哪配哪」时列表里还有灯，App 会进入<strong>选中操作状态（背景浅绿色）</strong>，后续所有配置只对选中的灯生效；退出要用「全部取消」清空，否则会<strong>误改选中灯</strong>。</div>
+
+<h3>20.5 灯具运行模式选择（按项目类型）</h3>
+<table>
+  <thead><tr><th>运行模式</th><th>是否需要分区组</th><th>适用场景与要点</th></tr></thead>
+  <tbody>
+    <tr><td><strong>分组</strong></td><td>需要</td><td>同组/邻组联动。<strong>车位灯建议用分组模式</strong>。</td></tr>
+    <tr><td><strong>深度学习</strong></td><td>无需</td><td>灯具自动学习记忆传感器触发的最可能路径，按"附近灯具数量"自动联动。<strong>车道灯建议开启</strong>：单列安装附近灯具数=4，双列=8。新固件(V5.3.40+)出厂默认为深度学习。</td></tr>
+    <tr><td><strong>简易</strong></td><td>无需</td><td>传感器触发后按"亮灯范围"自动联动附近一定范围灯具。</td></tr>
+  </tbody>
+</table>
+
+<h3>20.6 灯具参数配置（常用设置/调光/传感器/网络）</h3>
+<table>
+  <thead><tr><th>面板</th><th>要点</th></tr></thead>
+  <tbody>
+    <tr><td><strong>常用设置</strong></td><td>传感器开关（是否用自带感应）、联动开关（是否与其他灯具感应联动）、转发开关（是否做中继）——3个最常用，需与下方详细面板配合。</td></tr>
+    <tr><td><strong>基本设置</strong></td><td>亮灯模式：<strong>感应/常亮/常灭</strong>。感应模式下配有人亮度、无人亮度、色温、感应模式（一段/二段延时）、恒照度模式（自控/被控）。常亮模式配色彩、亮度、色温、恒照度。</td></tr>
+    <tr><td><strong>调光设置</strong></td><td>亮灯速度、灭灯速度、色温增/降速度。</td></tr>
+    <tr><td><strong>网络设置</strong></td><td>数据跳数、传感器跳数、重发次数——<strong>仅当转发开关=转发时有效</strong>，决定中继转发深度。</td></tr>
+  </tbody>
+</table>
+
+<h3>20.7 车库项目典型调试步骤（只需灯具配置）</h3>
+<div class="step"><div class="step__num">1</div><div>工具箱→「功能选择」→选「停车库」（精简界面，只留相关参数）。</div></div>
+<div class="step"><div class="step__num">2</div><div>快捷配置中选运行模式：车位灯=分组，车道灯=深度学习。</div></div>
+<div class="step"><div class="step__num">3</div><div>用「指哪配哪」近距离选灯（<strong>记得点上下翻转</strong>），在起始编号框填区组号 →「开始编号」自动编区组（不填起始号仅改区组）。</div></div>
+<div class="step"><div class="step__num">4</div><div>快捷配置调参数：车位灯=分组模式并关联动；全场有人/无人亮度、延时等。</div></div>
+<div class="step"><div class="step__num">5</div><div>深度学习场地：安装中可能记忆了错误路径，用「运行模式→清除数据」清掉，再<strong>乘车/行走3-5次</strong>让灯具重新学习正确路径。</div></div>
+
+<h3>20.8 无线控制面板配置与设备关联（官方权威流程）</h3>
+<p>这是你现场面板"连上但控制不了灯"问题的<strong>官方标准答案</strong>，分 3 步：</p>
+<div class="step"><div class="step__num">1</div><div>面板入网：功能选择选「完整模式」→「快捷配置」右上角「设备编号」→设备类型选「智能面板」→区组设「所有区/所有组」→ <strong>长按面板左上角按键3秒后放开</strong> → 指示灯进入<strong>跑马灯=配置模式</strong> → 面板自动出现在灯具列表。</div></div>
+<div class="step"><div class="step__num">2</div><div>面板命名并改区号：选中面板 →「编号设置」把<strong>面板区号改成与要绑定的灯具区号一致</strong> →「设备名」起名 →<strong>点「起名」生效</strong>。</div></div>
+<div class="step"><div class="step__num">3</div><div><strong>灯具端做设备关联</strong>：回「灯具」设备类型 → 选中一个组或1个灯 → 下方「设备关联」的「设备框」中<strong>下拉选择刚命名的面板</strong> → 点「关联」→ <strong>选中的灯闪一下=绑定成功</strong>。</div></div>
+<div class="callout danger"><strong>核心结论（对照你之前的卡壳）</strong>：
+<ol>
+  <li>绑定关系<strong>写在灯具端</strong>，不是面板端——要做的是"灯具→面板"的关联。</li>
+  <li>关联框用<strong>下拉选面板名</strong>，不是手输，也不是对编号。</li>
+  <li>编号=设备软地址，<strong>不是关联键</strong>；你在命名框填的号没在「编号设置」里点「设置」下发，就不会真正写进设备（所以断电/关联时对不上）。</li>
+</ol></div>
+
+<h3>20.9 面板的四种情景模式设置方式</h3>
+<table>
+  <thead><tr><th>方式</th><th>入口</th><th>适用场景</th><th>要点</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>主界面左下「情景模式」</td><td><strong>单组</strong></td><td>选区组→进场景1-6→选亮灯模式→预览→保存及应用。想让面板某键不控某些灯时，设该场景"场景有效"为"无效"。</td></tr>
+    <tr><td>2</td><td>工具箱→「情景场景」</td><td><strong>多组</strong></td><td>需要"灯具框"添加灯具组；可用"保存当前文件/调用当前文件"快速配置（需区组划分一致）；可"保存总场景文件"复用到同型案场。</td></tr>
+    <tr><td>3</td><td>主界面灯光设置+情景模式长按</td><td>单组、不用感应模式</td><td>选亮灯模式→调光调色→在对应情景<strong>长按</strong>→确认保存到情景X。</td></tr>
+    <tr><td>4</td><td>快捷配置→基本配置→情景设置</td><td>单组、无需"场景无效"</td><td>完成参数后，下拉选情景→点「保存」到相应情景。缺点：无法实现某情景无效。</td></tr>
+  </tbody>
+</table>
+
+<h3>20.10 恒照度传感器配置</h3>
+<div class="step"><div class="step__num">1</div><div>「快捷配置」→「设备编号」→「照度传感器」类型→区组设「XX区/所有组」→设备列表→搜灯搜出恒照度。</div></div>
+<div class="step"><div class="step__num">2</div><div>给恒照度「设备起名」→点「起名」生效→把区号改成与关联灯一致的区号。</div></div>
+<div class="step"><div class="step__num">3</div><div>回「灯具」类型→设备关联→下拉选恒照度命名→关联→灯闪绑定成功。</div></div>
+<div class="step"><div class="step__num">4</div><div>灯需把「恒照度模式」由"无效"改为"被控"（未设情景用基本配置改；已设情景到对应场景改）。</div></div>
+<div class="step"><div class="step__num">5</div><div>「快捷配置→照度传感器」：读取配置查当前，在「目标照度值」填目标值→发送。参数含发射开关、最小亮度因子、实际照度（读取后实时值）。</div></div>
+
+<h3>20.11 上云（数据上云 / 云平台录入）</h3>
+<div class="step"><div class="step__num">1</div><div>手机临时当网关：工具箱→「数据上云」→填 ProductKey/DeviceName/DeviceSecret →「开启连接」。</div></div>
+<div class="step"><div class="step__num">2</div><div>云平台（B/S架构，<code>iot.ground-space.com</code>）：项目→操作配置→打开"自动更新"→区域选择→新增根节点（一个网关共同覆盖区域算一个节点）→为节点添加网关（须先在阿里云后台注册网关，未注册会报错）→点"灯"类型→"添加灯"→填区号+网络密码→「网关搜灯」→勾选本节点灯→确认添加。注意<strong>一个灯只能存在于一个节点</strong>。</div></div>
+<div class="step"><div class="step__num">3</div><div>云平台支持：情景模式、定时情景任务、地图模式（编辑模式导入地图+拖动布灯）、远程操作（场所/区/单灯/群组/标签操作）、报表导入导出。</div></div>
+
+</section>
+<section id="ch21">
+<h2><span class="chap-num">21</span>调试注意事项与避坑（官方手册）</h2>
+
+
+<h3>21.1 高发注意事项（现场反复踩）</h3>
+<table>
+  <thead><tr><th>注意点</th><th>说明</th></tr></thead>
+  <tbody>
+    <tr><td><strong>OTG 5分钟自动关闭</strong></td><td>扫不到灯、连不上串口时，先去设置里重开 OTG。</td></tr>
+    <tr><td><strong>近距搜灯/选灯要"上下翻转"</strong></td><td>手机插 USB 调试图时界面需上下翻转，否则选中错位/选不中。</td></tr>
+    <tr><td><strong>改任何参数要"发送/设置/起名"</strong></td><td>只改输入框不点下发键=没写进设备，断电/刷新即回默认。这是"改了又变回"的根因。</td></tr>
+    <tr><td><strong>退出指哪配哪的选中态</strong></td><td>列表有灯时退出会进入"选中操作态(浅绿背景)"，后续操作只针对选中灯，误改风险高，记得"全部取消"。</td></tr>
+    <tr><td><strong>搜灯≠包含智能设备</strong></td><td>消防的灯具列表不含面板/传感器，需在各自设备类型下另搜。</td></tr>
+  </tbody>
+</table>
+
+<h3>21.2 同频干扰与安全模式（考场等重要现场）</h3>
+<div class="step"><div class="step__num">1</div><div>展会等现场出现<strong>同频干扰</strong>时，用"灯控配置工具"把频点<strong>改到空闲频点</strong>避开干扰源。</div></div>
+<div class="step"><div class="step__num">2</div><div>考场教室被防作弊干扰机阻塞时：灯具类型→选该教室区组→打开「安全模式开关」→「情景号」选受干扰时应进入的情景→「面板地址」填该教室关联的面板名。</div></div>
+<div class="callout warn"><strong>安全模式大坑</strong>：配置安全模式后，若该教室的无线面板后来更换或改名，<strong>必须同步更新安全模式里的"面板地址"到最新名</strong>，否则会出现教室灯具隔一段时间自动进入指定模式的异常！</div>
+
+<h3>21.3 雷达灵敏度调节</h3>
+<div class="step"><div class="step__num">1</div><div>「快捷配置→灯具」雷达感应模组灯具→「雷达灵敏度设置」→「灵敏度挡位」滑高→发送（数值越大感应范围越大）。</div></div>
+<div class="step"><div class="step__num">2</div><div>不够再加「感应距离等级」的「发射功率」从1档到2档。</div></div>
+<div class="callout warn"><strong>慎重</strong>：发射功率调到3档后，灯具密集案场容易<strong>饱和引发误报或不感应</strong>，同时待机功耗增加、反向感应增大，务必逐档测试。</div>
+
+<h3>21.4 PWM 调整（旧灯改造消频闪）</h3>
+<div class="step"><div class="step__num">1</div><div>「快捷配置→灯具」→设备列表选灯→「PWM设置」→读取配置读出当前 PWM。</div></div>
+<div class="step"><div class="step__num">2</div><div>「PWM频率」填新值→发送。</div></div>
+<div class="callout warn"><strong>重要</strong>：改完 PWM 的灯具须<strong>重新下电1分钟后再上电</strong>才生效。</div>
+
+<h3>21.5 OTA 固件升级（固件飞升）</h3>
+<div class="step"><div class="step__num">1</div><div>工具箱→「固件飞升」→提示时打开手机蓝牙。</div></div>
+<div class="step"><div class="step__num">2</div><div>设备列表选中要升级的区组或灯 →「加载飞升文件」（用格兰斯贝技术支持提供的<strong>正确版本文件</strong>）→「固件飞升」→看进度条。</div></div>
+<div class="callout danger"><strong>高风险</strong>：固件飞升是高风险操作，<strong>文件版本须来自官方技术支持，选中范围要确认无误</strong>，谨慎执行。</div>
+
+<h3>21.6 恢复出厂 / 能耗上报 / 字典导出 / 面板键值</h3>
+<table>
+  <thead><tr><th>功能</th><th>操作</th><th>要点</th></tr></thead>
+  <tbody>
+    <tr><td>恢复出厂</td><td>工具箱底部<strong>快速点软件版本号6次</strong>→出现"上传/调试模式"→再进会有"自动飞升/恢复出厂"→「恢复出厂」→选设备→「恢复出厂设备」</td><td>隐藏入口，用于清掉错误配置重来。</td></tr>
+    <tr><td>能耗上报</td><td>快捷配置→灯具→每个灯「能耗参数」填额定功率→发送；工具箱→「设备能耗」→选区组→「能耗上报」→选时间间隔→确定</td><td>需先给每个灯配好额定功率。</td></tr>
+    <tr><td>字典导出</td><td>工具箱→「字典管理」→保存字典→nms存手机Documents/GroundSpace；别人导入：微信收→存Download/WeiXin→App导入字典</td><td>用于配置在不同项目/人手间复用。</td></tr>
+    <tr><td>面板键值改情景号</td><td>需面板固件≥5.4.4且完成情景配置和灯具绑定。设备编号→智能面板→长按左上3秒进入配置→「情景号」点情景1→下拉选情景7→依次→「一键设置」</td><td>满足大于6个情景需求：2个6键面板实现12情景。</td></tr>
+  </tbody>
+</table>
+
+<h3>21.7 其他设备配置要点（快速参考）</h3>
+<table>
+  <thead><tr><th>设备</th><th>要点</th></tr></thead>
+  <tbody>
+    <tr><td><strong>智能继电器</strong></td><td>设备编号→智能继电器改区组号→灯具类型调整常用/基本配置。联动开关=开并发送；按需开"转发"。基本配置：亮灯模式=感应，无人亮度=0%，调一段延时。</td></tr>
+    <tr><td><strong>智能语音控制器</strong></td><td>修改成与灯具同区→起名→灯具设备关联"语音控制器命名"→即可语音控制已关联灯。</td></tr>
+    <tr><td><strong>独立传感器（座位/人体存在）</strong></td><td>搜灯找独立传感器，闪灯/发ID确认位置→与受控灯同区→命名→灯具设备关联传感器名（联动开关需开）。人体存在：感应距离2-6档(1.5-4.5m，每跳0.75m)，灵敏度高中低，<strong>感应距离+灵敏度同时选好再"一键设置"</strong>。</td></tr>
+    <tr><td><strong>窗帘电机控制器</strong></td><td>先用电机自带遥控设行程→设备编号改与灯同区→关联面板/语音→各场景定义窗帘行为并测试。</td></tr>
+    <tr><td><strong>环境传感器</strong></td><td>设备编号改与空调面板同区并命名→开传感器/联动开关→读取配置得温湿度CO2→通过关联传给其他设备。</td></tr>
+    <tr><td><strong>邻组通知（路口/走廊模式）</strong></td><td>遥控器(GSR型不支持)：选中A/B两灯→对A按"邻组+"加B组。App：设备编号→灯具→设备列表选中灯→「邻组设置」→「邻组地址」填组号→「添加」。</td></tr>
+    <tr><td><strong>连多网关（局域网远程控制）</strong></td><td>工具箱→连多网关→同局域网自动出现所有已联网网关→别名→输远程密码→连接，可同时连多网关省平台部署。</td></tr>
+  </tbody>
+</table>
+
+<div class="callout tip">
+  <strong>本册依据</strong>：第11、12章内容整理自格兰思贝官方《GS200平台手机APP使用手册 V2.9》与《格兰斯贝云平台使用手册 V2.1》。涉及面板/传感器你现场拿不准的机型细节，以官方最新手册及格兰思贝技术支持为准。
+</div>
+
+</section>
+<section id="ch22">
+<h2><span class="chap-num">22</span>格兰思贝平台操作与上云对接</h2>
+
+
+<p>自组网（格兰思贝）方案有<b>两层操作</b>：<strong>现场调试</strong>（手机 APP「灯控助手」+ USB 控制器，前文已详述）和<strong>平台管理</strong>（本地客户端 / 云平台）。前面章节补齐了"现场怎么配灯"，本章补齐"交付后怎么管、数据怎么上云、客户怎么日常运维"，以及自组网方案怎样融入欧普整体方案体系。</p>
+
+<div class="callout info">
+  <strong>本章依据</strong>
+  <br>整理自格兰思贝官方《本地客户端使用手册 V1.2》《云平台使用手册 V2.1》《GS200 平台手机 APP 使用手册 V2.9》。针对具体固件版本、机型细节以官方最新手册及格兰思贝技术支持为准。
+</div>
+
+<h3>一、双层网络架构（理解对接的基础）</h3>
+
+<p>格兰思贝整套无线传感网采用<b>双层网络设计</b>，这是理解"系统操作 + 与欧普对接"的钥匙：</p>
+
+<table>
+  <thead>
+    <tr><th style="width:22%">层级</th><th style="width:38%">组成</th><th style="width:22%">通信方式</th><th>协议</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span class="badge badge--brand">底层 · 控制层</span></td>
+      <td>灯具、智能微动开关面板、智能窗帘控制器</td>
+      <td>全无线、2.4G、无中心节点</td>
+      <td>GS-LINKER 自组网协议</td>
+    </tr>
+    <tr>
+      <td><span class="badge badge--warn">上层 · 管理层</span></td>
+      <td>网关 + 云平台 / 本地客户端</td>
+      <td>WiFi / 网线 / USB 4G 上网</td>
+      <td>MQTT 物联网协议</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="callout tip">
+  <strong>一句话记住：</strong>现场调试发生在<b>底层</b>（手机 APP 通过 USB 控制器直连灯具），交付后的管理发生在<b>上层</b>（PC / 云端平台）。两层靠<b>网关</b>衔接，<b>网关是自组网上云的唯一入口</b>——不改无线覆盖，只做网络 ID 分区管理和数据上云。
+</div>
+
+<h3>二、平台生态"三件套"对照</h3>
+
+<p>自组网方案有三个软件工具，分工不同，别混淆：</p>
+
+<table>
+  <thead>
+    <tr><th style="width:20%">工具</th><th style="width:16%">形态</th><th style="width:20%">部署</th><th style="width:20%">适用场景</th><th>核心功能</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>手机 APP「灯控助手」</strong></td>
+      <td>安卓 APP</td>
+      <td>手机 + USB 控制器</td>
+      <td>现场配网调试</td>
+      <td>搜灯、改区组号、配面板、情景模式、传感器、继电器、窗帘电机等</td>
+    </tr>
+    <tr>
+      <td><strong>本地客户端</strong></td>
+      <td>PC · B/S</td>
+      <td>客户 PC 本地安装</td>
+      <td>单项目交付、局域网 / 公网</td>
+      <td>项目管理、灯具操作、能耗告警、定时任务、地图模式、数据备份恢复、网关升级</td>
+    </tr>
+    <tr>
+      <td><strong>云平台</strong></td>
+      <td>云端 · B/S</td>
+      <td>云服务器</td>
+      <td>多项目集中管理</td>
+      <td>上述功能 + 数据大屏 + 三级账户权限</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="callout warn">
+  <strong>怎么选：</strong>只交付一个项目、客户要本地掌控数据 → 用<b>本地客户端</b>；要在一个账号下管多个项目、做全国 / 多园区统筹 → 用<b>云平台</b>。两者功能模块基本一致（首页 / 项目管理 / 日志 / 数据处理），云平台多了"数据大屏"和"三级账户"。
+</div>
+
+<h3>三、网关类型与选型要求</h3>
+
+<p>网关是自组网数据上云的关键，选型前先看这张官方要求表：</p>
+
+<table>
+  <thead>
+    <tr><th style="width:18%">网关类型</th><th style="width:16%">固件版本</th><th style="width:16%">定时任务</th><th style="width:14%">安全模式</th><th>限制条件</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>经济款 4G 网关</td>
+      <td>1.0.45 以上</td>
+      <td>仅支持 8 条</td>
+      <td>不支持</td>
+      <td>使用 4G 卡上网，或能上外网的局域网</td>
+    </tr>
+    <tr>
+      <td>安卓网关</td>
+      <td>1.1.319 以上</td>
+      <td>无限制</td>
+      <td>支持</td>
+      <td>不能上外网的局域网需校准服务器时间</td>
+    </tr>
+    <tr>
+      <td>安卓 RTC 网关</td>
+      <td>1.1.309 以上</td>
+      <td>无限制</td>
+      <td>支持</td>
+      <td>不能上外网的局域网需校准网关时间</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="callout info">
+  <strong>网关与本地客户端/云平台的关系：</strong>网关通过 WiFi、网线或 USB 4G 网卡连接互联网 / 局域网，再经 MQTT 协议把数据推给平台。局域网接入时选"本地网关"（本地扫描），公网接入时选"远程网关"（输远程二维码 + 密码）。
+</div>
+
+<h3>四、数据上云操作（现场调试 → 平台的桥梁）</h3>
+
+<p>现场灯具用手机 APP 调好后，要进平台管理，关键一步是<b>把灯具"录入"平台</b>。标准动作顺序：</p>
+
+<ol class="step-list">
+  <li><strong>先现场调试：</strong>用手机 APP 或电脑版灯控软件完成灯具调试，准备好<b>区组划分信息表</b>（这是录入平台的基础）。</li>
+  <li><strong>添加网关：</strong>在平台"项目管理 → 预设网关信息"里，局域网用"本地扫描"，公网输"远程二维码 + 密码"，把现场网关全部添加。</li>
+  <li><strong>校对在线：</strong>核对网关与实际安装位置一致，逐个看在线状态；不在线先查网络。</li>
+  <li><strong>网关搜灯：</strong>在网关下点"添加灯"，填<b>正确区号 + 网络密码</b>，点"网关搜灯"把该网关下的灯全部搜出。</li>
+  <li><strong>勾选录入：</strong>勾选属于该区域的灯，点"确认添加"。 <b>注意：每盏灯只能存在于一个节点</b>，别的节点不能再录入同一盏灯。</li>
+  <li><strong>自动上报：</strong>灯具的设备参数、能耗信息按《格兰斯贝数据上云功能操作说明》在 APP 侧操作后，自动上报到平台。</li>
+</ol>
+
+<div class="callout tip">
+  <strong>手机也能临时当网关（数据上云）：</strong>GS200 手机 APP 在主界面右下角进<b>"工具箱"→"数据上云"</b>，按供应商提供的三要素 <b>ProductKey / DeviceName / DeviceSecret</b> 填写，点"开启连接"即可把手机当网关将数据上云。现场没有固定网关时可先让手机顶上，后续再切正式网关。
+</div>
+
+<h3>五、本地客户端操作流程（PC 端 · 重点）</h3>
+
+<p>本地客户端是客户侧最常用的管理工具，<b>它是一个装在本机电脑上的软件，没有访问网址</b>，装好后打开即可用。完整操作分八步：</p>
+
+<h4>22.1 安装与硬件要求</h4>
+<table>
+  <thead>
+    <tr><th style="width:20%">项</th><th>要求</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>硬件</td><td>建议 PC（非笔记本/服务器）：i5 / i7 13 代以上，内存 32G，固态硬盘剩余 500G</td></tr>
+    <tr><td>系统</td><td>WIN10 以上 64 位</td></tr>
+    <tr><td>注意</td><td>装过老版本需先卸载再装新版本，否则报 JAVA 错误</td></tr>
+  </tbody>
+</table>
+
+<h4>22.2 新增项目 + 预设网关</h4>
+<ol class="step-list">
+  <li>首次进入自动弹"新建项目"，按现场信息创建项目。</li>
+  <li>点"预设网关信息"进网关列表：同局域网点"本地扫描"自动搜出并添加（本地网关）；公网连接则手动输"网关远程二维码 + 远程连接密码"（远程网关）。</li>
+</ol>
+
+<h4>22.3 设备配置（区域 → 网关 → 搜灯）</h4>
+<ol class="step-list">
+  <li>进"操作配置"，先在"区域选择"里按现场添加节点。<b>子节点里的灯具会自动归到上一级母节点</b>，方便控制；<b>母节点不能做地图模式</b>。</li>
+  <li>选中目标节点，选类型"网关"，点"添加网关"，把该节点的所有网关依次加完。</li>
+  <li>核对网关与安装一致、在线正常后，选类型"灯"点"添加灯"，填区号 + 网络密码"网关搜灯"，勾选灯具"确认添加"。</li>
+</ol>
+
+<h4>22.4 定时任务（情景模式 → 定时情景）</h4>
+<p>进"更多操作 → 情景模式 → 定时情景 → 添加定时情景"，依次填"任务名称 / 执行模式 / 执行时间 / 调用情景"，再"添加灯"选择执行区域（可以是整个区、部分组、或指定灯）。</p>
+
+<h4>22.5 地图模式</h4>
+<p>进"地图模式"，首次切到"编辑模式"导入图纸（标有灯具位置的图纸），把左上角自动出现的灯具拖到图纸正确位置。日常用"日常操作模式"可对灯做列表式的所有操作；按住鼠标右键旋转视角、滚轮缩放。</p>
+
+<h4>22.6 远程操作</h4>
+<p>按操作区域选"场所灯操作 / 区操作 / 单灯操作 / 群组操作 / 标签操作"，右侧填"区 / 组 / 号 / 标签"参数确定范围，然后可直接执行<b>常亮 / 常灭 / 闪灯</b>；改区组编号等参数进"更多操作"。</p>
+
+<h4>22.7 数据备份与恢复（项目移交）</h4>
+<p>进"数据处理 → 数据导出"把整个项目信息和灯具数据备份到指定目录；换机或移交时，在新 PC 上"数据导入"恢复数据库文件即可，省去重复搭建。</p>
+
+<h4>22.8 网关升级</h4>
+<p>进"数据处理 → 网关升级"，上传预先保存在本地的 apk 升级包，各网关依次自动升级；<b>升级完成后记得删除已上传的升级包</b>。</p>
+
+<h3>六、云平台登录网址与实操</h3>
+
+<p>云平台是网页版，<b>电脑和手机浏览器都能直接访问，无需安装 App</b>。</p>
+
+<div class="callout tip">
+  <strong>访问网址：</strong><code>http://iot.ground-space.com/</code>
+  <br>电脑浏览器、手机浏览器输入上述地址，即可进入登录页。
+</div>
+
+<h4>22.1 登录实操步骤</h4>
+<ol class="step-list">
+  <li>浏览器地址栏输入 <code>http://iot.ground-space.com/</code>，回车进入登录页。</li>
+  <li>输入账号、密码。<b>账号采用分配制</b>：用户名和默认初始密码从<b>格兰斯贝后台或上级经销商</b>处获取。</li>
+  <li>登录成功进入平台主界面；点击左上角"三道横线"图标展开导航栏。</li>
+</ol>
+
+<h4>22.2 四大专栏 + 数据大屏</h4>
+<table>
+  <thead>
+    <tr><th style="width:18%">模块</th><th>要点</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>导航栏</td><td>首页、项目管理、系统管理、项目日志 4 个专栏 + 数据大屏（右上角账号左侧进入）</td></tr>
+    <tr><td>新建项目</td><td>进"项目管理"，无项目则点"新建"，填<b>项目所在地</b>（自动上数据大屏的全国地图）</td></tr>
+    <tr><td>网关搜灯</td><td>项目内填<b>现场正确区号 + 网络密码</b>，点"网关搜灯"把网关下灯具搜齐；搜不到灯先排查网络故障</td></tr>
+    <tr><td>数据大屏</td><td>分两部分：基于地图的全国项目总览（每个省份项目数 / 灯具数 / 报警数）+ 选中项目的具体数据（灯具数、离线数、告警数、传感器触发热力图、能耗趋势）</td></tr>
+    <tr><td>首页</td><td>选项目 + 区域后展示：灯具数、能耗值、告警数、能耗趋势（蓝=实际 红=理论）、同比能耗、当日传感器触发柱状图、能耗区域分布</td></tr>
+    <tr><td>项目管理</td><td>项目列表（自建项目有"操作配置"权限，下级项目仅"查看"）、项目详情（灯具 / 网关 / 区域 / 授权操作员）、操作配置</td></tr>
+    <tr><td>系统管理</td><td>最多三级账户：管理员账户 / 客户项目账户 / 操作人员账户；权限由管理员指定，账号可绑定指定项目</td></tr>
+    <tr><td>项目日志</td><td>项目操作日志的查看与清除</td></tr>
+  </tbody>
+</table>
+
+<h3>七、与欧普睿壹智控系统的区别与边界</h3>
+
+<div class="callout info">
+  <strong>先理清一个身份：</strong>格兰思贝（GranSpace）是欧普自组网灯具内部模组的供应商，GS-LINKER 是它自研的 2.4G 自组网协议。<strong>「格兰思贝自组网」与「欧普睿壹智控系统」（OBUS / SigMesh / DALI）是两套并列、互不相通的独立体系</strong>——前者上云走 <code>iot.ground-space.com</code>，后者走 <code>iot2.opple.com</code>。上面这套平台操作，就是自组网方案从"装灯"到"交付运维"的完整闭环。
+</div>
+
+<table>
+  <thead>
+    <tr><th style="width:26%">对接维度</th><th>结论</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>与其他方案的关系</td><td>自组网（GS-LINKER）与<b>欧普睿壹智控系统</b>（OBUS / SigMesh / DALI）<b>协议不通、不能同网混用</b>。同一项目 / 园区里多套方案并存时，各自成网、分别通过各自网关和平台管理。</td></tr>
+    <tr><td>上云方式</td><td>自组网统一走 <b>MQTT</b> 上云，网关是唯一上云入口（不去扩大无线覆盖）。上云后统一登录<b>格兰斯贝云平台 <code>http://iot.ground-space.com/</code></b>（网页，电脑 / 手机通用）或本地客户端（本机软件）进行管理。</td></tr>
+    <tr><td>无线覆盖口径</td><td>按官方公布的设计标准：GS-Linker 模组单跳室内 &gt; 30m、室外 &gt; 100m（2.4G，+3dBm，接收灵敏度 -93dBm）；网络跳数建议 ≤5 跳。</td></tr>
+    <tr><td>交付后运维分工</td><td>客户日常用本地客户端 / 云平台做能耗、告警、定时、地图管理；现场增改灯 / 面板 / 传感器，再回到手机 APP + USB 控制器层面操作。</td></tr>
+    <tr><td>设备生态</td><td>除灯具外，自组网生态还有：智能微动开关面板、智能窗帘控制器、恒照度传感器、5.8G 可调灵敏度雷达、智能继电器、智能语音控制器、独立传感器（座位传感器 + 人体存在传感器）、环境传感器等，均在同一张 2.4G 自组网内。</td></tr>
+  </tbody>
+</table>
+
+<div class="callout tip">
+  <strong>给技术支持的落点：</strong>客户问"自组网项目怎么交付 / 怎么运维"时，记住这条链路——<b>现场手机 APP 调灯 → 网关搜灯上云 → 本地客户端或云平台交付运维</b>。增改设备回现场 APP，日常管理在平台，网关是两者之间的桥。
+</div>
+
+</section>
+<section id="ch23">
+<h2><span class="chap-num">23</span>避坑日记使用说明</h2>
+
+
+<h3>23.1 为什么要写避坑日记</h3>
+
+<p>你是「披着项目管理外衣的 IT 运维预备役」。每个现场故障——ACPI 电源问题、6 根 485 接线、边缘服务器 502——如果只是"解决了"就放下，那解决的只是当下的烂摊子；如果<strong>记录下来</strong>，它就成了你的方法论和谈资。</p>
+
+<div class="callout tip">
+  <strong>一条经验的两种归宿</strong>
+  <br>现场解决 → 老板说"辛苦了"，仅此而已（消耗型）
+  <br>记录沉淀 → 变成你的《避坑日记》→ 未来面试时是你的案例库（增值型）
+  <br><strong>同样的动作，不一样的结果，这就是"海绵 vs 复读机"的区别。</strong>
+</div>
+
+<h3>23.2 记录的黄金法则</h3>
+
+<ul>
+  <li><strong>即时记录：</strong>当次解决，当次记。拖到第二天就模糊了，拖到一周后就只剩"当时好像有个问题"。</li>
+  <li><strong>复盘根因：</strong>不止记"我做了什么把它弄好了"，更要记"它为什么坏"——根因比操作值钱。</li>
+  <li><strong>量化描述：</strong>用数据说话（IP、端口、报错码、时间线），别用"连不上""不行了"这种模糊词。</li>
+  <li><strong>一句话经验：</strong>每条案例末尾提炼一句能复用的口诀，方便以后快速检索。</li>
+</ul>
+
+</section>
+<section id="ch24">
+<h2><span class="chap-num">24</span>避坑日记模板</h2>
+
+
+<p>每次排障结束，按下面这个结构记录。可以直接复制这段到你的记事本/飞书文档，也可以在第25章按格式追加。</p>
+
+<pre><code>【案例编号】DIARY-{年份}-{序号}（如 DIARY-2026-001）
+【发生时间】2026-XX-XX  XX:XX
+【项目名称】XXX 工厂照明改造
+【问题现象】一句话描述（要量化：哪台设备、什么报错、什么现象）
+【影响范围】影响了哪些灯 / 控制 / 平台（挤出优先级）
+【排查过程】按时间线写你做了哪些动作，每条动作结果如何
+  1. 现象判断 + 初始怀疑
+  2. 第一步排查（命令/操作）→ 结果
+  3. 第二步排查 → 结果
+  4. …直到定位根因
+【根因分析】为什么会出现这个问题（物理接线？协议？配置？硬件？BIOS？）
+【解决方案】最终怎么解决的，用到了哪些命令/工具
+【复现与预防】怎么能避免下次再犯；是否要加巡检项
+【一句话经验】提炼成 20 字以内的口诀
+【分类标签】硬件/网络/系统/协议/施工/流程</code></pre>
+
+<div class="callout info">
+  <strong>记录颗粒度建议</strong>
+  <br>• 新手期：每条写详细（不熟，过程也是学习）
+  <br>• 熟练后：只写根因 + 一句话经验（快速但可检索）
+  <br>• 关键案例：附上报错截图/日志片段，作为证据
+</div>
+
+</section>
+<section id="ch25">
+<h2><span class="chap-num">25</span>已沉淀的避坑案例</h2>
+
+
+<p>以下是从项目现场实践中沉淀的真实案例（部分已在对话中复盘）。每条都是上述模板的实例，可直接作为后续记录的参照格式。</p>
+
+<div class="diary-entry">
+  <div class="diary-entry__head">
+    <span class="diary-entry__title">边缘服务器频繁重启 → ACPI BIOS 故障</span>
+    <span class="badge badge--danger">硬件</span>
+    <span class="badge badge--brand">DIARY-2026-001</span>
+  </div>
+  <div class="diary-entry__body">
+    <h5>问题现象</h5>
+    <p>厂区智控系统无法登录，主服务器无法连接，ping 边缘服务器（192.168.1.100）不通。SSH 间歇性报错后勉强连入。</p>
+    <h5>排查过程</h5>
+    <ul>
+      <li>SSH 登录 → 能进（排除纯网络断）</li>
+      <li>查负载/内存/磁盘/温度 → 全部正常（排除资源问题）</li>
+      <li><code>df -h</code> → 磁盘充足（排除磁盘满）</li>
+      <li><code>last -x | head -20</code> → <strong>发现服务器当天每几分钟一次疯狂重启</strong>（系统层问题，非服务层）</li>
+      <li><code>journalctl -b -1 -p err --no-pager</code> → 大量 <code>ACPI BIOS Error: Could not resolve symbol [...]</code></li>
+    </ul>
+    <h5>根因分析</h5>
+    <p>Ubuntu 24.04 内核解析 BIOS 的 ACPI 表时遇到 bug，导致系统在内核层反复崩溃重启。根因在 BIOS 固件与内核之间的兼容性，不在应用服务层。</p>
+    <h5>解决方案</h5>
+    <p>GRUB 内核参数加 <code>acpi=off</code>（或 <code>acpi=ht</code>）临时绕过，先让系统起来；随后升级 BIOS / 内核版本根治。接回正常电源后参考第5册第8章处理。</p>
+    <h5>一句话经验</h5>
+    <p><strong>服务器疯狂自动重启 → 先别查服务，先看 <code>last -x</code> 重启记录和 <code>journalctl -p err</code>，锁定硬件/内核层。</strong></p>
+    <span class="badge badge--ok">已归档</span>
+  </div>
+</div>
+
+<div class="diary-entry">
+  <div class="diary-entry__head">
+    <span class="diary-entry__title">DALI 调光闪烁 / 失控</span>
+    <span class="badge badge--warn">协议</span>
+    <span class="badge badge--brand">DIARY-2026-002</span>
+  </div>
+  <div class="diary-entry__body">
+    <h5>问题现象</h5>
+    <p>部分 DALI 灯具调光时闪烁、偶发失控，平台下发指令后实际亮度与设定值不符。</p>
+    <h5>排查过程</h5>
+    <ul>
+      <li>确认所有灯能点亮（排除供电）→ 问题锁定在调光链路</li>
+      <li>检查 DALI 总线 → 发现强电线与 DALI 线共用一根穿线管</li>
+      <li>检查屏蔽层 → RVVP 屏蔽层未做单端接地</li>
+      <li>检查总线长度与设备数 → 均未超限</li>
+    </ul>
+    <h5>根因分析</h5>
+    <p>强弱电同管走线，220V 强电对 DALI 总线产生电磁干扰；屏蔽层双端/未接地导致屏蔽失效。违反第7册第4章强弱电分离规范。</p>
+    <h5>解决方案</h5>
+    <p>强电与 DALI 线重新分管走线（间距 ≥200mm），屏蔽层在网关端单端接地，故障恢复。</p>
+    <h5>一句话经验</h5>
+    <p><strong>调光闪烁先查强弱电是否同管、屏蔽是否单端接地，别急着换灯。</strong></p>
+    <span class="badge badge--ok">已归档</span>
+  </div>
+</div>
+
+<div class="diary-entry">
+  <div class="diary-entry__head">
+    <span class="diary-entry__title">边缘服务器 MQTT 连不上（ping 通但 1883 端口不通）</span>
+    <span class="badge badge--warn">网络</span>
+    <span class="badge badge--brand">DIARY-2026-003</span>
+  </div>
+  <div class="diary-entry__body">
+    <h5>问题现象</h5>
+    <p>网关能 ping 通边缘服务器，但 MQTT 上报失败，平台收不到灯具数据。</p>
+    <h5>排查过程</h5>
+    <ul>
+      <li><code>ping 192.168.1.100</code> → 通（网络层 OK）</li>
+      <li><code>Test-NetConnection 192.168.1.100 -Port 1883</code> → <strong>失败</strong>（传输层端口不通）</li>
+      <li>ssh 进服务器查 <code>systemctl status mosquitto</code> → MQTT 服务未启动</li>
+      <li>查 <code>journalctl -u mosquitto -p err</code> → 配置错误导致启动失败</li>
+    </ul>
+    <h5>根因分析</h5>
+    <p>这正是"分层定位"的经典案例：L3 通、L4-L7 断开。ping 通只证明网络层通，不代表应用服务在监听端口。服务启动失败才是根因。</p>
+    <h5>解决方案</h5>
+    <p>修正 MQTT 配置后 <code>systemctl start mosquitto</code> 并设为开机自启，端口恢复。</p>
+    <h5>一句话经验</h5>
+    <p><strong>ping 通 ≠ 连得上，别忘了测端口和服务状态。</strong></p>
+    <span class="badge badge--ok">已归档</span>
+  </div>
+</div>
+
+<div class="diary-entry">
+  <div class="diary-entry__head">
+    <span class="diary-entry__title">部分灯具离线（蓝牙自组网节点丢失）</span>
+    <span class="badge badge--warn">协议/硬件</span>
+    <span class="badge badge--brand">DIARY-2026-004</span>
+  </div>
+  <div class="diary-entry__body">
+    <h5>问题现象</h5>
+    <p>蓝牙自组网（格兰思贝）方案中，同一区域少量灯具间歇性离线，重启网关后部分恢复。</p>
+    <h5>排查过程</h5>
+    <ul>
+      <li>确认供电正常（排除电源问题）</li>
+      <li>检查灯具间距 → 个别灯与相邻灯间距超过 10m，超出 Mesh 冗余路径范围</li>
+      <li>检查现场干扰 → 灯具附近有 2.4GHz 无线路由器及金属桥架遮挡</li>
+    </ul>
+    <h5>根因分析</h5>
+    <p>灯具间距过大导致 Mesh 多跳路径冗余失效，加上 2.4GHz 同频干扰与金属遮挡，节点稳定性下降离线。</p>
+    <h5>解决方案</h5>
+    <p>调整灯具布局使间距 ≤10m，避开金属桥架遮挡；对冲突的 2.4GHz 干扰源调整信道。符合第7册第6章蓝牙布线要求。</p>
+    <h5>一句话经验</h5>
+    <p><strong>蓝牙节点离线先查间距/遮挡/同频干扰，Mesh 靠"冗余路径"存活。</strong></p>
+    <span class="badge badge--ok">已归档</span>
+  </div>
+</div>
+
+<div class="diary-entry">
+  <div class="diary-entry__head">
+    <span class="diary-entry__title">无线面板连上但控制不了灯具（关联对不上）</span>
+    <span class="badge badge--warn">协议</span>
+    <span class="badge badge--brand">DIARY-2026-005</span>
+  </div>
+  <div class="diary-entry__body">
+    <h5>问题现象</h5>
+    <p>格兰思贝自组网方案，无线面板能搜到、能命名、场景也配好，但按键无法控制灯具；设备关联时面板编号对不上/搜不出面板。</p>
+    <h5>排查过程</h5>
+    <ul>
+      <li>面板能搜到、能改名但断电后回默认 → 配置未真正写入设备</li>
+      <li>「设备关联」下拉搜不出面板 → 关联列表不含该面板</li>
+      <li>手输/对编号 → 对不上（命名框2000 vs 关联里2107）</li>
+      <li>翻官方手册（GS200 V2.9）才确认正确流程</li>
+    </ul>
+    <h5>根因分析</h5>
+    <p><strong>①绑定关系写在灯具端</strong>，要做"灯具→面板"的关联，不是面板端；<strong>②关联框用"下拉选面板名"，不是手输、也不是对编号</strong>；<strong>③编号=设备软地址，不是关联键</strong>——只改命名框的号、没在「编号设置」里点"设置"下发，就不会写进设备，所以断电/关联时对不上。</p>
+    <h5>解决方案</h5>
+    <p>面板入网（长按左上键3秒进跑马灯配置态）→ 编号设置改区号+命名点「起名」→ 回「灯具」→ 设备关联下拉选面板名 → 点关联，灯闪即绑定成功。</p>
+    <h5>一句话经验</h5>
+    <p><strong>面板控不了灯，先确认"灯具→面板"的关联是否真的写入（灯闪=成功）；关联认下拉里的面板名，不认编号。</strong></p>
+    <span class="badge badge--ok">已归档</span>
+  </div>
+</div>
+
+<div class="diary-entry">
+  <div class="diary-entry__head">
+    <span class="diary-entry__title">面板"改名/改编号"过一会又回默认</span>
+    <span class="badge badge--warn">协议</span>
+    <span class="badge badge--brand">DIARY-2026-006</span>
+  </div>
+  <div class="diary-entry__body">
+    <h5>问题现象</h5>
+    <p>格兰思贝 App 里给无线面板改名/改编号，显示成功，但过一会或断电重启后又变回默认值。</p>
+    <h5>排查过程</h5>
+    <ul>
+      <li>反复改名 → 界面显示成功，但重新进页面/断电后回默认</li>
+      <li>读官方手册 → 排查"每个修改动作都需点下发键"</li>
+    </ul>
+    <h5>根因分析</h5>
+    <p><strong>格兰思贝里"改"不等于"写"。</strong>改名字必须点「起名」，改编号/区组号必须点「设置」，否则只是改了 App 输入框的显示缓存，没真正下发写进设备。断电/刷新即恢复。</p>
+    <h5>解决方案</h5>
+    <p>改名 → 点「起名」；改编号/区组 → 点「设置」。验证方法：断电重启后再看名字/编号是否保留（保留=写入成功）。</p>
+    <h5>一句话经验</h5>
+    <p><strong>欠下"发送/设置/起名"这一下发动作，配置等于没改；以断电重启后是否还在为准验证写入。</strong></p>
+    <span class="badge badge--ok">已归档</span>
+  </div>
+</div>
+
+</section>
+<section id="ch26">
+<h2><span class="chap-num">26</span>避坑索引与检索</h2>
+
+
+<h3>26.1 按故障分类检索</h3>
+
+<table>
+  <thead>
+    <tr><th>分类</th><th>一句话口诀</th><th>定位章节</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>硬件层</strong></td><td>服务器疯狂重启先看 <code>last -x</code> 和 <code>journalctl -p err</code></td><td><a href="#ch25">案例001</a> · 第5册第8章</td></tr>
+    <tr><td><strong>网络层</strong></td><td>ping 通 ≠ 连得上，别忘测端口和服务</td><td><a href="#ch25">案例003</a> · 第5册第1章</td></tr>
+    <tr><td><strong>协议/干扰</strong></td><td>DALI 闪烁先查强弱电分离与屏蔽接地</td><td><a href="#ch25">案例002</a> · 第7册第4章</td></tr>
+    <tr><td><strong>无线组网</strong></td><td>蓝牙离线查间距/遮挡/同频干扰</td><td><a href="#ch25">案例004</a> · 第7册第6章</td></tr>
+    <tr><td><strong>设备关联</strong></td><td>面板控不了灯，先确认"灯具→面板"关联写入（灯闪=成功）；关联认下拉里的面板名，不认编号</td><td><a href="#ch25">案例005</a> · 第8册第11章</td></tr>
+    <tr><td><strong>配置写入</strong></td><td>改≠写：改名点「起名」、改编号点「设置」，断电重启还在才算写入</td><td><a href="#ch25">案例006</a> · 第8册第12章</td></tr>
+  </tbody>
+</table>
+
+<h3>26.2 使用建议</h3>
+
+<ul>
+  <li>每新增一条案例，在本目录 <code>index</code> 里登记分类标签，方便按"硬件/网络/系统/协议/施工/流程"快速检索。</li>
+  <li>常犯的坑加 <span class="badge badge--danger">高危</span> 标记，优先处理、反复培训施工队。</li>
+  <li>本册是活文档：技术上遇到的新坑、流程上踩的新雷，都往这里沉淀。</li>
+</ul>
+
+<div class="callout tip">
+  <strong>这份日记的终极价值</strong>
+  <br>当你能拿出几十条"现象 → 根因 → 解决 → 一句话经验"的案例，并对着面试官讲清楚"为什么是这里的问题"时，
+  <br>你就不再是现场交付工程师，而是有实战证据的解决方案架构师。
+  <br>坚持记录，这是你给自己最划算的一笔投资。
+</div>
+
+</section>
+</main>
+</div>
+<footer style="text-align:center; padding: 32px 20px; color: var(--page-text-muted); font-size: 0.875rem; border-top: 1px solid var(--page-border); margin-top: 40px;">
+网络调试与运维手册 · 欧普照明技术方案 · 共26章（通用网络6章 + 欧普睿壹4章 + 格兰思贝自组网12章 + 避坑日记4章）
+</footer>
+<script>
+function switchTab(e, tabId) {
+  var group = e.target.closest('.tab-group');
+  group.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+  group.querySelectorAll('.tab-content').forEach(function(c){ c.classList.remove('active'); });
+  e.target.classList.add('active');
+  var content = document.getElementById(tabId);
+  if (content) content.classList.add('active');
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,2492 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3-项目管理与施工标准.html · 伊尔莱德照明技术方案</title>
+<style>@font-face {
+    font-family: 'Instrument Sans';
+    src: url('./_shared/fonts/InstrumentSans-Regular.ttf') format('truetype');
+    font-weight: 400; font-style: normal; font-display: swap;
+  }
+@font-face {
+    font-family: 'Instrument Sans';
+    src: url('./_shared/fonts/InstrumentSans-Bold.ttf') format('truetype');
+    font-weight: 700; font-style: normal; font-display: swap;
+  }
+@font-face {
+    font-family: 'JetBrains Mono';
+    src: url('./_shared/fonts/JetBrainsMono-Regular.ttf') format('truetype');
+    font-weight: 400; font-style: normal; font-display: swap;
+  }
+@font-face {
+    font-family: 'JetBrains Mono';
+    src: url('./_shared/fonts/JetBrainsMono-Bold.ttf') format('truetype');
+    font-weight: 700; font-style: normal; font-display: swap;
+  }</style>
+<style>
+  @font-face {
+    font-family: 'Instrument Sans';
+    src: url('./_shared/fonts/InstrumentSans-Regular.ttf') format('truetype');
+    font-weight: 400; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: 'Instrument Sans';
+    src: url('./_shared/fonts/InstrumentSans-Bold.ttf') format('truetype');
+    font-weight: 700; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: 'JetBrains Mono';
+    src: url('./_shared/fonts/JetBrainsMono-Regular.ttf') format('truetype');
+    font-weight: 400; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: 'JetBrains Mono';
+    src: url('./_shared/fonts/JetBrainsMono-Bold.ttf') format('truetype');
+    font-weight: 700; font-style: normal; font-display: swap;
+  }
+
+
+:root {
+  --page-bg: #FFFFFF;
+  --page-surface: #F6F8F7;
+  --page-surface-muted: #EDF2F0;
+  --page-text: #16211E;
+  --page-text-secondary: #33413D;
+  --page-text-muted: #5F6E6A;
+  --page-border: #D8E1DE;
+  --page-brand: #0F8A66;
+  --page-brand-hover: #0B7254;
+  --page-brand-active: #075A42;
+  --page-brand-soft: #EAF6F2;
+  --accent2: #1F6FB2;
+  --danger: #E03131;
+  --warning: #F08C00;
+  --success: #2F9E44;
+  --code-bg: #1E293B;
+  --code-text: #E2E8F0;
+  --code-comment: #64748B;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--page-bg);
+  color: var(--page-text);
+  font-family: 'Instrument Sans', 'PingFang SC', 'Microsoft YaHei', 'Noto Sans CJK SC', sans-serif;
+  font-size: 1rem;
+  line-height: 1.75;
+}
+.report-intro { width: 100%; padding: 48px 20px 36px; }
+.report-intro__surface {
+  position: relative; overflow: hidden;
+  max-width: 1000px; margin: 0 auto;
+  padding: 48px 32px;
+  background: var(--page-brand-soft);
+  border: 1px solid var(--page-border);
+  border-radius: 12px;
+}
+.report-intro__surface::before {
+  content: ""; position: absolute; z-index: 0;
+  width: 250px; height: 250px; right: -100px; top: -120px;
+  background: #D6EDE6; border-radius: 999px; pointer-events: none;
+}
+.report-intro__content { position: relative; z-index: 1; max-width: 46rem; }
+h1 { margin: 0; font-size: 1.8rem; line-height: 1.25; font-weight: 700; color: var(--page-brand-active); }
+.report-intro__summary { margin: 16px 0 0; font-size: 1.05rem; color: var(--page-text-secondary); }
+.report-intro__meta { margin: 12px 0 0; font-size: 0.875rem; color: var(--page-text-muted); }
+
+.page__content { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+
+nav.toc {
+  margin: 24px 0 32px;
+  padding: 20px 24px 16px;
+  background: var(--page-surface);
+  border: 1px solid var(--page-border);
+  border-radius: 12px;
+}
+nav.toc h2 { margin: 0 0 12px; font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.08em; color: var(--page-text-muted); }
+nav.toc ol { margin: 0; padding-left: 20px; display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 6px 24px; }
+nav.toc li { font-size: 0.95rem; }
+nav.toc a { color: var(--page-brand); text-decoration: none; }
+nav.toc a:hover { text-decoration: underline; }
+
+section.chapter { margin: 40px 0; }
+h2 {
+  font-size: 1.5rem; font-weight: 700;
+  color: var(--page-text);
+  margin: 0 0 20px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--page-brand);
+  display: flex; align-items: center; gap: 10px;
+}
+h2 .chap-num {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px;
+  background: var(--page-brand);
+  color: #fff;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+h3 { font-size: 1.15rem; font-weight: 700; margin: 28px 0 12px; color: var(--page-text); }
+h4 { font-size: 1rem; font-weight: 700; margin: 20px 0 8px; color: var(--page-text-secondary); }
+p { margin: 8px 0; }
+
+.callout {
+  padding: 14px 18px;
+  border-radius: 8px;
+  margin: 16px 0;
+  font-size: 0.95rem;
+  border-left: 4px solid;
+}
+.callout.warn { background: #FFF9DB; border-color: var(--warning); }
+.callout.danger { background: #FFE3E3; border-color: var(--danger); }
+.callout.tip { background: #EAF6F2; border-color: var(--success); }
+.callout.info { background: #E7F5FF; border-color: var(--accent2); }
+.callout strong { display: block; margin-bottom: 4px; }
+
+pre {
+  background: var(--code-bg);
+  color: var(--code-text);
+  padding: 16px 20px;
+  border-radius: 8px;
+  overflow-x: auto;
+  font-family: 'JetBrains Mono', 'Consolas', monospace;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  margin: 12px 0;
+}
+code {
+  font-family: 'JetBrains Mono', 'Consolas', monospace;
+  font-size: 0.875em;
+  background: var(--page-surface-muted);
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: var(--page-brand-active);
+}
+pre code { background: none; padding: 0; color: inherit; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: 0.9375rem;
+}
+th, td {
+  border: 1px solid var(--page-border);
+  padding: 10px 14px;
+  text-align: left;
+  vertical-align: top;
+}
+th {
+  background: var(--page-surface);
+  font-weight: 700;
+  color: var(--page-text);
+}
+tr:nth-child(even) td { background: #F7F9FC; }
+
+.step-list { counter-reset: step; padding-left: 0; list-style: none; margin: 16px 0; }
+.step-list li {
+  counter-increment: step;
+  position: relative;
+  padding: 10px 0 10px 48px;
+  border-bottom: 1px dashed var(--page-border);
+}
+.step-list li:last-child { border-bottom: none; }
+.step-list li::before {
+  content: counter(step);
+  position: absolute; left: 0; top: 10px;
+  width: 32px; height: 32px;
+  background: var(--page-brand);
+  color: #fff;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 0.875rem;
+}
+
+.checklist { list-style: none; padding-left: 0; margin: 12px 0; }
+.checklist li {
+  padding: 6px 0 6px 28px;
+  position: relative;
+  font-size: 0.95rem;
+}
+.checklist li::before {
+  content: "\2610";
+  position: absolute; left: 0;
+  color: var(--page-brand);
+  font-size: 1.1rem;
+}
+
+.phase-card {
+  background: var(--page-surface);
+  border: 1px solid var(--page-border);
+  border-radius: 10px;
+  padding: 20px 24px;
+  margin: 16px 0;
+}
+.phase-card .phase-tag {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.phase-tag.p1 { background: #DBEAFE; color: #1E40AF; }
+.phase-tag.p2 { background: #FEF3C7; color: #92400E; }
+.phase-tag.p3 { background: #E0F2FE; color: #075985; }
+.phase-tag.p4 { background: #F3E8FF; color: #6B21A8; }
+.phase-tag.p5 { background: #DCFCE7; color: #166534; }
+
+.role-table th { width: 120px; }
+
+.field-row {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px dashed var(--page-border);
+}
+.field-row:last-child { border-bottom: none; }
+.field-label {
+  font-weight: 700;
+  color: var(--page-text-secondary);
+  font-size: 0.9rem;
+}
+.field-value {
+  font-size: 0.9rem;
+  color: var(--page-text);
+}
+
+.inspect-block {
+  border: 1px solid var(--page-border);
+  border-radius: 8px;
+  margin: 12px 0;
+  overflow: hidden;
+}
+.inspect-block summary {
+  padding: 12px 16px;
+  cursor: pointer;
+  font-weight: 600;
+  background: var(--page-surface);
+  list-style: none;
+}
+.inspect-block summary::before {
+  content: "\25B6 ";
+  color: var(--page-brand);
+  font-size: 0.75rem;
+  margin-right: 6px;
+}
+.inspect-block[open] summary::before { content: "\25BC "; }
+.inspect-block .inspect-body { padding: 12px 16px; }
+
+.timeline-bar {
+  display: flex;
+  align-items: stretch;
+  margin: 20px 0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.timeline-seg {
+  flex: 1;
+  padding: 10px 8px;
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #fff;
+}
+.timeline-seg.s1 { background: #3B82F6; }
+.timeline-seg.s2 { background: #F59E0B; }
+.timeline-seg.s3 { background: #06B6D4; }
+.timeline-seg.s4 { background: #8B5CF6; }
+.timeline-seg.s5 { background: #10B981; }
+
+@media (max-width: 768px) {
+  nav.toc ol { grid-template-columns: 1fr; }
+  .report-intro { padding: 32px 12px 24px; }
+  .report-intro__surface { padding: 32px 20px; }
+  h1 { font-size: 1.4rem; }
+  .field-row { grid-template-columns: 1fr; }
+  .timeline-bar { flex-direction: column; }
+}
+
+
+:root {
+  --page-bg: #FFFFFF;
+  --page-surface: #F6F8F7;
+  --page-surface-muted: #EDF2F0;
+  --page-text: #16211E;
+  --page-text-secondary: #33413D;
+  --page-text-muted: #5F6E6A;
+  --page-border: #D8E1DE;
+  --page-brand: #0F8A66;
+  --page-brand-hover: #0B7254;
+  --page-brand-active: #075A42;
+  --page-brand-soft: #EAF6F2;
+  --accent2: #1F6FB2;
+  --danger: #E03131;
+  --warning: #F08C00;
+  --success: #2F9E44;
+  --code-bg: #1E293B;
+  --code-text: #E2E8F0;
+  --code-comment: #64748B;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--page-bg);
+  color: var(--page-text);
+  font-family: 'Instrument Sans', 'PingFang SC', 'Microsoft YaHei', 'Noto Sans CJK SC', sans-serif;
+  font-size: 1rem;
+  line-height: 1.75;
+}
+.report-intro { width: 100%; padding: 48px 20px 36px; }
+.report-intro__surface {
+  position: relative; overflow: hidden;
+  max-width: 1000px; margin: 0 auto;
+  padding: 48px 32px;
+  background: var(--page-brand-soft);
+  border: 1px solid var(--page-border);
+  border-radius: 12px;
+}
+.report-intro__surface::before {
+  content: ""; position: absolute; z-index: 0;
+  width: 250px; height: 250px; right: -100px; top: -120px;
+  background: #D6EDE6; border-radius: 999px; pointer-events: none;
+}
+.report-intro__content { position: relative; z-index: 1; max-width: 46rem; }
+h1 { margin: 0; font-size: 1.8rem; line-height: 1.25; font-weight: 700; color: var(--page-brand-active); }
+.report-intro__summary { margin: 16px 0 0; font-size: 1.05rem; color: var(--page-text-secondary); }
+.report-intro__meta { margin: 12px 0 0; font-size: 0.875rem; color: var(--page-text-muted); }
+
+.page__content { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+
+nav.toc {
+  margin: 24px 0 32px;
+  padding: 20px 24px 16px;
+  background: var(--page-surface);
+  border: 1px solid var(--page-border);
+  border-radius: 12px;
+}
+nav.toc h2 { margin: 0 0 12px; font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.08em; color: var(--page-text-muted); }
+nav.toc ol { margin: 0; padding-left: 20px; display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 6px 24px; }
+nav.toc li { font-size: 0.95rem; }
+nav.toc a { color: var(--page-brand); text-decoration: none; }
+nav.toc a:hover { text-decoration: underline; }
+
+section.chapter { margin: 40px 0; }
+h2 {
+  font-size: 1.5rem; font-weight: 700;
+  color: var(--page-text);
+  margin: 0 0 20px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--page-brand);
+  display: flex; align-items: center; gap: 10px;
+}
+h2 .chap-num {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px;
+  background: var(--page-brand);
+  color: #fff;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+h3 { font-size: 1.15rem; font-weight: 700; margin: 28px 0 12px; color: var(--page-text); }
+h4 { font-size: 1rem; font-weight: 700; margin: 20px 0 8px; color: var(--page-text-secondary); }
+p { margin: 8px 0; }
+
+.callout {
+  padding: 14px 18px;
+  border-radius: 8px;
+  margin: 16px 0;
+  font-size: 0.95rem;
+  border-left: 4px solid;
+}
+.callout.warn { background: #FFF9DB; border-color: var(--warning); }
+.callout.danger { background: #FFE3E3; border-color: var(--danger); }
+.callout.tip { background: #EAF6F2; border-color: var(--success); }
+.callout.info { background: #E7F5FF; border-color: var(--accent2); }
+.callout strong { display: block; margin-bottom: 4px; }
+
+pre {
+  background: var(--code-bg);
+  color: var(--code-text);
+  padding: 16px 20px;
+  border-radius: 8px;
+  overflow-x: auto;
+  font-family: 'JetBrains Mono', 'Consolas', monospace;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  margin: 12px 0;
+}
+code {
+  font-family: 'JetBrains Mono', 'Consolas', monospace;
+  font-size: 0.875em;
+  background: var(--page-surface-muted);
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: var(--page-brand-active);
+}
+pre code { background: none; padding: 0; color: inherit; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: 0.9375rem;
+}
+th, td {
+  border: 1px solid var(--page-border);
+  padding: 10px 14px;
+  text-align: left;
+  vertical-align: top;
+}
+th {
+  background: var(--page-surface);
+  font-weight: 700;
+  color: var(--page-text);
+}
+tr:nth-child(even) td { background: #F7F9FC; }
+
+.step-list { counter-reset: step; padding-left: 0; list-style: none; margin: 16px 0; }
+.step-list li {
+  counter-increment: step;
+  position: relative;
+  padding: 10px 0 10px 48px;
+  border-bottom: 1px dashed var(--page-border);
+}
+.step-list li:last-child { border-bottom: none; }
+.step-list li::before {
+  content: counter(step);
+  position: absolute; left: 0; top: 10px;
+  width: 32px; height: 32px;
+  background: var(--page-brand);
+  color: #fff;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 0.875rem;
+}
+
+.checklist { list-style: none; padding-left: 0; margin: 12px 0; }
+.checklist li {
+  padding: 6px 0 6px 28px;
+  position: relative;
+  font-size: 0.95rem;
+}
+.checklist li::before {
+  content: "\2610";
+  position: absolute; left: 0;
+  color: var(--page-brand);
+  font-size: 1.1rem;
+}
+
+.spec-card {
+  background: var(--page-surface);
+  border: 1px solid var(--page-border);
+  border-radius: 10px;
+  padding: 20px 24px;
+  margin: 16px 0;
+}
+.spec-card .spec-tag {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.spec-tag.dimen { background: #DBEAFE; color: #1E40AF; }
+.spec-tag.wiring { background: #FEF3C7; color: #92400E; }
+.spec-tag.mount { background: #F3E8FF; color: #6B21A8; }
+.spec-tag.safety { background: #FFE3E3; color: #991B1B; }
+
+.tol-table th { width: 30%; }
+
+.install-detail {
+  border: 1px solid var(--page-border);
+  border-radius: 8px;
+  margin: 12px 0;
+  overflow: hidden;
+}
+.install-detail summary {
+  padding: 12px 16px;
+  cursor: pointer;
+  font-weight: 600;
+  background: var(--page-surface);
+  list-style: none;
+}
+.install-detail summary::before {
+  content: "\25B6 ";
+  color: var(--page-brand);
+  font-size: 0.75rem;
+  margin-right: 6px;
+}
+.install-detail[open] summary::before { content: "\25BC "; }
+.install-detail .detail-body { padding: 12px 16px; }
+
+@media (max-width: 768px) {
+  nav.toc ol { grid-template-columns: 1fr; }
+  .report-intro { padding: 32px 12px 24px; }
+  .report-intro__surface { padding: 32px 20px; }
+  h1 { font-size: 1.4rem; }
+}
+</style>
+</head>
+<body>
+<header class="report-intro">
+  <div class="report-intro__surface">
+    <div class="report-intro__content">
+      <h1>项目管理与施工标准</h1>
+      <p class="report-intro__summary">欧普照明经销商（工业方向）现场技术支持工程师全流程工作手册。从项目接单、现场勘察、方案深化、施工交底、调试验收到售后维护，覆盖项目生命周期的每个阶段，明确每个阶段做什么、交付什么、对接谁。</p>
+      <p style="margin-top:8px;padding:8px 12px;background:var(--page-brand-soft);border-radius:6px;font-size:0.88rem;color:var(--page-brand-text);">
+        <b>快速上手：</b>如果只想快速了解项目八阶段怎么做，先看《<a href="项目全流程执行指南.html" style="color:var(--page-brand);">6-项目全流程执行指南</a>》（速查版 · 一页看懂）；本手册是完整版，包含详细的角色职责、施工标准、质量控制与验收规范。
+      </p>
+      <p class="report-intro__meta">欧普照明技术方案系列 · 第6册 · 2026年9月</p>
+    </div>
+  </div>
+</header>
+<div class="page__content">
+<nav class="toc" aria-label="目录"><h2>目录（共 20 章）</h2><ol style="grid-template-columns:repeat(2,minmax(0,1fr))"><li><a href="#ch1">1角色定位与职责边界</a></li><li><a href="#ch2">2项目全流程概览与时间线</a></li><li><a href="#ch3">3阶段一：需求分析与现场勘察</a></li><li><a href="#ch4">4阶段二：方案深化与报价协助</a></li><li><a href="#ch5">5阶段三：技术交底与施工管理</a></li><li><a href="#ch6">6阶段四：现场调试与验收交付</a></li><li><a href="#ch7">7阶段五：售后维护与故障响应</a></li><li><a href="#ch8">8现场环境勘察记录表（模板）</a></li><li><a href="#ch9">9施工技术交底检查清单（模板）</a></li><li><a href="#ch10">10项目交付文档清单</a></li><li><a href="#ch11">1施工标准总则</a></li><li><a href="#ch12">2灯具安装规范</a></li><li><a href="#ch13">3线缆敷设标准</a></li><li><a href="#ch14">4强弱电分离与布线规范</a></li><li><a href="#ch15">5桥架与穿管施工</a></li><li><a href="#ch16">6控制线路施工</a></li><li><a href="#ch17">7防爆区域施工</a></li><li><a href="#ch18">8特殊环境施工要求</a></li><li><a href="#ch19">9施工质量控制与自检</a></li><li><a href="#ch20">10施工验收标准</a></li></ol></nav>
+<main>
+<section id="ch1">
+<h2><span class="chap-num">1</span>角色定位与职责边界</h2>
+
+<h3>1.1 你的官方定位</h3>
+
+<p>你的真实角色 = <strong>「智能照明项目现场交付工程师」＋「老板的技术执行特派员」</strong>。</p>
+
+<p>用大白话说：老板负责把单子拿回来（商务＋销售），你负责把这个单子安安稳稳地<strong>「落到地上」</strong>（现场交付＋问题兜底）。你是老板的<strong>全权现场代表</strong>。一套完整技术方案（本系列第1–7册）是给你的弹药库，而本册是调度它的总纲。</p>
+
+<div class="callout info">
+  <strong>一句话定位</strong>
+  <br>你不是"画图员"，也不是"催进度的工头"——你是<strong>用网络排障思维降维做工程管理</strong>的人。
+  <br>别人只会看物理接线，而你能看穿物理接线背后的数字逻辑。
+  <br><br><strong>成长目标：</strong>从现场交付做起，最终成长为工业照明方向的项目管理＋方案设计＋技术解决的综合型专家。
+</div>
+
+<h3>1.2 四大边界（定死，不内耗）</h3>
+
+<table class="role-table">
+  <thead>
+    <tr><th>对象</th><th>你的角色</th><th>你的作用</th><th>你的底线</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>对老板</strong></td>
+      <td>「分身」＋「技术排雷兵」</td>
+      <td>老板没精力管现场烂摊子（施工偷懒、图纸与墙体冲突、甲方临时改需求）。你到场当"监军"和"润滑剂"，保证现场不出乱子，就是保住了他的利润和口碑。</td>
+      <td>不必精通全部核心技术，但<strong>必须镇得住场子</strong>——用专业态度和逻辑让施工队听你的、让甲方觉得公司靠谱。</td>
+    </tr>
+    <tr>
+      <td><strong>对欧普原厂</strong></td>
+      <td>「一线情报员」＋「过滤器」</td>
+      <td>原厂设计师出图、专家后台调试，不泡工地。你把现场凌乱的物理世界翻译成原厂听得懂的技术语言；先用 IT 逻辑（查 IP、看电源、重启服务）过滤掉"假故障"。</td>
+      <td>绝不当"无脑传话筒"。真难题要带着<strong>「我已排查 A/B/C，卡在 D」</strong>的清晰报告求助原厂——既解决问题，又免费"榨取"原厂专家的顶级经验。</td>
+    </tr>
+    <tr>
+      <td><strong>对客户/施工队</strong></td>
+      <td>「大厂交付标准的落地判官」</td>
+      <td>博世、汇川类客户验收极严。你拿着图纸告诉工头"孔必须打这""网线必须套标签""网关必须留检修空间"，是现场唯一能解释"为什么必须这么干"的人。</td>
+      <td>图纸与现场不符时，你是<strong>喊停、协调修改</strong>的人。你代表公司交付质量，你一妥协，公司就返工赔钱。</td>
+    </tr>
+    <tr>
+      <td><strong>对自己</strong></td>
+      <td>「披着项目管理外衣的 IT 运维预备役」</td>
+      <td>这是最值钱、最有远见的位置。你每天都在用 SSH、CMD、IP 规划、系统日志排查——这些是真正的 IT 底层技能，是你用软件工程底子<strong>降维</strong>做工程管理。</td>
+      <td>每个故障（ACPI 电源、6 根 485、边缘服务器 502）不光解决，还要记进 <a href="2-网络调试与运维手册.html" style="color:var(--page-brand);font-weight:600;">《大厂项目避坑日记》</a>——这是未来跳槽去大厂做"解决方案架构师"的资本。</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>1.3 按项目阶段划分的职责边界</h3>
+
+<table class="role-table">
+  <thead>
+    <tr><th>阶段</th><th>你负责的事</th><th>不负责 / 交给别人的事</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>需求分析</strong></td>
+      <td>到现场勘察环境条件（层高、距离、温湿度、粉尘、腐蚀、振动等），整理成勘察记录表</td>
+      <td>选型订货交给订单人员；照度精确计算交给欧普工程师/选型工具</td>
+    </tr>
+    <tr>
+      <td><strong>报价协助</strong></td>
+      <td>提供勘察数据支持，确认技术可行性</td>
+      <td>具体定价和商务谈判由销售/商务团队负责</td>
+    </tr>
+    <tr>
+      <td><strong>图纸深化</strong></td>
+      <td>协助欧普工程师做图纸深化，提供现场实际情况反馈</td>
+      <td>图纸的主设计和出图由欧普工程师主导</td>
+    </tr>
+    <tr>
+      <td><strong>技术交底</strong></td>
+      <td>合同签订后对施工方做技术交底，讨论施工方案</td>
+      <td>具体施工执行由施工方负责</td>
+    </tr>
+    <tr>
+      <td><strong>现场调试</strong></td>
+      <td>系统配置、网络调试、灯具故障排查、智控系统调试</td>
+      <td>欧普设备底层/固件级问题联系欧普厂家</td>
+    </tr>
+    <tr>
+      <td><strong>故障排查</strong></td>
+      <td>自主排查网络/系统/灯具问题，能定位到具体设备并尝试解决</td>
+      <td>涉及欧普设备深度技术问题 → 直接联系欧普照明厂家技术支持</td>
+    </tr>
+    <tr>
+      <td><strong>厂家对接</strong></td>
+      <td>常规问题自行解决，把复杂问题描述清楚后联系厂家</td>
+      <td>厂家负责设备级深度技术支持和返厂维修</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>1.4 与各方的协作关系</h3>
+
+<div class="callout tip">
+  <strong>你对接的5类人</strong>
+  <br><strong>1. 订单人员（经销商内部）：</strong>你给勘察数据，他做选型报价
+  <br><strong>2. 欧普工程师（厂家）：</strong>你协助图纸深化，他主导出图；设备深度问题找他
+  <br><strong>3. 施工方（施工队/总包）：</strong>你做技术交底，他执行施工
+  <br><strong>4. 甲方/客户（业主）：</strong>你汇报技术方案和进度，他确认验收
+  <br><strong>5. 供应商（设备/线材）：</strong>设备到货确认、异常协调
+</div>
+
+<h3>1.5 行动指南（每天上班前背一遍）</h3>
+
+<table class="role-table">
+  <thead>
+    <tr><th>三句话</th><th>含义</th><th>落地动作</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>「我是去替老板扫雷的，不是去当画图员的。」</strong></td>
+      <td>画图交给欧普，你的注意力全放在现场施工明细、产品进场、设备物理状态上。</td>
+      <td>现场巡检按第7册施工标准逐项核；设备到货核对型号与数量，进场即做主控。</td>
+    </tr>
+    <tr>
+      <td><strong>「我是现场最高权限的协调员。」</strong></td>
+      <td>遇到扯皮，站出来用专业逻辑推进度；遇到故障，用网络排障思维定位。</td>
+      <td>排障顺序固化：<strong>先看灯亮不亮 → 再看 ping 通不通 → 最后看服务起没起</strong>。扯皮时拿出《避坑日记》里的历史案例说话。</td>
+    </tr>
+    <tr>
+      <td><strong>「我是一块海绵，不是一台复读机。」</strong></td>
+      <td>每个现场故障不仅解决，还要沉淀成自己的经验资本。</td>
+      <td>每次排障结束，把过程写进 <a href="2-网络调试与运维手册.html" style="color:var(--page-brand);font-weight:600;">《大厂项目避坑日记》</a>，形成方法论复用。</td>
+    </tr>
+  </tbody>
+</table>
+
+</section>
+<section id="ch2">
+<h2><span class="chap-num">2</span>项目全流程概览与时间线</h2>
+
+<h3>2.1 五个阶段</h3>
+
+<p>一个典型的工业照明项目，从接单到交付，你的工作分五个阶段：</p>
+
+<div class="timeline-bar">
+  <div class="timeline-seg s1">阶段一<br>需求勘察</div>
+  <div class="timeline-seg s2">阶段二<br>方案深化</div>
+  <div class="timeline-seg s3">阶段三<br>施工交底</div>
+  <div class="timeline-seg s4">阶段四<br>调试验收</div>
+  <div class="timeline-seg s5">阶段五<br>售后维护</div>
+</div>
+
+<table>
+  <thead>
+    <tr><th>阶段</th><th>核心任务</th><th>你的交付物</th><th>关键对接方</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span class="phase-tag p1">阶段一</span> 需求勘察</td>
+      <td>到现场看环境、测数据、拍照片、问需求</td>
+      <td>现场环境勘察记录表</td>
+      <td>甲方、订单人员</td>
+    </tr>
+    <tr>
+      <td><span class="phase-tag p2">阶段二</span> 方案深化</td>
+      <td>反馈现场实况、协助出图、确认技术可行性</td>
+      <td>技术确认意见、图纸反馈</td>
+      <td>欧普工程师、订单人员</td>
+    </tr>
+    <tr>
+      <td><span class="phase-tag p3">阶段三</span> 施工交底</td>
+      <td>给施工方做技术交底、讨论布线方案、监督施工规范</td>
+      <td>技术交底记录、施工检查清单</td>
+      <td>施工方、甲方</td>
+    </tr>
+    <tr>
+      <td><span class="phase-tag p4">阶段四</span> 调试验收</td>
+      <td>系统配置、网络调试、功能测试、验收交付</td>
+      <td>调试验收报告、竣工资料</td>
+      <td>甲方、欧普工程师</td>
+    </tr>
+    <tr>
+      <td><span class="phase-tag p5">阶段五</span> 售后维护</td>
+      <td>故障响应、定期巡检、问题排查与厂家对接</td>
+      <td>故障处理记录、巡检报告</td>
+      <td>甲方、欧普厂家</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>2.2 时间线参考</h3>
+
+<table>
+  <thead>
+    <tr><th>阶段</th><th>典型周期</th><th>你投入的精力</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>需求勘察</td><td>1-3天（看项目规模）</td><td>满负荷</td></tr>
+    <tr><td>方案深化</td><td>1-2周</td><td>中负荷，配合为主</td></tr>
+    <tr><td>施工交底</td><td>施工全周期（1-3个月）</td><td>前期重（交底），后期轻（巡查）</td></tr>
+    <tr><td>调试验收</td><td>3-10天</td><td>满负荷</td></tr>
+    <tr><td>售后维护</td><td>质保期内持续</td><td>按需响应</td></tr>
+  </tbody>
+</table>
+
+<div class="callout warn">
+  <strong>注意：阶段有重叠</strong>
+  <br>施工阶段你可能在同时处理另一个项目的勘察，多项目并行时注意时间管理。
+  <br>售后维护和质保期可能与新项目并行，建立好文档档案能大幅减少重复沟通。
+</div>
+
+</section>
+<section id="ch3">
+<h2><span class="chap-num">3</span>阶段一：需求分析与现场勘察</h2>
+
+<p>这是你整个项目的起点。<strong>你的任务是到现场把环境条件摸清楚，整理成结构化的勘察记录表，交给订单人员做选型。</strong></p>
+
+<h3>3.1 勘察前准备</h3>
+
+<ol class="step-list">
+  <li><strong>拿到项目信息：</strong>项目名称、地址、甲方联系人、行业类型（厂房/仓库/车库/室外等）</li>
+  <li><strong>了解初步需求：</strong>照明区域面积、工作性质（精密装配/仓储/通行等）、有无特殊要求（防爆/防尘/防腐/食品级）</li>
+  <li><strong>准备工具包：</strong>
+    <ul>
+      <li>照度计（测现有照度）</li>
+      <li>激光测距仪（测距离/层高）</li>
+      <li>卷尺（短距离测量）</li>
+      <li>红外测温枪（测环境温度/设备温度）</li>
+      <li>手机/相机（拍照记录现场）</li>
+      <li>记事本/平板（填写勘察表）</li>
+      <li>手电筒（暗区照明）</li>
+      <li>安全装备（安全帽、反光背心、绝缘鞋）</li>
+    </ul>
+  </li>
+  <li><strong>联系甲方：</strong>预约现场勘察时间，确认能否进入生产区域（有些区域需要安全培训/许可证）</li>
+</ol>
+
+<h3>3.2 现场勘察的八大维度</h3>
+
+<p>到现场后按以下八个维度逐项勘察，每个维度都对应选型时的关键参数：</p>
+
+<h4>① 空间几何条件</h4>
+
+<div class="field-row">
+  <div class="field-label">层高（地面到顶棚）</div>
+  <div class="field-value">用激光测距仪测，影响灯具功率和安装方式</div>
+</div>
+<div class="field-row">
+  <div class="field-label">梁高/梁深</div>
+  <div class="field-value">梁底到顶棚的距离，影响灯具安装高度是否要避开梁</div>
+</div>
+<div class="field-row">
+  <div class="field-label">柱距/跨度</div>
+  <div class="field-value">影响灯具布置间距，通常布灯沿着柱跨走</div>
+</div>
+<div class="field-row">
+  <div class="field-label">区域面积</div>
+  <div class="field-value">长×宽，计算总布灯数量用</div>
+</div>
+<div class="field-row">
+  <div class="field-label">安装高度（工作面到灯）</div>
+  <div class="field-value">灯到地面的距离，直接决定照度计算</div>
+</div>
+<div class="field-row">
+  <div class="field-label">吊顶类型</div>
+  <div class="field-value">无吊顶（钢梁/混凝土）/ 有吊顶（矿棉板/铝扣板/金属板）→ 决定安装方式（悬挂/吸顶/嵌入）</div>
+</div>
+<div class="field-row">
+  <div class="field-label">有无天窗/侧窗</div>
+  <div class="field-value">自然采光情况，影响白天照明需求</div>
+</div>
+
+<h4>② 环境条件</h4>
+
+<div class="field-row">
+  <div class="field-label">环境温度</div>
+  <div class="field-value">常温/高温（>40°C）/冷库（<-20°C），影响灯具选型和驱动选型</div>
+</div>
+<div class="field-row">
+  <div class="field-label">湿度</div>
+  <div class="field-value">普通/潮湿/结露，影响防护等级（IP）要求</div>
+</div>
+<div class="field-row">
+  <div class="field-label">粉尘</div>
+  <div class="field-value">无/轻度/重度（木工/水泥/矿山），影响IP等级和灯具清洁维护方案</div>
+</div>
+<div class="field-row">
+  <div class="field-label">腐蚀性</div>
+  <div class="field-value">无/弱酸/强酸碱（化工/电镀/食品），需特殊防腐灯具</div>
+</div>
+<div class="field-row">
+  <div class="field-label">振动</div>
+  <div class="field-value">无/轻度/强振动（冲压车间/压缩机旁），影响安装方式和灯具结构</div>
+</div>
+<div class="field-row">
+  <div class="field-label">防爆要求</div>
+  <div class="field-value">有无易燃易爆气体/粉尘？防爆等级和分区（Zone 1/2/21/22）</div>
+</div>
+<div class="field-row">
+  <div class="field-label">食品/制药洁净</div>
+  <div class="field-value">需要洁净灯（不锈钢/圆角/无积尘设计）</div>
+</div>
+
+<h4>③ 照明现状</h4>
+
+<div class="field-row">
+  <div class="field-label">现有灯具类型</div>
+  <div class="field-value">金卤灯/荧光灯/LED/无极灯/混用 → 改造还是新建</div>
+</div>
+<div class="field-row">
+  <div class="field-label">现有灯具功率和数量</div>
+  <div class="field-value">用于对比评估节能效果</div>
+</div>
+<div class="field-row">
+  <div class="field-label">现有照度（实测）</div>
+  <div class="field-value">用照度计在工作面高度测，多点取样取平均值</div>
+</div>
+<div class="field-row">
+  <div class="field-label">现有布灯位置</div>
+  <div class="field-value">是否沿原位置替换，还是重新规划</div>
+</div>
+<div class="field-row">
+  <div class="field-label">原有线路状况</div>
+  <div class="field-value">线缆老化程度、回路数、开关位置 → 判断线路能否利旧</div>
+</div>
+
+<h4>④ 电力条件</h4>
+
+<div class="field-row">
+  <div class="field-label">供电电压</div>
+  <div class="field-value">220V/380V，有没有三相不平衡问题</div>
+</div>
+<div class="field-row">
+  <div class="field-label">配电箱位置</div>
+  <div class="field-value">就近取电点在哪里，走线距离多远</div>
+</div>
+<div class="field-row">
+  <div class="field-label">回路容量</div>
+  <div class="field-value">每个回路多少安培，能带多少灯</div>
+</div>
+<div class="field-row">
+  <div class="field-label">有无备用电源/UPS</div>
+  <div class="field-value">应急照明是否需要独立供电</div>
+</div>
+
+<h4>⑤ 控制需求</h4>
+
+<div class="field-row">
+  <div class="field-label">控制方式偏好</div>
+  <div class="field-value">就地开关/集中控制/智能调光/自动感应</div>
+</div>
+<div class="field-row">
+  <div class="field-label">分区控制需求</div>
+  <div class="field-value">哪些区域独立开关、哪些联动、哪些需要调光</div>
+</div>
+<div class="field-row">
+  <div class="field-label">场景需求</div>
+  <div class="field-value">工作模式/休息模式/巡检模式/应急模式</div>
+</div>
+<div class="field-row">
+  <div class="field-label">有无楼控系统对接</div>
+  <div class="field-value>BACnet/Modbus/干接点信号 → 需要协议对接</div>
+</div>
+<div class="field-row">
+  <div class="field-label">网络条件</div>
+  <div class="field-value">现场有没有局域网/WiFi，能不能接边缘服务器</div>
+</div>
+
+<h4>⑥ 特殊要求</h4>
+
+<div class="field-row">
+  <div class="field-label">显色性要求</div>
+  <div class="field-value">CRI>80（检验/印刷/纺织）/ CRI>70（普通工业）</div>
+</div>
+<div class="field-row">
+  <div class="field-label">色温偏好</div>
+  <div class="field-value">4000K（中性白，最常用）/5000K-5700K（冷白，精密作业）/3000K（暖白，休息区）</div>
+</div>
+<div class="field-row">
+  <div class="field-label">频闪要求</div>
+  <div class="field-value">高速运转区域必须无频闪（影响驱动选型）</div>
+</div>
+<div class="field-row">
+  <div class="field-label">眩光控制</div>
+  <div class="field-value">UGR要求（一般≤22，精密作业≤19）</div>
+</div>
+<div class="field-row">
+  <div class="field-label">应急照明</div>
+  <div class="field-value">消防要求的安全照明/疏散指示</div>
+</div>
+
+<h4>⑦ 安装条件</h4>
+
+<div class="field-row">
+  <div class="field-label">安装方式</div>
+  <div class="field-value">吸顶/悬挂/吊杆/轨道/壁装/嵌入 → 现场结构是否允许</div>
+</div>
+<div class="field-row">
+  <div class="field-label">有无行车/吊车</div>
+  <div class="field-value">影响灯具安装高度和悬挂方式（不能挡行车运行轨迹）</div>
+</div>
+<div class="field-row">
+  <div class="field-label">有无管道/桥架</div>
+  <div class="field-value">灯具安装位置要避开现有管道和桥架</div>
+</div>
+<div class="field-row">
+  <div class="field-label">施工条件</div>
+  <div class="field-label">能否停工施工/只能夜间施工/高空作业需要脚手架或升降车</div>
+</div>
+
+<h4>⑧ 标准与规范</h4>
+
+<div class="field-row">
+  <div class="field-label">适用国标</div>
+  <div class="field-value">GB 50034（建筑照明设计标准）/ GB 50058（爆炸危险环境）等</div>
+</div>
+<div class="field-row">
+  <div class="field-label">行业特殊标准</div>
+  <div class="field-value">食品（FDA/GB 14881）、医药（GMP）、化工（HG/T）、矿山等</div>
+</div>
+<div class="field-row">
+  <div class="field-label">甲方企业标准</div>
+  <div class="field-value">有些大企业（如汽车厂/电子厂）有自己的照明设计规范</div>
+</div>
+
+<h3>3.3 现场照度测量方法</h3>
+
+<div class="callout info">
+  <strong>你不需要做精确的照度设计计算（那是欧普工程师/选型工具的事），但你要会测现有照度</strong>
+  <br>测现有照度的目的是：① 评估改造前的照明水平 ② 给选型人员一个参考基准
+</div>
+
+<ol class="step-list">
+  <li><strong>选定测量区域：</strong>取一个代表性的工作区域（不是角落也不是正中间灯下）</li>
+  <li><strong>确定测量高度：</strong>工作面高度——地面（通道/仓储）/ 0.75米（坐姿工作台）/ 1.2米（立姿工作台）</li>
+  <li><strong>网格布点：</strong>把区域分成网格，每个网格中心点测一次，网格间距2-3米</li>
+  <li><strong>多点测量：</strong>至少测5-9个点，记录每点数值</li>
+  <li><strong>计算平均照度：</strong>所有测量点取算术平均值</li>
+  <li><strong>记录均匀度：</strong>最小值/平均值 = 均匀度，低于0.6说明布灯不均</li>
+  <li><strong>拍照存证：</strong>拍测量位置和照度计读数</li>
+</ol>
+
+<table>
+  <thead>
+    <tr><th>工业场所</th><th>国标要求照度(lux)</th><th>说明</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>一般加工车间</td><td>300</td><td>粗加工</td></tr>
+    <tr><td>精密装配车间</td><td>500-750</td><td>电子/精密机械</td></tr>
+    <tr><td>仓储区（有人工分拣）</td><td>200-300</td><td>货架通道</td></tr>
+    <tr><td>仓储区（仅通行）</td><td>100</td><td>通道</td></tr>
+    <tr><td>室外厂区道路</td><td>20-50</td><td>根据道路等级</td></tr>
+    <tr><td>地下车库</td><td>50-100</td><td>停车区/通道</td></tr>
+  </tbody>
+</table>
+
+<div class="callout tip">
+  <strong>勘察完成的交付</strong>
+  <br>勘察结束后，把所有数据整理成「现场环境勘察记录表」（见第8章模板），交给订单人员做选型。
+  <br>同时自己留一份，后续方案深化和施工交底都要用到。
+</div>
+
+</section>
+<section id="ch4">
+<h2><span class="chap-num">4</span>阶段二：方案深化与报价协助</h2>
+
+<p>勘察数据交给订单人员后，进入方案深化阶段。这个阶段你以<strong>配合和确认</strong>为主。</p>
+
+<h3>4.1 你在这个阶段做的事</h3>
+
+<table>
+  <thead>
+    <tr><th>任务</th><th>具体内容</th><th>对接谁</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>反馈现场实况</td>
+      <td>把勘察记录表中的关键约束（层高、环境、安装条件）传达给欧普工程师，确保图纸设计符合现场实际</td>
+      <td>欧普工程师</td>
+    </tr>
+    <tr>
+      <td>确认技术可行性</td>
+      <td>看欧普工程师出的图纸，结合现场情况确认能不能落地——安装方式对不对、走线合理不合理、有没有和管道/桥架冲突</td>
+      <td>欧普工程师、订单人员</td>
+    </tr>
+    <tr>
+      <td>确认选型清单</td>
+      <td>看订单人员整理的选型清单，确认规格型号与现场环境匹配（IP等级、色温、功率、安装方式）</td>
+      <td>订单人员</td>
+    </tr>
+    <tr>
+      <td>提出技术意见</td>
+      <td>发现图纸/选型有问题及时提出，如：灯具功率偏大/偏小、安装高度不够、控制方式不匹配等</td>
+      <td>欧普工程师、订单人员</td>
+    </tr>
+    <tr>
+      <td>预估施工难度</td>
+      <td>根据现场勘察，预判施工难点（高空作业、停产施工窗口、特殊环境作业等）</td>
+      <td>销售/项目经理</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>4.2 图纸审查要点</h3>
+
+<p>欧普工程师出图后，你要重点核对以下几项：</p>
+
+<ul class="checklist">
+  <li>灯具布置图与现场实际空间是否吻合（柱距、梁位、面积）</li>
+  <li>安装方式与现场结构是否匹配（有没有可以悬挂/吸顶的地方）</li>
+  <li>灯具数量与区域面积是否合理（结合勘察时测的现有照度判断）</li>
+  <li>控制分区与甲方需求是否一致（哪些区域独立控制、哪些联动）</li>
+  <li>走线路由是否合理（从配电箱到灯具的距离、与现有桥架的关系）</li>
+  <li>有没有遗漏区域（走廊、楼梯间、卫生间、设备间）</li>
+  <li>特殊环境选型是否正确（防爆区用了防爆灯吗、冷库用了低温灯吗）</li>
+  <li>应急照明/疏散指示是否满足消防要求</li>
+</ul>
+
+<h3>4.3 报价技术支持</h3>
+
+<p>订单人员做报价时，你提供以下技术支持：</p>
+
+<ul class="checklist">
+  <li>确认选型号准确（型号后缀对应正确的安装方式和控制方式）</li>
+  <li>确认安装辅材清单（吊杆、支架、膨胀螺栓、接线盒等）</li>
+  <li>确认线缆规格和数量（根据走线距离估算）</li>
+  <li>确认控制设备清单（网关、传感器、面板等）</li>
+  <li>预估施工工时和难度系数（给销售做报价参考）</li>
+</ul>
+
+</section>
+<section id="ch5">
+<h2><span class="chap-num">5</span>阶段三：技术交底与施工管理</h2>
+
+<p>合同签订后，进入施工阶段。你在这个阶段的<strong>核心任务是技术交底和施工质量把控</strong>。</p>
+
+<h3>5.1 技术交底的内容</h3>
+
+<p>正式施工前，召集施工方负责人、电工、甲方代表，做一次完整的技术交底会：</p>
+
+<ol class="step-list">
+  <li><strong>项目概况介绍：</strong>照明区域有哪些、总灯数、控制方式（普通开关/DALI/蓝牙Mesh/自组网）</li>
+  <li><strong>图纸讲解：</strong>逐区域讲布灯图，说明每个区域的灯具型号、数量、安装方式</li>
+  <li><strong>安装规范讲解：</strong>
+    <ul>
+      <li>灯具安装高度和间距要求</li>
+      <li>悬挂灯具的吊杆规格和固定方式</li>
+      <li>吸顶/嵌入灯具的开孔尺寸和固定方式</li>
+      <li>灯具之间的最小间距（避免光叠加和散热问题）</li>
+      <li>与梁/管道/桥架的避让距离</li>
+    </ul>
+  </li>
+  <li><strong>接线规范讲解：</strong>
+    <ul>
+      <li>每回路带灯数量和功率限制</li>
+      <li>线缆规格要求（多少平方的线）</li>
+      <li>接线方式（串联/并联/环形）</li>
+      <li>DALI/蓝牙网关的接线方式</li>
+      <li>强弱电分离走线要求</li>
+    </ul>
+  </li>
+  <li><strong>控制线路讲解：</strong>
+    <ul>
+      <li>开关面板位置和控制范围</li>
+      <li>DALI总线走线路由</li>
+      <li>蓝牙网关/传感器安装位置</li>
+      <li>边缘服务器网络接入方式</li>
+    </ul>
+  </li>
+  <li><strong>安全要求：</strong>高空作业规范、带电作业要求、防爆区施工要求</li>
+  <li><strong>施工进度协调：</strong>停产施工窗口、夜间施工安排、与其他工种的交叉配合</li>
+  <li><strong>验收标准说明：</strong>施工完成后怎么验收、验收什么</li>
+</ol>
+
+<div class="callout warn">
+  <strong>交底后一定要签字</strong>
+  <br>技术交底做完后，施工方负责人要签字确认。后续施工中如果出现不按交底执行的问题，
+  有签字记录可以追溯责任。交底记录模板见第9章。
+</div>
+
+<h3>5.2 施工过程中的巡查要点</h3>
+
+<p>施工不需要你全程在场，但关键节点要去现场巡查：</p>
+
+<table>
+  <thead>
+    <tr><th>巡查节点</th><th>看什么</th><th>常见问题</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>布线阶段</td>
+      <td>线缆规格对不对、走线整齐不整齐、强弱电分开了没、接线盒位置对不对</td>
+      <td>线径偏细、强弱电混走、没有穿管保护</td>
+    </tr>
+    <tr>
+      <td>灯具安装阶段</td>
+      <td>安装位置和间距对不对、固定牢不牢、吊杆垂直不垂直、嵌入灯开孔尺寸对不对</td>
+      <td>位置偏了、间距不均、固定不牢、开孔大了/小了</td>
+    </tr>
+    <tr>
+      <td>接线阶段</td>
+      <td>线头压接牢不牢、有没有裸露、相序对不对、接地线接了没</td>
+      <td>压接松动、绝缘层破损、接地缺失</td>
+    </tr>
+    <tr>
+      <td>控制设备安装</td>
+      <td>网关/传感器/面板位置对不对、接线对不对</td>
+      <td>位置偏了、信号遮挡、接错线</td>
+    </tr>
+    <tr>
+      <td>通电测试前</td>
+      <td>全面检查一遍接线、清理现场工具和废料、确认所有开关处于断开位置</td>
+      <td>短路隐患、工具遗留在灯具内</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>5.3 施工常见问题处理</h3>
+
+<details class="inspect-block">
+  <summary>灯具安装位置和图纸不符</summary>
+  <div class="inspect-body">
+    <p>先确认是图纸问题还是施工偏差。如果现场有管道/桥架等障碍物导致无法按图安装，和施工方协商调整位置，同时通知欧普工程师确认调整后是否影响照度均匀度。</p>
+    <p>调整超过500mm的，建议让欧普工程师重新核算。</p>
+  </div>
+</details>
+
+<details class="inspect-block">
+  <summary>线缆规格不够</summary>
+  <div class="inspect-body">
+    <p>如果发现施工方用了比要求细的线缆，要求更换。线径不够会导致压降过大、发热甚至火灾。</p>
+    <p>可以用万用表测回路电阻估算压降：压降 = 电流 × 回路电阻，超过额定电压的3%就要加粗线缆。</p>
+  </div>
+</details>
+
+<details class="inspect-block">
+  <summary>DALI/控制线路被干扰</summary>
+  <div class="inspect-body">
+    <p>控制线和强电线缆必须分开走管，间距至少200mm。如果发现混走，要求整改。</p>
+    <p>DALI总线建议用屏蔽线，单独穿管，避免和强电平行。</p>
+  </div>
+</details>
+
+<details class="inspect-block">
+  <summary>防爆区施工不规范</summary>
+  <div class="inspect-body">
+    <p>防爆区的灯具安装、接线必须严格按防爆规范执行：</p>
+    <ul>
+      <li>灯具必须有防爆合格证，型号与防爆分区匹配</li>
+      <li>电缆引入装置（格兰头）必须拧紧，密封圈匹配线径</li>
+      <li>接线盒必须是防爆型</li>
+      <li>所有金属外壳必须可靠接地</li>
+    </ul>
+  </div>
+</details>
+
+</section>
+<section id="ch6">
+<h2><span class="chap-num">6</span>阶段四：现场调试与验收交付</h2>
+
+<p>施工完成后进入调试阶段。这是你工作量最大的阶段，需要把所有系统调通、调好、验收交付。</p>
+
+<h3>6.1 调试流程</h3>
+
+<ol class="step-list">
+  <li><strong>安全检查：</strong>通电前全面检查接线、绝缘、接地</li>
+  <li><strong>单灯测试：</strong>逐回路通电，确认每盏灯亮、无异常闪烁/不亮</li>
+  <li><strong>网络配置：</strong>配置交换机VLAN、网关IP、边缘服务器网络</li>
+  <li><strong>控制调试：</strong>
+    <ul>
+      <li>DALI系统：寻址→分组→场景→调光测试</li>
+      <li>蓝牙Mesh：配网→分组→场景→联动测试</li>
+      <li>自组网：建网→分组→面板配对→场景测试</li>
+    </ul>
+  </li>
+  <li><strong>平台对接：</strong>设备上线到平台、确认数据上报正常</li>
+  <li><strong>功能测试：</strong>按场景逐个测试控制逻辑（定时/感应/手动/应急）</li>
+  <li><strong>照度验收：</strong>按国标方法测照度，确认达标</li>
+  <li><strong>验收交付：</strong>甲方签字确认、移交竣工资料</li>
+</ol>
+
+<div class="callout tip">
+  <strong>详细调试操作参见第5册《网络与设备调试排查手册》</strong>
+  <br>网络配置（VLAN/IP/交换机）、DALI/蓝牙/自组网三种控制方案的具体配置步骤、
+  故障排查方法都在第5册中详细说明。
+</div>
+
+<h3>6.2 验收内容</h3>
+
+<table>
+  <thead>
+    <tr><th>验收项</th><th>验收标准</th><th>验收方法</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>灯具安装质量</td>
+      <td>固定牢固、排列整齐、间距符合图纸</td>
+      <td>目视检查 + 图纸对照</td>
+    </tr>
+    <tr>
+      <td>照明效果</td>
+      <td>平均照度≥设计值、均匀度≥0.6</td>
+      <td>照度计实测</td>
+    </tr>
+    <tr>
+      <td>控制功能</td>
+      <td>所有灯能开关/调光、场景切换正常、定时/感应正常</td>
+      <td>逐功能实操测试</td>
+    </tr>
+    <tr>
+      <td>网络连通性</td>
+      <td>所有设备在线、平台数据上报正常</td>
+      <td>平台查看设备状态</td>
+    </tr>
+    <tr>
+      <td>接线质量</td>
+      <td>压接牢固、绝缘完好、接地可靠</td>
+      <td>抽检 + 万用表测</td>
+    </tr>
+    <tr>
+      <td>文档完整性</td>
+      <td>竣工图纸、设备清单、IP地址表、配置文件齐全</td>
+      <td>文档审查</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>6.3 验收交付物</h3>
+
+<ul class="checklist">
+  <li>竣工图纸（与实际安装一致的CAD图纸）</li>
+  <li>设备清单（品牌、型号、数量、序列号）</li>
+  <li>IP地址表（所有网络设备IP和MAC）</li>
+  <li>VLAN配置表</li>
+  <li>设备账号密码表（加密保存）</li>
+  <li>交换机/网关配置文件备份</li>
+  <li>照度验收测试报告</li>
+  <li>操作手册（给甲方运维人员的简易操作指南）</li>
+  <li>验收签认单（甲方签字确认）</li>
+</ul>
+
+</section>
+<section id="ch7">
+<h2><span class="chap-num">7</span>阶段五：售后维护与故障响应</h2>
+
+<p>验收交付后进入质保期/售后阶段。你需要保持快速响应能力，同时做好预防性维护。</p>
+
+<h3>7.1 故障响应流程</h3>
+
+<div class="callout info">
+  <strong>接到故障报告后的处理顺序</strong>
+  <br><strong>第1步 现象确认：</strong>问清楚哪里坏了、什么时候开始的、影响范围多大
+  <br><strong>第2步 远程判断：</strong>如果能远程登录平台/服务器，先看设备和系统状态
+  <br><strong>第3步 现场排查：</strong>必须到现场的，带好工具包按第5册的排查流程走
+  <br><strong>第4步 尝试解决：</strong>能自己解决的（网络配置、接线松动、设备重启）直接处理
+  <br><strong>第5步 厂家对接：</strong>涉及欧普设备底层问题的，描述清楚现象和排查结果后联系厂家
+  <br><strong>第6步 记录归档：</strong>故障原因、处理过程、结果都记录下来，积累经验
+</div>
+
+<h3>7.2 你能处理的问题 vs 需要找厂家的问题</h3>
+
+<table>
+  <thead>
+    <tr><th>分类</th><th>你能处理的</th><th>找欧普厂家的</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>网络层</td>
+      <td>IP冲突、VLAN配置错误、交换机配置丢失、网线故障、端口坏了</td>
+      <td>—（网络层基本你自己搞定）</td>
+    </tr>
+    <tr>
+      <td>系统层</td>
+      <td>服务器重启、服务挂了、Docker容器异常、防火墙规则、ACPI基本排查</td>
+      <td>服务器硬件级故障（主板/CPU/RAID卡坏了）、OS reinstall</td>
+    </tr>
+    <tr>
+      <td>控制层</td>
+      <td>网关配置丢失重新配、DALI寻址、蓝牙配网、场景重新下发</td>
+      <td>网关固件bug、网关硬件故障返厂</td>
+    </tr>
+    <tr>
+      <td>灯具层</td>
+      <td>灯不亮→先查供电/接线/驱动 → 确认是驱动还是光源问题</td>
+      <td>驱动/光源批次性故障、灯具结构问题、非标定制件返修</td>
+    </tr>
+    <tr>
+      <td>平台层</td>
+      <td>账号问题、基础配置、数据不显示→查设备上报</td>
+      <td>平台bug、数据库问题、平台架构调整</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>7.3 定期巡检</h3>
+
+<p>质保期内建议每季度巡检一次，内容包括：</p>
+
+<ul class="checklist">
+  <li>灯具点亮率检查（有没有灯不亮的或闪烁的）</li>
+  <li>控制功能抽测（开关/调光/场景是否正常）</li>
+  <li>网络设备状态检查（交换机/网关/服务器运行状态）</li>
+  <li>平台数据完整性检查（设备在线率、数据上报是否正常）</li>
+  <li>灯具清洁状况（粉尘环境需要定期清洁灯具透光罩）</li>
+  <li>接线端子检查（振动环境接线可能松动）</li>
+  <li>日志检查（服务器/网关有没有异常日志）</li>
+</ul>
+
+<h3>7.4 故障处理记录表</h3>
+
+<p>每次故障处理后，填写以下记录：</p>
+
+<table>
+  <thead>
+    <tr><th>字段</th><th>说明</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>项目名称</td><td>哪个项目</td></tr>
+    <tr><td>故障时间</td><td>什么时候接到报告/什么时候发生的</td></tr>
+    <tr><td>故障现象</td><td>具体什么问题、影响范围</td></tr>
+    <tr><td>排查过程</td><td>你做了什么操作、发现了什么</td></tr>
+    <tr><td>根因</td><td>最终定位的原因</td></tr>
+    <tr><td>处理方式</td><td>怎么解决的/转给厂家了</td></tr>
+    <tr><td>处理结果</td><td>已恢复/待厂家处理/需更换设备</td></tr>
+    <tr><td>是否返厂</td><td>有/无，返厂设备型号和序列号</td></tr>
+    <tr><td>经验总结</td><td>怎么避免下次再出现</td></tr>
+  </tbody>
+</table>
+
+</section>
+<section id="ch8">
+<h2><span class="chap-num">8</span>现场环境勘察记录表（模板）</h2>
+
+<p>到现场后按此模板逐项填写，填写完毕后交给订单人员做选型，自己留一份备查。</p>
+
+<div class="phase-card">
+<h3>基本信息</h3>
+<div class="field-row"><div class="field-label">项目名称</div><div class="field-value">____________________</div></div>
+<div class="field-row"><div class="field-label">项目地址</div><div class="field-value">____________________</div></div>
+<div class="field-row"><div class="field-label">甲方名称</div><div class="field-value">____________________</div></div>
+<div class="field-row"><div class="field-label">甲方联系人/电话</div><div class="field-value">____________________</div></div>
+<div class="field-row"><div class="field-label">行业类型</div><div class="field-value">□ 厂房 □ 仓库 □ 车库 □ 室外 □ 其他：______</div></div>
+<div class="field-row"><div class="field-label">勘察日期</div><div class="field-value">____________________</div></div>
+<div class="field-row"><div class="field-label">勘察人</div><div class="field-value">____________________</div></div>
+</div>
+
+<div class="phase-card">
+<h3>空间几何条件</h3>
+<div class="field-row"><div class="field-label">区域名称</div><div class="field-value">____________________</div></div>
+<div class="field-row"><div class="field-label">区域面积（长×宽）</div><div class="field-value">______m × ______m = ______m²</div></div>
+<div class="field-row"><div class="field-label">层高（地面到顶棚）</div><div class="field-value">______m</div></div>
+<div class="field-row"><div class="field-label">梁高/梁深</div><div class="field-value">______m / ______m</div></div>
+<div class="field-row"><div class="field-label">柱距/跨度</div><div class="field-value">______m × ______m</div></div>
+<div class="field-row"><div class="field-label">工作面高度</div><div class="field-value">地面 / 0.75m / 1.2m / 其他：______</div></div>
+<div class="field-row"><div class="field-label">吊顶类型</div><div class="field-value">□ 无吊顶（钢梁） □ 无吊顶（混凝土） □ 矿棉板 □ 铝扣板 □ 金属板 □ 其他：______</div></div>
+<div class="field-row"><div class="field-label">天窗/侧窗</div><div class="field-value">□ 无 □ 有：______</div></div>
+</div>
+
+<div class="phase-card">
+<h3>环境条件</h3>
+<div class="field-row"><div class="field-label">环境温度</div><div class="field-value">______°C □ 常温 □ 高温(>40°C) □ 冷库(<-20°C)</div></div>
+<div class="field-row"><div class="field-label">湿度</div><div class="field-value">□ 普通 □ 潮湿 □ 结露</div></div>
+<div class="field-row"><div class="field-label">粉尘</div><div class="field-value">□ 无 □ 轻度 □ 重度（类型：______）</div></div>
+<div class="field-row"><div class="field-label">腐蚀性</div><div class="field-value">□ 无 □ 弱 □ 强（类型：______）</div></div>
+<div class="field-row"><div class="field-label">振动</div><div class="field-value">□ 无 □ 轻度 □ 强振动</div></div>
+<div class="field-row"><div class="field-label">防爆要求</div><div class="field-value">□ 无 □ 有：气体______ / 粉尘______ / 分区______</div></div>
+<div class="field-row"><div class="field-label">洁净要求</div><div class="field-value">□ 无 □ 有：级别______</div></div>
+<div class="field-row"><div class="field-label">防护等级要求</div><div class="field-value">IP______</div></div>
+</div>
+
+<div class="phase-card">
+<h3>照明现状</h3>
+<div class="field-row"><div class="field-label">改造/新建</div><div class="field-value">□ 改造 □ 新建</div></div>
+<div class="field-row"><div class="field-label">现有灯具类型</div><div class="field-value">______</div></div>
+<div class="field-row"><div class="field-label">现有灯具功率/数量</div><div class="field-value">______W × ______盏</div></div>
+<div class="field-row"><div class="field-label">实测现有照度</div><div class="field-value">平均______lux / 最小______lux / 最大______lux</div></div>
+<div class="field-row"><div class="field-label">均匀度（最小/平均）</div><div class="field-value">______</div></div>
+<div class="field-row"><div class="field-label">原有线路状况</div><div class="field-value">□ 可利旧 □ 需更换 □ 全部新做</div></div>
+<div class="field-row"><div class="field-label">原有开关/回路</div><div class="field-value">______个回路 / ______个开关</div></div>
+</div>
+
+<div class="phase-card">
+<h3>电力条件</h3>
+<div class="field-row"><div class="field-label">供电电压</div><div class="field-value">______V</div></div>
+<div class="field-row"><div class="field-label">配电箱位置</div><div class="field-value">______（距最近灯具______m）</div></div>
+<div class="field-row"><div class="field-label">回路容量</div><div class="field-value">______A / 回路数______</div></div>
+<div class="field-row"><div class="field-label">备用电源/UPS</div><div class="field-value">□ 无 □ 有：______</div></div>
+</div>
+
+<div class="phase-card">
+<h3>控制需求</h3>
+<div class="field-row"><div class="field-label">控制方式</div><div class="field-value">□ 就地开关 □ 集中控制 □ 智能调光(DALI) □ 蓝牙Mesh □ 自组网 □ 感应控制</div></div>
+<div class="field-row"><div class="field-label">分区控制需求</div><div class="field-value">____________________</div></div>
+<div class="field-row"><div class="field-label">场景需求</div><div class="field-value">□ 全开 □ 半亮 □ 夜间 □ 巡检 □ 应急</div></div>
+<div class="field-row"><div class="field-label">楼控对接</div><div class="field-value">□ 无 □ 有：协议______</div></div>
+<div class="field-row"><div class="field-label">网络条件</div><div class="field-value">□ 有局域网 □ 有WiFi □ 无网络</div></div>
+</div>
+
+<div class="phase-card">
+<h3>特殊要求</h3>
+<div class="field-row"><div class="field-label">显色性(CRI)</div><div class="field-value">□ ≥70 □ ≥80 □ ≥90</div></div>
+<div class="field-row"><div class="field-label">色温</div><div class="field-value">□ 3000K □ 4000K □ 5000K □ 5700K</div></div>
+<div class="field-row"><div class="field-label">频闪要求</div><div class="field-value">□ 普通 □ 无频闪（高速运转区域）</div></div>
+<div class="field-row"><div class="field-label">眩光(UGR)</div><div class="field-value">□ ≤22 □ ≤19 □ 无特殊要求</div></div>
+<div class="field-row"><div class="field-label">应急照明</div><div class="field-value">□ 无 □ 有：______</div></div>
+</div>
+
+<div class="phase-card">
+<h3>安装条件</h3>
+<div class="field-row"><div class="field-label">安装方式</div><div class="field-value">□ 吸顶 □ 悬挂 □ 吊杆 □ 轨道 □ 壁装 □ 嵌入</div></div>
+<div class="field-row"><div class="field-label">行车/吊车</div><div class="field-value">□ 无 □ 有：轨高______m</div></div>
+<div class="field-row"><div class="field-label">管道/桥架</div><div class="field-value">□ 无 □ 有：______</div></div>
+<div class="field-row"><div class="field-label">施工条件</div><div class="field-value">□ 可停产施工 □ 仅夜间施工 □ 需脚手架 □ 需升降车</div></div>
+</div>
+
+<div class="phase-card">
+<h3>标准与规范</h3>
+<div class="field-row"><div class="field-label">适用国标</div><div class="field-value">GB 50034 / GB 50058 / 其他：______</div></div>
+<div class="field-row"><div class="field-label">行业标准</div><div class="field-value">______</div></div>
+<div class="field-row"><div class="field-label">甲方企业标准</div><div class="field-value">□ 无 □ 有：______</div></div>
+<div class="field-row"><div class="field-label">目标照度（甲方要求）</div><div class="field-value">______lux</div></div>
+</div>
+
+<div class="phase-card">
+<h3>照片与附图</h3>
+<div class="field-row"><div class="field-label">现场全景照</div><div class="field-value">□ 已拍摄（______张）</div></div>
+<div class="field-row"><div class="field-label>区域细节照</div><div class="field-value">□ 已拍摄（______张）</div></div>
+<div class="field-row"><div class="field-label">现有灯具照片</div><div class="field-value">□ 已拍摄（______张）</div></div>
+<div class="field-row"><div class="field-label">配电箱/线路照片</div><div class="field-value">□ 已拍摄（______张）</div></div>
+<div class="field-row"><div class="field-label">特殊环境照片</div><div class="field-value">□ 已拍摄（______张）</div></div>
+</div>
+
+</section>
+<section id="ch9">
+<h2><span class="chap-num">9</span>施工技术交底检查清单（模板）</h2>
+
+<p>技术交底会上逐项讲解，讲解完毕后施工方负责人签字确认。</p>
+
+<div class="phase-card">
+<h3>交底基本信息</h3>
+<div class="field-row"><div class="field-label">项目名称</div><div class="field-value">____________________</div></div>
+<div class="field-row"><div class="field-label">交底日期</div><div class="field-value">____________________</div></div>
+<div class="field-row"><div class="field-label">交底人</div><div class="field-value">____________________（技术支持工程师）</div></div>
+<div class="field-row"><div class="field-label">施工方代表</div><div class="field-value">____________________（签字）</div></div>
+<div class="field-row"><div class="field-label">甲方代表</div><div class="field-value">____________________（签字）</div></div>
+</div>
+
+<div class="phase-card">
+<h3>一、项目概况交底</h3>
+<ul class="checklist">
+  <li>照明区域总数量和面积已说明</li>
+  <li>总灯具数量和类型已说明</li>
+  <li>控制方式已说明（普通开关/DALI/蓝牙Mesh/自组网）</li>
+  <li>特殊环境要求已说明（防爆/防腐/洁净/冷库等）</li>
+</ul>
+</div>
+
+<div class="phase-card">
+<h3>二、图纸交底</h3>
+<ul class="checklist">
+  <li>布灯图已逐区域讲解</li>
+  <li>每个区域灯具型号、数量已确认</li>
+  <li>安装方式和高度已逐区域确认</li>
+  <li>控制分区图已讲解</li>
+  <li>走线走向图已讲解</li>
+  <li>施工方已拿到最新版图纸</li>
+</ul>
+</div>
+
+<div class="phase-card">
+<h3>三、安装规范交底</h3>
+<ul class="checklist">
+  <li>灯具安装间距和高度要求已说明</li>
+  <li>悬挂灯具吊杆规格和固定方式已说明</li>
+  <li>吸顶/嵌入灯具开孔尺寸已说明</li>
+  <li>灯具与梁/管道/桥架避让距离已说明</li>
+  <li>灯具最小间距要求已说明（散热要求）</li>
+  <li>防爆区安装规范已特别说明（如适用）</li>
+</ul>
+</div>
+
+<div class="phase-card">
+<h3>四、接线规范交底</h3>
+<ul class="checklist">
+  <li>每回路带灯数量和功率限制已说明</li>
+  <li>线缆规格要求已说明（多少平方）</li>
+  <li>接线方式（串联/并联）已说明</li>
+  <li>压接规范（线鼻子/压线帽）已说明</li>
+  <li>接地线要求已说明</li>
+  <li>DALI/控制线路接线方式已说明（如适用）</li>
+  <li>强弱电分离走线要求已说明</li>
+</ul>
+</div>
+
+<div class="phase-card">
+<h3>五、控制线路交底</h3>
+<ul class="checklist">
+  <li>开关面板位置和控制范围已说明</li>
+  <li>DALI总线走线路由已说明（如适用）</li>
+  <li>蓝牙网关安装位置已说明（如适用）</li>
+  <li>传感器安装位置和高度已说明（如适用）</li>
+  <li>边缘服务器网络接入方式已说明（如适用）</li>
+  <li>网线/光纤走线路由已说明</li>
+</ul>
+</div>
+
+<div class="phase-card">
+<h3>六、安全与进度交底</h3>
+<ul class="checklist">
+  <li>高空作业安全要求已说明</li>
+  <li>带电作业禁止要求已说明</li>
+  <li>防爆区施工规范已说明（如适用）</li>
+  <li>施工窗口时间已确认（停产/夜间/分区域）</li>
+  <li>与其他工种的交叉配合已协调</li>
+  <li>施工进度计划已确认</li>
+</ul>
+</div>
+
+<div class="phase-card">
+<h3>七、验收标准交底</h3>
+<ul class="checklist">
+  <li>灯具安装质量验收标准已说明</li>
+  <li>照度验收标准已说明</li>
+  <li>控制功能验收标准已说明</li>
+  <li>接线质量验收标准已说明</li>
+  <li>文档交付要求已说明</li>
+</ul>
+</div>
+
+<div style="margin: 24px 0; padding: 16px; border: 2px dashed var(--page-border); border-radius: 8px; text-align: center;">
+  <p style="margin: 0; font-weight: 700; font-size: 0.95rem;">以上交底内容已全部讲解完毕，施工方已确认理解。</p>
+  <p style="margin: 12px 0 0; font-size: 0.875rem; color: var(--page-text-muted);">施工方负责人签字：________________ 　 日期：________________</p>
+</div>
+
+</section>
+<section id="ch10">
+<h2><span class="chap-num">10</span>项目交付文档清单</h2>
+
+<p>以下是项目从开始到结束你应该留存的所有文档。做好文档管理，后续维护和多项目并行时效率翻倍。</p>
+
+<table>
+  <thead>
+    <tr><th>文档</th><th>产生阶段</th><th>用途</th><th>存档方式</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>现场环境勘察记录表</td><td>阶段一</td><td>选型依据、施工参考</td><td>纸质+电子</td></tr>
+    <tr><td>施工图纸（深化版）</td><td>阶段二</td><td>施工依据</td><td>电子(CAD)</td></tr>
+    <tr><td>选型清单确认版</td><td>阶段二</td><td>订货依据</td><td>电子(Excel)</td></tr>
+    <tr><td>技术交底记录（签字版）</td><td>阶段三</td><td>责任追溯</td><td>纸质</td></tr>
+    <tr><td>施工巡查记录</td><td>阶段三</td><td>质量追溯</td><td>电子/纸质</td></tr>
+    <tr><td>网络拓扑图</td><td>阶段四</td><td>运维参考</td><td>电子(Visio/PDF)</td></tr>
+    <tr><td>IP地址表</td><td>阶段四</td><td>运维参考</td><td>电子(Excel)</td></tr>
+    <tr><td>VLAN配置表</td><td>阶段四</td><td>运维参考</td><td>电子(Excel)</td></tr>
+    <tr><td>设备清单（含序列号）</td><td>阶段四</td><td>资产管理、质保追溯</td><td>电子(Excel)</td></tr>
+    <tr><td>交换机/网关配置文件</td><td>阶段四</td><td>配置恢复</td><td>电子(原始格式)</td></tr>
+    <tr><td>账号密码表</td><td>阶段四</td><td>运维登录</td><td>加密保存</td></tr>
+    <tr><td>照度验收报告</td><td>阶段四</td><td>验收依据</td><td>纸质+电子</td></tr>
+    <tr><td>竣工图纸（与实际一致）</td><td>阶段四</td><td>后续改造/维护参考</td><td>电子(CAD)</td></tr>
+    <tr><td>操作手册（给甲方）</td><td>阶段四</td><td>甲方运维参考</td><td>电子+纸质</td></tr>
+    <tr><td>验收签认单</td><td>阶段四</td><td>项目交付凭证</td><td>纸质（签字）</td></tr>
+    <tr><td>故障处理记录</td><td>阶段五</td><td>经验积累、质保追溯</td><td>电子</td></tr>
+    <tr><td>巡检报告</td><td>阶段五</td><td>预防性维护记录</td><td>电子</td></tr>
+  </tbody>
+</table>
+
+<div class="callout tip">
+  <strong>文档管理的两个好习惯</strong>
+  <br>1. <strong>按项目建文件夹：</strong>每个项目一个文件夹，所有文档按阶段命名（如 <code>01-勘察记录</code>、<code>02-图纸</code>、<code>03-交底</code>、<code>04-验收</code>、<code>05-售后</code>）
+  <br>2. <strong>密码表加密保存：</strong>所有设备的账号密码集中记录，用密码管理器或加密Excel保存，不要明文存放
+</div>
+
+</section>
+<section id="ch11">
+<h2><span class="chap-num">1</span>施工标准总则</h2>
+
+<h3>1.1 本册用途</h3>
+
+<p>本册是第6册《项目管理方案》第5章「技术交底与施工管理」的配套执行文件。
+技术交底时，施工方问"具体怎么装、装到什么标准"，直接翻本册对应章节引用。</p>
+
+<div class="callout info">
+  <strong>本册定位：施工标准依据</strong>
+  <br>你负责按本册标准对施工方做技术交底、施工巡查和验收。
+  <br>具体施工执行由施工方负责，你负责标准传达和质量把控。
+  <br>📖 全流程工作指引参见 <a href="3-项目管理与施工标准.html" style="color:var(--page-brand);font-weight:600;">第6册·项目管理方案</a>
+</div>
+
+<h3>1.2 施工标准引用依据</h3>
+
+<table>
+  <thead>
+    <tr><th>标准编号</th><th>名称</th><th>本册引用范围</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>GB 50303</td><td>建筑电气工程施工质量验收规范</td><td>线缆敷设、接线、桥架施工</td></tr>
+    <tr><td>GB 50034</td><td>建筑照明设计标准</td><td>照度验收、灯具布置</td></tr>
+    <tr><td>GB 50058</td><td>爆炸危险环境电力装置设计规范</td><td>防爆区域施工</td></tr>
+    <tr><td>GB 50217</td><td>电力工程电缆设计规范</td><td>电缆选型与敷设</td></tr>
+    <tr><td>GB/T 13869</td><td>用电安全导则</td><td>接地、安全施工</td></tr>
+    <tr><td>JGJ 46</td><td>施工现场临时用电安全技术规范</td><td>施工用电安全</td></tr>
+  </tbody>
+</table>
+
+<h3>1.3 施工总体原则</h3>
+
+<div class="callout danger">
+  <strong>施工三条铁律</strong>
+  <br>1. <strong>先检查后施工</strong> — 通电前必须完成全部接线检查，严禁带电接线
+  <br>2. <strong>按图施工</strong> — 严格按图纸施工，变更必须经技术支持工程师确认
+  <br>3. <strong>强弱分离</strong> — 强电与弱电（控制线/网络线）必须分管/分桥架走线
+</div>
+
+</section>
+<section id="ch12">
+<h2><span class="chap-num">2</span>灯具安装规范</h2>
+
+<h3>2.1 安装方式分类与适用场景</h3>
+
+<table>
+  <thead>
+    <tr><th>安装方式</th><th>适用场景</th><th>适用灯具类型</th><th>关键施工要点</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>吸顶安装</td>
+      <td>有平整顶棚面（混凝土/金属板）</td>
+      <td>三防灯、净化灯、面板灯</td>
+      <td>膨胀螺栓固定、密封垫完好</td>
+    </tr>
+    <tr>
+      <td>悬挂安装（吊杆）</td>
+      <td>高空间厂房、仓库、无吊顶区域</td>
+      <td>工矿灯、三防灯、投光灯</td>
+      <td>吊杆规格匹配、垂直无晃动、承重验算</td>
+    </tr>
+    <tr>
+      <td>悬挂安装（吊链/吊索）</td>
+      <td>高空间、需调节高度</td>
+      <td>工矿灯、长条灯</td>
+      <td>吊索承重≥4倍灯具重量、长度一致</td>
+    </tr>
+    <tr>
+      <td>嵌入安装</td>
+      <td>有吊顶（矿棉板/铝扣板/金属板）</td>
+      <td>面板灯、筒灯</td>
+      <td>开孔尺寸精确、弹簧卡扣到位</td>
+    </tr>
+    <tr>
+      <td>轨道安装</td>
+      <td>商业/展示/局部照明</td>
+      <td>轨道灯、射灯</td>
+      <td>轨道平行、接头牢固、导电条接触良好</td>
+    </tr>
+    <tr>
+      <td>壁装</td>
+      <td>走廊、楼梯间、室外墙面</td>
+      <td>壁灯、泛光灯</td>
+      <td>支架固定牢、接线盒暗装</td>
+    </tr>
+    <tr>
+      <td>立杆安装</td>
+      <td>室外厂区道路、停车场</td>
+      <td>路灯、庭院灯</td>
+      <td>基础法兰、灯杆垂直度、接地</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>2.2 安装尺寸与公差标准</h3>
+
+<div class="spec-card">
+  <span class="spec-tag mount">安装公差</span>
+  <h4>吸顶/嵌入安装</h4>
+  <table class="tol-table">
+    <thead>
+      <tr><th>项目</th><th>标准要求</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>灯具间距偏差</td><td>±50mm（图纸标注间距为基准）</td></tr>
+      <tr><td>灯具排列直线度</td><td>≤5mm/m（5米内目视无明显弯曲）</td></tr>
+      <tr><td>嵌入灯开孔尺寸</td><td>灯具标称开孔尺寸 ±2mm</td></tr>
+      <tr><td>灯具与顶棚贴合度</td><td>无缝隙（吸顶）；弹簧卡扣紧贴吊顶（嵌入）</td></tr>
+      <tr><td>相邻灯具高低差</td><td>≤3mm</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="spec-card">
+  <span class="spec-tag mount">悬挂安装</span>
+  <h4>吊杆/吊链悬挂</h4>
+  <table class="tol-table">
+    <thead>
+      <tr><th>项目</th><th>标准要求</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>吊杆直径</td><td>≥Φ8mm（灯具≤5kg）；≥Φ10mm（灯具5-15kg）；≥Φ12mm（灯具>15kg）</td></tr>
+      <tr><td>吊杆垂直度</td><td>≤2°偏角（目视垂直）</td></tr>
+      <tr><td>吊杆长度偏差</td><td>同排灯具吊杆长度一致，偏差≤5mm</td></tr>
+      <tr><td>吊链/吊索承重</td><td>≥4倍灯具重量</td></tr>
+      <tr><td>吊点固定</td><td>膨胀螺栓深入混凝土≥60mm；钢梁固定用U型卡+防松螺母</td></tr>
+      <tr><td>灯具安装高度</td><td>与图纸标称高度偏差≤100mm</td></tr>
+      <tr><td>灯具间距偏差</td><td>±100mm（高空间厂房放宽）</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="spec-card">
+  <span class="spec-tag mount">灯具间距要求</span>
+  <h4>布灯间距与避让</h4>
+  <table class="tol-table">
+    <thead>
+      <tr><th>项目</th><th>标准要求</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>灯具间最小净距</td><td>≥灯具宽度1.5倍（散热要求）</td></tr>
+      <tr><td>灯具与梁的距离</td><td>≥200mm（梁底安装时不限）</td></tr>
+      <tr><td>灯具与管道的距离</td><td>≥300mm（热力管道≥500mm）</td></tr>
+      <tr><td>灯具与桥架的距离</td><td>≥200mm</td></tr>
+      <tr><td>灯具与行车轨道的距离</td><td>≥500mm（不能影响行车运行）</td></tr>
+      <tr><td>灯具与墙面的距离</td><td>≥0.5倍灯具间距（靠墙第一排灯）</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h3>2.3 各安装方式施工细节</h3>
+
+<details class="install-detail">
+  <summary>吸顶安装施工要点</summary>
+  <div class="detail-body">
+    <ul>
+      <li>定位：按图纸尺寸弹线定位，标记膨胀螺栓孔位</li>
+      <li>打孔：使用与膨胀螺栓匹配的钻头（通常Φ8螺栓用Φ10钻头）</li>
+      <li>孔深：深入混凝土面≥60mm，过浅不牢固</li>
+      <li>固定灯具前检查密封垫是否完好（三防灯/净化灯关键）</li>
+      <li>螺丝拧紧后检查灯具不晃动</li>
+      <li>接线从灯具自带接线端子或接线盒引出，不得裸露</li>
+    </ul>
+  </div>
+</details>
+
+<details class="install-detail">
+  <summary>吊杆悬挂施工要点</summary>
+  <div class="detail-body">
+    <ul>
+      <li>吊点选择：优先选钢梁下翼缘或混凝土顶板，避开板缝</li>
+      <li>钢梁固定：用U型卡箍+防松螺母（双螺母或弹垫+螺母）</li>
+      <li>混凝土固定：膨胀螺栓或化学锚栓，载荷大时用化学锚栓</li>
+      <li>吊杆安装顺序：先固定顶部吊点 → 再接吊杆 → 最后挂灯具</li>
+      <li>吊杆与灯具连接：螺纹连接+防松螺母，或快接销钉</li>
+      <li>灯具引线穿入吊杆内（管内走线）或沿吊杆外侧固定（包扎带间距200mm）</li>
+      <li>安装后用手轻推灯具，不应有明显晃动</li>
+    </ul>
+  </div>
+</details>
+
+<details class="install-detail">
+  <summary>嵌入安装施工要点</summary>
+  <div class="detail-body">
+    <ul>
+      <li>开孔：按灯具说明书标称开孔尺寸，用开孔器或切割机</li>
+      <li>开孔尺寸偏差控制在 ±2mm 以内</li>
+      <li>吊顶龙骨强度不够时需加固（加横撑龙骨或附加吊杆）</li>
+      <li>嵌入灯放入后弹簧卡扣全部到位，四个角均匀受力</li>
+      <li>灯具面框与吊顶面平齐，高低差≤2mm</li>
+      <li>灯具与吊顶接缝均匀，目视无缝隙</li>
+      <li>接线从吊顶内接线盒引出，接线盒固定在龙骨上</li>
+    </ul>
+  </div>
+</details>
+
+<details class="install-detail">
+  <summary>立杆安装（室外灯杆）施工要点</summary>
+  <div class="detail-body">
+    <ul>
+      <li>基础：混凝土基础尺寸按灯杆高度和重量设计，一般≥600×600×800mm</li>
+      <li>预埋地脚螺栓：法兰螺栓孔位与灯杆底座匹配，露出基础面4-5牙</li>
+      <li>灯杆垂直度：用水平尺或经纬仪校验，偏差≤灯杆高度的1/200</li>
+      <li>法兰连接：螺栓对角拧紧，全部带平垫+弹垫+螺母</li>
+      <li>接地：灯杆必须可靠接地，接地电阻≤4Ω（独立接地）或≤1Ω（共用接地）</li>
+      <li>接线手孔：灯杆底部检修门内接线，导线留有余量（≥200mm）</li>
+      <li>穿线管：灯杆内穿线，管口加护线圈防止划伤线缆</li>
+    </ul>
+  </div>
+</details>
+
+<h3>2.4 灯具接线规范</h3>
+
+<table>
+  <thead>
+    <tr><th>项目</th><th>标准要求</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>接线端子</td><td>使用灯具自带端子或合格接线端子，禁止线直接绕</td></tr>
+    <tr><td>线鼻子压接</td><td>1.5mm²以上导线必须压线鼻子，压接牢固无松动</td></tr>
+    <tr><td>导线颜色</td><td>火线红/棕，零线蓝，地线黄绿双色，控制线白/黑</td></tr>
+    <tr><td>接线牢固度</td><td>手拉不脱落，无裸露铜线</td></tr>
+    <tr><td>绝缘恢复</td><td>接线端子用绝缘帽或绝缘胶带包扎，包扎≥2层</td></tr>
+    <tr><td>进出线方向</td><td>灯具进出线从接线端子侧进入，不从灯具背部打孔</td></tr>
+    <tr><td>导线余量</td><td>灯具内导线留有100-150mm余量，便于维护</td></tr>
+    <tr><td>防护等级</td><td>三防灯/室外灯接线处必须密封（格兰头/密封圈匹配线径）</td></tr>
+  </tbody>
+</table>
+
+<div class="callout danger">
+  <strong>禁止事项</strong>
+  <br>• 禁止带电接线！先断电再接线，接线完检查后通电
+  <br>• 禁止不同回路共用零线（会导致调光干扰和漏电跳闸）
+  <br>• 禁止线鼻子压接不牢就通电（打火隐患）
+  <br>• 禁止线径不够（会导致压降和发热）
+  <br>• 禁止灯具未接地就通电（安全隐患）
+</div>
+
+</section>
+<section id="ch13">
+<h2><span class="chap-num">3</span>线缆敷设标准</h2>
+
+<h3>3.1 线缆选型标准</h3>
+
+<table>
+  <thead>
+    <tr><th>用途</th><th>线缆类型</th><th>截面要求</th><th>说明</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>照明主回路</td><td>BV/BVR 铜芯线</td><td>2.5mm²（每回路≤16A）</td><td>单芯硬线穿管用BV，软线接线用BVR</td></tr>
+    <tr><td>照明主回路（大功率）</td><td>BV/BVR</td><td>4mm²（每回路≤25A）</td><td>工矿灯等大功率灯具</td></tr>
+    <tr><td>照明主回路（超大功率）</td><td>BV/BVR/YJV</td><td>6mm²（每回路≤32A）</td><td>多盏大功率灯具共回路</td></tr>
+    <tr><td>开关控制线</td><td>BVR/RVV</td><td>1.5mm²</td><td>软线，便于接线</td></tr>
+    <tr><td>DALI控制线</td><td>RVVP 屏蔽线</td><td>2×0.75-1.5mm²</td><td>必须屏蔽，双绞更佳</td></tr>
+    <tr><td>蓝牙网关网线</td><td>超五类/六类UTP</td><td>标准网线</td><td>PoE供电时8芯全通</td></tr>
+    <tr><td>边缘服务器网线</td><td>六类UTP/FTP</td><td>标准网线</td><td>干扰环境用屏蔽FTP</td></tr>
+    <tr><td>接地线</td><td>BVR/黄绿双色线</td><td>≥2.5mm²（与相线等截面，最小2.5mm²）</td><td>必须黄绿双色标识</td></tr>
+  </tbody>
+</table>
+
+<h3>3.2 回路容量计算</h3>
+
+<div class="callout tip">
+  <strong>回路带灯数量计算方法</strong>
+  <br>1. 算总功率：每盏灯功率 × 灯数 = 回路总功率
+  <br>2. 算总电流：总功率 ÷ 220V = 回路电流
+  <br>3. 留余量：回路电流 ≤ 断路器额定值 × 80%
+  <br><br>示例：10盏100W工矿灯，总功率1000W，电流4.5A
+  <br>选16A断路器 → 4.5A ÷ 16A = 28% < 80% ✓
+  <br>选10A断路器 → 4.5A ÷ 10A = 45% < 80% ✓（也可，但余量小）
+</div>
+
+<table>
+  <thead>
+    <tr><th>断路器额定值</th><th>最大带载电流(80%)</th><th>2.5mm²线径最大带灯功率</th><th>4mm²线径最大带灯功率</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>10A</td><td>8A</td><td>1760W（约17盏100W）</td><td>1760W（同上，断路器限制）</td></tr>
+    <tr><td>16A</td><td>12.8A</td><td>2816W（约28盏100W）</td><td>2816W（同上）</td></tr>
+    <tr><td>20A</td><td>16A</td><td>—</td><td>3520W（约35盏100W）</td></tr>
+    <tr><td>25A</td><td>20A</td><td>—</td><td>4400W（约44盏100W）</td></tr>
+  </tbody>
+</table>
+
+<div class="callout warn">
+  <strong>注意：线径和断路器要匹配</strong>
+  <br>2.5mm²线最大安全载流量约20A，配合16A断路器使用。
+  <br>不能用2.5mm²线配25A断路器——断路器还没跳，线先烧了。
+</div>
+
+<h3>3.3 穿管敷设标准</h3>
+
+<table>
+  <thead>
+    <tr><th>项目</th><th>标准要求</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>穿管填充率</td><td>导线总截面积 ≤ 管内截面积的40%</td></tr>
+    <tr><td>单管导线数</td><td>同一回路导线穿同一管，不同回路分管穿</td></tr>
+    <tr><td>管弯曲半径</td><td>明配管≥6倍管径；暗配管≥10倍管径</td></tr>
+    <tr><td>管卡间距</td><td>Φ20管1-1.5m；Φ25管1.5-2m；转弯两侧各一个管卡</td></tr>
+    <tr><td>管口保护</td><td>管口加护线圈或锉平，防止划伤导线</td></tr>
+    <tr><td>管径选择</td><td>3根2.5mm²线用Φ20管；4-5根用Φ25管</td></tr>
+    <tr><td>明管固定</td><td>管卡使用膨胀螺栓或自攻丝固定，不得松动</td></tr>
+    <tr><td>暗管埋深</td><td>墙内暗管保护层≥15mm；地面暗管≥30mm</td></tr>
+  </tbody>
+</table>
+
+<h3>3.4 电缆敷设要求</h3>
+
+<table>
+  <thead>
+    <tr><th>项目</th><th>标准要求</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>桥架内排列</td><td>排列整齐，不交叉，绑扎间距≤1m</td></tr>
+    <tr><td>弯曲半径</td><td>多芯电缆≥10倍外径；单芯≥15倍外径</td></tr>
+    <tr><td>垂直敷设</td><td>每2m设支撑点；大截面电缆每1.5m设支撑</td></tr>
+    <tr><td>穿墙穿楼板</td><td>穿墙套管，管口防火封堵</td></tr>
+    <tr><td>电缆标识</td><td>两端挂电缆标牌，注明回路编号和用途</td></tr>
+    <tr><td>电缆余量</td><td>两端各留1-1.5m余量，便于检修</td></tr>
+    <tr><td>电缆头制作</td><td>使用专用电缆头/线鼻子压接，绝缘包扎完好</td></tr>
+  </tbody>
+</table>
+
+</section>
+<section id="ch14">
+<h2><span class="chap-num">4</span>强弱电分离与布线规范</h2>
+
+<h3>4.1 强弱电分离标准</h3>
+
+<div class="callout danger">
+  <strong>强弱电必须分离</strong>
+  <br>强电（220V/380V照明供电）和弱电（DALI控制线、网络线、传感器信号线）
+  必须分开走管/分桥架，否则强电的电磁干扰会导致：
+  <br>• DALI调光闪烁/失控
+  <br>• 网络丢包/断连
+  <br>• 传感器误触发
+  <br>• 蓝牙信号受干扰
+</div>
+
+<table>
+  <thead>
+    <tr><th>项目</th><th>标准要求</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>强弱电分管走线</td><td>强电和弱电必须分别穿管，不得共用同管</td></tr>
+    <tr><td>平行间距</td><td>强电管与弱电管平行间距≥200mm</td></tr>
+    <tr><td>交叉间距</td><td>必须交叉时保持≥50mm，且呈90°正交</td></tr>
+    <tr><td>桥架分离</td><td>共用桥架时中间加金属隔板分隔</td></tr>
+    <tr><td>单独桥架</td><td>有条件时弱电用独立桥架</td></tr>
+    <tr><td>接线盒分离</td><td>强弱电不共用接线盒</td></tr>
+    <tr><td>DALI线屏蔽</td><td>DALI控制线必须用屏蔽线（RVVP），屏蔽层单端接地</td></tr>
+  </tbody>
+</table>
+
+<h3>4.2 回路划分原则</h3>
+
+<table>
+  <thead>
+    <tr><th>划分原则</th><th>说明</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>按区域划分</td><td>每个房间/区域至少1个独立回路，便于隔离检修</td></tr>
+    <tr><td>按功能划分</td><td>常亮灯/常关灯/调光灯分别设回路</td></tr>
+    <tr><td>按控制方式划分</td><td>不同控制方式的灯（开关/DALI/蓝牙）分开回路</td></tr>
+    <tr><td>应急照明独立</td><td>应急照明回路必须独立，不得与正常照明混用</td></tr>
+    <tr><td>三相平衡</td><td>三相供电时尽量把灯均匀分到三相上</td></tr>
+    <tr><td>每回路余量</td><td>回路功率不超过断路器80%</td></tr>
+  </tbody>
+</table>
+
+</section>
+<section id="ch15">
+<h2><span class="chap-num">5</span>桥架与穿管施工</h2>
+
+<h3>5.1 桥架选型</h3>
+
+<table>
+  <thead>
+    <tr><th>桥架类型</th><th>适用场景</th><th>规格建议</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>槽式桥架（金属）</td><td>厂房/仓库强弱电主干</td><td>宽100-300mm，高50-100mm，按线缆数量选</td></tr>
+    <tr><td>梯式桥架</td><td>大截面电缆、散热要求高</td><td>宽200-600mm</td></tr>
+    <tr><td>网格式桥架</td><td>弱电/网络线缆</td><td>宽100-300mm</td></tr>
+    <tr><td>JDG/KBG管</td><td>分支线路穿管</td><td>Φ20-Φ25，薄壁钢管</td></tr>
+    <tr><td>PVC管</td><td>潮湿/腐蚀环境穿管</td><td>Φ20-Φ25，阻燃型</td></tr>
+    <tr><td>波纹管（包塑金属管）</td><td>短距离软连接、灯具引线</td><td>Φ16-Φ20</td></tr>
+  </tbody>
+</table>
+
+<h3>5.2 桥架施工标准</h3>
+
+<table>
+  <thead>
+    <tr><th>项目</th><th>标准要求</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>桥架支撑间距</td><td>水平支撑间距1.5-2m；垂直支撑间距2m</td></tr>
+    <tr><td>桥架转弯半径</td><td>内侧半径≥电缆外径10倍</td></tr>
+    <tr><td>桥架连接</td><td>连接板螺栓齐全，接地跨接线可靠连接</td></tr>
+    <tr><td>桥架接地</td><td>金属桥架全程电气连通，两端接地</td></tr>
+    <tr><td>桥架封堵</td><td>穿墙/穿楼板处用防火泥封堵</td></tr>
+    <tr><td>强弱电桥架间距</td><td>平行间距≥200mm；无间距时加金属隔板</td></tr>
+    <tr><td>桥架载荷</td><td>不应超载，线缆填充率≤桥架截面积40%</td></tr>
+    <tr><td>盖板</td><td>槽式桥架加盖板，室外/防尘环境必须盖严</td></tr>
+  </tbody>
+</table>
+
+<h3>5.3 支吊架施工</h3>
+
+<table>
+  <thead>
+    <tr><th>项目</th><th>标准要求</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>吊杆直径</td><td>≥Φ8mm（轻型桥架）；≥Φ10mm（中重型）</td></tr>
+    <tr><td>吊点间距</td><td>直线段1.5-2m一个；转弯处两侧各设一个</td></tr>
+    <tr><td>固定方式</td><td>顶板用膨胀螺栓，钢梁用U型卡箍</td></tr>
+    <tr><td>水平度</td><td>桥架水平度偏差≤2mm/m</td></tr>
+    <tr><td>防松</td><td>所有螺栓带弹垫，关键部位用双螺母</td></tr>
+  </tbody>
+</table>
+
+</section>
+<section id="ch16">
+<h2><span class="chap-num">6</span>控制线路施工</h2>
+
+<h3>6.1 DALI控制线路施工</h3>
+
+<div class="spec-card">
+  <span class="spec-tag wiring">DALI布线</span>
+  <table class="tol-table">
+    <thead>
+      <tr><th>项目</th><th>标准要求</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>线缆类型</td><td>RVVP 2×0.75-1.5mm² 屏蔽双绞线</td></tr>
+      <tr><td>极性</td><td>DALI总线无极性，但建议统一颜色便于维护</td></tr>
+      <tr><td>总线长度</td><td>单条总线≤300m（含支线）</td></tr>
+      <tr><td>设备数量</td><td>单总线≤64个短地址</td></tr>
+      <tr><td>与强电间距</td><td>≥200mm平行，正交交叉</td></tr>
+      <tr><td>穿管</td><td>单独穿管，不与强电同管</td></tr>
+      <tr><td>屏蔽层接地</td><td>屏蔽层单端接地（在网关端），禁止双端接地</td></tr>
+      <tr><td>接线方式</td><td>手拉手串联或星型，不接环形</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h3>6.2 蓝牙Mesh网络线路施工</h3>
+
+<table>
+  <thead>
+    <tr><th>项目</th><th>标准要求</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>网关网线</td><td>六类UTP，PoE供电8芯全通，长度≤90m</td></tr>
+    <tr><td>网关安装位置</td><td>覆盖区域内中心位置，避开金属遮挡</td></tr>
+    <tr><td>网关安装高度</td><td>2.5-3.5m（室内），确保信号覆盖</td></tr>
+    <tr><td>网线与强电间距</td><td>≥200mm平行，交叉正交</td></tr>
+    <tr><td>PoE供电</td><td>交换机PoE功率满足网关需求</td></tr>
+    <tr><td>穿管</td><td>网线穿JDG管或波纹管保护</td></tr>
+    <tr><td>网关电源</td><td>非PoE供电时用DC适配器，走线隐蔽</td></tr>
+  </tbody>
+</table>
+
+<h3>6.3 蓝牙自组网线路施工</h3>
+
+<table>
+  <thead>
+    <tr><th>项目</th><th>标准要求</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>灯具供电</td><td>常规220V供电，灯具内置蓝牙模组自动组网</td></tr>
+    <tr><td>面板供电</td><td>蓝牙面板用电池或DC供电，面板固定在墙面86盒内</td></tr>
+    <tr><td>面板位置</td><td>高度1.3-1.4m，便于操作</td></tr>
+    <tr><td>云网关</td><td>选配，插网线+DC供电，覆盖范围内有1-2层</td></tr>
+    <tr><td>灯具间距</td><td>≤10m保证Mesh多跳路径冗余</td></tr>
+  </tbody>
+</table>
+
+<h3>6.4 传感器/面板安装标准</h3>
+
+<table>
+  <thead>
+    <tr><th>设备</th><th>安装高度</th><th>安装位置</th><th>注意事项</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>红外传感器</td>
+      <td>2.2-2.8m</td>
+      <td>覆盖区域入口/通道上方</td>
+      <td>避开热源、避免直对窗口、探测方向无遮挡</td>
+    </tr>
+    <tr>
+      <td>微波传感器</td>
+      <td>2.5-4m（按说明书）</td>
+      <td>覆盖区域中心</td>
+      <td>避开金属遮挡，探测范围不重叠过多</td>
+    </tr>
+    <tr>
+      <td>光照度传感器</td>
+      <td>工作面高度(0.75-1.2m)</td>
+      <td>不受灯具直射的代表性位置</td>
+      <td>避免直射光和反射光干扰</td>
+    </tr>
+    <tr>
+      <td>控制面板</td>
+      <td>1.3-1.4m</td>
+      <td>门口、通道、便于操作处</td>
+      <td>86盒暗装，面板贴合墙面无缝隙</td>
+    </tr>
+    <tr>
+      <td>触摸面板</td>
+      <td>1.3-1.4m</td>
+      <td>同上</td>
+      <td>同上，确保触控灵敏</td>
+    </tr>
+  </tbody>
+</table>
+
+</section>
+<section id="ch17">
+<h2><span class="chap-num">7</span>防爆区域施工</h2>
+
+<div class="callout danger">
+  <strong>防爆施工是特种作业，以下为技术支持工程师需掌握的审查要点</strong>
+  <br>防爆电气施工人员必须持有特种作业操作证（防爆电气）。
+  <br>你负责审查施工方是否按防爆规范执行，不负责防爆设计。
+</div>
+
+<h3>7.1 防爆灯具安装要求</h3>
+
+<table>
+  <thead>
+    <tr><th>项目</th><th>标准要求</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>防爆合格证</td><td>每盏灯必须有有效的防爆合格证，编号可查</td></tr>
+    <tr><td>防爆等级匹配</td><td>灯具防爆等级≥区域要求（Ex d IIC T6 / Ex tD A21等）</td></tr>
+    <tr><td>电缆引入装置</td><td>防爆格兰头（密封圈匹配线缆外径），拧紧到位</td></tr>
+    <tr><td>密封圈检查</td><td>密封圈材质耐油耐温，无老化开裂</td></tr>
+    <tr><td>压紧螺母</td><td>用力拧紧，手拉线缆不松动</td></tr>
+    <tr><td>接线盒</td><td>必须是防爆接线盒，不得用普通接线盒</td></tr>
+    <tr><td>导线连接</td><td>在防爆接线盒内连接，压接可靠</td></tr>
+    <tr><td>多余进线口</td><td>未使用的进线口必须用防爆金属堵件封堵</td></tr>
+    <tr><td>外壳接地</td><td>灯具金属外壳可靠接地，接地电阻≤4Ω</td></tr>
+    <tr><td>紧固螺栓</td><td>灯具外壳螺栓齐全，弹垫+平垫，用力拧紧</td></tr>
+    <tr><td>密封面检查</td><td>灯罩与壳体接合面完好，无缝隙</td></tr>
+  </tbody>
+</table>
+
+<h3>7.2 防爆区布线要求</h3>
+
+<table>
+  <thead>
+    <tr><th>项目</th><th>标准要求</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>穿管</td><td>钢管敷设，管径满足填充率要求</td></tr>
+    <tr><td>管路密封</td><td>进出防爆区边界处做密封堵料封堵</td></tr>
+    <tr><td>隔离密封</td><td>管路纵向每15-20m设一个隔离密封盒</td></tr>
+    <tr><td>接线盒</td><td>全程使用防爆接线盒</td></tr>
+    <tr><td>挠性连接</td><td>灯具进线处用防爆挠性管，长度≤0.5m</td></tr>
+    <tr><td>接地</td><td>钢管全程电气连通，两端接地</td></tr>
+  </tbody>
+</table>
+
+</section>
+<section id="ch18">
+<h2><span class="chap-num">8</span>特殊环境施工要求</h2>
+
+<h3>8.1 冷库/低温环境</h3>
+
+<table>
+  <thead>
+    <tr><th>项目</th><th>标准要求</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>灯具选型</td><td>低温型灯具（-30°C/-40°C标称），驱动需低温适配</td></tr>
+    <tr><td>灯具启动</td><td>低温下LED启动可能延迟，属正常现象</td></tr>
+    <tr><td>防护等级</td><td>≥IP65（冷库有结露）</td></tr>
+    <tr><td>接线密封</td><td>格兰头拧紧，密封圈耐低温</td></tr>
+    <tr><td>灯体排水</td><td>冷库外暖端到冷库内冷端有温差，线管做坡度朝冷库外排水</td></tr>
+    <tr><td>温度分区</td><td>冷库区和常温区灯具分开回路，便于温度联动控制</td></tr>
+  </tbody>
+</table>
+
+<h3>8.2 腐蚀环境（化工/电镀）</h3>
+
+<table>
+  <thead>
+    <tr><th>项目</th><th>标准要求</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>灯具外壳</td><td>防腐型灯具（塑料/不锈钢/喷涂防腐涂层）</td></tr>
+    <tr><td>防护等级</td><td>≥IP65，推荐IP66</td></tr>
+    <tr><td>金属部件</td><td>所有外露金属件用316不锈钢或防腐涂层</td></tr>
+    <tr><td>密封件</td><td>硅胶/氟橡胶密封圈（耐酸碱）</td></tr>
+    <tr><td>穿管</td><td>PVC管或涂塑钢管，不用裸金属管</td></tr>
+    <tr><td>接线盒</td><td>防腐型接线盒，不用金属接线盒</td></tr>
+    <tr><td>桥架</td><td>玻璃钢或不锈钢桥架，不用镀锌桥架</td></tr>
+    <tr><td>维护通道</td><td>留有冲洗维护空间，灯具可从地面操作</td></tr>
+  </tbody>
+</table>
+
+<h3>8.3 洁净环境（食品/制药）</h3>
+
+<table>
+  <thead>
+    <tr><th>项目</th><th>标准要求</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>灯具类型</td><td>洁净灯（不锈钢外壳、圆角无积尘设计）</td></tr>
+    <tr><td>灯具面框</td><td>与吊顶平齐嵌入安装，无缝隙</td></tr>
+    <tr><td>防护等级</td><td>≥IP54（面罩侧），防尘防溅</td></tr>
+    <tr><td>材料</td><td>304/316不锈钢外壳，不允许木质/涂料面</td></tr>
+    <tr><td>穿管</td><td>暗装穿管，不在洁净区明走管线</td></tr>
+    <tr><td>接线盒</td><td>暗装在吊顶内，不外露</td></tr>
+    <tr><td>灯具清洁</td><td>表面可冲洗，不留死角</td></tr>
+  </tbody>
+</table>
+
+<h3>8.4 振动环境（冲压/压缩机旁）</h3>
+
+<table>
+  <thead>
+    <tr><th>项目</th><th>标准要求</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>灯具结构</td><td>防振型灯具（内部减振或加强结构）</td></tr>
+    <tr><td>安装方式</td><td>优先吸顶/刚性固定，避免吊杆悬挂（吊杆易共振）</td></tr>
+    <tr><td>吊杆使用</td><td>必须用时用粗吊杆(≥Φ12mm)+减振垫</td></tr>
+    <tr><td>螺栓防松</td><td>所有连接螺栓双螺母或弹垫+螺母+螺纹胶</td></tr>
+    <tr><td>灯具间距</td><td>适当缩小间距补偿振动位移</td></tr>
+    <tr><td>接线</td><td>留有更多余量(≥200mm)，用软线BVR不用硬线BV</td></tr>
+    <tr><td>检查周期</td><td>缩短巡检周期，每月检查紧固件</td></tr>
+  </tbody>
+</table>
+
+<h3>8.5 室外/高湿环境</h3>
+
+<table>
+  <thead>
+    <tr><th>项目</th><th>标准要求</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>灯具防护</td><td>≥IP65，室外推荐IP66/IP67</td></tr>
+    <tr><td>材质</td><td>防腐外壳，不锈钢紧固件</td></tr>
+    <tr><td>穿管</td><td>室外用防水穿管，管口朝下防止进水</td></tr>
+    <tr><td>接线</td><td>接线处做防水处理（防水接线盒/灌胶）</td></tr>
+    <tr><td>接地</td><td>室外金属灯杆/支架必须可靠接地，做好防腐</td></tr>
+    <tr><td>防雷</td><td>室外高杆灯附近安装SPD浪涌保护器</td></tr>
+    <tr><td>排水</td><td>管路有坡度，低点设排水孔</td></tr>
+  </tbody>
+</table>
+
+</section>
+<section id="ch19">
+<h2><span class="chap-num">9</span>施工质量控制与自检</h2>
+
+<h3>9.1 施工质量三级检查制</h3>
+
+<table>
+  <thead>
+    <tr><th>检查级别</th><th>检查人</th><th>检查时机</th><th>检查内容</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>一级（自检）</td><td>施工方班组长</td><td>每道工序完成后</td><td>安装尺寸、接线质量、外观</td></tr>
+    <tr><td>二级（互检）</td><td>不同班组互查</td><td>隐蔽工程封堵前</td><td>穿管内线缆、接线盒内接线</td></tr>
+    <tr><td>三级（专检）</td><td>技术支持工程师</td><td>通電前/验收前</td><td>全面检查，对照图纸和本册标准</td></tr>
+  </tbody>
+</table>
+
+<h3>9.2 关键工序检查清单</h3>
+
+<div class="spec-card">
+  <span class="spec-tag safety">隐蔽工程封堵前</span>
+  <ul class="checklist">
+    <li>穿管内导线无接头（接头必须在接线盒内）</li>
+    <li>管内导线数量不超填充率（≤40%）</li>
+    <li>管口护线圈已装</li>
+    <li>暗埋管深度达标（墙面≥15mm，地面≥30mm）</li>
+    <li>接线盒内接线已压接牢固</li>
+    <li>接地线已连接到位</li>
+    <li>拍照留存隐蔽工程记录</li>
+  </ul>
+</div>
+
+<div class="spec-card">
+  <span class="spec-tag safety">灯具安装后</span>
+  <ul class="checklist">
+    <li>灯具固定牢固，手推不晃动</li>
+    <li>安装位置与图纸一致（偏差在公差内）</li>
+    <li>灯具间距均匀，排列整齐</li>
+    <li>嵌入式灯具与吊顶平齐</li>
+    <li>灯具接线已压接，绝缘已恢复</li>
+    <li>三防灯/室外灯密封垫完好</li>
+    <li>灯具无破损、划伤、变形</li>
+  </ul>
+</div>
+
+<div class="spec-card">
+  <span class="spec-tag safety">通电测试前</span>
+  <ul class="checklist">
+    <li>所有接线已完成并检查</li>
+    <li>所有开关处于断开位置</li>
+    <li>绝缘电阻测试通过（≥0.5MΩ）</li>
+    <li>接地电阻测试通过（≤4Ω或≤1Ω）</li>
+    <li>回路标识清晰（配电箱内标注回路编号和区域）</li>
+    <li>施工工具和废料已清理</li>
+    <li>灯具内无遗留工具/线头/杂物</li>
+    <li>施工人员已撤离通电区域</li>
+  </ul>
+</div>
+
+<h3>9.3 常见施工质量问题与整改</h3>
+
+<table>
+  <thead>
+    <tr><th>问题</th><th>表现</th><th>整改要求</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>灯具间距不均</td>
+      <td>同排灯间距偏差>100mm，目视明显不齐</td>
+      <td>拆除重新定位安装，按图纸上间距弹线复核</td>
+    </tr>
+    <tr>
+      <td>吊杆不垂直</td>
+      <td>灯具明显倾斜，吊杆偏角>2°</td>
+      <td>检查吊点是否偏位，重新校直，必要时换位置</td>
+    </tr>
+    <tr>
+      <td>接线松动</td>
+      <td>手拉线头脱落，端子螺丝未拧紧</td>
+      <td>全部重新压接，线鼻子必须压紧，螺丝拧到底</td>
+    </tr>
+    <tr>
+      <td>线径不够</td>
+      <td>实际线径<设计要求</td>
+      <td>必须更换，线径不够不能通电</td>
+    </tr>
+    <tr>
+      <td>强弱电同管</td>
+      <td>强电和DALI/网络线穿了同一根管</td>
+      <td>必须拆出来分管走线，不允许例外</td>
+    </tr>
+    <tr>
+      <td>接地缺失</td>
+      <td>灯具/桥架/金属管未接地</td>
+      <td>补接地线，全部金属件必须可靠接地</td>
+    </tr>
+    <tr>
+      <td>密封不严</td>
+      <td>三防灯/室外灯格兰头未拧紧，密封圈老化</td>
+      <td>重新拧紧，更换密封圈，做淋水测试</td>
+    </tr>
+    <tr>
+      <td>开孔过大</td>
+      <td>嵌入灯开孔>灯具面框，有缝隙</td>
+      <td>修补吊顶或更换大一号灯具，确保无缝隙</td>
+    </tr>
+    <tr>
+      <td>管路未封堵</td>
+      <td>穿墙/穿楼板管口未封堵</td>
+      <td>用防火泥/防火枕封堵到位</td>
+    </tr>
+  </tbody>
+</table>
+
+</section>
+<section id="ch20">
+<h2><span class="chap-num">10</span>施工验收标准</h2>
+
+<h3>10.1 施工验收项目与合格标准</h3>
+
+<table>
+  <thead>
+    <tr><th>验收项</th><th>合格标准</th><th>验收方法</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>灯具安装质量</td>
+      <td>固定牢固、间距偏差在公差内、排列整齐、无破损</td>
+      <td>目视+手推检查+卷尺测量</td>
+    </tr>
+    <tr>
+      <td>接线质量</td>
+      <td>压接牢固、绝缘完好、导线颜色正确、余量充足</td>
+      <td>抽检20%回路，拆开检查</td>
+    </tr>
+    <tr>
+      <td>接地系统</td>
+      <td>所有金属件接地，电阻≤4Ω（或≤1Ω共用）</td>
+      <td>接地电阻测试仪</td>
+    </tr>
+    <tr>
+      <td>绝缘电阻</td>
+      <td>每回路≥0.5MΩ</td>
+      <td>兆欧表（500V档）</td>
+    </tr>
+    <tr>
+      <td>线缆敷设</td>
+      <td>穿管规范、填充率合格、标识清晰</td>
+      <td>目视+抽查穿管填充率</td>
+    </tr>
+    <tr>
+      <td>桥架施工</td>
+      <td>支撑牢固、接地连通、盖板齐全、封堵到位</td>
+      <td>目视+手推检查</td>
+    </tr>
+    <tr>
+      <td>控制线路</td>
+      <td>DALI/蓝牙线路穿管到位、屏蔽层接地、与强电分离</td>
+      <td>目视+抽测信号质量</td>
+    </tr>
+    <tr>
+      <td>通电测试</td>
+      <td>所有灯亮、无闪烁/异常声音、开关/调光正常</td>
+      <td>逐回路通电+功能测试</td>
+    </tr>
+    <tr>
+      <td>防护等级</td>
+      <td>三防灯/室外灯密封到位</td>
+      <td>目视密封+淋水测试（室外）</td>
+    </tr>
+    <tr>
+      <td>防爆施工</td>
+      <td>防爆合格证齐全、格兰头拧紧、密封完好</td>
+      <td>逐灯检查+证件审查</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>10.2 验收必备仪器</h3>
+
+<table>
+  <thead>
+    <tr><th>仪器</th><th>用途</th><th>精度要求</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>兆欧表（500V）</td><td>绝缘电阻测试</td><td>0.01MΩ</td></tr>
+    <tr><td>接地电阻测试仪</td><td>接地电阻测试</td><td>0.01Ω</td></tr>
+    <tr><td>照度计</td><td>照度验收</td><td>±4%读数</td></tr>
+    <tr><td>万用表</td><td>电压/通断/回路检查</td><td>0.1V/0.1Ω</td></tr>
+    <tr><td>钳形电流表</td><td>回路电流测试</td><td>0.01A</td></tr>
+    <tr><td>激光测距仪</td><td>安装尺寸/间距测量</td><td>±1.5mm</td></tr>
+    <tr><td>水平尺/线锤</td><td>灯具垂直度/水平度</td><td>0.5mm/m</td></tr>
+  </tbody>
+</table>
+
+<h3>10.3 验收签字流程</h3>
+
+<ol class="step-list">
+  <li><strong>施工方自检完成：</strong>施工方按第9章检查清单完成自检，提交自检报告</li>
+  <li><strong>技术支持工程师专检：</strong>按10.1验收项目逐项检查，记录不合格项</li>
+  <li><strong>整改不合格项：</strong>施工方对不合格项整改，整改后复检</li>
+  <li><strong>通电测试：</strong>全部合格后通电测试，确认灯具和控制功能正常</li>
+  <li><strong>验收签认：</strong>技术支持工程师、施工方、甲方三方签字确认施工验收通过</li>
+  <li><strong>移交竣工资料：</strong>验收通过后移交竣工图纸、设备清单等（见第6册第10章文档清单）</li>
+</ol>
+
+</section>
+</main>
+</div>
+<footer style="text-align:center; padding: 32px 20px; color: var(--page-text-muted); font-size: 0.875rem; border-top: 1px solid var(--page-border); margin-top: 40px;">
+项目管理与施工标准 · 欧普照明技术方案整合手册 初始合并：6-项目管理方案; 7-施工标准与质量控制手册
+</footer>
+</body>
+</html>
