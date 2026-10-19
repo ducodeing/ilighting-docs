@@ -3505,6 +3505,16 @@ nolapic         <span class="cmd-comment"># 禁用本地APIC</span></code></pre>
   </tbody>
 </table>
 
+<div class="callout info">
+  <strong>网关怎么完成"后台注册"（上云前置条件）：</strong>注册不是自己登录某个后台操作，而是<b>联系格兰斯贝后台 / 上级经销商</b>代为在<b>阿里云物联网后台</b>登记网关信息（云平台添加网关前必须完成，<b>未注册会报错</b>）。完整流程：
+  <ol class="step-list">
+    <li><strong>收集网关信息：</strong>看<b>网关背面贴纸</b>（含 DeviceName 等三元信息），或在 APP「工具箱 → 数据上云」中查看。</li>
+    <li><strong>云平台先建项目：</strong><code>iot.ground-space.com</code> → 项目管理 → 新建，填写项目名称、所在地等信息（项目所在地用于数据大屏地图展示）。</li>
+    <li><strong>联系厂商注册：</strong><b>与格兰斯贝后台联系</b>，提供网关信息，请其在阿里云后台完成网关注册。注意：<b>测试账号 <code>test</code> / <code>123456</code> 只能登录平台熟悉功能，不能注册网关</b>，注册必须由厂商后台操作。</li>
+    <li><strong>注册后添加网关：</strong>回到云平台「操作配置 → 自动更新 → 区域选择 → 节点 → 类型选"网关" → 添加网关」，注册成功的网关即可正常添加。</li>
+  </ol>
+</div>
+
 <div class="callout warn">
   <strong>特别提醒（防止误操作）：</strong>含有 <code>emq.json</code> 的 U 盘<b>不要随便插到其它网关上</b>——插入后会立即修改掉另外一台网关的 <b>DeviceName</b>，造成<b>设备重名</b>从而引发上云错误。配置私有网络的 U 盘要专用、单独保管。
 </div>
