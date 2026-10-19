@@ -92,7 +92,7 @@ mark{background:#FDE68A;color:#92400E;border-radius:3px;padding:0 1px}
     var khl=kw.toLowerCase();
     statusEl.textContent='正在搜索「'+kw+'」…';
     reswrap.style.display='block';noneEl.style.display='none';
-    var docP=[],srcP=[],bigP=[];
+    var docP=[],bigP=[];
     docs.forEach(function(d){docP.push(fetchDoc(d,khl,kw));});
     srcs.forEach(function(s){
       var hay=(s.file+' '+s.name).toLowerCase();
@@ -100,15 +100,14 @@ mark{background:#FDE68A;color:#92400E;border-radius:3px;padding:0 1px}
         var card=document.createElement('a');
         card.className='dcard';
         var isBig=bigSet.has(s.file);
-        var href = isBig ? (place[s.file]||'#') : esc(s.file);
         if(isBig){ card.href=esc(place[s.file]||'#'); }
         else { card.href=esc(s.file); }
         var meta = s.big ? '<span class="dmeta" style="color:#A33">（超大文件未上云 · 点击查看说明占位页）</span>' : (s.size>0?('<span class="dmeta">'+s.size+' MB</span>'):'<span class="dmeta">源文件</span>');
         card.innerHTML='<div class="dhead"><span class="tag tag-src">原始资料</span><span class="tag" style="background:#0D9488">'+mark(s.file.split('/')[1],khl)+'</span></div>'+
           '<div class="dtitle">'+mark(s.name,khl)+'</div>'+
           '<div class="dmeta" style="margin-top:4px">'+esc(s.file)+'</div>'+meta;
-        if(isBig){ srcP.push(card); bigP.push(card); }
-        else srcP.push(card);
+        srcsEl.appendChild(card);
+        if(isBig) bigP.push(card);
       }
     });
     Promise.all(docP).then(function(){
