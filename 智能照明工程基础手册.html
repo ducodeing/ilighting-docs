@@ -1,0 +1,1386 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>智能照明工程基础手册</title>
+<style>
+  :root{--ink:#16202B;--muted:#54677A;--brand:#12557E;--deep:#0A3D5C;--acc:#0E6049;--line:#D9E2EA;--bg:#F3F5F8;--soft:#EFF5FA;--warn:#7E5210;--warnbg:#FAF5E9}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC",sans-serif;line-height:1.95;font-size:15.4px}
+  .page{max-width:1000px;margin:0 auto;background:#fff;padding:56px 70px 88px}
+  header{border-bottom:2.5px solid var(--deep);padding-bottom:20px}
+  h1{margin:0;font-size:29px;letter-spacing:.6px;font-weight:700}
+  .sub{color:var(--muted);font-size:14.4px;margin-top:10px;letter-spacing:.3px}
+  .meta{display:flex;flex-wrap:wrap;gap:22px;margin-top:16px;font-size:12.4px;color:var(--muted);border-top:1px solid #EAF0F5;padding-top:12px}
+  .meta i{font-style:normal;color:#93A4B4;margin-right:5px}
+  h2{font-size:21px;margin:58px 0 16px;padding:9px 0 9px 15px;border-left:4px solid var(--brand);background:linear-gradient(90deg,#F1F7FB,#fff);line-height:1.5;font-weight:700}
+  h3{font-size:16.6px;margin:32px 0 8px;color:var(--deep);font-weight:700}
+  h4{font-size:14.6px;margin:22px 0 4px;color:#20384C;font-weight:700}
+  p{margin:12px 0;text-align:justify}
+  ul,ol{margin:9px 0 15px;padding-left:24px}
+  li{margin:6px 0}
+  b{color:#0B2C42;font-weight:700}
+  .principle{background:var(--soft);border-left:3px solid var(--brand);padding:13px 17px;margin:20px 0;font-size:14.4px;border-radius:0 4px 4px 0}
+  .tag{display:inline-block;font-size:10.5px;line-height:16px;color:#54677A;border:1px solid #D9E2EA;border-radius:2px;padding:0 4px;margin-left:4px;vertical-align:1px;background:#F6F9FB;letter-spacing:.3px}
+  .note{background:var(--warnbg);border-left:3px solid #B8862B;padding:13px 17px;margin:20px 0;font-size:14.4px;border-radius:0 4px 4px 0}
+  .quote{border-left:2px solid #C4D2DE;padding:2px 0 2px 15px;color:var(--muted);font-size:13.8px;margin:16px 0}
+  code{background:#EEF3F7;border:1px solid #DCE6EE;border-radius:2px;padding:1px 5px;font-size:12.6px;font-family:Consolas,monospace}
+  .toc{background:#FAFCFD;border:1px solid var(--line);border-radius:6px;padding:16px 22px;margin:24px 0 8px;font-size:13.2px}
+  .toc .cols{display:grid;grid-template-columns:1fr 1fr 1fr;column-gap:26px}
+  .toc .cols>div{min-width:0}
+  .toc a{color:var(--ink);text-decoration:none;display:block;padding:1.6px 0;border-bottom:1px dotted #E7EDF2}
+  .toc a:hover{color:var(--brand)}
+  .toc .part{font-weight:700;color:var(--deep);margin-top:8px;border:none;font-size:13.4px}
+  table{width:100%;border-collapse:collapse;margin:20px 0;font-size:13.6px}
+  caption{caption-side:top;text-align:left;color:var(--muted);font-size:12.6px;padding-bottom:6px}
+  th,td{border:1px solid #DCE5EC;padding:8px 10px;text-align:left;vertical-align:top}
+  thead th{background:#F0F6FA;color:var(--deep);font-weight:700}
+  tbody th{background:#FAFCFD;font-weight:600;width:18%}
+  .fig{background:#FCFDFE;border:1px solid #E1E8EF;border-radius:6px;padding:14px 16px 6px;margin:24px 0}
+  .fig svg{width:100%;height:auto;display:block}
+  .fig .cap{font-size:12.6px;color:var(--muted);text-align:center;margin:8px 0 4px}
+  .formula{background:#F7FAFC;border:1px solid #E1E8EF;border-radius:4px;padding:11px 16px;margin:16px 0;font-family:Consolas,"Courier New",monospace;font-size:13px;color:#123A55;line-height:1.9;overflow-x:auto}
+  .steps{counter-reset:st;list-style:none;padding-left:0}
+  .steps>li{counter-increment:st;position:relative;padding-left:34px;margin:12px 0}
+  .steps>li:before{content:counter(st);position:absolute;left:0;top:2px;width:22px;height:22px;border-radius:3px;background:var(--brand);color:#fff;font-size:12px;text-align:center;line-height:22px;font-weight:700}
+  footer{margin-top:60px;border-top:1px solid var(--line);padding-top:16px;color:var(--muted);font-size:12.2px;line-height:1.85}
+  svg text{font-family:"Microsoft YaHei","PingFang SC",sans-serif}
+  .bx{fill:#fff;stroke:#37596F;stroke-width:1.4}
+  .bx2{fill:#EBF3F9;stroke:#12557E;stroke-width:1.5}
+  .bx3{fill:#F6F1E6;stroke:#B08A2E;stroke-width:1.4}
+  .bx4{fill:#EDF6F2;stroke:#0E6049;stroke-width:1.4}
+  .bxr{fill:#FCF0EE;stroke:#A63A2C;stroke-width:1.4}
+  .tb{font-size:13.6px;font-weight:700;fill:#0F2637}
+  .t{font-size:12.4px;fill:#16202B}
+  .s{font-size:11px;fill:#54677A}
+  .ttl{font-size:12.4px;font-weight:700;fill:#0A3D5C}
+  .ln{stroke:#37596F;stroke-width:1.4;fill:none}
+  .lb{stroke:#12557E;stroke-width:1.6;fill:none}
+  .ld{stroke:#8FA3B4;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+  .lg{stroke:#0E6049;stroke-width:1.4;fill:none}
+  .lr{stroke:#A63A2C;stroke-width:1.5;fill:none}
+  @media print{
+    body{background:#fff;font-size:10.4pt}
+    .page{max-width:none;padding:0 0 8mm}
+    h2{page-break-after:avoid;background:none}
+    h3,h4{page-break-after:avoid}
+    .fig{page-break-inside:avoid}
+    table{page-break-inside:auto}
+    tr{page-break-inside:avoid}
+    thead{display:table-header-group}
+  }
+  @media (max-width:820px){
+    .page{padding:26px 18px 50px}
+    h1{font-size:22px}
+    .toc .cols{grid-template-columns:1fr}
+    body{font-size:15px}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+<header>
+  <h1>智能照明工程基础手册</h1>
+  <div class="sub">光学、电气、物联网的底层原理，加上 CAD 制图、项目管理与在售产品的知识补全——技术人员的通识底座</div>
+  <div class="meta">
+    <span><i>适用</i>伊尔莱德技术人员（自组网 / 睿壹 MAX 项目全岗位）</span>
+    <span><i>配套</i>《欧普自组网技术专家手册》《睿壹系统技术手册》</span>
+    <span><i>依据</i>GB/T 50034-2024 / IEC 62386 / 厂家在售清单 2026-08 / 现场实测</span>
+    <span><i>版本</i>V1.0　2026-11-05</span>
+  </div>
+</header>
+
+<p>另两册手册讲的是"这套系统怎么用、怎么排障"，这一册讲的是它们背后"为什么是这样"。光学一篇回答照度、色温、显色、频闪这些参数改了之后现场会发生什么；电气一篇回答回路、线径、功率因数、浪涌这些配电侧的判断从哪来；物联网一篇把 2.4G、Mesh、网关、云平台这些天天在用的词拆到底层。后两篇补的是工作里绕不开但通常没人系统教的东西：CAD 制图的规范画法，和项目管理五阶段里技术人员的位置。</p>
+
+<p>本册定位是<b>底座，不是操作手册</b>。凡涉及具体操作与参数，指向另两册与《项目管理与施工标准》《项目全流程执行指南》等既有文件；凡厂家资料有明确写法的，标 <span class="tag tag-b">手册</span>；凡属行业通行做法或现场经验的，标 <span class="tag tag-f">现场</span>。两者不混写。</p>
+
+<div class="principle">
+<b>一句话先立住：</b>照明工程是三件事的交点——<b>光</b>（把电变成合适的光）、<b>电</b>（把电安全地送到位）、<b>网</b>（把控制指令可靠地送到每一盏灯）。这册的每一节都能落回其中一件事；判断任何一个现场问题，先问它出在光、电还是网。
+</div>
+
+<div class="toc">
+  <div class="cols">
+  <div>
+  <div class="part">第一篇　光学基础：光与照明的物理量</div>
+  <a href="#c11">1.1　光是什么：波长与可见光窗口</a>
+  <a href="#c12">1.2　光通量、照度、亮度各管什么</a>
+  <a href="#c13">1.3　色温：K 数背后是什么</a>
+  <a href="#c14">1.4　显色性：Ra 与 R9</a>
+  <a href="#c15">1.5　光效：每瓦流明的工程意义</a>
+  <a href="#c16">1.6　配光曲线与光束角</a>
+  <a href="#c17">1.7　眩光与 UGR</a>
+  <a href="#c18">1.8　频闪：波动深度与调光</a>
+  <a href="#c19">1.9　照度标准与场景速查</a>
+  <div class="part">第二篇　电气基础：从配电到驱动</div>
+  <a href="#c21">2.1　电压、电流、功率三件事</a>
+  <a href="#c22">2.2　功率因数与谐波</a>
+  <a href="#c23">2.3　三相电与零火地</a>
+  <a href="#c24">2.4　回路与保护：断路器怎么选</a>
+  <a href="#c25">2.5　线径与压降</a>
+  <a href="#c26">2.6　LED 驱动电源</a>
+  <a href="#c27">2.7　浪涌防护与接地</a>
+  <a href="#c28">2.8　强弱电分离</a>
+  <a href="#c29">2.9　应急照明与消防联动</a>
+  </div>
+  <div>
+  <div class="part">第三篇　物联网与通信基础</div>
+  <a href="#c31">3.1　物联网四层模型</a>
+  <a href="#c32">3.2　无线电基础：频段与信道</a>
+  <a href="#c33">3.3　星型与 Mesh 拓扑</a>
+  <a href="#c34">3.4　短距无线技术对比</a>
+  <a href="#c35">3.5　网关：协议转换的本质</a>
+  <a href="#c36">3.6　TCP/IP 入门</a>
+  <a href="#c37">3.7　云平台通信：MQTT 与 OTA</a>
+  <a href="#c38">3.8　网络排障基础</a>
+  <a href="#c39">3.9　楼宇自控对接</a>
+  <div class="part">第四篇　自组网知识盲区补全</div>
+  <a href="#c41">4.1　2.4G 为什么绕墙就衰减</a>
+  <a href="#c42">4.2　信道轮询与抗干扰</a>
+  <a href="#c43">4.3　心跳、在线与"假在线"</a>
+  <a href="#c44">4.4　传感器三大探测原理</a>
+  <a href="#c45">4.5　调光的四条技术路线</a>
+  <a href="#c46">4.6　联动的时序与时钟</a>
+  <a href="#c47">4.7　配网与密钥：为什么有加密狗</a>
+  <a href="#c48">4.8　容量的瓶颈在哪一层</a>
+  </div>
+  <div>
+  <div class="part">第五篇　在售产品体系与资料补全</div>
+  <a href="#c51">5.1　产品体系全景：四条线</a>
+  <a href="#c52">5.2　睿壹有线家族</a>
+  <a href="#c53">5.3　睿壹无线家族</a>
+  <a href="#c54">5.4　自组网整灯与设备</a>
+  <a href="#c55">5.5　灯具家族速览</a>
+  <a href="#c56">5.6　命名解码与资料地图</a>
+  <div class="part">第六篇　CAD 制图基础</div>
+  <a href="#c61">6.1　CAD 在照明工程里的角色</a>
+  <a href="#c62">6.2　图层、线型与颜色规范</a>
+  <a href="#c63">6.3　图例与标注：平面图的语言</a>
+  <a href="#c64">6.4　照明平面图的画法顺序</a>
+  <a href="#c65">6.5　出图与交付</a>
+  <div class="part">第七篇　项目管理与施工基础</div>
+  <a href="#c71">7.1　项目五阶段与技术人员的位置</a>
+  <a href="#c72">7.2　现场勘察的底层数据</a>
+  <a href="#c73">7.3　交底与巡查的判断依据</a>
+  <a href="#c74">7.4　验收交付与文档纪律</a>
+  <div class="part">附录</div>
+  <a href="#cA1">A　术语表</a>
+  <a href="#cA2">B　单位与公式速查</a>
+  <a href="#cA3">C　常用标准清单</a>
+  <a href="#cA4">D　三册分工与本册的边界</a>
+  </div>
+  </div>
+</div>
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <marker id="a1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#12557E"/>
+    </marker>
+    <marker id="a4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#0E6049"/>
+    </marker>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#A63A2C"/>
+    </marker>
+  </defs>
+</svg>
+
+<h2 id="p1">第一篇　光学基础：光与照明的物理量</h2>
+
+<h3 id="c11">1.1　光是什么：波长与可见光窗口</h3>
+<p>光是电磁波。电磁波谱从无线电到伽马射线横跨十几个数量级，人眼只能看到其中极窄的一段：<b>380～780nm</b>，称为可见光。这段窗口的两端，380nm 附近是紫光，780nm 附近是红光；波长再短是紫外线，再长是红外线——它们真实存在，也真实打在墙面上，只是眼睛收不到。</p>
+<p>人眼对不同波长的灵敏度并不均匀。白天（明视觉）最敏感的是 <b>555nm</b> 的黄绿光，向两端迅速衰减。这个灵敏度曲线叫视见函数 V(λ)，它是所有光度学单位的换算基础：同样是 1W 辐射功率，落在 555nm 就是 683lm，落在 450nm 的深蓝只有二十几 lm。所以"发光效率"从来不是能量效率，而是<b>被人眼加权后的效率</b>——这就是为什么 LED 的高光效路线是把光谱能量往 450nm 的蓝峰上堆，再用荧光粉转出一部分黄绿，蓝峰的辐射效率高，人眼又刚好接得住一部分。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 300" role="img" aria-label="电磁波谱与可见光窗口">
+  <defs><linearGradient id="vis" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#6A3FA0"/><stop offset="0.25" stop-color="#2B6FD4"/><stop offset="0.5" stop-color="#3AA85C"/><stop offset="0.75" stop-color="#D8B32A"/><stop offset="1" stop-color="#C0392B"/>
+  </linearGradient></defs>
+  <rect x="60" y="150" width="840" height="46" fill="url(#vis)" rx="4"/>
+  <line x1="60" y1="210" x2="900" y2="210" class="ln"/>
+  <text x="480" y="236" class="s" text-anchor="middle">波长（nm）——只画可见段</text>
+  <text x="60" y="120" class="t" text-anchor="middle">380</text>
+  <text x="900" y="120" class="t" text-anchor="middle">780</text>
+  <text x="480" y="120" class="t" text-anchor="middle">555（人眼最敏感）</text>
+  <line x1="480" y1="130" x2="480" y2="148" class="ld"/>
+  <text x="30" y="177" class="t" text-anchor="end">紫</text>
+  <text x="935" y="177" class="t">红</text>
+  <rect x="0" y="0" width="960" height="300" fill="none"/>
+  <text x="480" y="268" class="s" text-anchor="middle">← 紫外线（不可见）        可见光 380–780nm        红外线（不可见）→</text>
+</svg>
+<div class="cap">图 1　电磁波谱中的可见光窗口：380–780nm，人眼峰值灵敏度在 555nm</div>
+</div>
+
+<p>这段知识对现场的直接意义有两个：一是紫外线和红外线不参与照明计量，但红外线发热、紫外线伤物（文物展柜、食品车间要过滤）；二是谈"蓝光危害"时，谈的就是 400–450nm 这段——它在光谱里真实存在且能量占比取决于光谱设计，不是"LED 就有蓝光危害"这么笼统。</p>
+
+<h3 id="c12">1.2　光通量、照度、亮度各管什么</h3>
+<p>照明工程里最容易混的三个量：<b>光通量</b>（lm，流明）是灯发出的光的总"量"；<b>照度</b>（lx，勒克斯）是光落到被照面上的"密度"，1lx = 1lm/m²；<b>亮度</b>（cd/m²）是眼睛沿某个方向看发光面时的"强度"，它才是决定"刺不刺眼"的量。</p>
+<p>三者的关系是一条链：灯的流明数经过灯具的配光重新分配，落到工作面上形成照度；人眼看到的是灯具发光面的亮度，而不是照度。同样 300lx 的教室，用裸灯管和用带格栅的灯具，桌面照度可以一样，但抬头的那一刻感受完全不同——区别就在亮度。工程验收量的是照度（照度计便宜、可复核），舒适度争的是亮度控制（防眩设计）。<b>照度达标靠功率和布置，不刺眼靠灯具的光学结构，两件事别混在一起谈。</b></p>
+
+<div class="fig">
+<svg viewBox="0 0 960 320" role="img" aria-label="光通量、照度、亮度">
+  <rect class="bx2" x="60" y="60" width="180" height="90" rx="8"/>
+  <text x="150" y="98" class="tb" text-anchor="middle">灯具</text>
+  <text x="150" y="122" class="t" text-anchor="middle">光通量 4800lm</text>
+  <text x="150" y="140" class="s" text-anchor="middle">发出光的总量</text>
+  <line class="lb" x1="240" y1="105" x2="360" y2="105" marker-end="url(#a1)"/>
+  <text x="300" y="92" class="s" text-anchor="middle">配光重新分配</text>
+  <rect class="bx" x="360" y="60" width="180" height="90" rx="8"/>
+  <text x="450" y="98" class="tb" text-anchor="middle">工作面</text>
+  <text x="450" y="122" class="t" text-anchor="middle">照度 300lx</text>
+  <text x="450" y="140" class="s" text-anchor="middle">lm ÷ 16 m²</text>
+  <line class="lb" x1="540" y1="105" x2="660" y2="105" marker-end="url(#a1)"/>
+  <text x="600" y="92" class="s" text-anchor="middle">人眼观察</text>
+  <rect class="bx4" x="660" y="60" width="180" height="90" rx="8"/>
+  <text x="750" y="98" class="tb" text-anchor="middle">视觉感受</text>
+  <text x="750" y="122" class="t" text-anchor="middle">亮度 cd/m²</text>
+  <text x="750" y="140" class="s" text-anchor="middle">刺不刺眼由它决定</text>
+  <rect class="bx3" x="60" y="210" width="780" height="64" rx="6"/>
+  <text x="480" y="236" class="t" text-anchor="middle">同样 300lx：裸灯管（发光面亮、面积小 → 亮度高 → 刺眼）</text>
+  <text x="480" y="258" class="t" text-anchor="middle">格栅灯（发光面被遮、面积大 → 亮度低 → 不刺眼）　——　照度相同，亮度不同</text>
+</svg>
+<div class="cap">图 2　光通量 → 照度 → 亮度：验收量照度，舒适控亮度</div>
+</div>
+
+<h3 id="c13">1.3　色温：K 数背后是什么</h3>
+<p>色温的单位是开尔文（K），本义是把一个理想黑体加热到某个温度时它发出的光的"颜色"。2700K 相当于白炽灯的暖黄，4000K 是中性白，6500K 接近阴天天空的冷白。<b>色温描述的是光的"颜色倾向"，不描述光的"量"——3000K 的灯可以很亮，6500K 的灯也可以很暗，两者毫无关系。</b></p>
+<p>工程惯例：<b>3300K 以下算暖白，3300–5300K 算中性白，5300K 以上算冷白。</b>选色温的依据是空间功能和停留时长：居住、酒店、餐饮偏暖（放松），办公、教育偏中性（清醒），高照度的工业与高棚偏冷（与高照度搭配显得"干净利落"）。有一条现场反复验证的规律：高照度配暖光会觉得闷，低照度配冷光会觉得阴冷——<b>色温和照度要一起选</b>，这也是同一栋楼里办公层 4000K、大堂 3000K 的原因。</p>
+<p>色温的另一个隐藏维度是"同色温不同色品"。两个都标 4000K 的灯，色坐标可以差得很远，放一排就会看出"一盏黄一盏白"。这就是批次一致性问题（SDCM/麦克亚当椭圆），验收大规模安装时按色容差抽检，比只看标称 K 数可靠。<span class="tag tag-f">现场</span></p>
+
+<div class="fig">
+<svg viewBox="0 0 960 260" role="img" aria-label="色温刻度">
+  <defs><linearGradient id="cct" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#FFB84D"/><stop offset="0.35" stop-color="#FFF3D6"/><stop offset="0.7" stop-color="#F4F8FF"/><stop offset="1" stop-color="#D6E8FF"/>
+  </linearGradient></defs>
+  <rect x="80" y="90" width="800" height="52" fill="url(#cct)" rx="6"/>
+  <line x1="80" y1="170" x2="880" y2="170" class="ln"/>
+  <g class="t" text-anchor="middle">
+    <text x="120" y="196">2700K</text><text x="300" y="196">3000K</text><text x="480" y="196">4000K</text><text x="660" y="196">5000K</text><text x="840" y="196">6500K</text>
+  </g>
+  <line x1="120" y1="160" x2="120" y2="176" class="ln"/><line x1="300" y1="160" x2="300" y2="176" class="ln"/><line x1="480" y1="160" x2="480" y2="176" class="ln"/><line x1="660" y1="160" x2="660" y2="176" class="ln"/><line x1="840" y1="160" x2="840" y2="176" class="ln"/>
+  <text x="210" y="240" class="s" text-anchor="middle">暖白 &lt;3300K：居住、酒店、餐饮</text>
+  <text x="480" y="240" class="s" text-anchor="middle">中性 3300–5300K：办公、教育、商业</text>
+  <text x="780" y="240" class="s" text-anchor="middle">冷白 &gt;5300K：高照度工业、高棚</text>
+  <text x="80" y="60" class="tb">色温只描述"颜色倾向"，不描述亮或暗</text>
+</svg>
+<div class="cap">图 3　色温刻度：色温与照度要一起选</div>
+</div>
+
+<h3 id="c14">1.4　显色性：Ra 与 R9</h3>
+<p>显色性衡量的是"在这盏灯下，物体的颜色看起来正不正"。定义方法：拿一组标准色样，分别在待测光源和一个基准光源下比色，算出的偏差取平均就是 <b>Ra</b>（一般显色指数，取前 8 个中等饱和度色样），满分 100。<b>R9</b> 是第 9 号色样——饱和红色——单独的显色指数，它不在 Ra 里。</p>
+<p>R9 被单拎出来是因为它最容易被光谱设计牺牲：很多白光 LED 靠蓝光激发荧光粉，红光段天然偏弱，Ra 可以做到 80+，R9 却接近 0 甚至为负——灯下看肉、看水果、看人脸都发灰发青。所以商业空间（生鲜、服装）和教育照明会单提 R9；欧普教育系列标 RA90，指的就是这一类高显色方案。验收谈显色时，<b>Ra 看平均值，R9 看短板</b>，只报 Ra 的检测报告在生鲜类项目上是过不了关的。<span class="tag tag-b">手册</span></p>
+
+<div class="fig">
+<svg viewBox="0 0 960 300" role="img" aria-label="显色性">
+  <rect class="bx" x="80" y="60" width="380" height="80" rx="8"/>
+  <text x="270" y="92" class="tb" text-anchor="middle">全光谱（Ra 高，R9 高）</text>
+  <rect x="110" y="110" width="320" height="22" fill="#7EC8E3" rx="3"/>
+  <rect x="110" y="110" width="300" height="22" fill="#5FA8D3" rx="3"/>
+  <rect class="bx" x="500" y="60" width="380" height="80" rx="8"/>
+  <text x="690" y="92" class="tb" text-anchor="middle">蓝峰+荧光粉（Ra 尚可，R9 差）</text>
+  <rect x="530" y="110" width="180" height="22" fill="#2B6FD4" rx="3"/>
+  <rect x="740" y="110" width="120" height="22" fill="#F5D98B" rx="3"/>
+  <text x="480" y="196" class="t" text-anchor="middle">同样的 Ra=80，R9 可能是 40，也可能是 0</text>
+  <text x="480" y="222" class="s" text-anchor="middle">红光段一缺，肉、水果、人脸在灯下就发灰</text>
+  <text x="480" y="248" class="s" text-anchor="middle">Ra 看平均，R9 看短板</text>
+</svg>
+<div class="cap">图 4　显色性：光谱决定 Ra 与 R9，二者要分开看</div>
+</div>
+
+<h3 id="c15">1.5　光效：每瓦流明的工程意义</h3>
+<p>光效（lm/W）= 光通量 ÷ 输入电功率，是"每一度电换来多少光"。传统白炽灯 10–15lm/W，荧光灯 50–80，主流 LED 灯具整灯 100–200lm/W。注意是<b>整灯光效</b>：灯珠的光效高不等于灯具光效高，光学结构、驱动损耗、散热降额都要扣。</p>
+<p>它对工作的意义在节能测算：改造项目里"旧灯 250W 金卤灯换 100W LED 天棚灯"，如果两者照度相当，节电率就是 60%——这是几乎所有改造项目立项的第一句话，也是能耗报表上数据成立的物理基础。反过来说，谈光效不能脱离照度：把灯全换成更低功率的，照度掉下去，节能率再好看也是失败的改造。</p>
+
+<h3 id="c16">1.6　配光曲线与光束角</h3>
+<p>灯珠朝四面八方发光，灯具把光"整形"到需要的地方，整形的图纸就是<b>配光曲线</b>。工程上最常用的是极坐标配光曲线：以灯具为中心，标出各角度方向上的光强（cd/klm）。曲线越"瘦"，光越集中；越"胖"，铺得越开。</p>
+<p><b>光束角</b>是配光曲线的一个摘要数字：光强降到峰值 50% 的两条方向线之间的夹角。15° 是窄束（重点照明，打展品），36° 中束（洗墙、货架），60° 以上宽束（一般照明）。现场判断灯位间距有个经验法则：<b>宽光束灯的间距可以取安装高度的 1～1.5 倍，窄光束按 0.5～0.8 倍收</b>——光束角决定的其实是"两盏灯的光斑要不要连起来"，光斑不连就是斑马墙，连过头就是一片平光没层次。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 340" role="img" aria-label="光束角">
+  <line x1="480" y1="60" x2="480" y2="280" class="ln" stroke-dasharray="4 4"/>
+  <path d="M480 60 L250 280 A270 270 0 0 0 710 280 Z" fill="#EBF3F9" stroke="none"/>
+  <path d="M480 60 L360 280 A224 224 0 0 0 600 280 Z" fill="#12557E" opacity="0.25"/>
+  <rect class="bx2" x="450" y="34" width="60" height="26" rx="4"/>
+  <line x1="360" y1="280" x2="600" y2="280" class="lb"/>
+  <line x1="250" y1="280" x2="710" y2="280" class="ln"/>
+  <text x="480" y="316" class="s" text-anchor="middle">光束角 = 光强降到峰值 50% 的夹角；窄束打重点，宽束铺一般照明</text>
+  <text x="480" y="336" class="s" text-anchor="middle">布灯间距经验：宽束 ≈ 1–1.5 × 安装高度，窄束 ≈ 0.5–0.8 × 安装高度　<span class="tag tag-f">现场</span></text>
+  <text x="330" y="160" class="s">60°</text>
+  <text x="480" y="120" class="s" text-anchor="middle">30°</text>
+</svg>
+<div class="cap">图 5　光束角与布灯间距</div>
+</div>
+
+<h3 id="c17">1.7　眩光与 UGR</h3>
+<p>眩光分两种：<b>直接眩光</b>是光源本身太亮直射眼睛，<b>反射眩光</b>是光在光泽表面（屏幕、大理石地面、黑板）形成的亮斑。控制手段不同：前者靠灯具的遮光角、格栅、深嵌结构把高亮度藏起来；后者靠布灯位置避开反射角、用哑光材料、拉大灯具与视线的夹角。</p>
+<p><b>UGR（统一眩光值）</b>是给直接眩光打的分，数值越高越刺眼。它由灯具亮度、背景亮度、灯具位置与房间尺寸算出，是一个房间级的评价指标，不是灯具的单体参数——同一盏灯在大房间和小房间里的 UGR 不同。常见要求：办公室、教室 ≤19，商店 ≤22，一般车间 ≤22–25，仓库 ≤25。厂家样本上的"UGR&lt;19"指的是按标准房间条件算出的典型值，选型时以此为筛，验收时以实测/核算为准。<span class="tag tag-b">手册</span></p>
+
+<div class="fig">
+<svg viewBox="0 0 960 300" role="img" aria-label="眩光与UGR">
+  <rect class="bx" x="80" y="50" width="360" height="70" rx="8"/>
+  <text x="260" y="80" class="tb" text-anchor="middle">直接眩光</text>
+  <text x="260" y="104" class="s" text-anchor="middle">光源直射眼睛 → 遮光角/格栅/深嵌</text>
+  <rect class="bx" x="520" y="50" width="360" height="70" rx="8"/>
+  <text x="700" y="80" class="tb" text-anchor="middle">反射眩光</text>
+  <text x="700" y="104" class="s" text-anchor="middle">屏幕/地面亮斑 → 布灯避反射角、哑光材料</text>
+  <line class="ln" x1="480" y1="130" x2="480" y2="160"/>
+  <rect class="bx3" x="180" y="160" width="600" height="90" rx="6"/>
+  <text x="480" y="192" class="t" text-anchor="middle">UGR：房间级评价指标（灯具亮度 + 背景 + 位置 + 房间尺寸）</text>
+  <text x="480" y="218" class="t" text-anchor="middle">办公 / 教室 ≤19　　商店 ≤22　　车间 22–25　　仓库 ≤25</text>
+  <text x="480" y="240" class="s" text-anchor="middle">同一盏灯，房间不同，UGR 不同</text>
+</svg>
+<div class="cap">图 6　眩光的两种来源与 UGR 控制指标</div>
+</div>
+
+<h3 id="c18">1.8　频闪：波动深度与调光</h3>
+<p>LED 是直流器件，本不该频闪；频闪来自驱动电源把交流整流滤波不干净，或者调光器主动地亮灭切换。描述频闪用两个量：<b>波动深度</b>（最大最小亮度差占多少）和<b>频率</b>（每秒多少次）。人眼对 80Hz 以下、波动又深的频闪最敏感；几百 Hz 以上、深度不大的波动，大多数人不直接感知，但相机、手机拍下来就是滚动的条纹——这是现场最常被甲方抓到的"证据"。</p>
+<p>行业参考 IEEE 1789：<b>90～1250Hz 按波动深度分“低风险／无显著影响”两档；高于 1250Hz 免除低风险考核，高于 3125Hz 完全豁免</b>。工程做法是让调光 PWM 频率落在 1kHz 以上；教育照明按 GB 40070 要求在无显著影响区域（≥3125Hz，或波动深度低于对应限值）。对控制系统的约束是：调光方式直接决定频闪——PWM 调光的频率和分辨率由驱动决定，切相调光的频闪特性取决于切相深度，DALI 调低亮度时如果驱动本身滤波差，频闪会先于"颜色失真"暴露。所以<b>"调到 5% 闪不闪"是驱动的问题，不是总线协议的问题</b>，选型时要把这两层分开问。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 300" role="img" aria-label="频闪">
+  <line x1="80" y1="80" x2="440" y2="80" class="ln" stroke-dasharray="4 4"/>
+  <path d="M80 80 C 110 40,140 40,170 80 S 230 120,260 80 S 320 40,350 80 S 410 120,440 80" fill="none" stroke="#A63A2C" stroke-width="2.5"/>
+  <text x="260" y="30" class="tb" text-anchor="middle">波动深 + 频率低（&lt;100Hz）→ 人眼可感、易疲劳</text>
+  <line x1="80" y1="80" x2="440" y2="80" class="ln" stroke-dasharray="4 4" transform="translate(0,140)"/>
+  <path d="M80 220 C 85 208,95 208,100 220 S 115 232,120 220 S 135 208,140 220 S 155 232,160 220 S 175 208,180 220 S 195 232,200 220 S 215 208,220 220 S 235 232,240 220 S 255 208,260 220 S 275 232,280 220 S 295 208,300 220 S 315 232,320 220 S 335 208,340 220 S 355 232,360 220 S 375 208,380 220 S 395 232,400 220 S 415 208,420 220 S 435 232,440 220" fill="none" stroke="#0E6049" stroke-width="2.5"/>
+  <text x="260" y="185" class="tb" text-anchor="middle">&gt;1250Hz 免低风险考核；&gt;3125Hz 完全豁免</text>
+  <rect class="bx3" x="520" y="60" width="380" height="180" rx="6"/>
+  <text x="710" y="95" class="tb" text-anchor="middle">现场判断</text>
+  <text x="710" y="125" class="t" text-anchor="middle">手机相机慢动作 → 看滚动条纹</text>
+  <text x="710" y="152" class="t" text-anchor="middle">调到最低亮度再看一遍 → 暴露驱动短板</text>
+  <text x="710" y="179" class="s" text-anchor="middle">教育照明普遍要求 ≥3125Hz</text>
+  <text x="710" y="206" class="s" text-anchor="middle">频闪归驱动，协议只负责"给个值"</text>
+</svg>
+<div class="cap">图 7　频闪：波动深度 × 频率，两个量一起看</div>
+</div>
+
+<h3 id="c19">1.9　照度标准与场景速查</h3>
+<p>国内照明设计的基准标准是 <b>GB/T 50034-2024《建筑照明设计标准》</b>，它给每类场所规定了照度值、UGR、Ra 和照明功率密度（LPD）限值。<b>现行版本是 GB/T 50034-2024，已替代 2013 版</b>——核心场所的照度值基本延续，但标准属性由强制性 GB 改为推荐性 GB/T，引用时以现行版本为准。技术人员要记住的不是整本表，而是高频场景的数量级和"参照面"：标准里的照度都是指<b>规定参考面上的平均照度</b>——办公是 0.75m 桌面，车间是工作面，走廊是地面。量错参考面，数值就没有意义。</p>
+<table>
+<caption>表 1　常见场景照度速查（GB/T 50034-2024 常用值，完整值以标准为准）</caption>
+<thead><tr><th>场所</th><th>参考面</th><th>照度（lx）</th><th>UGR</th><th>Ra</th></tr></thead>
+<tbody>
+<tr><td>办公室（一般）</td><td>0.75m 桌面</td><td>300（高档 500）</td><td>19</td><td>80</td></tr>
+<tr><td>教室 / 实训室</td><td>课桌面</td><td>300 / 黑板 500</td><td>19</td><td>80（教育灯常 RA90）</td></tr>
+<tr><td>会议室 / 收银台</td><td>桌面 / 台面</td><td>300 / 500</td><td>19 / 22</td><td>80</td></tr>
+<tr><td>一般车间 / 精细装配</td><td>工作面</td><td>200–300 / 500</td><td>22–25 / 19</td><td>60–80</td></tr>
+<tr><td>仓库（一般件）</td><td>地面/货架面</td><td>100</td><td>25</td><td>60</td></tr>
+<tr><td>地下车库（车道/车位）</td><td>地面</td><td>50 / 30</td><td>25</td><td>60</td></tr>
+<tr><td>走廊 / 楼梯间</td><td>地面</td><td>普通 50 / 高档 100</td><td>25</td><td>60</td></tr>
+</tbody>
+</table>
+<div class="note"><b>注意：</b>标准值是"维持平均照度"——已经扣掉灯具脏污、光源光衰、维护系数之后的值。新建项目实测值通常要高出标准 10–20%，等衰减到标准值附近时正好处于寿命中段；验收拿"实测值远超标准"当亮点，等两年就会变成"照度不足"，改造方案要把这个余量说清楚。</div>
+
+<h2 id="p2">第二篇　电气基础：从配电到驱动</h2>
+
+<h3 id="c21">2.1　电压、电流、功率三件事</h3>
+<p>交流照明电路里，每天在说的三个量：<b>电压</b>（V）是推动电荷的"压力"，国内照明单相 220V；<b>电流</b>（A）是流过导线的电荷流量，决定导线要选多粗；<b>有功功率</b>（W）是真正转化成光和热的部分，决定电费。</p>
+<p>交流电的数值都是<b>有效值</b>：220V 的含义是"与 220V 直流产生相同热效应"，其峰值其实是 220×√2 ≈ 311V——这就是为什么 450V 耐压的电解电容用在 220V 回路上是合理的。功率的基本关系 P = UI 只在纯电阻负载下成立；LED 驱动是开关电源，不是纯电阻，所以还要引入下一节的功率因数。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 280" role="img" aria-label="交流电有效值">
+  <path d="M60 140 Q 130 30, 200 140 T 340 140 T 480 140 T 620 140 T 760 140" fill="none" stroke="#12557E" stroke-width="2.5"/>
+  <line x1="60" y1="140" x2="760" y2="140" class="ln" stroke-dasharray="4 4"/>
+  <line x1="60" y1="60" x2="760" y2="60" class="lr" stroke-dasharray="6 5"/>
+  <line x1="60" y1="220" x2="760" y2="220" class="lr" stroke-dasharray="6 5"/>
+  <text x="770" y="64" class="s">峰值 311V</text>
+  <text x="770" y="144" class="s">有效值 220V</text>
+  <text x="770" y="224" class="s">−311V</text>
+  <text x="60" y="258" class="s">铭牌上的 220V、1A、100W 全部是有效值——按"与直流等效发热"折算出来的数</text>
+</svg>
+<div class="cap">图 8　交流电正弦波形与有效值：峰值是有效值的 √2 倍</div>
+</div>
+
+<h3 id="c22">2.2　功率因数与谐波</h3>
+<p>功率因数（PF）= 有功功率 ÷ 视在功率。视在功率 S=UI 决定线路电流和变压器容量，有功功率 P 决定电费；两者之差是无功。PF 越低，同样 100W 的灯要从电网取越多的电流——线损更大、断路器更容易跳、变压器更早满载。<b>国标对商用照明驱动的要求是 PF≥0.9（大功率段）</b>，小功率段（如 ≤5W 的灯带模块）放宽。甲方在招标文件里写 PF，原因就在这：PF 不是"灯亮不亮"，是"电网侧要为这盏灯付多少额外容量"。</p>
+<p>谐波是同一件事的另一面：驱动整流让电流波形不再是正弦，叠出 3 次、5 次等基波整数倍的成分。谐波电流在中性线里<b>不是互相抵消而是叠加</b>——三相平衡的照明干线，中性线电流照样可能超过相线，这是 N 线不许比相线细的根本原因之一。谐波畸变率 THD 在驱动规格书上与 PF 并排出现，两者说的都是"电流波形歪了多少"。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 320" role="img" aria-label="功率三角形">
+  <path d="M120 240 L480 240 L480 100 Z" fill="#EBF3F9" stroke="#12557E" stroke-width="2"/>
+  <text x="300" y="262" class="tb" text-anchor="middle">有功功率 P（W）→ 电费、发光</text>
+  <text x="505" y="175" class="tb">无功功率 Q（var）→ 占线路容量</text>
+  <text x="250" y="150" class="tb" transform="rotate(-22 250 150)">视在功率 S=UI（VA）→ 电流、断路器</text>
+  <text x="140" y="228" class="t">PF = P/S</text>
+  <rect class="bx3" x="620" y="70" width="280" height="180" rx="6"/>
+  <text x="760" y="102" class="tb" text-anchor="middle">现场含义</text>
+  <text x="760" y="132" class="t" text-anchor="middle">PF 0.5 的 100W 灯，线路按 200VA 算</text>
+  <text x="760" y="158" class="t" text-anchor="middle">商用驱动要求 PF ≥ 0.9</text>
+  <text x="760" y="184" class="t" text-anchor="middle">谐波使中性线电流叠加不抵消</text>
+  <text x="760" y="210" class="s" text-anchor="middle">N 线不许比相线细</text>
+</svg>
+<div class="cap">图 9　功率三角形：PF 决定线路电流，不是灯的亮度</div>
+</div>
+
+<h3 id="c23">2.3　三相电与零火地</h3>
+<p>楼宇进线是三相四线或五线制：三根相线（L1/L2/L3）相互之间 380V，每根相线对中性线（N）220V，√3 倍关系。照明回路取"一相一零"构成 220V 单相回路；<b>PE 保护地线</b>不参与供电，只做故障电流的泄放通道，与金属外壳相连——它平时没有电流，出事时保命。</p>
+<p>工程上必须建立的概念是<b>三相平衡</b>：把灯具回路均匀分配到三相上。分配不均会导致变压器中性点偏移：轻载相电压升高、重载相电压跌落，两头的灯都受害——一头过压驱动光衰快，一头欠压驱动保护关断。看配电箱时第一件事就是数一数各相挂的回路功率是否大致相等。另一个高频坑是 <b>N 与 PE 混接</b>：漏电断路器一合就跳，多数是回路上 N、PE 接反或对调，不是断路器坏了。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 320" role="img" aria-label="三相配电">
+  <rect class="bx2" x="80" y="60" width="160" height="200" rx="8"/>
+  <text x="160" y="100" class="tb" text-anchor="middle">配电箱</text>
+  <text x="160" y="126" class="s" text-anchor="middle">三相五线进线</text>
+  <text x="160" y="146" class="s" text-anchor="middle">L1 L2 L3 N PE</text>
+  <line class="lr" x1="240" y1="90" x2="410" y2="90" marker-end="url(#ar)"/>
+  <line class="lb" x1="240" y1="150" x2="410" y2="150" marker-end="url(#a1)"/>
+  <line class="lg" x1="240" y1="210" x2="410" y2="210" marker-end="url(#a4)"/>
+  <line class="ld" x1="240" y1="240" x2="410" y2="240"/>
+  <text x="325" y="80" class="s" text-anchor="middle">L1 回路组</text>
+  <text x="325" y="140" class="s" text-anchor="middle">L2 回路组</text>
+  <text x="325" y="200" class="s" text-anchor="middle">L3 回路组</text>
+  <text x="325" y="233" class="s" text-anchor="middle">N 共用</text>
+  <rect class="bx" x="415" y="66" width="130" height="44" rx="6"/>
+  <text x="480" y="94" class="t" text-anchor="middle">灯具 WL1</text>
+  <rect class="bx" x="415" y="126" width="130" height="44" rx="6"/>
+  <text x="480" y="154" class="t" text-anchor="middle">灯具 WL2</text>
+  <rect class="bx" x="415" y="186" width="130" height="44" rx="6"/>
+  <text x="480" y="214" class="t" text-anchor="middle">灯具 WL3</text>
+  <rect class="bx3" x="620" y="60" width="280" height="200" rx="6"/>
+  <text x="760" y="95" class="tb" text-anchor="middle">三条纪律</text>
+  <text x="760" y="126" class="t" text-anchor="middle">① 三相功率均匀分配</text>
+  <text x="760" y="154" class="t" text-anchor="middle">② N、PE 严禁混接/对调</text>
+  <text x="760" y="182" class="t" text-anchor="middle">③ PE 只做保护，平时无电流</text>
+  <text x="760" y="214" class="s" text-anchor="middle">相间 380V，相-零 220V（√3 倍关系）</text>
+</svg>
+<div class="cap">图 10　三相五线与照明回路：平衡、不混接、PE 无电流</div>
+</div>
+
+<h3 id="c24">2.4　回路与保护：断路器怎么选</h3>
+<p>一个照明回路的容量由两头决定：导线的载流量是上限，断路器的额定电流是执行者。常规照明回路用 <b>C16</b>（C 型、16A）配 2.5mm² 铜线，带载按 16A×220V×0.8（余量）≈ 2.8kW 算；LED 项目单灯功率小，一条回路常挂几十盏灯，冲击主要来自<b>驱动的容性启动电流</b>——合闸瞬间多台驱动同时充电，可能让 C 型脱扣器误动作，灯位多时要么分批合闸，要么把回路拆细。</p>
+<p>C 型与 D 型的区别在脱扣曲线：C 型瞬时脱扣是额定电流的 5–10 倍，适合照明与一般阻性负载；D 型 10–20 倍，适合有启动浪涌的设备。漏电保护（RCD）是另一个维度的保护：30mA 漏电开关保护人身，它跳闸的原因与过载无关，找漏电要从受潮、接线错误、驱动对地电容这些方向查。</p>
+<div class="note"><b>现场口径：</b>智能照明里的继电器模块（如睿壹 12 路 20A 开关量模块）承担"开关动作"，但<b>短路和过载保护仍在断路器</b>——继电器不是断路器，两者不能互相替代。交底时必须把这条说清，否则施工方会按"灯少就不装空开"理解。</div>
+<div class="fig">
+<svg viewBox="0 0 860 366" role="img" aria-label="C型与D型断路器的脱扣曲线对比">
+  <defs><marker id="jb" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#37596F"/></marker></defs>
+
+  <text x="90" y="26" class="s" font-size="13.5" fill="#12557E">━━ C 型：磁脱扣 5–10 In</text>
+  <text x="380" y="26" class="s" font-size="13.5" fill="#8A6A20">╍╍ D 型：磁脱扣 10–20 In</text>
+  <text x="820" y="26" class="s" text-anchor="end" font-size="12.5" fill="#54677A">热脱扣段两者重合</text>
+
+  <g stroke="#E7EEF4" stroke-width="1">
+    <line x1="90" y1="56" x2="820" y2="56"/><line x1="90" y1="96" x2="820" y2="96"/>
+    <line x1="90" y1="136" x2="820" y2="136"/><line x1="90" y1="176" x2="820" y2="176"/>
+    <line x1="90" y1="216" x2="820" y2="216"/><line x1="90" y1="253" x2="820" y2="253"/>
+    <line x1="244" y1="48" x2="244" y2="290"/><line x1="436" y1="48" x2="436" y2="290"/>
+    <line x1="628" y1="48" x2="628" y2="290"/>
+  </g>
+
+  <line class="ln" x1="90" y1="290" x2="820" y2="290"/>
+  <line class="ln" x1="90" y1="290" x2="90" y2="48" marker-end="url(#jb)"/>
+
+  <text x="84" y="60" class="s" text-anchor="end" font-size="12.5">10000 s</text>
+  <text x="84" y="100" class="s" text-anchor="end" font-size="12.5">1000</text>
+  <text x="84" y="140" class="s" text-anchor="end" font-size="12.5">100</text>
+  <text x="84" y="180" class="s" text-anchor="end" font-size="12.5">10</text>
+  <text x="84" y="220" class="s" text-anchor="end" font-size="12.5">1</text>
+  <text x="84" y="257" class="s" text-anchor="end" font-size="12.5">0.1</text>
+  <text x="84" y="294" class="s" text-anchor="end" font-size="12.5">0.02</text>
+
+  <text x="90" y="312" class="s" text-anchor="middle" font-size="13">1×</text>
+  <text x="244" y="312" class="s" text-anchor="middle" font-size="13">5×</text>
+  <text x="436" y="312" class="s" text-anchor="middle" font-size="13">10×</text>
+  <text x="628" y="312" class="s" text-anchor="middle" font-size="13">15×</text>
+  <text x="820" y="312" class="s" text-anchor="middle" font-size="13">20×</text>
+  <text x="455" y="336" class="s" text-anchor="middle" font-size="13">横轴：电流倍数 I/In　　纵轴：动作时间</text>
+
+  <rect x="246" y="56" width="188" height="86" fill="#EBF3F9" opacity="0.75"/>
+  <text x="340" y="84" class="s" text-anchor="middle" fill="#12557E" font-size="13.5">C 型磁脱扣区</text>
+  <text x="340" y="106" class="s" text-anchor="middle" fill="#12557E" font-size="13.5">5–10 In</text>
+
+  <rect x="438" y="56" width="380" height="86" fill="#F6F1E6" opacity="0.75"/>
+  <text x="628" y="96" class="s" text-anchor="middle" fill="#8A6A20" font-size="13.5">D 型磁脱扣区　10–20 In</text>
+
+  <path d="M90 76 C140 110 200 152 244 180" fill="none" stroke="#B08A2E" stroke-width="4" stroke-dasharray="11 7"/>
+  <path d="M244 180 C310 210 380 228 436 240" fill="none" stroke="#B08A2E" stroke-width="4" stroke-dasharray="11 7"/>
+  <path d="M436 240 L436 290 L820 290" fill="none" stroke="#B08A2E" stroke-width="3.4" stroke-dasharray="11 7"/>
+
+  <path d="M90 76 C140 110 200 152 244 180" fill="none" stroke="#12557E" stroke-width="4"/>
+  <path d="M244 180 L244 290 L820 290" fill="none" stroke="#12557E" stroke-width="3.4"/>
+
+  <text x="98" y="162" class="s" font-size="13" fill="#0A3D5C">过载热脱扣区（反时限）</text>
+
+  <line x1="359" y1="48" x2="359" y2="290" stroke="#A63A2C" stroke-width="1.8" stroke-dasharray="6 4"/>
+  <line x1="513" y1="48" x2="513" y2="290" stroke="#A63A2C" stroke-width="1.8" stroke-dasharray="6 4"/>
+  <rect x="359" y="48" width="154" height="242" fill="#A63A2C" opacity="0.07"/>
+  <text x="436" y="44" class="s" text-anchor="middle" fill="#A63A2C" font-size="13.5">合闸浪涌 8–12 In</text>
+
+  <text x="455" y="358" class="s" text-anchor="middle" fill="#A63A2C" font-size="13">浪涌正好压在 C 型上限（10 In）：灯少不跳、灯多就跳——是边界效应，不是断路器坏了</text>
+</svg>
+<div class="cap">图 11　热脱扣段两者重合，只有磁脱扣阈值不同：C 型 5–10 倍、D 型 10–20 倍</div>
+</div>
+
+<p>看上图就能解释现场最常见的“一合闸就跳”：LED 驱动的容性启动电流可达额定的 8～12 倍，<b>恰好压在 C 型 5～10 倍的磁脱扣边界上</b>。灯位越多、同一刻合闸的驱动越多，浪涌叠加越厉害。处置三条：分批合闸（错开几秒）、把回路拆细（单回路驱动数减半）、或改用 D 型（但 D 型对末端短路灵敏度更低，要确认保护配合）。</p>
+
+
+<h3 id="c25">2.5　线径与压降</h3>
+<p>选线径看三个约束，取最严的一个：<b>载流量</b>（线太细会发热）、<b>压降</b>（线太长末端电压不够）、<b>规范最小值</b>（照明支线铜芯不小于 1.5mm²，常用 2.5mm²）。长距离供电时压降是真正的约束：单相回路的压降 ΔU ≈ 2×I×L×ρ/S，照明回路一般要求末端压降 ≤5%，长走廊、大跨厂房都要按距离核算，不能只按"功率不超就行"。</p>
+<table>
+<caption>表 2　铜芯线载流量速查（BV 线、穿管暗敷，工程估算口径）<span class="tag tag-f">现场</span></caption>
+<thead><tr><th>线径</th><th>穿管载流量（≈）</th><th>常用匹配断路器</th><th>典型用途</th></tr></thead>
+<tbody>
+<tr><td>1.5 mm²</td><td>13–14A</td><td>C10/C16（视敷设）</td><td>照明支线、控制线</td></tr>
+<tr><td>2.5 mm²</td><td>18–20A</td><td>C16</td><td>照明支线主力</td></tr>
+<tr><td>4 mm²</td><td>25A 左右</td><td>C25</td><td>小动力、干线分支</td></tr>
+<tr><td>6 mm²</td><td>32A 左右</td><td>C32</td><td>干线、大功率设备</td></tr>
+</tbody>
+</table>
+<p>24V 低压侧的压降问题比 220V 侧严重一个数量级：同样 100W，24V 侧电流是 220V 侧的 9 倍多，而压降与电流成正比。所以<b>24V 灯带、24V 模块的电源到末端距离要短、线径要粗</b>，长距离宁可把 24V 电源分散就近布置，也不要一条细线拉到底——这是现场"末端模块无故重启"类故障的常见根因。<span class="tag tag-f">现场</span></p>
+
+<div class="fig">
+<svg viewBox="0 0 960 280" role="img" aria-label="压降">
+  <rect class="bx2" x="60" y="100" width="150" height="70" rx="8"/>
+  <text x="135" y="130" class="tb" text-anchor="middle">电源</text>
+  <text x="135" y="152" class="t" text-anchor="middle">24V</text>
+  <line class="lb" x1="210" y1="135" x2="840" y2="135"/>
+  <rect class="bx" x="420" y="100" width="110" height="70" rx="8"/>
+  <text x="475" y="140" class="t" text-anchor="middle">模块 A</text>
+  <rect class="bx" x="700" y="100" width="110" height="70" rx="8"/>
+  <text x="755" y="140" class="t" text-anchor="middle">模块 B（末端）</text>
+  <path d="M210 200 Q 475 240 755 200" fill="none" stroke="#A63A2C" stroke-width="2.5" stroke-dasharray="6 5"/>
+  <text x="490" y="248" class="s" text-anchor="middle">电压沿线跌落：电流 × 距离 × 电阻；24V 侧电流大，同等功率压降按 9 倍算</text>
+  <text x="490" y="270" class="s" text-anchor="middle">末端掉到 21V 以下 → 模块重启、通讯丢包——"无故重启"先量末端电压</text>
+</svg>
+<div class="cap">图 12　低压侧压降：长距离供电末端电压不足</div>
+</div>
+
+<h3 id="c26">2.6　LED 驱动电源</h3>
+<p>驱动是 LED 灯具里最先坏、也最影响体验的部件。两个基本形态：<b>恒流驱动</b>输出稳定电流（电压随灯珠数量浮动），用于灯珠串联的灯具——灯盘、天棚灯、射灯全是；<b>恒压驱动</b>输出稳定电压（24V/12V），由灯带上的限流电路自定电流——灯带、部分线形灯是。给灯带配恒流驱动、给串联回路配恒压驱动，都是当场烧毁级别的错误。</p>
+<p>规格书上的关键数字：<b>PF 与 THD</b>（电网侧指标）、<b>输出电流精度</b>（光效一致性）、<b>浪涌抗扰</b>（户外 2kV 差模/4kV 共模起步）、<b>寿命 L70/B50</b>（50% 样本光通降到初始 70% 的时间）。驱动寿命的短板几乎都在电解电容：温度每升 10°C，电解电容寿命约减半——<b>密闭灯体、高温车间的项目，先问驱动温度再问流明</b>。调光驱动的输入接口决定它能不能进智能系统，这一条下单前必须核，是"灯亮但不可控"这类返工的总来源。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 300" role="img" aria-label="恒流恒压驱动">
+  <rect class="bx2" x="60" y="60" width="360" height="80" rx="8"/>
+  <text x="240" y="92" class="tb" text-anchor="middle">恒流驱动（CC）</text>
+  <text x="240" y="118" class="t" text-anchor="middle">电流恒定、电压随负载浮动 → 串联灯珠灯具</text>
+  <rect class="bx4" x="60" y="170" width="360" height="80" rx="8"/>
+  <text x="240" y="202" class="tb" text-anchor="middle">恒压驱动（CV）</text>
+  <text x="240" y="228" class="t" text-anchor="middle">电压恒定（24V/12V）、负载自限流 → 灯带</text>
+  <rect class="bx3" x="480" y="60" width="420" height="190" rx="6"/>
+  <text x="690" y="95" class="tb" text-anchor="middle">规格书必看五项</text>
+  <text x="690" y="126" class="t" text-anchor="middle">① PF / THD（电网侧）</text>
+  <text x="690" y="154" class="t" text-anchor="middle">② 输出恒流值与电流精度</text>
+  <text x="690" y="182" class="t" text-anchor="middle">③ 浪涌抗扰（户外 2kV/4kV 起步）</text>
+  <text x="690" y="210" class="t" text-anchor="middle">④ 寿命 L70/B50 与温度的关系</text>
+  <text x="690" y="238" class="t" text-anchor="middle">⑤ 调光接口——决定能否进智能系统</text>
+</svg>
+<div class="cap">图 13　恒流与恒压驱动：形态不能配错，五项参数必看</div>
+</div>
+
+<h3 id="c27">2.7　浪涌防护与接地</h3>
+<p>浪涌是毫秒到微秒级的电压尖峰，来源有二：雷击（直击或感应）和电网操作（大负载投切）。LED 驱动的整流元件对此很脆弱——户外灯具每年批量坏驱动，多数不是防潮问题而是浪涌。防线是分级布置的 SPD（电涌保护器）：配电柜一级泄放大电流，末端设备靠驱动自身抗扰（典型 2kV 差模 / 4kV 共模）。<b>户外与屋顶灯具项目，SPD 与接地要在方案里明确写出来，不要默认"驱动标了抗浪涌就够"。</b></p>
+<p>接地是浪涌防护的下半场：泄放的电流必须有一条低阻抗通路入地。接地的第二个作用是电磁兼容——屏蔽层单端接地可以切断干扰沿信号线传播（DALI 屏蔽线单端接地是交底清单里的固定项）。第三个作用才是人身保护：外壳带电时 PE 提供低阻回路，让断路器瞬时跳闸。</p>
+<div class="fig">
+<svg viewBox="0 0 860 316" role="img" aria-label="浪涌保护的三级泄流">
+  <defs><marker id="sa" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#37596F"/></marker></defs>
+
+  <text x="20" y="30" class="s" font-size="12.5">雷击或操作过电压从进线进来，要靠三级 SPD 逐级泄放：每一级只承担一部分，剩下的往下传</text>
+
+  <line class="ln" x1="18" y1="96" x2="86" y2="96" marker-end="url(#sa)"/>
+  <text x="18" y="82" class="s" font-size="12">进线</text>
+
+  <rect class="bxr" x="90" y="52" width="184" height="88" rx="6"/>
+  <text x="182" y="76" class="tb" text-anchor="middle" font-size="13.5">一级（I 级）</text>
+  <text x="182" y="97" class="s" text-anchor="middle" font-size="11.5">总配电柜 · 10/350 μs</text>
+  <text x="182" y="122" class="s" text-anchor="middle" font-size="11.5" fill="#A63A2C">Iimp ≥12.5 kA</text>
+
+  <line class="ln" x1="276" y1="96" x2="332" y2="96" marker-end="url(#sa)"/>
+
+  <rect class="bx3" x="336" y="52" width="184" height="88" rx="6"/>
+  <text x="428" y="76" class="tb" text-anchor="middle" font-size="13.5">二级（II 级）</text>
+  <text x="428" y="97" class="s" text-anchor="middle" font-size="11.5">分配电箱 · 8/20 μs</text>
+  <text x="428" y="122" class="s" text-anchor="middle" font-size="11.5" fill="#8A6A20">In 20–40 kA</text>
+
+  <line class="ln" x1="522" y1="96" x2="578" y2="96" marker-end="url(#sa)"/>
+
+  <rect class="bx4" x="582" y="52" width="184" height="88" rx="6"/>
+  <text x="674" y="76" class="tb" text-anchor="middle" font-size="13.5">三级（III 级）</text>
+  <text x="674" y="97" class="s" text-anchor="middle" font-size="11.5">设备前端 · 8/20 μs</text>
+  <text x="674" y="122" class="s" text-anchor="middle" font-size="11.5" fill="#0E6049">In 5–10 kA</text>
+
+  <line class="ln" x1="768" y1="96" x2="818" y2="96" marker-end="url(#sa)"/>
+  <text x="820" y="82" class="s" font-size="12">灯具</text>
+
+  <g stroke="#8FA3B4" stroke-width="1.4" stroke-dasharray="5 4" fill="none">
+    <line x1="182" y1="140" x2="182" y2="182"/>
+    <line x1="428" y1="140" x2="428" y2="182"/>
+    <line x1="674" y1="140" x2="674" y2="182"/>
+    <line x1="182" y1="182" x2="674" y2="182"/>
+  </g>
+  <line x1="428" y1="182" x2="428" y2="204" stroke="#8FA3B4" stroke-width="1.4" stroke-dasharray="5 4"/>
+  <text x="438" y="202" class="s" font-size="11.5">共用接地排（等电位）</text>
+
+  <text x="20" y="236" class="s" font-size="12">每级引线要短：SPD 到相线与 PE 的连线越长，残压越高、保护越差，规范要求尽量 ≤0.5 m 并走直线</text>
+  <text x="20" y="262" class="s" font-size="12">只装一级不够、只装三级也不够：一级挡大能量，三级压残压，缺一级就有一类设备保护不到</text>
+  <text x="20" y="288" class="s" font-size="12" fill="#A63A2C">SPD 失效是“无声”的：没有遥信触点就不会报警，交付时要把检查窗口写进运维计划</text>
+</svg>
+<div class="cap">图 14　三级 SPD：一级泄大能量、二级再泄、三级压残压，最后共用一条等电位接地</div>
+</div>
+
+
+<h3 id="c28">2.8　强弱电分离</h3>
+<p>智能照明系统里，强电（220V 回路）与弱电（OBUS/DALI/485 总线、24V 低压）在同一吊顶里并存。干扰的物理来源是"变化的电流产生变化的磁场"：继电器断开感性负载的瞬间、驱动的高频开关，都会在平行走线的信号线上感应出噪声。<b>工程对策是空间上的分离</b>：强弱电分行桥架、分管敷设，平行间距 ≥300mm，必须交叉时 90° 垂直交叉；信号线不与高压线共管——这是规范红线，图纸上强弱电画进同一根管就是错的。<span class="tag tag-b">手册</span></p>
+
+<div class="fig">
+<svg viewBox="0 0 960 300" role="img" aria-label="强弱电分离">
+  <rect class="bx" x="80" y="60" width="380" height="60" rx="6"/>
+  <text x="270" y="96" class="tb" text-anchor="middle">强电桥架：220V 照明回路（红）</text>
+  <rect class="bx4" x="80" y="180" width="380" height="60" rx="6"/>
+  <text x="270" y="216" class="tb" text-anchor="middle">弱电桥架：OBUS / DALI / 485（绿/蓝）</text>
+  <line x1="460" y1="120" x2="560" y2="120" class="ld"/>
+  <rect class="bx3" x="560" y="66" width="340" height="170" rx="6"/>
+  <text x="730" y="100" class="tb" text-anchor="middle">四条纪律</text>
+  <text x="730" y="130" class="t" text-anchor="middle">① 平行间距 ≥300mm</text>
+  <text x="730" y="158" class="t" text-anchor="middle">② 必须交叉时 90° 垂直交叉</text>
+  <text x="730" y="186" class="t" text-anchor="middle">③ 信号线不与高压线共管</text>
+  <text x="730" y="214" class="t" text-anchor="middle">④ 屏蔽线单端接地</text>
+</svg>
+<div class="cap">图 15　强弱电分离：分行桥架、间距 300mm、垂直交叉</div>
+</div>
+
+
+<h3 id="c29">2.9　应急照明与消防联动</h3>
+<p>应急照明是照明工程里与正常照明并列的独立板块，消防验收必查，但智能照明方案常把它漏掉。按用途分三类：<b>疏散照明</b>（疏散指示、引导逃生）、<b>备用照明</b>（断电后保障继续工作，如中控室、变电所）、<b>安全照明</b>（危险作业中断电后仍需照明）。供电方式分两种：<b>集中电源型</b>（EPS 集中供电）与<b>自带电源型</b>（灯具自带电池）；点亮方式分<b>持续式</b>（常亮）与<b>非持续式</b>（平时不亮、断电才亮）。</p>
+<p>它和智能系统的关系是一条红线：<b>应急照明独立成系统（GB 51309 有强条要求），智能照明管正常照明，两者不共回路、不混用</b>。连接只通过干接点：火警时消防系统给一个触点信号，非应急回路强制断电、疏散回路强制点亮——这就是"消防强切"。触发信号接入 IO 模块采集，联动逻辑在平台侧配置（见《睿壹系统技术手册》7.4）。方案里务必单独列应急照明的回路、灯具和联动关系，不要默认"智能面板也能管应急灯"。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 320" role="img" aria-label="应急照明分类">
+  <rect class="bx2" x="40" y="40" width="880" height="44" rx="6"/>
+  <text x="480" y="68" class="tb" text-anchor="middle">应急照明（GB 51309）：三分类 + 两种供电 + 两种点亮方式</text>
+  <rect class="bx" x="60" y="110" width="260" height="80" rx="6"/>
+  <text x="190" y="140" class="tb" text-anchor="middle">疏散照明</text>
+  <text x="190" y="164" class="t" text-anchor="middle">疏散指示、引导逃生</text>
+  <rect class="bx" x="350" y="110" width="260" height="80" rx="6"/>
+  <text x="480" y="140" class="tb" text-anchor="middle">备用照明</text>
+  <text x="480" y="164" class="t" text-anchor="middle">断电后继续工作（中控等）</text>
+  <rect class="bx" x="640" y="110" width="260" height="80" rx="6"/>
+  <text x="770" y="140" class="tb" text-anchor="middle">安全照明</text>
+  <text x="770" y="164" class="t" text-anchor="middle">危险作业继续照明</text>
+  <rect class="bx3" x="120" y="222" width="720" height="66" rx="6"/>
+  <text x="480" y="248" class="t" text-anchor="middle">供电：集中电源（EPS）/ 自带电池　　点亮：持续式 / 非持续式</text>
+  <text x="480" y="272" class="s" text-anchor="middle">独立成系统，与智能照明仅干接点联动（消防强切），不共回路</text>
+</svg>
+<div class="cap">图 16　应急照明：分类、供电与点亮方式，独立于智能照明系统</div>
+</div>
+
+<h2 id="p3">第三篇　物联网与通信基础</h2>
+
+<h3 id="c31">3.1　物联网四层模型</h3>
+<p>把任何一套智能照明系统拆开，都是四层：<b>感知层</b>（传感器、面板——采集意图与环境）、<b>网络层</b>（总线、2.4G、以太网——搬运数据）、<b>平台层</b>（云平台/边缘服务器——存储、策略、账号）、<b>应用层</b>（App、Web、大屏——给人看和操作的界面）。自组网和睿壹的差别不在四层的存在，而在每层用什么技术：感知层都是传感器，网络层一个是灯内 2.4G Mesh、一个是 OBUS/DALI 总线加蓝牙。</p>
+<p>四层模型的用处是<b>定位故障</b>：灯不亮，先问是感知层的指令没发出来、网络层的指令没送到、还是执行层的灯自己坏了——这跟《欧普自组网技术专家手册》8.1 的"没到 / 到了没执行 / 执行不对"三分法是同一个思路。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 320" role="img" aria-label="物联网四层">
+  <rect class="bx4" x="180" y="40" width="600" height="52" rx="6"/>
+  <text x="480" y="72" class="tb" text-anchor="middle">应用层　App / Web / 大屏 —— 给人看和操作</text>
+  <rect class="bx2" x="180" y="104" width="600" height="52" rx="6"/>
+  <text x="480" y="136" class="tb" text-anchor="middle">平台层　云平台 / 边缘服务器 —— 存储、策略、账号、OTA</text>
+  <rect class="bx2" x="180" y="168" width="600" height="52" rx="6"/>
+  <text x="480" y="200" class="tb" text-anchor="middle">网络层　OBUS / DALI / 2.4G Mesh / 以太网 —— 搬运数据</text>
+  <rect class="bx" x="180" y="232" width="600" height="52" rx="6"/>
+  <text x="480" y="264" class="tb" text-anchor="middle">感知层　传感器 / 面板 / 灯具驱动 —— 采集与执行</text>
+  <text x="120" y="72" class="s">给谁看</text><text x="120" y="136" class="s">谁决策</text><text x="120" y="200" class="s">怎么传</text><text x="120" y="264" class="s">谁干活</text>
+  <text x="480" y="310" class="s" text-anchor="middle">排障自上而下问：指令发出了吗 → 平台下达了吗 → 传到了吗 → 灯执行了吗</text>
+</svg>
+<div class="cap">图 17　物联网四层模型：每套系统的差别在每层用什么技术</div>
+</div>
+
+<h3 id="c32">3.2　无线电基础：频段与信道</h3>
+<p>自组网、蓝牙、WiFi 都挤在 <b>2.4GHz ISM 频段</b>（2400–2483.5MHz）——这是全球免许可频段，代价是所有人共享。频段被切成若干<b>信道</b>：WiFi 在中国有 13 个信道（20MHz 带宽，互不重叠的只有 1/6/11 三个），蓝牙 40 个（间隔 2MHz），Zigbee 16 个。同一空间里信道重叠的两套设备，互相就是干扰源。</p>
+<p>链路预算是判断"能不能通"的算术：发射功率 + 天线增益 − 空间损耗 − 障碍损耗 ≥ 接收灵敏度，余量为正才通。自由空间损耗 FSPL = 32.45 + 20lg f(MHz) + 20lg d(km)，2.4GHz 在 10m 处约 60dB——同频段下<b>距离每翻一倍，损耗加 6dB</b>。发射功率是受限的（2.4G 国内 EIRP ≤ 20dBm/100mW），所以工程上提升链路的合法手段是挪位置、减障碍、换天线方向，而不是"把功率调大"。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 300" role="img" aria-label="2.4G频段">
+  <rect x="80" y="70" width="800" height="50" fill="#EBF3F9" stroke="#12557E" rx="4"/>
+  <text x="480" y="100" class="tb" text-anchor="middle">2.4GHz ISM 频段　2400 – 2483.5MHz（免许可，所有人共享）</text>
+  <rect x="90" y="140" width="110" height="30" fill="#A63A2C" opacity="0.6" rx="3"/>
+  <rect x="210" y="140" width="110" height="30" fill="#12557E" opacity="0.6" rx="3"/>
+  <rect x="330" y="140" width="110" height="30" fill="#0E6049" opacity="0.6" rx="3"/>
+  <rect x="450" y="140" width="120" height="30" fill="#B8862B" opacity="0.65" rx="3"/>
+  <rect x="580" y="140" width="120" height="30" fill="#54677A" opacity="0.6" rx="3"/>
+  <rect x="710" y="140" width="110" height="30" fill="#7E5210" opacity="0.6" rx="3"/>
+  <text x="145" y="161" class="s" text-anchor="middle" fill="#fff">WiFi 1</text>
+  <text x="265" y="161" class="s" text-anchor="middle" fill="#fff">WiFi 6</text>
+  <text x="385" y="161" class="s" text-anchor="middle" fill="#fff">WiFi 11</text>
+  <text x="510" y="161" class="s" text-anchor="middle" fill="#fff">蓝牙 40 信道</text>
+  <text x="640" y="161" class="s" text-anchor="middle" fill="#fff">Zigbee 16 信道</text>
+  <text x="765" y="161" class="s" text-anchor="middle" fill="#fff">自组网 5 信道</text>
+  <text x="480" y="218" class="s" text-anchor="middle">同一空间信道重叠 = 互为干扰；距离翻倍损耗 +6dB；发射功率受法规限制</text>
+  <text x="480" y="244" class="s" text-anchor="middle">提升链路的合法顺序：挪位置 → 减障碍 → 调方向 →（最后才是）换方案</text>
+</svg>
+<div class="cap">图 18　2.4G 频段与信道：共享带来的共存问题</div>
+</div>
+
+<h3 id="c33">3.3　星型与 Mesh 拓扑</h3>
+<p>无线网络的两种基本形状：<b>星型</b>是每个节点直连中心（网关），结构简单、单点故障明显——中心一挂全网瘫；<b>Mesh</b> 是节点之间互为中继，任意两点可以有多条路径，绕过单个坏节点。Mesh 的代价是<b>每个转发都占一次空口时间</b>，网络越大、跳数越多，延迟和冲突越多。</p>
+<p>蓝牙 Mesh 的实现方式是"泛洪"（flooding）：消息广播出去，带 Relay 的节点再转发，靠 TTL 和缓存去重防止无限循环。它不建路由表、不需要维护路径，换来简单和自愈快，代价是空口利用率低——这就是"一台蓝牙网关带 150 节点"这类容量上限的物理来源（详见 4.8）。有线的 OBUS 总线本质是"串行的星型"：一条总线手拉手串接，物理形状是线，逻辑归属是一个网关下面的一个域。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 320" role="img" aria-label="星型与Mesh">
+  <circle class="bx2" cx="240" cy="160" r="34"/>
+  <text x="240" y="166" class="t" text-anchor="middle">网关</text>
+  <circle class="bx" cx="110" cy="70" r="22"/><circle class="bx" cx="240" cy="50" r="22"/><circle class="bx" cx="370" cy="70" r="22"/>
+  <circle class="bx" cx="110" cy="250" r="22"/><circle class="bx" cx="240" cy="270" r="22"/><circle class="bx" cx="370" cy="250" r="22"/>
+  <line class="lb" x1="218" y1="132" x2="126" y2="88"/><line class="lb" x1="240" y1="126" x2="240" y2="72"/><line class="lb" x1="262" y1="132" x2="354" y2="88"/>
+  <line class="lb" x1="218" y1="188" x2="126" y2="232"/><line class="lb" x1="240" y1="194" x2="240" y2="248"/><line class="lb" x1="262" y1="188" x2="354" y2="232"/>
+  <text x="240" y="308" class="t" text-anchor="middle">星型：全部直连中心，单点故障</text>
+  <circle class="bx4" cx="720" cy="160" r="34"/>
+  <text x="720" y="166" class="t" text-anchor="middle">网关</text>
+  <circle class="bx" cx="590" cy="70" r="22"/><circle class="bx" cx="720" cy="50" r="22"/><circle class="bx" cx="850" cy="70" r="22"/>
+  <circle class="bx" cx="590" cy="250" r="22"/><circle class="bx" cx="720" cy="270" r="22"/><circle class="bx" cx="850" cy="250" r="22"/>
+  <line class="lg" x1="698" y1="132" x2="606" y2="88"/><line class="lg" x1="720" y1="126" x2="720" y2="72"/><line class="lg" x1="742" y1="132" x2="834" y2="88"/>
+  <line class="lg" x1="612" y1="82" x2="698" y2="58"/><line class="lg" x1="742" y1="58" x2="828" y2="82"/>
+  <line class="lg" x1="612" y1="238" x2="698" y2="262"/><line class="lg" x1="742" y1="262" x2="828" y2="238"/>
+  <line class="lg" x1="698" y1="188" x2="606" y2="232"/><line class="lg" x1="742" y1="188" x2="834" y2="232"/>
+  <line class="ld" x1="612" y1="82" x2="612" y2="238"/><line class="ld" x1="828" y1="82" x2="828" y2="238"/>
+  <text x="720" y="308" class="t" text-anchor="middle">Mesh：互为中继、路径多样、自愈快</text>
+</svg>
+<div class="cap">图 19　星型与 Mesh：可靠性与空口效率的交换</div>
+</div>
+
+<h3 id="c34">3.4　短距无线技术对比</h3>
+<p>照明工程会碰到的四种短距无线，选型时比的是四个维度：节点容量、时延、功耗、生态。</p>
+<table>
+<caption>表 3　四种短距无线技术对比（工程视角）</caption>
+<thead><tr><th>技术</th><th>频段 / 信道</th><th>典型容量</th><th>时延</th><th>照明生态</th></tr></thead>
+<tbody>
+<tr><td>蓝牙 Mesh（SigMesh）</td><td>2.4G / 40 信道</td><td>≤150 节点/网关（睿壹）</td><td>中（泛洪转发）</td><td>自组网整灯、睿壹无线家族，手机直连调试</td></tr>
+<tr><td>Zigbee</td><td>2.4G / 16 信道</td><td>数百（路由 Mesh）</td><td>低</td><td>智能家居为主，商用照明少见</td></tr>
+<tr><td>WiFi</td><td>2.4G / 5G</td><td>单 AP 限几十终端</td><td>低</td><td>不做控制网，只做网关上行和天幕热点</td></tr>
+<tr><td>2.4G 私有协议</td><td>2.4G / 5 信道轮询</td><td>400–500 盏实测</td><td>中</td><td>格兰斯贝自组网整灯，加密狗配网</td></tr>
+</tbody>
+</table>
+<div class="note"><b>选型心法：</b>不是"哪个技术好"，而是"谁来做末端的组网"。整灯方案看灯内模块（蓝牙 Mesh 或私有 2.4G），改造项目看能不能走线——能走线用 OBUS/DALI 有线（稳定、可计量），不能走线才上无线。这个决策树在两册系统手册里已经铺开，本表只负责把技术名词对上号。</div>
+
+<h3 id="c35">3.5　网关：协议转换的本质</h3>
+<p>网关在系统里的唯一使命是<b>协议转换</b>：把总线上 / 无线网里的私有协议，翻译成以太网上的 TCP/IP，再交给平台。OBUS 网关把 OBUS 总线变成 TCP/IP，DALI 网关把 DALI 变成 TCP/IP，云上网关把 2.4G 自组网变成上云。网关不是"更高级的灯"，也不是"储存场景的地方"（场景存在灯里，这在前册反复强调过），它只是两套语言之间的翻译器。</p>
+<p>理解这一点的现场价值：<b>网关掉线 ≠ 灯失控</b>。如果场景和联动落在灯与面板之间（本地闭环），网关只是"没在上报"，灯照常工作；只有依赖平台下发的逻辑，网关掉线才会真的影响功能。判断"网关坏了对现场影响多大"，取决于这个系统的决策点画在哪里——本地闭环越重，网关越不重要。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 280" role="img" aria-label="网关协议转换">
+  <rect class="bx2" x="60" y="90" width="200" height="70" rx="8"/>
+  <text x="160" y="118" class="tb" text-anchor="middle">总线侧</text>
+  <text x="160" y="142" class="t" text-anchor="middle">OBUS / DALI / 2.4G</text>
+  <rect class="bx" x="380" y="90" width="200" height="70" rx="8"/>
+  <text x="480" y="118" class="tb" text-anchor="middle">网关</text>
+  <text x="480" y="142" class="t" text-anchor="middle">协议转换</text>
+  <rect class="bx4" x="700" y="90" width="200" height="70" rx="8"/>
+  <text x="800" y="118" class="tb" text-anchor="middle">上行侧</text>
+  <text x="800" y="142" class="t" text-anchor="middle">TCP/IP 以太网 / 4G</text>
+  <line class="lb" x1="260" y1="125" x2="378" y2="125" marker-end="url(#a1)"/>
+  <line class="lg" x1="582" y1="125" x2="698" y2="125" marker-end="url(#a4)"/>
+  <rect class="bx3" x="120" y="200" width="720" height="56" rx="6"/>
+  <text x="480" y="222" class="t" text-anchor="middle">网关掉线 ≠ 灯失控——本地闭环（面板→灯）不受影响，只有平台下发的逻辑会停</text>
+  <text x="480" y="244" class="s" text-anchor="middle">场景存在灯里，网关只是翻译器</text>
+</svg>
+<div class="cap">图 20　网关 = 协议转换：掉线影响取决于决策点画在哪</div>
+</div>
+
+<h3 id="c36">3.6　TCP/IP 入门</h3>
+<p>网关到平台走以太网，就进入了 TCP/IP 的世界。要理解的技术员三件事：<b>IP 地址</b>是设备的网络门牌（网关需固定 IP 或 DHCP 保留）、<b>端口</b>是同一台设备上不同服务的门（网关平台服务占特定端口）、<b>子网与网关地址</b>决定设备能不能出本网段。</p>
+<p>现场最常见的两类网络故障，用一句话就能区分：<b>"ping 得通但上不了云"</b>——本网段通了，是出口（DNS、外网、防火墙端口）的问题；<b>"ping 不通"</b>——先查 IP 配置、网线、交换机端口和 VLAN。DHCP 是自动分配 IP 的机制，但工程设备要稳定必须做<b>静态 IP 或 DHCP 地址保留</b>，否则设备重启后 IP 变了，平台就"找不着这台网关"——这是上云类故障的头号来源。网段规划时控制网、办公网、视频网分 VLAN，既隔离广播风暴，也为智能系统留出干净信道。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 300" role="img" aria-label="TCPIP分层">
+  <rect class="bx2" x="300" y="40" width="360" height="40" rx="5"/>
+  <text x="480" y="66" class="tb" text-anchor="middle">应用层　HTTP / MQTT / 平台私有协议</text>
+  <rect class="bx2" x="300" y="88" width="360" height="40" rx="5"/>
+  <text x="480" y="114" class="tb" text-anchor="middle">传输层　TCP（可靠） / UDP（快） + 端口号</text>
+  <rect class="bx" x="300" y="136" width="360" height="40" rx="5"/>
+  <text x="480" y="162" class="tb" text-anchor="middle">网络层　IP 地址 + 子网 + 网关（路由）</text>
+  <rect class="bx" x="300" y="184" width="360" height="40" rx="5"/>
+  <text x="480" y="210" class="tb" text-anchor="middle">链路层　MAC + 交换机 + VLAN</text>
+  <text x="120" y="66" class="s">管服务</text><text x="120" y="114" class="s">管端口</text><text x="120" y="162" class="s">管地址</text><text x="120" y="210" class="s">管物理</text>
+  <rect class="bx3" x="300" y="248" width="360" height="42" rx="5"/>
+  <text x="480" y="274" class="t" text-anchor="middle">ping 得通但上不了云 → 查出口；ping 不通 → 查地址/线路</text>
+</svg>
+<div class="cap">图 21　TCP/IP 四层：网关网络故障按层定位</div>
+</div>
+
+<h3 id="c37">3.7　云平台通信：MQTT 与 OTA</h3>
+<p>设备上云的主流方式是 <b>MQTT</b>（消息队列遥测传输）：设备作为客户端连到 Broker（消息代理），发布和订阅"主题"。它和"设备直连平台服务器"的区别是解耦——设备不必知道谁在听，平台也不必逐台轮询。主题按设备/项目分层组织，一条开关指令本质就是往某个主题 publish 一条消息，订阅了该主题的灯就会收到。QoS 三档（0 至多一次、1 至少一次、2 恰好一次）控制消息可靠性，工程遥测多用 QoS1。</p>
+<p><b>设备影子</b>是平台维护的一份"设备的期望状态 + 上报状态"副本：App 改的是期望状态，设备同步后再回填实际状态，两者不一致就是"指令发了但没生效"在云端的可观测证据。<b>OTA</b>（在线升级）是平台往设备推固件的能力——它解决了"现场几百盏灯逐个升级"的问题，但也带来风险：升级中断、版本不兼容。所以 OTA 通常分批灰度、夜间窗口、保底回滚，这也是为什么出问题时要先问"最近是不是升级过固件"。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 280" role="img" aria-label="MQTT">
+  <rect class="bx" x="100" y="100" width="180" height="60" rx="8"/>
+  <text x="190" y="126" class="tb" text-anchor="middle">App / 平台</text>
+  <text x="190" y="146" class="s" text-anchor="middle">发布主题 A</text>
+  <rect class="bx2" x="380" y="90" width="200" height="80" rx="8"/>
+  <text x="480" y="118" class="tb" text-anchor="middle">Broker</text>
+  <text x="480" y="140" class="t" text-anchor="middle">消息代理（解耦）</text>
+  <text x="480" y="160" class="s" text-anchor="middle">按主题路由</text>
+  <rect class="bx4" x="680" y="100" width="180" height="60" rx="8"/>
+  <text x="770" y="126" class="tb" text-anchor="middle">灯具 / 网关</text>
+  <text x="770" y="146" class="s" text-anchor="middle">订阅主题 A</text>
+  <line class="lb" x1="280" y1="130" x2="378" y2="130" marker-end="url(#a1)"/>
+  <line class="lg" x1="582" y1="130" x2="678" y2="130" marker-end="url(#a4)"/>
+  <rect class="bx3" x="100" y="205" width="760" height="56" rx="6"/>
+  <text x="480" y="227" class="t" text-anchor="middle">设备影子：期望状态 vs 上报状态，不一致 = "指令发了但没生效"的云端证据</text>
+  <text x="480" y="248" class="s" text-anchor="middle">OTA 分批灰度、夜间窗口；出怪问题先问"最近升级过固件吗"</text>
+</svg>
+<div class="cap">图 22　MQTT 发布/订阅与设备影子、OTA</div>
+</div>
+
+<h3 id="c38">3.8　网络排障基础</h3>
+<p>现场网络排障有一套固定的命令顺序，Windows 与 Linux 两侧各有对应：</p>
+<ol class="steps">
+<li><b>看本机配置</b>：<code>ipconfig</code>（Windows）/ <code>ip addr</code>（Linux）——确认 IP、掩码、网关地址对不对；</li>
+<li><b>测链路</b>：<code>ping 网关地址</code>——通了说明本段 OK，不通查网线、交换机端口、IP 冲突；</li>
+<li><b>测出口</b>：<code>ping 目标服务器/域名</code>，再用 <code>nslookup</code> 验 DNS——ping IP 通而域名不通是 DNS 问题；</li>
+<li><b>测端口</b>：<code>telnet 服务器IP 端口</code> 或 <code>nc</code>——服务通不通与网络通不通是两回事；</li>
+<li><b>看路径</b>：<code>tracert</code>（Windows）/ <code>traceroute</code>（Linux）——定位卡在哪一跳。</li>
+</ol>
+<p>这套顺序的价值在于<b>从近到远逐层排除</b>，每一步都能锁定一个层次，而不是"上不了云就重启网关"。与之配套的三个常识：IP 冲突会让设备时好时坏（两台设备抢一个地址）；交换机端口配置错 VLAN 会让设备"插上灯亮但网络不同"；防火墙没放行特定端口会拦下回程数据。完整的命令清单与七层排查法见《项目全流程执行指南》"后期调试"一章，此处只给最小必要集。</p>
+<div class="fig">
+<svg viewBox="0 0 860 300" role="img" aria-label="网络排障的四层顺序">
+  <defs><marker id="sb" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#37596F"/></marker></defs>
+
+  <text x="20" y="30" class="s" font-size="12.5">网络不通时不要一上来就重启设备，按“物理 → 地址 → 端口 → 服务”四步走，每步都有一个能证伪的动作</text>
+
+  <rect class="bx" x="20" y="56" width="188" height="92" rx="6"/>
+  <text x="114" y="82" class="tb" text-anchor="middle" font-size="13.5">① 物理层</text>
+  <text x="114" y="104" class="s" text-anchor="middle" font-size="11.5">看灯、换线、换口</text>
+  <text x="114" y="126" class="s" text-anchor="middle" font-size="11">网口灯不亮＝线或口</text>
+
+  <line class="lb" x1="210" y1="102" x2="234" y2="102" marker-end="url(#sb)"/>
+
+  <rect class="bx2" x="236" y="56" width="188" height="92" rx="6"/>
+  <text x="330" y="82" class="tb" text-anchor="middle" font-size="13.5">② 地址层</text>
+  <text x="330" y="104" class="s" text-anchor="middle" font-size="11.5">同网段？ping 网关</text>
+  <text x="330" y="126" class="s" text-anchor="middle" font-size="11">不通＝IP/掩码/路由</text>
+
+  <line class="lb" x1="426" y1="102" x2="450" y2="102" marker-end="url(#sb)"/>
+
+  <rect class="bx3" x="452" y="56" width="188" height="92" rx="6"/>
+  <text x="546" y="82" class="tb" text-anchor="middle" font-size="13.5">③ 端口层</text>
+  <text x="546" y="104" class="s" text-anchor="middle" font-size="11.5">telnet IP 端口</text>
+  <text x="546" y="126" class="s" text-anchor="middle" font-size="11">通＝服务在，不通＝防火墙</text>
+
+  <line class="lb" x1="642" y1="102" x2="666" y2="102" marker-end="url(#sb)"/>
+
+  <rect class="bx4" x="668" y="56" width="172" height="92" rx="6"/>
+  <text x="754" y="82" class="tb" text-anchor="middle" font-size="13.5">④ 服务层</text>
+  <text x="754" y="104" class="s" text-anchor="middle" font-size="11.5">账号、证书、绑定</text>
+  <text x="754" y="126" class="s" text-anchor="middle" font-size="11">登录失败看日志</text>
+
+  <text x="20" y="182" class="s" font-size="12">顺序不能反：端口测不通时去看账号是白费的；地址不对时去查防火墙也是白费的</text>
+  <text x="20" y="206" class="s" font-size="12">常用三件：<tspan font-family="Consolas" fill="#0A3D5C">ipconfig /all</tspan> 看本机地址与网关、<tspan font-family="Consolas" fill="#0A3D5C">ping</tspan> 看可达、<tspan font-family="Consolas" fill="#0A3D5C">telnet IP 端口</tspan> 看服务</text>
+  <text x="20" y="236" class="s" font-size="12">网关类设备还有一个专属坑：<tspan fill="#A63A2C">出厂 192.168.1.1</tspan>，上云后被 DHCP 改掉，现场按默认地址打不开是正常的，先去路由器列表找</text>
+</svg>
+<div class="cap">图 23　排障四层：物理、地址、端口、服务，每层都有一步能证伪的动作</div>
+</div>
+
+
+
+<h3 id="c39">3.9　楼宇自控对接：干接点与协议</h3>
+<p>智能照明接入楼宇自控（BA）系统，本质只有两条路：<b>干接点握手</b>（离散信号级）和<b>协议对接</b>（数据级）。干接点是用 IO 模块采集/输出"通"与"断"——可靠、无协议、信息量低、语义靠平台配置；协议对接走 Modbus RTU/TCP、BACnet/IP、KNX 这类标准协议，网关做协议转换，信息量大、可双向读状态，但要处理波特率、寄存器映射、点位表这些工程细节。</p>
+<p>取舍就一句：<b>先问"要传几个状态，还是要传数据"</b>。消防联动、门磁、状态握手这类"通还是断"，用干接点，稳；能耗数据上送、集中监控、远程策略下发这类"要读值"，用协议。两者不是互斥——同一个项目里，消防强切走干接点、能耗上报走协议，是常见组合。具体协议对接的配置（Modbus/BACnet 点位表、网关设置）见《第三方对接指导》，本册只讲清"什么时候该上协议、什么时候用触点就够"这条判断线。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 300" role="img" aria-label="干接点与协议对接">
+  <rect class="bx2" x="60" y="50" width="400" height="84" rx="6"/>
+  <text x="260" y="80" class="tb" text-anchor="middle">干接点握手（离散信号）</text>
+  <text x="260" y="104" class="t" text-anchor="middle">IO 模块采集/输出 通-断</text>
+  <text x="260" y="124" class="s" text-anchor="middle">可靠、信息量低、语义靠配置</text>
+  <rect class="bx4" x="500" y="50" width="400" height="84" rx="6"/>
+  <text x="700" y="80" class="tb" text-anchor="middle">协议对接（数据级）</text>
+  <text x="700" y="104" class="t" text-anchor="middle">Modbus / BACnet / KNX</text>
+  <text x="700" y="124" class="s" text-anchor="middle">信息量大、双向、需网关转换</text>
+  <rect class="bx3" x="180" y="164" width="600" height="92" rx="6"/>
+  <text x="480" y="192" class="tb" text-anchor="middle">取舍：先问"要传几个状态，还是要传数据"</text>
+  <text x="480" y="218" class="t" text-anchor="middle">消防联动、门磁、状态握手 → 干接点</text>
+  <text x="480" y="242" class="t" text-anchor="middle">能源管理、集中监控、数据上送 → 协议</text>
+</svg>
+<div class="cap">图 24　楼宇自控对接：干接点握手 vs 协议对接</div>
+</div>
+
+<h2 id="p4">第四篇　自组网知识盲区补全</h2>
+
+<p>这一篇把前面三篇的底层知识，直接对到自组网/睿壹 MAX 现场最常被问倒的那些点。每一节都是一个"知道原理就能一眼定位"的盲区。</p>
+
+<h3 id="c41">4.1　2.4G 为什么绕墙就衰减</h3>
+<p>2.4GHz 电磁波穿过介质时被吸收、被反射，衰减量取决于介质和厚度。经验值：<b>玻璃窗 2–4dB、石膏板墙 3–5dB、砖墙 10–15dB、钢筋混凝土墙/楼板 15–25dB（含钢筋的反射）、金属和电梯井接近全反射</b>。记住 6dB 这个刻度——每差 6dB 信号就减半（电压）或差四倍（功率），所以一堵 15dB 的混凝土墙和"把距离拉远四倍"是等价的。</p>
+<p>现场含义有三条：一是"隔一堵承重墙就搜不到"是正常物理现象，不是灯坏了；二是布灯做 Mesh 时，<b>中继节点要放在能"看得见"两端的开阔处</b>，放墙角等于自废武功；三是金属吊顶、电梯、机房这类大金属面对 2.4G 是镜子，会造成"紧挨着信号还差"的死角。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 280" role="img" aria-label="穿墙衰减">
+  <rect class="bx2" x="60" y="120" width="90" height="50" rx="6"/>
+  <text x="105" y="148" class="t" text-anchor="middle">灯 A</text>
+  <rect x="250" y="70" width="40" height="150" fill="#D9E2EA" stroke="#8FA3B4"/>
+  <text x="270" y="250" class="s" text-anchor="middle">混凝土墙 15–25dB</text>
+  <rect class="bx2" x="390" y="120" width="90" height="50" rx="6"/>
+  <text x="435" y="148" class="t" text-anchor="middle">灯 B</text>
+  <line class="ld" x1="150" y1="145" x2="248" y2="145"/>
+  <line class="ld" x1="292" y1="145" x2="388" y2="145"/>
+  <text x="220" y="60" class="s" text-anchor="middle">每 +6dB = 信号减半</text>
+  <rect class="bx3" x="520" y="60" width="390" height="170" rx="6"/>
+  <text x="715" y="92" class="tb" text-anchor="middle">介质衰减经验值</text>
+  <text x="715" y="120" class="t" text-anchor="middle">玻璃 2–4dB　石膏板 3–5dB</text>
+  <text x="715" y="146" class="t" text-anchor="middle">砖墙 10–15dB　混凝土 15–25dB</text>
+  <text x="715" y="172" class="t" text-anchor="middle">金属/电梯井 ≈ 全反射</text>
+  <text x="715" y="202" class="s" text-anchor="middle">中继要放开阔处，别贴墙角</text>
+</svg>
+<div class="cap">图 25　2.4G 穿墙衰减：隔墙搜不到是物理，不是故障</div>
+</div>
+
+<h3 id="c42">4.2　信道轮询与抗干扰</h3>
+<p>自组网在 2.4G 上做<b>信道轮询</b>：通信不在一个固定信道，而在约定的几个信道上轮转（自组网手册记为五个信道）。这样做的逻辑是"不把鸡蛋放一个篮子"——某个信道被 WiFi 占满时，其他信道的轮询窗口仍然能通，代价是切换时延和协议复杂度。</p>
+<p>对现场的意义：<b>全频段强干扰（如大功率微波、密集 WiFi 叠加）比单一干扰更致命</b>，因为轮询跳来跳去都躲不开；而偶发丢包、短时卡顿，往往是某个信道被占用，系统在等下一个轮询窗口。判断干扰源有个土办法：拿手机 WiFi 分析工具看现场 2.4G 的信道占用，哪个信道挤成一团，多半就是它。</p>
+
+<h3 id="c43">4.3　心跳、在线与"假在线"</h3>
+<p>设备"在线"不是靠平台实时盯着，而是靠<b>心跳</b>：设备周期性上报一条短消息，平台在若干个心跳周期内没收到，就判离线。这里有三个盲区：一是<b>离线判定有延迟</b>——设备实际已经断电，平台可能还要等 1–3 个心跳周期才变灰，这段时间叫"假在线"；二是<b>心跳频率是容量与及时的权衡</b>——心跳越密越及时，但越占空口和平台资源；三是<b>离线 ≠ 故障</b>——休眠的电池面板、被关断的回路，本来就该离线。</p>
+<p>现场判断"这盏灯到底还活着吗"，不能只看平台图标，要发一条指令看有没有回应（读状态），或者到设备旁用调试工具直连。平台图标"灰"和"绿"的切换时机，比图标本身更值得怀疑。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 260" role="img" aria-label="心跳与假在线">
+  <line x1="60" y1="200" x2="900" y2="200" class="ln"/>
+  <line x1="60" y1="90" x2="300" y2="90" class="lg" stroke-width="2"/>
+  <circle cx="80" cy="90" r="5" fill="#0E6049"/><circle cx="140" cy="90" r="5" fill="#0E6049"/><circle cx="200" cy="90" r="5" fill="#0E6049"/><circle cx="260" cy="90" r="5" fill="#0E6049"/>
+  <text x="180" y="70" class="t" text-anchor="middle">心跳正常</text>
+  <text x="340" y="95" class="tb" fill="#A63A2C">设备断电（平台未知）</text>
+  <line x1="330" y1="90" x2="480" y2="90" class="lr" stroke-width="2" stroke-dasharray="6 5"/>
+  <text x="480" y="70" class="t" text-anchor="middle">1–3 个心跳周期后平台才判离线 → 假在线窗口</text>
+  <text x="700" y="90" class="tb">平台转"离线"</text>
+  <circle cx="720" cy="118" r="5" fill="#A63A2C"/>
+  <rect class="bx3" x="60" y="220" width="840" height="34" rx="4"/>
+  <text x="480" y="242" class="s" text-anchor="middle">图标灰绿切换有延迟——判断"灯活没活"要发指令读状态，不要只看图标</text>
+</svg>
+<div class="cap">图 26　心跳与假在线：离线判定有延迟，发指令验证</div>
+</div>
+
+<h3 id="c44">4.4　传感器三大探测原理</h3>
+<p>照明传感器用三种物理原理探测"人"：<b>PIR（热释电红外）</b>靠人体 9.4μm 的红外辐射，经菲涅尔透镜分成明暗交替的扇区，人横穿扇区时产生电信号——它只对"移动的发热体"敏感，人静止不动就会丢；<b>微波（多普勒雷达）</b>发射 5.8GHz 微波，靠移动物体反射波的频移探测，能穿透衣服和薄隔断，但会被飘动的窗帘、风机、空调气流误触发；<b>照度探测</b>则与"人"无关，测的是环境光强，用于恒照度闭环和白天关灯。</p>
+<p>三种原理决定三种误报/漏报模式：PIR 漏报"坐着不动的"，微波误报"风吹草动"，照度被局部遮挡就失真。所以高可靠场景用<b>多原理复合</b>——睿壹的四合一传感器、人体存在照度传感器都是"红外 + 微波（或雷达）+ 照度"组合，用静止/微动/移动的多档输出去逼近真实占用。选传感器时先问"这个空间里人会怎么动、还有什么会动"，再定探测原理，而不是先看参数表。<span class="tag tag-f">现场</span></p>
+
+<div class="fig">
+<svg viewBox="0 0 960 300" role="img" aria-label="探测原理">
+  <rect class="bx" x="60" y="60" width="260" height="100" rx="6"/>
+  <text x="190" y="88" class="tb" text-anchor="middle">PIR 热释电红外</text>
+  <text x="190" y="114" class="t" text-anchor="middle">探测：移动的发热体</text>
+  <text x="190" y="136" class="s" text-anchor="middle">漏报：静止不动的人</text>
+  <rect class="bx" x="350" y="60" width="260" height="100" rx="6"/>
+  <text x="480" y="88" class="tb" text-anchor="middle">微波多普勒（5.8G）</text>
+  <text x="480" y="114" class="t" text-anchor="middle">探测：一切移动物体</text>
+  <text x="480" y="136" class="s" text-anchor="middle">误报：窗帘、风机、气流</text>
+  <rect class="bx" x="640" y="60" width="260" height="100" rx="6"/>
+  <text x="770" y="88" class="tb" text-anchor="middle">照度探测</text>
+  <text x="770" y="114" class="t" text-anchor="middle">探测：环境光强</text>
+  <text x="770" y="136" class="s" text-anchor="middle">失真：局部遮挡</text>
+  <rect class="bx3" x="180" y="196" width="600" height="76" rx="6"/>
+  <text x="480" y="226" class="tb" text-anchor="middle">高可靠场景：多原理复合（红外 + 微波/雷达 + 照度）</text>
+  <text x="480" y="252" class="t" text-anchor="middle">选型先问"人会怎么动、还有什么会动"，再定原理</text>
+</svg>
+<div class="cap">图 27　三种探测原理：各有漏报/误报模式，复合才可靠</div>
+</div>
+
+<h3 id="c45">4.5　调光的四条技术路线</h3>
+<p>灯要变暗，本质是控制驱动输出的大小。常见路线有四条：<b>模拟调光</b>（给驱动一个直流参考电压，单向"给个值"）、<b>PWM 数字信号</b>（用占空比给参考）、<b>切相调光</b>（前沿/后沿可控硅切交流波形，用于驱动不兼容的旧灯）、<b>数字协议</b>（DALI 这类总线发数字指令，驱动自己执行）。四者的区别不在"能不能调"，而在<b>控制与反馈的信息量</b>：模拟/PWM/切相都是单方向的"给个值"，数字协议可以双向——DALI 能读回灯的状态、故障、地址，这是前三种做不到的。</p>
+<p>本体系的口径：<b>调光主线走 DALI（数字协议），OBUS 定位是开关、计量、联动，不做调光</b>。切相（蓝牙转可控硅模块）作为改造旧灯、驱动不兼容时的过渡手段保留；模拟电压调光在本体系不再采用。把调光统一收口到 DALI，链路清晰、驱动生态一致、故障好查——这就是为什么不在方案里问"OBUS 能不能顺便调个光"。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 300" role="img" aria-label="四条调光路线">
+  <rect class="bx" x="40" y="60" width="205" height="92" rx="6"/>
+  <text x="142" y="88" class="tb" text-anchor="middle">模拟调光</text>
+  <text x="142" y="112" class="t" text-anchor="middle">直流参考电压</text>
+  <text x="142" y="132" class="s" text-anchor="middle">单向，不回读</text>
+  <rect class="bx" x="260" y="60" width="205" height="92" rx="6"/>
+  <text x="362" y="88" class="tb" text-anchor="middle">PWM 调光</text>
+  <text x="362" y="112" class="t" text-anchor="middle">占空比给参考</text>
+  <text x="362" y="132" class="s" text-anchor="middle">频率决定频闪</text>
+  <rect class="bx" x="480" y="60" width="205" height="92" rx="6"/>
+  <text x="582" y="88" class="tb" text-anchor="middle">切相调光</text>
+  <text x="582" y="112" class="t" text-anchor="middle">可控硅切波形</text>
+  <text x="582" y="132" class="s" text-anchor="middle">改造旧灯过渡</text>
+  <rect class="bx4" x="700" y="60" width="220" height="92" rx="6"/>
+  <text x="810" y="88" class="tb" text-anchor="middle">数字协议（DALI）</text>
+  <text x="810" y="112" class="t" text-anchor="middle">数字指令，双向</text>
+  <text x="810" y="132" class="s" text-anchor="middle">回读状态/故障</text>
+  <rect class="bx3" x="120" y="190" width="720" height="72" rx="6"/>
+  <text x="480" y="218" class="tb" text-anchor="middle">调光主线走 DALI；切相作改造过渡；模拟调光不再采用</text>
+  <text x="480" y="244" class="s" text-anchor="middle">OBUS 做开关、计量、联动，不做调光——统一收口，链路清晰</text>
+</svg>
+<div class="cap">图 28　四条调光路线：数字协议赢在双向，主线走 DALI</div>
+</div>
+
+<h3 id="c46">4.6　联动的时序与时钟</h3>
+<p>"感应到人就亮"背后是一串时序：传感器探测 → 上报 → 策略判断 → 下发 → 灯响应，每一跳都有延迟。无线链路里这几跳叠加，用户能感知的是"进去慢半拍才亮"——这就是时延的来源，不是灯迟钝。所以<b>对响应要求高的联动（如照度恒值、告警）要尽量把决策下沉</b>：能本地闭环就别绕平台一圈。</p>
+<p>时钟是另一个盲区：定时任务、作息策略依赖设备时钟，设备时钟靠平台校时。平台时间源出错、设备长期离线，都会让"18 点关灯"变成"17 点 59 或 18 点 03"。跨时区、夏令时、闰年这类边界，定时类功能最容易翻车。现场核对定时策略前，先对一下网关与平台的时钟偏差。</p>
+<div class="fig">
+<svg viewBox="0 0 780 306" role="img" aria-label="一次人来灯亮的五跳时延构成">
+  <defs><marker id="jc" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#12557E"/></marker></defs>
+
+  <text x="12" y="26" class="s" font-size="13.5">一次“人来灯亮”是五跳串联：每跳都不长，加起来就是“慢半拍”</text>
+
+  <rect class="bx" x="10" y="44" width="144" height="92" rx="6"/>
+  <text x="82" y="74" class="tb" text-anchor="middle" font-size="14.5">① 探测</text>
+  <text x="82" y="100" class="s" text-anchor="middle" font-size="13">0.5–2 s</text>
+  <text x="82" y="122" class="s" text-anchor="middle" font-size="12">含防误判延时</text>
+
+  <line class="lb" x1="156" y1="90" x2="164" y2="90" marker-end="url(#jc)"/>
+
+  <rect class="bx2" x="166" y="44" width="144" height="92" rx="6"/>
+  <text x="238" y="74" class="tb" text-anchor="middle" font-size="14.5">② 上报</text>
+  <text x="238" y="100" class="s" text-anchor="middle" font-size="13">0.1–0.5 s</text>
+  <text x="238" y="122" class="s" text-anchor="middle" font-size="12">看信道与重传</text>
+
+  <line class="lb" x1="312" y1="90" x2="320" y2="90" marker-end="url(#jc)"/>
+
+  <rect class="bx3" x="322" y="44" width="144" height="92" rx="6"/>
+  <text x="394" y="72" class="tb" text-anchor="middle" font-size="14.5">③ 判断</text>
+  <text x="394" y="96" class="s" text-anchor="middle" font-size="13">本地 0.05 s</text>
+  <text x="394" y="118" class="s" text-anchor="middle" font-size="13">绕平台 0.3–1 s</text>
+
+  <line class="lb" x1="468" y1="90" x2="476" y2="90" marker-end="url(#jc)"/>
+
+  <rect class="bx" x="478" y="44" width="144" height="92" rx="6"/>
+  <text x="550" y="74" class="tb" text-anchor="middle" font-size="14.5">④ 下发</text>
+  <text x="550" y="100" class="s" text-anchor="middle" font-size="13">0.1–0.5 s</text>
+  <text x="550" y="122" class="s" text-anchor="middle" font-size="12">走下行链路</text>
+
+  <line class="lb" x1="624" y1="90" x2="632" y2="90" marker-end="url(#jc)"/>
+
+  <rect class="bx4" x="634" y="44" width="136" height="92" rx="6"/>
+  <text x="702" y="74" class="tb" text-anchor="middle" font-size="14.5">⑤ 灯具</text>
+  <text x="702" y="100" class="s" text-anchor="middle" font-size="13">渐变 0.3–1 s</text>
+  <text x="702" y="122" class="s" text-anchor="middle" font-size="12">越长越缓</text>
+
+  <rect x="12" y="166" width="13" height="13" rx="3" fill="#0E6049"/>
+  <text x="34" y="178" class="s" font-size="13" fill="#0E6049">本地闭环（①③本地④⑤）≈ 1 s — 判断在网关或模块内完成，②③ 两跳被砍掉</text>
+
+  <rect x="12" y="196" width="13" height="13" rx="3" fill="#A63A2C"/>
+  <text x="34" y="208" class="s" font-size="13" fill="#A63A2C">绕平台（①②③云端④⑤）≈ 2.5–4 s — 多走一趟上行与下行</text>
+
+  <text x="12" y="248" class="s" font-size="13">对响应敏感（恒照度、人流跟随、告警联动）→ 把判断下沉；对响应不敏感（定时、报表、能耗）→ 绕平台更好维护</text>
+  <text x="12" y="276" class="s" font-size="12" fill="#54677A">注：区间为工程典型值，实际取决于传感器延时设置、信道占用率与平台部署位置</text>
+</svg>
+<div class="cap">图 29　五跳串联：本地闭环约 1 秒，绕平台约 2.5–4 秒，差别在决策点画在哪</div>
+</div>
+
+<h3 id="c47">4.7　配网与密钥：为什么有加密狗</h3>
+<p>自组网配网要插 <b>Type-C 加密狗</b>，本质是<b>密钥与身份</b>：私有 2.4G 协议需要一个密钥来证明"我是被授权的调试设备"，才能进网、搜灯、配场景。没有它，谁拿个手机都能搜到灯、改别人的场景——加密狗是这套系统的"门禁卡"。</p>
+<p>这解释了两个常见疑问：一是"为什么换个手机就不能调试"——密钥不在手机里，在加密狗里，狗换到哪、授权就跟到哪；二是"加密狗丢了怎么办"——它等于调试权限丢失，要走补办/换钥流程，不是重装个 App 的事。同理，配网过程中的"选中态""搜灯"等状态，都是为了在带密钥的前提下安全地建立绑定关系（详见自组网手册 1.7）。</p>
+
+<h3 id="c48">4.8　容量的瓶颈在哪一层</h3>
+<p>所有"能带多少"的上限，都来自某一层的物理约束，而不是厂家拍脑袋：蓝牙 Mesh 的 150 节点，瓶颈在<b>空口时间</b>——泛洪转发下每条消息都在全网复制，节点越多、转发越多，空口越拥挤，超过某个量后延迟和丢包不可接受；OBUS 总线的 ≤64 台，瓶颈在<b>总线电气负载与轮询</b>；DALI 每路的 64 地址，是<b>协议地址空间</b>的硬上限（工程还按 24–32 设计留余量）。</p>
+<p>所以"容量不够"的解法因层而异：空口不够就<b>分区、加网关、降心跳</b>，地址不够就<b>加总线、加网关</b>，而不是无脑堆。看懂这一点，面对"我能不能再加 30 盏灯"这类问题时，回答就从"我问问厂家"变成"看卡在哪一层"——这是技术人员和被问住之间最本质的分界线。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 300" role="img" aria-label="容量瓶颈">
+  <rect class="bx2" x="60" y="60" width="260" height="80" rx="6"/>
+  <text x="190" y="90" class="tb" text-anchor="middle">蓝牙 Mesh ≤150 节点</text>
+  <text x="190" y="116" class="s" text-anchor="middle">瓶颈：空口时间（泛洪复制）</text>
+  <rect class="bx2" x="350" y="60" width="260" height="80" rx="6"/>
+  <text x="480" y="90" class="tb" text-anchor="middle">OBUS 总线 ≤64 台</text>
+  <text x="480" y="116" class="s" text-anchor="middle">瓶颈：电气负载 + 轮询</text>
+  <rect class="bx2" x="640" y="60" width="260" height="80" rx="6"/>
+  <text x="770" y="90" class="tb" text-anchor="middle">DALI 64 地址/路</text>
+  <text x="770" y="116" class="s" text-anchor="middle">瓶颈：协议地址空间</text>
+  <rect class="bx3" x="180" y="180" width="600" height="76" rx="6"/>
+  <text x="480" y="208" class="tb" text-anchor="middle">解法因层而异：空口不够 → 分区/加网关/降心跳</text>
+  <text x="480" y="232" class="t" text-anchor="middle">地址不够 → 加总线/加网关；不是无脑堆设备</text>
+</svg>
+<div class="cap">图 30　三种容量上限，各卡在不同的层</div>
+</div>
+
+<h2 id="p5">第五篇　在售产品体系与资料补全</h2>
+
+<h3 id="c51">5.1　产品体系全景：四条线</h3>
+<p>伊尔莱德手上的产品分四条线，用"谁来做末端、谁来控制"一句话就能归位：<b>睿壹有线</b>（OBUS/DALI 总线 + 网关 + 模块，改造和新建立面都能用）、<b>睿壹无线</b>（蓝牙 SigMesh 网关 + 转换模块 + 面板 + 传感器，走线困难的补充）、<b>自组网整灯</b>（灯内 2.4G/蓝牙模块，新建厂房标准做法）、<b>传统与基础照明产品</b>（筒射灯、灯盘、支架、天棚、三防、洁净、防爆、灯带——提供"被控制的那盏灯"）。</p>
+<div class="principle"><b>记产品的一条主线：</b>四条线不是并列的四个孤岛，而是"灯（基础照明）"+"控制（有线/无线/自组网三选一）"的组合。谈任何一个项目，先定"灯用哪家哪系列"，再定"怎么控"，最后才是"要不要上平台"。这个先后顺序错了，选型就会在参数堆里迷路。</div>
+
+<div class="fig">
+<svg viewBox="0 0 960 340" role="img" aria-label="产品全景">
+  <rect class="bx" x="60" y="60" width="400" height="60" rx="6"/>
+  <text x="260" y="84" class="tb" text-anchor="middle">传统与基础照明产品（被控制的"那盏灯"）</text>
+  <text x="260" y="106" class="s" text-anchor="middle">筒射灯 · 灯盘 · 支架 · 天棚 · 三防 · 洁净 · 防爆 · 灯带</text>
+  <rect class="bx2" x="60" y="140" width="190" height="60" rx="6"/>
+  <text x="155" y="164" class="tb" text-anchor="middle">睿壹有线</text>
+  <text x="155" y="186" class="s" text-anchor="middle">OBUS / DALI</text>
+  <rect class="bx2" x="270" y="140" width="190" height="60" rx="6"/>
+  <text x="365" y="164" class="tb" text-anchor="middle">睿壹无线</text>
+  <text x="365" y="186" class="s" text-anchor="middle">蓝牙 SigMesh</text>
+  <rect class="bx4" x="60" y="220" width="400" height="60" rx="6"/>
+  <text x="260" y="244" class="tb" text-anchor="middle">自组网整灯（新建厂房标准做法）</text>
+  <text x="260" y="266" class="s" text-anchor="middle">灯内 2.4G / 蓝牙模块 + 加密狗配网</text>
+  <rect class="bx3" x="540" y="120" width="360" height="160" rx="6"/>
+  <text x="720" y="150" class="tb" text-anchor="middle">选型顺序</text>
+  <text x="720" y="182" class="t" text-anchor="middle">① 灯用哪家哪系列</text>
+  <text x="720" y="210" class="t" text-anchor="middle">② 怎么控（有线/无线/自组网）</text>
+  <text x="720" y="238" class="t" text-anchor="middle">③ 要不要上平台（睿壹/云）</text>
+  <text x="720" y="266" class="s" text-anchor="middle">顺序错了，就在参数堆里迷路</text>
+</svg>
+<div class="cap">图 31　产品体系全景：灯 + 控制（三选一）+ 平台</div>
+</div>
+
+<h3 id="c52">5.2　睿壹有线家族</h3>
+<p>睿壹有线是"总线 + 网关 + 模块"的结构：网关做协议转换，模块做开关/计量/IO，传感器做感知，面板做现场操作。下面是在售清单里的有线主体，料号与关键参数以《商用项目渠道在售清单 20260826》为准。</p>
+<table>
+<caption>表 4　睿壹有线家族核心料号</caption>
+<thead><tr><th>类别</th><th>产品</th><th>料号</th><th>关键点</th></tr></thead>
+<tbody>
+<tr><td>系统</td><td>边缘服务器</td><td>822008000100</td><td>RY-IOT-EDGE-E01，提供睿壹本地服务</td></tr>
+<tr><td rowspan="3">网关</td><td>OBUS 网关</td><td>560000000900</td><td>2 路 OBUS（250mA/路）→ TCP/IP，2 路干接点输入</td></tr>
+<tr><td>DALI 网关</td><td>560000001000</td><td>2 路 DALI → TCP/IP，2 路干接点输入</td></tr>
+<tr><td>混合网关</td><td>821000000600</td><td>1 路 OBUS + 1 路 DALI 1.0/2.0，2 路干接点输入</td></tr>
+<tr><td rowspan="3">开关量</td><td>12 路开关量模块</td><td>821004000100</td><td>12×20A 磁保持继电器，功率计量，OBUS</td></tr>
+<tr><td>8 路开关量模块</td><td>821004000200</td><td>8×20A，功率计量，OBUS</td></tr>
+<tr><td>4 路开关量模块</td><td>821004000300</td><td>4×20A，功率计量，OBUS</td></tr>
+<tr><td rowspan="2">IO</td><td>数字 IO I8</td><td>560004000100</td><td>8 路干接点输入，OBUS</td></tr>
+<tr><td>数字 IO I4O4</td><td>560004000200</td><td>4 输入 + 4 输出干接点，OBUS</td></tr>
+<tr><td>传感器</td><td>四合一传感器</td><td>560000005200</td><td>温/湿/照度/人体移动，OBUS</td></tr>
+<tr><td rowspan="2">面板</td><td>inno485 六键场景面板</td><td>600000457400</td><td>8 键自定义，OBUS</td></tr>
+<tr><td>inno485 面板 + 高清屏</td><td>600000457300</td><td>标准 86 盒</td></tr>
+</tbody>
+</table>
+<div class="note"><b>口径重申：</b>本体系调光收口到 DALI，OBUS 承担开关、计量、联动。<b>继电器模块是执行开关动作，不是断路器</b>——短路过载保护始终在配电侧断路器上。</div>
+
+<h3 id="c53">5.3　睿壹无线家族</h3>
+<p>睿壹无线以蓝牙 SigMesh 组网，特点是"转换模块家族"——把蓝牙信号转换成继电器、可控硅、DALI 等末端能力，配合面板和传感器形成不依赖总线的控制方案。核心料号如下：</p>
+<table>
+<caption>表 5　睿壹无线家族核心料号</caption>
+<thead><tr><th>类别</th><th>产品</th><th>料号</th><th>关键点</th></tr></thead>
+<tbody>
+<tr><td rowspan="2">网关</td><td>商用 SigMesh 网关</td><td>821011002500</td><td>蓝牙/DALI，150 SigMesh 节点，1 路 DALI + 1 路 RS485</td></tr>
+<tr><td>融合网关 G2</td><td>822005000300</td><td>蓝牙/WIFI/DALI，子设备 ≤64、总线 ≤300m、蓝牙 Mesh ≤150</td></tr>
+<tr><td rowspan="4">转换模块</td><td>继电器 1000W</td><td>821017003700</td><td>1 路 1000W 继电器</td></tr>
+<tr><td>蓝牙转可控硅 250W</td><td>821017003500</td><td>1 路 250W 前后切相（可配），功率计量</td></tr>
+<tr><td>蓝牙转 DALI</td><td>821017003100</td><td>1 路 DALI 广播 + 1 路 1000W 继电器</td></tr>
+<tr><td>蓝牙 8 路干接点</td><td>821017003300</td><td>8 路自定义干接点输入</td></tr>
+<tr><td rowspan="3">传感器</td><td>微波传感器</td><td>821006001700</td><td>5.8G 微波动静，R=5–7m @7–12m</td></tr>
+<tr><td>人体存在照度传感器</td><td>821006002400</td><td>微动/移动 φ3.5m、静止 φ2.5m @3m</td></tr>
+<tr><td>四合一传感器</td><td>821006001900</td><td>红外+照度+温湿度，SigMesh</td></tr>
+<tr><td rowspan="2">面板</td><td>SigMesh 八键面板</td><td>821009000300</td><td>开/关/调亮/调暗 + 4 场景，纽扣电池</td></tr>
+<tr><td>inno 蓝牙面板（1–3 位）</td><td>600000437500 等</td><td>220V 强电面板，BLE SigMesh</td></tr>
+</tbody>
+</table>
+
+<h3 id="c54">5.4　自组网整灯与设备</h3>
+<p>自组网整灯方案是把 2.4G/蓝牙模块做进灯里，配合加密狗配网、面板操作，省去总线和网关（要上云时再加云上网关）。在售清单里的自组网设备与整灯如下：</p>
+<table>
+<caption>表 6　自组网设备与整灯（格兰斯贝）</caption>
+<thead><tr><th>类别</th><th>产品</th><th>料号</th><th>关键点</th></tr></thead>
+<tbody>
+<tr><td rowspan="2">面板</td><td>蓝牙 6 键面板（灰）</td><td>822009000100</td><td>自组网面板，供电版</td></tr>
+<tr><td>蓝牙 6 键面板（电池版）</td><td>606000005401</td><td>自组网面板，电池版</td></tr>
+<tr><td>调试工具</td><td>USB 调试器（加密狗）</td><td>596001000100</td><td>GS2011，配网/搜灯/配场景的密钥载体</td></tr>
+<tr><td>云上网关</td><td>云上网关 GS-Linker</td><td>822005000200</td><td>常规工况覆盖直径 100–150m</td></tr>
+<tr><td rowspan="2">整灯</td><td>鹏晖 V 自组网（100W/130W 等）</td><td>545006023501 等</td><td>LTP 天棚平台，857 色温，自组网 ETO</td></tr>
+<tr><td>鹏晖 V 自组网（MD 微波款）</td><td>545006008200 等</td><td>带微波感应，60°/100° 配光可选</td></tr>
+</tbody>
+</table>
+<div class="note"><b>命名示范（GS1A7）：</b>自组网整灯的设备编号用"GS + 设备编号 + 位置"编码，如 GS1A7 = GS 前缀 + 1 号设备 + A 栋 7 层，配网时靠这个编号在人堆里找到"那一盏灯"。完整的命名规则与地址/网络编码见《欧普自组网技术专家手册》1.3、1.4。</div>
+
+<h3 id="c55">5.5　灯具家族速览</h3>
+<p>基础照明产品按空间用途分族，本表只列"该空间找哪个系列"的入口，具体功率、规格、色温到《商用项目渠道在售清单 20260826》对应 sheet 反查：</p>
+<table>
+<caption>表 7　灯具家族速览（空间 → 系列入口）</caption>
+<thead><tr><th>空间 / 用途</th><th>代表系列</th><th>备注</th></tr></thead>
+<tbody>
+<tr><td>筒灯 / 射灯</td><td>皓II、佳II、尚II、铂钻、灵清III RA90、众筒射</td><td>灵清III 走 RA90 高显色路线</td></tr>
+<tr><td>平板灯盘</td><td>众IV 直下式、品III、昊II 高挂</td><td>大尺寸/小尺寸分代</td></tr>
+<tr><td>支架 / 三防</td><td>佳三防、臻皓III、昊II 空体</td><td>车间、潮湿、粉尘场景</td></tr>
+<tr><td>天棚灯</td><td>鹏晖V（自组网）、鹏辰II、鹏皓III</td><td>高棚厂房主力，鹏晖V 可做自组网整灯</td></tr>
+<tr><td>线形 / 灯带</td><td>虹昀III/V、虹煦IV、众II 灯带（24V）</td><td>办公线性、间接光</td></tr>
+<tr><td>洁净灯</td><td>佳洁净、昊洁净、尚洁净灯盘/支架</td><td>食品、制药、无尘车间</td></tr>
+<tr><td>防爆灯</td><td>辉恒（隔爆平台）、辉钛FB</td><td>易燃易爆分区（Zone 1/2）</td></tr>
+<tr><td>教育照明</td><td>博阅II（蓝牙款）</td><td>教室护眼、RA90 路线</td></tr>
+<tr><td>光源</td><td>亮易、高PF T8 灯管</td><td>改造替换</td></tr>
+</tbody>
+</table>
+
+<h3 id="c56">5.6　命名解码与资料地图</h3>
+<p>料号和型号串不是乱码，有固定规律可读。以自组网整灯为例：<code>LTP09050003T-鹏晖VP-50W-857-60°-MD-自组网-ETO</code> 可拆成——<b>857</b>＝显色 80 + 5700K 色温（8 打头是 Ra80，后两位是色温百位）；<b>60°</b>＝光束角；<b>MD</b>＝微波感应（Microwave Detection）；<b>自组网</b>＝灯内 2.4G/蓝牙模块；<b>ETO</b>＝按订单工程（Engineer To Order）。料号段也有规律：<code>822008000xxx</code> 睿壹系统设备、<code>8210xxxx</code> 控制模块/面板、<code>822005000xxx</code> 网关、<code>822001000xxx</code> 传感器、<code>5600xxxx</code> 网关/IO、<code>6000/6060xxxx</code> INNO 面板、<code>545xxx</code> 整灯工程。<span class="tag tag-f">现场</span></p>
+<div class="note"><b>提醒：</b>以上命名解码是"从在售清单归纳的读法"，用于快速归类和理解，<b>下单与结算一律以订单系统和厂家最新料号为准</b>；色温编码的 840＝4000K、865＝6500K、857＝5700K、830＝3000K 等，个别系列可能有例外，反查 sheet 核对。</div>
+
+<div class="fig">
+<svg viewBox="0 0 960 320" role="img" aria-label="资料地图">
+  <rect class="bx2" x="60" y="50" width="840" height="46" rx="6"/>
+  <text x="480" y="79" class="tb" text-anchor="middle">本册三本手册（理论底座 + 自组网 + 睿壹）——系统认知与排障</text>
+  <rect class="bx" x="60" y="112" width="400" height="46" rx="6"/>
+  <text x="260" y="141" class="tb" text-anchor="middle">厂家技术文档（欧普睿壹技术文档）——参数与规格</text>
+  <rect class="bx" x="500" y="112" width="400" height="46" rx="6"/>
+  <text x="700" y="141" class="tb" text-anchor="middle">在售清单（渠道在售清单）——料号与在售状态</text>
+  <rect class="bx3" x="60" y="174" width="260" height="46" rx="6"/>
+  <text x="190" y="203" class="tb" text-anchor="middle">项目管理与施工标准</text>
+  <rect class="bx3" x="340" y="174" width="260" height="46" rx="6"/>
+  <text x="470" y="203" class="tb" text-anchor="middle">CAD 制图技术要求</text>
+  <rect class="bx3" x="620" y="174" width="280" height="46" rx="6"/>
+  <text x="760" y="203" class="tb" text-anchor="middle">项目全流程执行指南</text>
+  <text x="480" y="260" class="s" text-anchor="middle">参数冲突时：以厂家文件与现场实测为准；旧版 HTML 手册只取案例与结构，不取参数</text>
+  <text x="480" y="286" class="s" text-anchor="middle">优先级：厂家规格书 / 实测 ＞ 本三册手册 ＞ 旧整理稿</text>
+</svg>
+<div class="cap">图 32　技术资料地图：什么资料管什么、参数冲突听谁的</div>
+</div>
+
+<h2 id="p6">第六篇　CAD 制图基础</h2>
+
+<h3 id="c61">6.1　CAD 在照明工程里的角色</h3>
+<p>照明工程的图纸不是"画几盏灯给施工队看"，而是<b>施工队照图施工、监理照图验收、甲方照图结算的唯一依据</b>。图纸上含糊一寸，现场就可能返工一尺。所以照明平面图的规矩是：<b>图例唯一、数值唯一、表达统一</b>——同一盏灯在图例表、平面图、设计说明里的标注必须一致，不能这里写 48W、那里写 50W。</p>
+<p>技术员要建立的观念：CAD 是表达工具，难点不在软件操作，而在"把电气关系画清楚"。一幅照明平面图要同时表达三种关系——配电（箱到灯的干线）、控制（开关/面板到灯）、信号（总线/控制线）——三者画法不同、图层不同，混在一起就是废图。</p>
+
+<h3 id="c62">6.2　图层、线型与颜色规范</h3>
+<p>图层按"前缀-用途"命名（参考 GB/T 18135 的分层思想），同一图层绑定唯一的颜色、线型、线宽。照明专业常用图层体系：</p>
+<table>
+<caption>表 8　照明专业建议图层体系（颜色/线型约定）</caption>
+<thead><tr><th>图层名（示例）</th><th>内容</th><th>颜色</th><th>线型</th></tr></thead>
+<tbody>
+<tr><td>E-建筑-底图</td><td>墙体、门窗、轴网（淡显）</td><td>8/9 灰</td><td>Continuous</td></tr>
+<tr><td>E-照明-灯具</td><td>灯具图块（点位）</td><td>2 黄</td><td>Continuous</td></tr>
+<tr><td>E-照明-干线</td><td>配电箱至灯具的配电干线</td><td>1 红</td><td>Continuous（粗）</td></tr>
+<tr><td>E-照明-支线</td><td>开关出线、灯间连接线</td><td>4 青</td><td>Continuous</td></tr>
+<tr><td>E-照明-控制</td><td>智能总线/控制线（OBUS、DALI、485）</td><td>5 蓝</td><td>DASHED 虚线</td></tr>
+<tr><td>E-应急-灯具 / 线路</td><td>应急照明与疏散指示</td><td>3 绿 / 6 紫</td><td>Continuous / 虚线</td></tr>
+<tr><td>E-照明-开关</td><td>开关、传感器、面板</td><td>7 白</td><td>Continuous</td></tr>
+<tr><td>E-标注-文字 / 尺寸</td><td>回路编号、定位尺寸</td><td>3 绿 / 2 黄</td><td>Continuous</td></tr>
+</tbody>
+</table>
+<p>智能项目在布线实操里，把上面体系再细化成<b>灯具、电源、信号、传感器、标注</b>五类，颜色线型沿用同一套约定。强电线（220V）用实线红，DALI 调光信号、OBUS 总线用虚线或专用色，图上强弱电一眼可分——这正是下一篇"强弱电分离"在图面上的落地。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 260" role="img" aria-label="图层颜色">
+  <line x1="80" y1="60" x2="360" y2="60" stroke="#A63A2C" stroke-width="3"/>
+  <text x="380" y="65" class="t">1 红　配电干线（粗实线）</text>
+  <line x1="80" y1="105" x2="360" y2="105" stroke="#37B6CE" stroke-width="2"/>
+  <text x="380" y="110" class="t">4 青　照明支线（实线）</text>
+  <line x1="80" y1="150" x2="360" y2="150" stroke="#12557E" stroke-width="2" stroke-dasharray="6 5"/>
+  <text x="380" y="155" class="t">5 蓝　智能总线/控制线（虚线）</text>
+  <line x1="80" y1="195" x2="360" y2="195" stroke="#0E6049" stroke-width="2"/>
+  <text x="380" y="200" class="t">3 绿　应急照明（实线）</text>
+  <text x="80" y="240" class="s">同一图层 = 唯一颜色 + 线型 + 线宽；图例、平面图、设计说明三处数值必须一致</text>
+</svg>
+<div class="cap">图 33　图层颜色与线型：不同关系用不同线表达</div>
+</div>
+
+<h3 id="c63">6.3　图例与标注：平面图的语言</h3>
+<p>图例是平面图的"字典"：每个符号（灯具、开关、传感器、面板、断路器）必须有对应图例说明，否则读图的人只能猜。标注则把"是什么、多高、多少"钉死：灯具标注包含型号、功率、安装高度（如 <code>Y30 3.2m</code>），线路标注包含回路号、线缆规格、敷设方式（如 <code>WL1 BV-3×2.5 SC20 CC</code>——回路 1、3 根 2.5mm² BV 线、穿 20 管、顶棚敷设）。</p>
+<p>传感器和智控设备要画<b>探测覆盖圈</b>：微波/红外传感器的探测半径按厂家参数画成同心圆，让人一眼看出"这个角落有没有探测盲区"。IP 防护等级（如 IP65）也按标准在图例里体现——第一位防尘、第二位防水，读法见厂家样本。</p>
+
+<h3 id="c64">6.4　照明平面图的画法顺序</h3>
+<p>画图有固定顺序，跳步必返工：<b>先底图（轴线、墙、门）、再灯具点位、再线路、再标注、最后图例与设计说明</b>。走线遵守"四铁律"：</p>
+<ol class="steps">
+<li><b>横平竖直</b>——所有线段只走水平/垂直，转弯 90° 折线，禁止斜拉乱穿；</li>
+<li><b>成束走主干</b>——同回路导线沿墙边/轴线先走一条主干，再垂直引出支线，不每盏灯单独拉线；</li>
+<li><b>连接才加点</b>——十字相交且电气相连处画实心圆点，交叉不相连处禁止加点；</li>
+<li><b>线线不重叠</b>——平行相邻导线保持可分辨间距，一根线不穿过另一根线的连接点。</li>
+</ol>
+<p>配电关系上：配电箱到灯具的干线用粗实线、开关到灯的控制线用中粗实线、智能总线用细虚线，三者图层分开。回路容量在下图前就要校验（每路灯具功率之和 ≤ 断路器×0.8），"先画后算"是回路过载类返工的头号来源。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 280" role="img" aria-label="绘制顺序">
+  <rect class="bx" x="60" y="40" width="140" height="50" rx="6"/>
+  <text x="130" y="70" class="t" text-anchor="middle">① 底图</text>
+  <line class="ld" x1="200" y1="65" x2="238" y2="65" marker-end="url(#a1)"/>
+  <rect class="bx" x="242" y="40" width="140" height="50" rx="6"/>
+  <text x="312" y="70" class="t" text-anchor="middle">② 灯具点位</text>
+  <line class="ld" x1="382" y1="65" x2="420" y2="65" marker-end="url(#a1)"/>
+  <rect class="bx" x="424" y="40" width="140" height="50" rx="6"/>
+  <text x="494" y="70" class="t" text-anchor="middle">③ 线路</text>
+  <line class="ld" x1="564" y1="65" x2="602" y2="65" marker-end="url(#a1)"/>
+  <rect class="bx" x="606" y="40" width="140" height="50" rx="6"/>
+  <text x="676" y="70" class="t" text-anchor="middle">④ 标注</text>
+  <line class="ld" x1="746" y1="65" x2="784" y2="65" marker-end="url(#a1)"/>
+  <rect class="bx" x="788" y="40" width="120" height="50" rx="6"/>
+  <text x="848" y="70" class="t" text-anchor="middle">⑤ 图例说明</text>
+  <rect class="bx3" x="60" y="150" width="840" height="90" rx="6"/>
+  <text x="480" y="178" class="tb" text-anchor="middle">四铁律：横平竖直 · 成束走主干 · 连接才加点 · 线线不重叠</text>
+  <text x="480" y="206" class="t" text-anchor="middle">回路容量下图前先校验：每路功率 ≤ 断路器 × 0.8</text>
+  <text x="480" y="230" class="s" text-anchor="middle">图例、平面图、设计说明三处数值一致，是交付红线</text>
+</svg>
+<div class="cap">图 34　绘制顺序与四铁律</div>
+</div>
+
+<h3 id="c65">6.5　出图与交付</h3>
+<p>交付前的自检只看三件事：<b>图层干净</b>（无用图层、块、外部参照清空）、<b>三处数值一致</b>（图例/平面/说明）、<b>打印能看</b>（线宽、字号、比例在出图幅面上可读）。交付物清单通常包括：照明平面图、配电/控制系统图、图例表、设计说明、回路清单，外加电子版源文件与 PDF。图纸审查的阻塞项与整改顺序详见《CAD 制图技术要求》第 7 章，此处不重复铺开。</p>
+
+<h2 id="p7">第七篇　项目管理与施工基础</h2>
+
+<h3 id="c71">7.1　项目五阶段与技术人员的位置</h3>
+<p>一个照明项目从接单到交付，技术人员要走的五阶段：<b>需求勘察 → 方案深化 → 施工交底 → 调试验收 → 售后维护</b>。五个阶段里，技术人员的投入曲线是一条"两头高中间稳"的曲线：勘察和调试验收满负荷，方案深化配合为主，施工期前期交底重、后期巡查轻。完整的阶段动作与交付物见《项目管理与施工标准》和《项目全流程执行指南》，本册只讲"每个阶段你凭什么判断"。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 280" role="img" aria-label="五阶段">
+  <line x1="60" y1="210" x2="900" y2="210" class="ln"/>
+  <path d="M60 210 L 60 90 Q 120 80 180 120 T 300 150 Q 400 170 480 170 Q 580 170 680 150 T 800 120 Q 850 90 900 90 L 900 210" fill="#EBF3F9" opacity="0.6" stroke="#12557E" stroke-width="2"/>
+  <g class="t" text-anchor="middle">
+    <text x="145" y="60">需求勘察</text><text x="340" y="60">方案深化</text><text x="480" y="60">施工交底</text><text x="620" y="60">调试验收</text><text x="820" y="60">售后维护</text>
+  </g>
+  <text x="145" y="238" class="s" text-anchor="middle">满负荷</text>
+  <text x="340" y="238" class="s" text-anchor="middle">配合为主</text>
+  <text x="480" y="238" class="s" text-anchor="middle">前重后轻</text>
+  <text x="620" y="238" class="s" text-anchor="middle">满负荷</text>
+  <text x="820" y="238" class="s" text-anchor="middle">按需响应</text>
+  <text x="480" y="268" class="s" text-anchor="middle">投入曲线：两头高、中间稳</text>
+</svg>
+<div class="cap">图 35　项目五阶段与技术人员投入曲线</div>
+</div>
+
+<h3 id="c72">7.2　现场勘察的底层数据</h3>
+<p>勘察不是"去看看"，而是把八个维度都变成<b>可写进方案的实测数据</b>：① 空间几何（净高、梁深、柱距、面积、安装高度、吊顶类型）；② 环境条件（温度、湿度、粉尘、腐蚀、振动、防爆、洁净）；③ 照明现状（现有灯具类型、功率、实测照度）；④ 电力条件（进线容量、相数、回路、供电点位置）；⑤ 控制需求（开关/调光/感应/联网/平台）；⑥ 特殊要求；⑦ 安装条件；⑧ 标准规范。每一个维度最终都对应一个选型参数——净高决定灯具功率和配光，粉尘决定 IP 等级，防爆决定分区选型。缺一个维度，方案就多一个返工点。</p>
+
+<h3 id="c73">7.3　交底与巡查的判断依据</h3>
+<p>施工交底是"把方案翻译成施工队能执行的参数"：控制线路的线型、敷设方式、回路编号、强弱电分离要求、屏蔽线接地做法，逐项写清并签字确认。巡查时看的是<b>与图纸的一致性</b>——灯具点位对不对、线径对不对、强弱电是否共管、隐蔽部位是否留了影像。这里最值钱的一条纪律：<b>隐蔽验收、封槽、核对编号这几个节点，技术人员必须到场</b>，不在场就不进下一道工序——封进墙里的错误，成本最高、最查不出来。</p>
+
+<h3 id="c74">7.4　验收交付与文档纪律</h3>
+<p>验收按"现场五查"收口：查照度/显色是否达标、查控制功能是否按承诺、查回路容量、查图实一致、查资料齐套。交付物是资料包（竣工图、调试记录、验收单、使用说明），不是一张"系统正常"的口头结论。文档纪律一句话：<b>每一次变更、每一次调试、每一次验收都有据可查</b>——售后阶段的"灯又不对了"，十有八九是能靠当时的记录在几分钟内定位的，剩下的一成才是真正要返厂查的疑难。</p>
+
+<h2 id="pA">附录</h2>
+
+<h3 id="cA1">A　术语表</h3>
+<table>
+<caption>表 9　常用术语速查</caption>
+<thead><tr><th>术语</th><th>含义</th><th>归属篇</th></tr></thead>
+<tbody>
+<tr><td>lm / lx / cd</td><td>光通量 / 照度 / 光强与亮度</td><td>光学</td></tr>
+<tr><td>CCT / Ra / R9</td><td>色温 / 一般显色指数 / 饱和红显色</td><td>光学</td></tr>
+<tr><td>UGR / LPD</td><td>统一眩光值 / 照明功率密度</td><td>光学</td></tr>
+<tr><td>PF / THD</td><td>功率因数 / 谐波总畸变率</td><td>电气</td></tr>
+<tr><td>CC / CV</td><td>恒流驱动 / 恒压驱动</td><td>电气</td></tr>
+<tr><td>L70/B50 / SPD</td><td>光通维持寿命 / 电涌保护器</td><td>电气</td></tr>
+<tr><td>ISM / FSPL</td><td>工业科学医疗免许可频段 / 自由空间损耗</td><td>物联网</td></tr>
+<tr><td>Mesh / 泛洪</td><td>网状组网 / 全网广播转发</td><td>物联网</td></tr>
+<tr><td>MQTT / OTA</td><td>消息队列遥测传输 / 在线升级</td><td>物联网</td></tr>
+<tr><td>PIR / 多普勒</td><td>热释电红外探测 / 微波多普勒探测</td><td>盲区</td></tr>
+<tr><td>DALI / OBUS</td><td>数字可寻址照明接口 / 欧普自有 485 总线</td><td>产品</td></tr>
+<tr><td>SigMesh / ETO</td><td>蓝牙 Mesh 组网 / 按订单工程</td><td>产品</td></tr>
+<tr><td>SC20 / CC</td><td>穿 20 焊接钢管 / 顶棚内敷设（敷设代号）</td><td>CAD</td></tr>
+</tbody>
+</table>
+
+<h3 id="cA2">B　单位与公式速查</h3>
+<p>照度 E = Φ/S（lm/m²）；视在功率 S = UI，PF = P/S；三相线电压 = √3 × 相电压（380/220V）；单相压降 ΔU ≈ 2I·L·ρ/S；自由空间损耗 FSPL = 32.45 + 20lg f(MHz) + 20lg d(km)；色温编码 8xx＝Ra80 系、9xx＝Ra90 系（后两位＝色温百位）。</p>
+
+<h3 id="cA3">C　常用标准清单</h3>
+<ul>
+<li>GB/T 50034-2024　建筑照明设计标准（照度、UGR、Ra、LPD 的母标准）</li>
+<li>GB/T 5700　照明测量方法（照度实测方法）</li>
+<li>GB 50016 / GB 51309　消防与应急照明相关</li>
+<li>IEC 62386　DALI 数字可寻址照明接口</li>
+<li>IEEE 1789　LED 照明频闪风险评估（1250Hz / 3125Hz 分界）</li>
+<li>GB 40070　儿童青少年学习用品近视防控卫生要求（教育照明频闪依据）</li>
+<li>GB/T 31831　LED 室内照明应用技术要求（频闪限值）</li>
+<li>IEC 62471 / GB/T 20145　光生物安全（蓝光危害）</li>
+<li>IEC 61000-4-5　浪涌抗扰度试验</li>
+<li>GB/T 18135　电气工程 CAD 制图规则（分层思想）</li>
+</ul>
+
+<h3 id="cA4">D　三册分工与本册的边界</h3>
+<table>
+<thead><tr><th>手册</th><th>回答什么</th><th>不回答什么</th></tr></thead>
+<tbody>
+<tr><td>智能照明工程基础手册（本册）</td><td>光学/电气/物联网的底层原理，CAD/项目管理通识，在售产品与资料补全</td><td>具体系统操作、排障步骤、参数表细节</td></tr>
+<tr><td>欧普自组网技术专家手册</td><td>自组网（灯内 2.4G）的身份、组网、参数、App、平台、对接睿壹、排障</td><td>睿壹有线系统的细节</td></tr>
+<tr><td>睿壹系统技术手册</td><td>睿壹 MAX 有线（OBUS/DALI）与蓝牙系统的原理、接线、调光、排障</td><td>自组网整灯方案细节</td></tr>
+</tbody>
+</table>
+<div class="note"><b>参数冲突优先级：</b>厂家规格书 / 现场实测 ＞ 本三册手册 ＞ 旧版整理稿。本册的"经验值"（载流量、衰减 dB、光束角间距等）是工程估算口径，用于快速判断，最终取值以设计规范和厂家文件为准。</div>
+
+<footer>
+<p>《智能照明工程基础手册》V1.0　·　2026-11-05　·　伊尔莱德　技术资料</p>
+<p>本册为理论底座，与《欧普自组网技术专家手册》《睿壹系统技术手册》配套使用；两册系统手册覆盖具体操作与排障，本册覆盖底层原理与通用技能。文中数值如与厂家最新文件不一致，以厂家最新文件为准。</p>
+</footer>
+</div>
+</body>
+</html>
