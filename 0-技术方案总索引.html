@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -38,14 +38,15 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:'Instrument San
 <div class="wrap">
   <div class="hero">
     <h1>伊尔莱德照明技术方案 · 总索引</h1>
-    <p>一套编号 0–7 的知识主线：四大手册（设计 · 调试 · 实施 · 制图）+ 三方对接 + 全流程执行 + 网络仿真，外加打印版速查与原始资料归档。从任一入口进入对应资料，交叉引用已全部重写为有效链接。</p>
+    <p>现行知识体系为四份手册：睿壹系统（有线总线 · 天幕 · 平台 · 第三方对接）、欧普自组网（2.4G Mesh · App · 触发脚本）、工程基础（光学 · 电气 · 产品 · 施工）、CAD 制图。手册内部交叉引用与页码互相独立，可从任一入口进入。</p>
     <div class="div"></div>
     <span class="chip">工业 · 商业照明</span>
-    <span class="chip">睿壹OBUS</span>
-    <span class="chip">蓝牙自组网(格兰思贝)</span>
-    <span class="chip">DALI调光</span>
-    <span class="chip">CAD制图</span>
-    <span class="chip">三方对接</span>
+    <span class="chip">睿壹 OBUS · DALI</span>
+    <span class="chip">蓝牙自组网（格兰斯贝）</span>
+    <span class="chip">SDL 天幕</span>
+    <span class="chip">2.4G Mesh</span>
+    <span class="chip">第三方对接</span>
+    <span class="chip">CAD 制图</span>
   </div>
 
   <div style="margin-top:20px">
@@ -55,62 +56,45 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:'Instrument San
     </a>
   </div>
 
-  <div class="section-title">四大主题手册</div>
-  <div class="section-desc">原 9 册已整合为 4 本手册，主题边界清晰，按需直达。</div>
+  <div class="section-title">现行四份手册</div>
+  <div class="section-desc">旧版 0–7 号文档已全部整合进以下四本，参数与结论一律以本页为准。更新日期：2026-11-12。</div>
   <div class="grid">
-    <a class="card b1" href="1-照明方案与产品设计.html">
-      <div class="num"><b>1</b>设计域</div>
-      <h3>照明方案 · 产品与设计支撑</h3>
-      <p>需求判断与方案主线、控制/组网选型、<b>转换模块家族与组网可转换性</b>、产品树与行业选型、速记与交付自查，另附网络基础/协议/配电/线材/标准/术语等 8 章知识背景。</p>
-      <div class="abs">上篇 9 章 + 下篇附录 8 章 · 含 12 款转换模块矩阵</div>
+    <a class="card b1" href="睿壹系统技术手册.html">
+      <div class="num"><b>1</b>系统域</div>
+      <h3>睿壹系统技术手册</h3>
+      <p>睿壹有线体系全解：控制原理与寻址（DALI / OBUS / 蓝牙 Mesh）、系统构成与接口转换、电气设计与布线、<b>SDL 天幕</b>（几何约束 · 主从同步 · 场景映射 · 现场配置实务）、软件平台与数据模型、调试验收、故障诊断、第三方对接（华为云 IoTDA / Modbus / BACnet / 节目单）。</p>
+      <div class="abs">12 章 · <b>53 页</b> · 40 图 · 12 表 · 天幕现场实务见 9.8</div>
     </a>
-    <a class="card b2" href="2-网络调试与运维手册.html">
-      <div class="num"><b>2</b>调试域</div>
-      <h3>网络 · 设备调试与运维手册</h3>
-      <p>分层排查法、网络规划与诊断、边缘服务器与硬件、智控系统调试（含 SigMesh 转换模块排障）、自组网 APP 操作与上云网关（GS9200 安卓盒子 · 外接显示器配置 · 三种接入网络 · 三元信息 · 网关安装要求）、格兰思贝云平台登录运维、常见故障速查与项目避坑案例。</p>
-      <div class="abs">四大部分 · 网络层 / 系统层 / 自组网 APP+云平台 / 避坑日记</div>
+    <a class="card b2" href="欧普自组网技术专家手册.html">
+      <div class="num"><b>2</b>自组网域</div>
+      <h3>欧普自组网技术专家手册</h3>
+      <p>2.4G Mesh 原理、身份与地址体系、光与感知、场景面板、App 全功能操作、自有平台、对接睿壹、故障因果链、分场景配置与<b>迎灯跑马触发脚本</b>（触发层 / 序列层 / 执行层三层结构与节奏公式）。</p>
+      <div class="abs">8 篇 · <b>70 页</b> · 22 图 · 21 表 · 含面板找灯与脚本案例</div>
     </a>
-    <a class="card b3" href="3-项目管理与施工标准.html">
-      <div class="num"><b>3</b>实施域</div>
-      <h3>项目管理与施工标准</h3>
-      <p>角色职责、项目全流程与各阶段、施工标准、线缆敷设、强弱电分离、质量控制与验收、交付文档与模板。</p>
-      <div class="abs">合入原 <b>6项目管理</b> · <b>7施工标准</b> 共 20 章</div>
+    <a class="card b3" href="智能照明工程基础手册.html">
+      <div class="num"><b>3</b>基础域</div>
+      <h3>智能照明工程基础手册</h3>
+      <p>光学基础与照度标准（已按 <b>GB/T 50034-2024</b> 更新）、频闪与 IEEE 1789 分档、电气与配电、物联网与通信、自组网盲区与局限、在售产品体系、CAD 制图基础、项目管理与施工标准。</p>
+      <div class="abs">7 篇 · <b>38 页</b> · 35 图 · 9 表 · 排障四层模型</div>
     </a>
-    <a class="card b4" href="4-CAD制图技术要求.html">
+    <a class="card b4" href="CAD制图指南.html">
       <div class="num"><b>4</b>制图域</div>
-      <h3>CAD制图技术要求</h3>
-      <p>图层、线型、标注、图例与出图规范，面向方案图纸与竣工图绘制的制图标准专项。</p>
-      <div class="abs">原 <b>1 CAD制图</b> · 共 8 章</div>
+      <h3>CAD 制图指南</h3>
+      <p>智控方案制图专用：七步工序速查、命令全表与<b>左手键</b>、图层体系与线型规范、图例符号、灯具标注 a-b c×d e-f、安装高度速查、走线四铁律、交付自检 12 项，另附<b>天幕点位图画法</b>（四图层 · AR 阵列 · PL 蛇形）。</p>
+      <div class="abs">4 篇 25 节 · <b>21 页</b> · 4 图 · 26 表</div>
     </a>
-    <a class="card b5" href="伊尔莱德智能照明第三方对接指导.html">
-      <div class="num"><b>5</b>对接域</div>
-      <h3>智能照明第三方对接指导</h3>
-      <p>华为云 IoTDA（设备影子/Topic/属性上报/命令下发）、Modbus TCP/RTU、BACnet、节目单导入导出四种对接方式的技术详情与排障 FAQ。</p>
-      <div class="abs">四种对接方式并列 · 含 Python pymodbus 调试示例</div>
-    </a>
-    <a class="card b6" href="项目全流程执行指南.html">
-      <div class="num"><b>6</b>流程域</div>
-      <h3>项目全流程执行指南</h3>
-      <p>了解需求 → 现场勘测 → 确定方案 → 图纸深化 → 施工交底 → 现场指导 → 后期调试 → 验收交付，八阶段一条龙速查。</p>
-      <div class="abs">八阶段 · 一页看懂 · 五查/七层排查模型</div>
-    </a>
+  </div>
+
+  <div class="section-title">辅助工具与资料</div>
+  <div class="section-desc">独立于四份手册的工具页与数据资料。</div>
+  <div class="grid">
     <a class="card b7" href="eNSP模拟实验指南.html">
       <div class="num"><b>7</b>仿真域</div>
       <h3>eNSP 网络仿真实验指南</h3>
       <p>照明项目网络拓扑仿真：VLAN 划分、DHCP、跨 VLAN 路由、NAT 出口，含设备选型与交换机/路由器配置命令。</p>
       <div class="abs">华为 eNSP 实验 · 含安装说明</div>
     </a>
-  </div>
-
-  <div class="section-title">打印版速查</div>
-  <div class="section-desc">现场技术交底直接打印使用的精简材料。</div>
-  <div class="grid">
-    <a class="card b6" href="打印版速查/技术交底速查手册-打印版.html">
-      <div class="num"><b>印</b>技术交底</div>
-      <h3>技术交底速查手册（打印版）</h3>
-      <p>施工与调试一线常用的速查条目浓缩版，便于打印带走、现场核对。</p>
-    </a>
-    <a class="card b1" href="打印版速查/产品分类总表-打印版.html">
+    <a class="card b6" href="打印版速查/产品分类总表-打印版.html">
       <div class="num"><b>印</b>产品分类</div>
       <h3>产品分类总表（打印版）</h3>
       <p>商用项目在售产品分类总表，按品类/系列速查，选型与报价用。</p>
@@ -135,10 +119,10 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:'Instrument San
 
   <div class="section-title">推荐阅读路径</div>
   <div class="note">
-    <b>完整项目主线：</b>接项目 → <a href="1-照明方案与产品设计.html" style="color:var(--brand)">1 设计手册</a> 判断需求与选型 → <a href="3-项目管理与施工标准.html" style="color:var(--brand)">3 实施手册</a> 走流程与施工 → <a href="2-网络调试与运维手册.html" style="color:var(--brand)">2 调试手册</a> 现场调试验收。制图单独进 <a href="4-CAD制图技术要求.html" style="color:var(--brand)">4 制图手册</a>。
+    <b>完整项目主线：</b>接项目 → <a href="智能照明工程基础手册.html" style="color:var(--brand)">3 基础手册</a> 定产品与施工标准 → <a href="CAD制图指南.html" style="color:var(--brand)">4 CAD 指南</a> 深化图纸 → 按系统归属进 <a href="睿壹系统技术手册.html" style="color:var(--brand)">1 睿壹手册</a>（有线/DALI/天幕）或 <a href="欧普自组网技术专家手册.html" style="color:var(--brand)">2 自组网手册</a>（Mesh/面板/脚本）配置调试 → 验收交付。第三方对接（Modbus / BACnet / 华为云）在 1 号手册第 7.7 节。
   </div>
   <div class="note" style="background:#FBF6EC;border-color:#F0E4C8">
-    <b>高速排查：</b>现场灯不亮 / 连不上 / 面板控不了灯 → 直进 <a href="2-网络调试与运维手册.html" style="color:var(--brand);font-weight:600">2 调试手册</a> 的「常见故障速查表」章节，按现象查原因，避坑案例同域可检索。
+    <b>高速排查：</b>睿壹系故障 → <a href="睿壹系统技术手册.html" style="color:var(--brand);font-weight:600">1 号手册</a>第 12 章故障诊断；自组网系故障 → <a href="欧普自组网技术专家手册.html" style="color:var(--brand);font-weight:600">2 号手册</a>故障因果链；天幕显示异常 → 1 号手册第 9 章（故障三类分流 + 9.8 现场配置实务）。也可直接用顶部<a href="搜索.html" style="color:var(--brand)">全站搜索</a>按现象关键词查。
   </div>
 </div>
 </body>
