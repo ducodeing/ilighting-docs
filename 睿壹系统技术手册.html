@@ -1,0 +1,3030 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>睿壹 MAX 智能照明控制系统 技术手册</title>
+<style>
+  :root{--ink:#16202B;--muted:#54677A;--brand:#12557E;--deep:#0A3D5C;--acc:#0E6049;--line:#D9E2EA;--bg:#F3F5F8;--soft:#EFF5FA;--warn:#7E5210;--warnbg:#FAF5E9}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC",sans-serif;line-height:1.95;font-size:15.4px}
+  .page{max-width:1000px;margin:0 auto;background:#fff;padding:56px 70px 88px}
+  header{border-bottom:2.5px solid var(--deep);padding-bottom:20px}
+  h1{margin:0;font-size:29px;letter-spacing:.6px;font-weight:700}
+  .sub{color:var(--muted);font-size:14.4px;margin-top:10px;letter-spacing:.3px}
+  .meta{display:flex;flex-wrap:wrap;gap:22px;margin-top:16px;font-size:12.4px;color:var(--muted);border-top:1px solid #EAF0F5;padding-top:12px}
+  .meta i{font-style:normal;color:#93A4B4;margin-right:5px}
+  h2{font-size:21px;margin:58px 0 16px;padding:9px 0 9px 15px;border-left:4px solid var(--brand);background:linear-gradient(90deg,#F1F7FB,#fff);line-height:1.5;font-weight:700}
+  h3{font-size:16.6px;margin:32px 0 8px;color:var(--deep);font-weight:700}
+  h4{font-size:14.6px;margin:22px 0 4px;color:#20384C;font-weight:700}
+  p{margin:12px 0;text-align:justify}
+  ul,ol{margin:9px 0 15px;padding-left:24px}
+  li{margin:6px 0}
+  b{color:#0B2C42;font-weight:700}
+  .principle{background:var(--soft);border-left:3px solid var(--brand);padding:13px 17px;margin:20px 0;font-size:14.4px;border-radius:0 4px 4px 0}
+  .note{background:var(--warnbg);border-left:3px solid #B8862B;padding:13px 17px;margin:20px 0;font-size:14.4px;border-radius:0 4px 4px 0}
+  .quote{border-left:2px solid #C4D2DE;padding:2px 0 2px 15px;color:var(--muted);font-size:13.8px;margin:16px 0}
+  code{background:#EEF3F7;border:1px solid #DCE6EE;border-radius:2px;padding:1px 5px;font-size:12.6px;font-family:Consolas,monospace}
+  .toc{background:#FAFCFD;border:1px solid var(--line);border-radius:6px;padding:16px 22px;margin:24px 0 8px;font-size:13.2px}
+  .toc .cols{display:grid;grid-template-columns:1fr 1fr 1fr;column-gap:26px}
+  .toc .cols>div{min-width:0}
+  .toc a{color:var(--ink);text-decoration:none;display:block;padding:1.6px 0;border-bottom:1px dotted #E7EDF2}
+  .toc a:hover{color:var(--brand)}
+  .toc .part{font-weight:700;color:var(--deep);margin-top:8px;border:none;font-size:13.4px}
+  table{width:100%;border-collapse:collapse;margin:20px 0;font-size:13.6px}
+  caption{caption-side:top;text-align:left;color:var(--muted);font-size:12.6px;padding-bottom:6px}
+  th,td{border:1px solid #DCE5EC;padding:8px 10px;text-align:left;vertical-align:top}
+  thead th{background:#F0F6FA;color:var(--deep);font-weight:700}
+  tbody th{background:#FAFCFD;font-weight:600;width:18%}
+  .fig{background:#FCFDFE;border:1px solid #E1E8EF;border-radius:6px;padding:14px 16px 6px;margin:24px 0}
+  .fig svg{width:100%;height:auto;display:block}
+  .fig .cap{font-size:12.6px;color:var(--muted);text-align:center;margin:8px 0 4px}
+  .formula{background:#F7FAFC;border:1px solid #E1E8EF;border-radius:4px;padding:11px 16px;margin:16px 0;font-family:Consolas,"Courier New",monospace;font-size:13px;color:#123A55;line-height:1.9;overflow-x:auto}
+  .steps{counter-reset:st;list-style:none;padding-left:0}
+  .steps>li{counter-increment:st;position:relative;padding-left:34px;margin:12px 0}
+  .steps>li:before{content:counter(st);position:absolute;left:0;top:2px;width:22px;height:22px;border-radius:3px;background:var(--brand);color:#fff;font-size:12px;text-align:center;line-height:22px;font-weight:700}
+  footer{margin-top:60px;border-top:1px solid var(--line);padding-top:16px;color:var(--muted);font-size:12.2px;line-height:1.85}
+  svg text{font-family:"Microsoft YaHei","PingFang SC",sans-serif}
+  .bx{fill:#fff;stroke:#37596F;stroke-width:1.4}
+  .bx2{fill:#EBF3F9;stroke:#12557E;stroke-width:1.5}
+  .bx3{fill:#F6F1E6;stroke:#B08A2E;stroke-width:1.4}
+  .bx4{fill:#EDF6F2;stroke:#0E6049;stroke-width:1.4}
+  .bxr{fill:#FCF0EE;stroke:#A63A2C;stroke-width:1.4}
+  .tb{font-size:13.6px;font-weight:700;fill:#0F2637}
+  .t{font-size:12.4px;fill:#16202B}
+  .s{font-size:11px;fill:#54677A}
+  .ttl{font-size:12.4px;font-weight:700;fill:#0A3D5C}
+  .ln{stroke:#37596F;stroke-width:1.4;fill:none}
+  .lb{stroke:#12557E;stroke-width:1.6;fill:none}
+  .ld{stroke:#8FA3B4;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+  .lg{stroke:#0E6049;stroke-width:1.4;fill:none}
+  .lr{stroke:#A63A2C;stroke-width:1.5;fill:none}
+  @media print{
+    body{background:#fff;font-size:10.4pt}
+    .page{max-width:none;padding:0 0 8mm}
+    h2{page-break-after:avoid;background:none}
+    h3,h4{page-break-after:avoid}
+    .fig{page-break-inside:avoid}
+    table{page-break-inside:auto}
+    tr{page-break-inside:avoid}
+    thead{display:table-header-group}
+  }
+  @media (max-width:820px){
+    .page{padding:26px 18px 50px}
+    h1{font-size:22px}
+    .toc .cols{grid-template-columns:1fr}
+    body{font-size:15px}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+<header>
+  <h1>睿壹 MAX 智能照明控制系统　技术手册</h1>
+  <div class="sub">系统架构　通信协议　接口转换　电气设计　调试与诊断</div>
+  <div class="meta">
+    <span><i>版本</i>V5.0</span>
+    <span><i>编制</i>2026-11</span>
+    <span><i>适用对象</i>睿壹 MAX 有线与蓝牙控制系统</span>
+    <span><i>配套文件</i>《欧普自组网技术专家手册》</span>
+  </div>
+</header>
+
+<div class="toc">
+  <div class="cols">
+  <div>
+  <div class="part">第 1 章　系统概述</div>
+  <a href="#c11">1.1　系统定位与适用边界</a>
+  <a href="#c12">1.2　四层系统模型</a>
+  <a href="#c13">1.3　三条控制路径的技术比较</a>
+  <a href="#c14">1.4　规范用词与符号约定</a>
+  <div class="part">第 2 章　控制原理与寻址</div>
+  <a href="#c21">2.1　控制回路的基本模型</a>
+  <a href="#c22">2.2　寻址的四个层级</a>
+  <a href="#c23">2.3　三类负载的驱动方式</a>
+  <a href="#c24">2.4　数字寻址的成立条件</a>
+  <div class="part">第 3 章　DALI 协议实现</div>
+  <a href="#c31">3.1　物理层电气特性</a>
+  <a href="#c32">3.2　帧结构与传输时序</a>
+  <a href="#c33">3.3　地址空间的划分</a>
+  <a href="#c34">3.4　编址流程</a>
+  <a href="#c35">3.5　场景与分组的存储模型</a>
+  <a href="#c36">3.6　总线负载与轮询预算</a>
+  <div class="part">第 4 章　OBUS 总线</div>
+  <a href="#c41">4.1　物理层与拓扑</a>
+  <a href="#c42">4.2　轮询机制与时延构成</a>
+  <a href="#c43">4.3　总线供电预算</a>
+  <a href="#c44">4.4　与 DALI 的工程差异</a>
+  <div class="part">第 5 章　蓝牙 Mesh 无线层</div>
+  <a href="#c51">5.1　网络结构与转发机制</a>
+  <a href="#c52">5.2　容量模型</a>
+  <a href="#c53">5.3　覆盖与衰减</a>
+  <a href="#c54">5.4　时延构成</a>
+  </div>
+  <div>
+  <div class="part">第 6 章　系统构成</div>
+  <a href="#c61">6.1　网关</a>
+  <a href="#c62">6.2　开关量模块与计量</a>
+  <a href="#c63">6.3　数字 IO 模块</a>
+  <a href="#c64">6.4　人机输入设备</a>
+  <a href="#c65">6.5　传感器</a>
+  <a href="#c66">6.6　天幕控制器与模组</a>
+  <div class="part">第 7 章　接口与转换</div>
+  <a href="#c71">7.1　三类接口断点</a>
+  <a href="#c72">7.2　协议转换：蓝牙转 DALI</a>
+  <a href="#c73">7.3　驱动匹配：继电器与切相</a>
+  <a href="#c74">7.4　信号接口：干接点与 IO</a>
+  <a href="#c75">7.5　转换链的能力边界</a>
+  <a href="#c76">7.6　选型矩阵</a>
+  <a href="#c77">7.7　第三方对接：四种方式与网关后台</a>
+  <div class="part">第 8 章　电气设计与布线</div>
+  <a href="#c81">8.1　配电与回路划分</a>
+  <a href="#c82">8.2　总线拓扑与传输线效应</a>
+  <a href="#c83">8.3　线缆规格与允许长度</a>
+  <a href="#c84">8.4　屏蔽、接地与等电位</a>
+  <a href="#c85">8.5　强弱电分离与电磁兼容</a>
+  <a href="#c86">8.6　保护配合与安全规程</a>
+  <a href="#c87">8.7　典型回路设计算例</a>
+  <div class="part">第 9 章　SDL 天幕系统</div>
+  <a href="#c91">9.1　系统构成与成本结构</a>
+  <a href="#c92">9.2　光学设计约束</a>
+  <a href="#c93">9.3　电气结构与压降</a>
+  <a href="#c94">9.4　主从同步</a>
+  <a href="#c95">9.5　场景映射</a>
+  <a href="#c96">9.6　施工工序与检修设计</a>
+  <a href="#c97">9.7　故障模式</a>
+  <a href="#c98">9.8　现场配置实务：灯片数、路径与清晰度</a>
+  </div>
+  <div>
+  <div class="part">第 10 章　软件平台与数据模型</div>
+  <a href="#cA1">10.1　对象模型</a>
+  <a href="#cA2">10.2　接入路径</a>
+  <a href="#cA3">10.3　场景与自动化</a>
+  <a href="#cA4">10.4　能耗计算模型</a>
+  <a href="#cA5">10.5　权限、日志与升级</a>
+  <div class="part">第 11 章　调试与验收</div>
+  <a href="#cB1">11.1　调试流程</a>
+  <a href="#cB2">11.2　网关上线</a>
+  <a href="#cB3">11.3　编址与点位核对</a>
+  <a href="#cB4">11.4　场景与联动调试</a>
+  <a href="#cB5">11.5　验收项目</a>
+  <div class="part">第 12 章　故障诊断</div>
+  <a href="#cC1">12.1　分层诊断模型</a>
+  <a href="#cC2">12.2　电气测量方法</a>
+  <a href="#cC3">12.3　典型故障因果链</a>
+  <a href="#cC4">12.4　诊断流程</a>
+  <div class="part">附录</div>
+  <a href="#cD1">附录 A　产品型号与料号</a>
+  <a href="#cD2">附录 B　技术数据</a>
+  <a href="#cD3">附录 C　术语</a>
+  <a href="#cD4">附录 D　依据文件</a>
+  </div>
+  </div>
+</div>
+
+<h2 id="c1">第 1 章　系统概述</h2>
+
+<h3 id="c11">1.1　系统定位与适用边界</h3>
+
+<p>睿壹 MAX 是面向商业与公共建筑的分布式照明控制系统。系统以总线制现场设备为基础，通过网关接入以太网，由平台完成集中监控、场景管理与能耗统计；对不宜敷设总线的既有建筑，可通过蓝牙 Mesh 或无线自组网实现改造接入。</p>
+
+<p>系统的受控对象分为四类：<b>开关型负载</b>（通断控制）、<b>调光型负载</b>（DALI 数字调光、切相调光）、<b>发光软膜</b>（SDL 天幕）、<b>辅助执行器</b>（窗帘电机、继电器输出）。系统的输入源分为五类：面板、传感器、日程与定时、外部干接点、第三方系统接口。</p>
+
+<p>有四条边界要在方案阶段说清，超出这四条，不要用这套系统去承诺：</p>
+
+<ul>
+<li><b>逐灯调光与逐灯故障定位</b>，须采用 DALI 回路。OBUS 回路仅具备回路级通断与计量能力，不具备单灯寻址。</li>
+<li><b>既有 DALI 系统改造</b>，若保留原总线与灯具，只能通过蓝牙转 DALI 模块实现<b>广播级</b>控制，不具备逐灯能力。</li>
+<li><b>无线方案</b>的容量与稳定性受建筑构造制约，金属吊顶、货架、竖井对 2.4 GHz 的衰减不可通过增加发射功率补偿。</li>
+<li><b>发光软膜</b>属定制化发光面，不按灯具计价，其光学性能由腔体几何决定，不能通过调光参数修正。</li>
+</ul>
+
+<h3 id="c12">1.2　四层系统模型</h3>
+
+<p>系统的工程问题，绝大多数可以归结为某一层的失效。因此按层次划分，是分析、设计、诊断三者共用的框架。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 372" role="img" aria-label="四层系统模型">
+  <text x="0" y="15" class="ttl">四层模型：每层承担不同职责，失效表现亦不同</text>
+
+  <rect class="bx2" x="24" y="34" width="120" height="60" rx="4"/>
+  <text x="84" y="58" class="tb" text-anchor="middle">应用层</text>
+  <text x="84" y="78" class="s" text-anchor="middle">L4</text>
+  <rect class="bx" x="156" y="34" width="430" height="60" rx="4"/>
+  <text x="172" y="56" class="t">平台、数据库、用户权限、能耗模型、第三方接口</text>
+  <text x="172" y="78" class="s">失效表现：单个网关可控而全局策略失效；数据缺项；报表异常</text>
+  <rect class="bx4" x="598" y="34" width="338" height="60" rx="4"/>
+  <text x="614" y="56" class="s">服务器 / 云平台 / 边缘服务器</text>
+  <text x="614" y="78" class="s">浏览器、移动端、监控大屏</text>
+
+  <rect class="bx2" x="24" y="106" width="120" height="60" rx="4"/>
+  <text x="84" y="130" class="tb" text-anchor="middle">网络层</text>
+  <text x="84" y="150" class="s" text-anchor="middle">L3</text>
+  <rect class="bx" x="156" y="106" width="430" height="60" rx="4"/>
+  <text x="172" y="128" class="t">以太网、IP 编址、DHCP、端口与路由、时间同步</text>
+  <text x="172" y="150" class="s">失效表现：平台不可见；网关离线；定时任务错点</text>
+  <rect class="bx4" x="598" y="106" width="338" height="60" rx="4"/>
+  <text x="614" y="128" class="s">交换机、路由器、网线</text>
+  <text x="614" y="150" class="s">网关以太网口</text>
+
+  <rect class="bx2" x="24" y="178" width="120" height="60" rx="4"/>
+  <text x="84" y="202" class="tb" text-anchor="middle">控制层</text>
+  <text x="84" y="222" class="s" text-anchor="middle">L2</text>
+  <rect class="bx" x="156" y="178" width="430" height="60" rx="4"/>
+  <text x="172" y="200" class="t">网关主控、地址表、场景表、本地联动逻辑、轮询调度</text>
+  <text x="172" y="222" class="s">失效表现：整条总线不响应；场景不执行；本地面板失效</text>
+  <rect class="bx4" x="598" y="178" width="338" height="60" rx="4"/>
+  <text x="614" y="200" class="s">网关（DALI / OBUS / 混合 / 蓝牙）</text>
+  <text x="614" y="222" class="s">天幕控制器（主 / 从）</text>
+
+  <rect class="bx2" x="24" y="250" width="120" height="60" rx="4"/>
+  <text x="84" y="274" class="tb" text-anchor="middle">现场层</text>
+  <text x="84" y="294" class="s" text-anchor="middle">L1</text>
+  <rect class="bx" x="156" y="250" width="430" height="60" rx="4"/>
+  <text x="172" y="272" class="t">总线电气特性、终端匹配、供电、地址载体、驱动接口</text>
+  <text x="172" y="294" class="s">失效表现：单灯或成片不响应；末端不稳；时好时坏</text>
+  <rect class="bx4" x="598" y="250" width="338" height="60" rx="4"/>
+  <text x="614" y="272" class="s">灯具与驱动器、面板、传感器</text>
+  <text x="614" y="294" class="s">模块、转接器、总线与线缆</text>
+
+  <line x1="24" y1="330" x2="936" y2="330" stroke="#D9E2EA"/>
+  <text x="24" y="354" class="s">诊断顺序自下而上：先确认 L1 的电气与地址正常，再确认 L2 的调度与场景，再确认 L3 的通路，最后才怀疑 L4 的策略配置。</text>
+</svg>
+<div class="cap">图 1　四层系统模型与各层失效特征</div>
+</div>
+
+<p>这一模型的实际价值在于<b>缩小搜索空间</b>。当现象为“某一盏灯不亮”时，L3 与 L4 已可排除；当现象为“整层不响应而平台显示网关在线”时，问题必在 L2 与 L1 之间；当现象为“平台看不到网关、现场面板仍可控制”时，可确定 L3 断路而 L2 正常。</p>
+
+<h3 id="c13">1.3　三条控制路径的技术比较</h3>
+
+<p>同一套灯具可以由三条技术路径控制，其差别不在先进与否，而在寻址方式、传输介质与施工条件。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 420" role="img" aria-label="三条控制路径的物理形态">
+  <text x="0" y="15" class="ttl">三条路径的物理形态：介质决定施工，寻址决定能力</text>
+
+  <line x1="20" y1="42" x2="300" y2="42" stroke="#37596F" stroke-width="2"/>
+  <text x="20" y="34" class="s">吊顶</text>
+  <text x="20" y="68" class="tb">A　有线总线</text>
+  <line x1="50" y1="96" x2="280" y2="96" stroke="#12557E" stroke-width="2.4"/>
+  <circle cx="100" cy="96" r="7" fill="#EBF3F9" stroke="#12557E" stroke-width="1.6"/>
+  <circle cx="175" cy="96" r="7" fill="#EBF3F9" stroke="#12557E" stroke-width="1.6"/>
+  <circle cx="250" cy="96" r="7" fill="#EBF3F9" stroke="#12557E" stroke-width="1.6"/>
+  <rect x="46" y="118" width="72" height="28" rx="3" class="bx4"/>
+  <text x="82" y="137" class="s" text-anchor="middle">网关</text>
+  <text x="50" y="172" class="s">需敷设总线至每一设备</text>
+  <text x="50" y="192" class="s">寻址：短地址 0～63</text>
+  <text x="50" y="212" class="s">能力：逐灯调光与故障回读</text>
+  <text x="50" y="232" class="s">适用：新建、要求精确控制</text>
+
+  <line x1="330" y1="42" x2="610" y2="42" stroke="#37596F" stroke-width="2"/>
+  <text x="330" y="68" class="tb">B　蓝牙 Mesh</text>
+  <rect x="400" y="80" width="76" height="26" rx="3" class="bx4"/>
+  <text x="438" y="98" class="s" text-anchor="middle">网关</text>
+  <path d="M438,110 L438,124 M430,118 L446,130 M446,118 L430,130" stroke="#0E6049" stroke-width="1.4" fill="none"/>
+  <circle cx="360" cy="150" r="7" fill="#EDF6F2" stroke="#0E6049" stroke-width="1.6"/>
+  <circle cx="438" cy="158" r="7" fill="#EDF6F2" stroke="#0E6049" stroke-width="1.6"/>
+  <circle cx="516" cy="150" r="7" fill="#EDF6F2" stroke="#0E6049" stroke-width="1.6"/>
+  <line x1="360" y1="150" x2="516" y2="150" stroke="#0E6049" stroke-width="1.1" stroke-dasharray="4 4"/>
+  <text x="330" y="172" class="s">仅需网关供电与一根网线</text>
+  <text x="330" y="192" class="s">寻址：节点地址 + 组地址</text>
+  <text x="330" y="212" class="s">能力：依赖外挂模块，逐灯或分组</text>
+  <text x="330" y="232" class="s">适用：改造、不宜开槽布线</text>
+
+  <line x1="640" y1="42" x2="920" y2="42" stroke="#37596F" stroke-width="2"/>
+  <text x="640" y="68" class="tb">C　无线自组网</text>
+  <rect x="710" y="80" width="76" height="26" rx="3" class="bx4"/>
+  <text x="748" y="98" class="s" text-anchor="middle">网关</text>
+  <circle cx="670" cy="150" r="7" fill="#EDF6F2" stroke="#0E6049" stroke-width="1.6"/>
+  <circle cx="748" cy="158" r="7" fill="#EDF6F2" stroke="#0E6049" stroke-width="1.6"/>
+  <circle cx="826" cy="150" r="7" fill="#EDF6F2" stroke="#0E6049" stroke-width="1.6"/>
+  <line x1="670" y1="150" x2="826" y2="150" stroke="#0E6049" stroke-width="1.1" stroke-dasharray="4 4"/>
+  <text x="640" y="172" class="s">无需任何信号线</text>
+  <text x="640" y="192" class="s">寻址：区 / 组 / 地址编码</text>
+  <text x="640" y="212" class="s">能力：灯内建模块，原生单灯</text>
+  <text x="640" y="232" class="s">适用：大空间、不宜布线</text>
+
+  <line x1="20" y1="256" x2="940" y2="256" stroke="#D9E2EA"/>
+
+  <text x="20" y="282" class="ttl">选型的三个判据</text>
+  <text x="20" y="306" class="t">① 是否需要逐灯调光与逐灯故障定位——需要则只有 DALI 可以满足。</text>
+  <text x="20" y="328" class="t">② 是否具备敷设总线的条件——不具备则在蓝牙加外挂模块、或无线自组网之间选择。</text>
+  <text x="20" y="350" class="t">③ 是否存在金属遮挡与 2.4 GHz 拥塞——存在则不宜以大功率补偿，应按物理分区拆分网关。</text>
+  <text x="20" y="382" class="s">三条判据为“与”关系：任一条不满足，所选路径即应调整，而不是通过调参弥补。</text>
+</svg>
+<div class="cap">图 2　三条控制路径的介质形态与能力边界</div>
+</div>
+
+<p>三条路径可以并存于同一项目，但不应并存于同一控制分区。原因在于三者的地址体系互不兼容：DALI 为端口号加短地址，蓝牙为节点地址加组地址，自组网为区、组、地址三级。同一房间内并存两套地址体系，将导致运维无法通过单一标识定位设备。</p>
+
+<h3 id="c14">1.4　规范用词与符号约定</h3>
+
+<p>文中用词沿用工程文件的习惯：<b>应</b>表示必须做到，做不到会出问题；<b>宜</b>表示推荐这么做，条件不允许时可另作处理；<b>可</b>表示可选。凡标注“计算值”的数值，是按电气关系推导所得，不是厂家给定值，用之前要按项目参数重算。</p>
+
+<h2 id="c2">第 2 章　控制原理与寻址</h2>
+
+<h3 id="c21">2.1　控制回路的基本模型</h3>
+
+<p>任何照明控制回路，无论技术年代，都可抽象为三个要素：<b>控制端</b>（发出动作指令）、<b>通道</b>（执行通断或调节的执行元件）、<b>负载</b>（灯具及其驱动器）。三者之间是串联关系：控制端决定何时与多少，通道决定如何执行，负载决定实际输出。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 300" role="img" aria-label="控制回路基本模型">
+  <text x="0" y="15" class="ttl">控制回路的三个要素：控制端、通道、负载</text>
+
+  <rect class="bx2" x="40" y="70" width="170" height="86" rx="4"/>
+  <text x="125" y="96" class="tb" text-anchor="middle">控制端</text>
+  <text x="125" y="118" class="t" text-anchor="middle">面板 / 传感器 / 平台</text>
+  <text x="125" y="138" class="s" text-anchor="middle">输出：指令或事件</text>
+
+  <rect class="bx3" x="300" y="70" width="180" height="86" rx="4"/>
+  <text x="390" y="96" class="tb" text-anchor="middle">通道</text>
+  <text x="390" y="118" class="t" text-anchor="middle">继电器 / 切相 / 恒流</text>
+  <text x="390" y="138" class="s" text-anchor="middle">输出：电压或电流</text>
+
+  <rect class="bx4" x="570" y="70" width="170" height="86" rx="4"/>
+  <text x="655" y="96" class="tb" text-anchor="middle">负载</text>
+  <text x="655" y="118" class="t" text-anchor="middle">灯具 / 驱动器</text>
+  <text x="655" y="138" class="s" text-anchor="middle">输出：光通量</text>
+
+  <rect class="bx" x="810" y="70" width="126" height="86" rx="4"/>
+  <text x="873" y="96" class="tb" text-anchor="middle">反馈</text>
+  <text x="873" y="118" class="s" text-anchor="middle">电流、状态</text>
+  <text x="873" y="138" class="s" text-anchor="middle">照度</text>
+
+  <line class="lb" x1="210" y1="113" x2="296" y2="113" marker-end="url(#a1)"/>
+  <line class="lb" x1="480" y1="113" x2="566" y2="113" marker-end="url(#a1)"/>
+  <line class="ld" x1="740" y1="96" x2="806" y2="96" marker-end="url(#a2)"/>
+
+  <text x="253" y="104" class="s" text-anchor="middle">指令</text>
+  <text x="523" y="104" class="s" text-anchor="middle">驱动</text>
+  <text x="773" y="88" class="s" text-anchor="middle">检测</text>
+
+  <line x1="873" y1="156" x2="873" y2="196" stroke="#8FA3B4" stroke-width="1.3" stroke-dasharray="5 4"/>
+  <line x1="873" y1="196" x2="125" y2="196" stroke="#8FA3B4" stroke-width="1.3" stroke-dasharray="5 4"/>
+  <line x1="125" y1="196" x2="125" y2="160" stroke="#8FA3B4" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#a2)"/>
+  <text x="480" y="188" class="s" text-anchor="middle">闭环调节（仅恒照度等闭环控制存在此路径）</text>
+
+  <text x="40" y="240" class="t">开环控制（面板、日程）：控制端只发一次指令，不检测结果。</text>
+  <text x="40" y="264" class="t">闭环控制（恒照度、恒亮度）：控制端周期性读取反馈并修正输出，故需设定滤波器与死区。</text>
+  <text x="40" y="288" class="s">通道的类型决定控制的粒度：继电器只能通断，切相与恒流可连续调节。</text>
+
+  <defs>
+    <marker id="a1" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#12557E"/></marker>
+    <marker id="a2" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#8FA3B4"/></marker>
+  </defs>
+</svg>
+<div class="cap">图 3　控制回路模型：通道类型决定可控粒度</div>
+</div>
+
+<p>该模型解释了一个常见误判：灯具“能亮但调不了光”，并非控制系统故障，而是通道类型与负载驱动不匹配——继电器通道只有通断两种状态，不具备改变电流的能力。排故时应先确认通道类型，再检查控制指令。</p>
+
+<h3 id="c22">2.2　寻址的四个层级</h3>
+
+<p>“控制某一盏灯”这一动作，在系统中实际经过四级定位。任一级缺失，指令即无法到达唯一目标。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 372" role="img" aria-label="寻址的四个层级">
+  <text x="0" y="15" class="ttl">四级寻址：从“哪台网关”到“哪个场景”</text>
+
+  <rect class="bx2" x="24" y="40" width="200" height="96" rx="4"/>
+  <text x="124" y="64" class="tb" text-anchor="middle">① 网段 / 端口</text>
+  <text x="124" y="88" class="t" text-anchor="middle">哪一台网关</text>
+  <text x="124" y="110" class="t" text-anchor="middle">哪一个输出端口</text>
+  <text x="124" y="130" class="s" text-anchor="middle">由 IP 与端口号确定</text>
+
+  <rect class="bx3" x="264" y="40" width="200" height="96" rx="4"/>
+  <text x="364" y="64" class="tb" text-anchor="middle">② 短地址</text>
+  <text x="364" y="88" class="t" text-anchor="middle">总线上的哪一个设备</text>
+  <text x="364" y="110" class="t" text-anchor="middle">DALI：0～63</text>
+  <text x="364" y="130" class="s" text-anchor="middle">由编址过程写入</text>
+
+  <rect class="bx4" x="504" y="40" width="200" height="96" rx="4"/>
+  <text x="604" y="64" class="tb" text-anchor="middle">③ 组地址</text>
+  <text x="604" y="88" class="t" text-anchor="middle">哪些设备一起动作</text>
+  <text x="604" y="110" class="t" text-anchor="middle">DALI：0～15 组</text>
+  <text x="604" y="130" class="s" text-anchor="middle">由分组配置写入</text>
+
+  <rect class="bx2" x="744" y="40" width="192" height="96" rx="4"/>
+  <text x="840" y="64" class="tb" text-anchor="middle">④ 场景号</text>
+  <text x="840" y="88" class="t" text-anchor="middle">执行哪一组预设值</text>
+  <text x="840" y="110" class="t" text-anchor="middle">DALI：0～15 场景</text>
+  <text x="840" y="130" class="s" text-anchor="middle">由场景表存储</text>
+
+  <line class="lb" x1="224" y1="88" x2="260" y2="88" marker-end="url(#b1)"/>
+  <line class="lb" x1="464" y1="88" x2="500" y2="88" marker-end="url(#b1)"/>
+  <line class="lb" x1="704" y1="88" x2="740" y2="88" marker-end="url(#b1)"/>
+
+  <rect class="bx" x="24" y="168" width="912" height="76" rx="4"/>
+  <text x="42" y="192" class="tb">四级寻址的工程含义</text>
+  <text x="42" y="214" class="t">前两级决定“命令能否到达唯一目标”，后两级决定“到位后执行什么”。所以“按了没反应”应先查前两级，“动了但不对”应查后两级。</text>
+  <text x="42" y="234" class="s">这一分工对应第 12 章的分层诊断：前两级属总线层与设备层，后两级属配置层。</text>
+
+  <text x="24" y="278" class="ttl">地址载体：地址存在哪里，决定了换件后的行为</text>
+  <text x="24" y="302" class="t">DALI 驱动器的短地址存储于驱动器内部，更换灯具即丢失，须重新编址；</text>
+  <text x="24" y="324" class="t">OBUS 模块的地址存储于模块，更换模块同理；面板与传感器的地址存储于自身，更换后须重新登记；</text>
+  <text x="24" y="348" class="s">由此得出一条维护结论：任何更换现场设备的操作，都必须伴随一次地址核对，而非仅确认“灯亮了”。</text>
+
+  <defs>
+    <marker id="b1" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#12557E"/></marker>
+  </defs>
+</svg>
+<div class="cap">图 4　四级寻址与地址载体</div>
+</div>
+
+<h3 id="c23">2.3　三类负载的驱动方式</h3>
+
+<p>调光能力由驱动器的实现方式决定，而非由控制协议决定。同一份“调至 50%”的指令，落到三类驱动器上，输出的电气波形完全不同。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 430" role="img" aria-label="三类调光驱动波形">
+  <text x="0" y="15" class="ttl">三类驱动波形：控制协议相同，输出特性不同</text>
+
+  <text x="20" y="46" class="tb">A　继电器通断</text>
+  <line x1="60" y1="120" x2="420" y2="120" stroke="#C4D2DE" stroke-width="1.2"/>
+  <path d="M60,120 L60,60 L120,60 L120,120 L180,120 L180,60 L250,60 L250,120 L320,120 L320,60 L400,60 L400,120"
+        fill="none" stroke="#12557E" stroke-width="2"/>
+  <text x="60" y="142" class="s">输出：全电压或零，无中间态</text>
+  <text x="60" y="164" class="s">调光：不可，仅可按时序通断</text>
+  <text x="60" y="186" class="s">应用：普通灯具、灯箱、泛光</text>
+
+  <text x="490" y="46" class="tb">B　切相调光（前沿）</text>
+  <line x1="530" y1="120" x2="890" y2="120" stroke="#C4D2DE" stroke-width="1.2"/>
+  <path d="M530,120 L538,120 L538,96 L542,62 C550,62 560,86 566,120
+           L575,120 L583,120 L583,96 L587,62 C595,62 605,86 611,120
+           L620,120 L628,120 L628,96 L632,62 C640,62 650,86 656,120"
+        fill="none" stroke="#0E6049" stroke-width="2"/>
+  <text x="530" y="142" class="s">输出：每半周切去前段，改变有效值</text>
+  <text x="530" y="164" class="s">调光：可，须驱动支持切相</text>
+  <text x="530" y="186" class="s">风险：非切相驱动会闪烁、啸叫</text>
+
+  <line x1="0" y1="208" x2="960" y2="208" stroke="#D9E2EA"/>
+
+  <text x="20" y="238" class="tb">C　恒流 PWM</text>
+  <line x1="60" y1="330" x2="420" y2="330" stroke="#C4D2DE" stroke-width="1.2"/>
+  <path d="M60,330 L60,250 L76,250 L76,330 L92,330 L92,250 L108,250 L108,330 L124,330 L124,250 L140,250 L140,330 L156,330 L156,250 L172,250 L172,330 L188,330 L188,250 L204,250 L204,330 L220,330 L220,250 L236,250 L236,330 L252,330 L252,250 L268,250 L268,330 L284,330 L284,250 L300,250 L300,330 L316,330 L316,250 L332,250 L332,330 L348,330 L348,250 L364,250 L364,330 L380,330 L380,250 L396,250 L396,330 L412,330"
+        fill="none" stroke="#12557E" stroke-width="1.5"/>
+  <line x1="60" y1="290" x2="420" y2="290" stroke="#A63A2C" stroke-width="1.2" stroke-dasharray="6 4"/>
+  <text x="60" y="352" class="s">输出：高频开关，占空比决定平均电流（虚线）</text>
+  <text x="60" y="374" class="s">调光：可，线性度好，低亮度稳定</text>
+  <text x="60" y="396" class="s">约束：频率过低将产生可视频闪</text>
+
+  <text x="490" y="238" class="tb">D　三种方式的能力对照</text>
+  <text x="490" y="266" class="s">继电器　粒度：回路　　最小输出：0 或 100%　　受动作次数限制</text>
+  <text x="490" y="290" class="s">切相　　粒度：单路　　最小输出：约 1%～5%　　受驱动兼容性制约</text>
+  <text x="490" y="314" class="s">恒流　　粒度：单灯　　最小输出：约 0.1%～1%　　受 PWM 分辨率制约</text>
+  <text x="490" y="346" class="s">工程含义：</text>
+  <text x="490" y="368" class="s">“能否调至 1%”由驱动器与 PWM 位数决定，不是平台参数。</text>
+  <text x="490" y="390" class="s">“低亮度是否闪烁”由驱动方式与 PWM 频率决定，</text>
+  <text x="490" y="412" class="s">不能通过调整场景数值消除。</text>
+</svg>
+<div class="cap">图 5　三类驱动波形与能力边界</div>
+</div>
+
+<p>图中三项结论应作为选型前置条件：其一，继电器通道不具备调光能力，不应在方案中表述为“可调光”；其二，切相调光与驱动器存在兼容性耦合，批量安装前应先行试装单灯；其三，恒流 PWM 的最低亮度受分辨率限制，若项目要求 0.1% 级调光，须在驱动器规格中确认，而非在平台侧设定。</p>
+
+<h3 id="c24">2.4　数字寻址的成立条件</h3>
+
+<p>逐灯控制之所以必须依赖数字总线，原因在于模拟量传输无法承载身份信息。模拟调光以电压幅值表达亮度，同一对线上的所有驱动器接收同一电压，故只能整组动作。要单独控制其中一具，只能为其单独敷设一对线，线缆数量随灯具数量线性增长，在工程上不可行。</p>
+
+<p>数字总线将身份与数值编码在同一串脉冲中：报文首部为地址字段，其后为命令字段与数据字段。总线上所有设备均接收同一报文，仅当地址字段与自身地址匹配时才执行。由此，单对导线即可控制数十个设备，且新增设备不增加线缆。</p>
+
+<div class="principle">
+<b>要能逐灯控制，得同时具备三样东西：</b>① 每个设备有一个能写进去、断电也不丢的地址；② 报文里带地址，设备会拿自己的地址去比对；③ 有办法避免几台设备同时回话、把数据撞乱。缺一样，就只能整组控制。
+</div>
+
+<p>第 7 章的蓝牙转 DALI 模块，缺的正是第一样：它自己有地址，但它发出的 DALI 报文是广播，总线上所有灯具一起动作。所以这类模块只能整组，不能逐灯。后面所有关于“能力上限”的说法，根源都在这里。</p>
+
+<h2 id="c3">第 3 章　DALI 协议实现</h2>
+
+<p>DALI（Digital Addressable Lighting Interface）由 IEC 62386 系列标准定义，是目前商用照明中唯一具备完整单灯寻址能力的开放协议。其设计目标并非高带宽，而是<b>在两根导线上实现确定性的单灯控制与状态回读</b>，因此以低速率换取高可靠性与长传输距离。</p>
+
+<h3 id="c31">3.1　物理层电气特性</h3>
+
+<p>DALI 总线为两线制，不分极性。总线由控制设备（网关）提供电源，采用限流供电方式，典型空载电压 16 V，标准允许范围 9.5～22.5 V；逻辑低电平为 −6.5～+4.5 V。设备内部设有桥式整流，故接线不分正负，这是 DALI 在现场施工上最显著的便利。</p>
+
+<p>总线电源的限流值为 <b>250 mA</b>，该值同时约束两件事：可挂载设备的数量，以及不得外接其他电源。DALI 总线仅用于通信与设备自身取电，不得用于驱动负载，亦不得与外部电源并联。违反后者将造成两个电压源互相灌流，表现为电压抬高、通信紊乱，严重时损坏控制设备输出级。</p>
+
+<p>速率固定 <b>1200 bit/s</b>，每一位占 0.833 ms。编码方式保证每一位中间都有一次电平跳变，收发两端就靠这个跳变对齐节奏，所以不需要单独的时钟线。线拉长之后波形会变缓、边沿变钝，但只要跳变还在，节奏就还能对上——这是 DALI 能跑几百米的根本原因。</p>
+
+<h3 id="c32">3.2　帧结构与传输时序</h3>
+
+<p>报文只有两种。网关发出去的是<b>命令帧</b>：1 位起始 + 8 位地址 + 8 位命令 + 2 位停止，共 19 位，按 1200 bit/s 算是 <b>15.8 ms</b>。设备回传的是<b>应答帧</b>：1 位起始 + 8 位数据 + 2 位停止，共 11 位，约 9.2 ms。标准文本把前者叫前向帧、后者叫后向帧，说的是同一件事。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 300" role="img" aria-label="DALI前向帧结构">
+  <text x="0" y="15" class="ttl">前向帧：1 起始位 + 8 位地址 + 8 位命令 + 2 停止位，共 19 位，15.8 ms</text>
+
+  <text x="20" y="52" class="s">逻辑电平</text>
+  <line x1="60" y1="110" x2="900" y2="110" stroke="#C4D2DE" stroke-width="1.2"/>
+  <text x="60" y="96" class="s">高</text>
+  <text x="60" y="126" class="s">低</text>
+
+  <rect x="90" y="66" width="42" height="44" fill="#EBF3F9" stroke="#12557E"/>
+  <rect x="132" y="66" width="338" height="44" fill="#EDF6F2" stroke="#0E6049"/>
+  <rect x="470" y="66" width="338" height="44" fill="#F6F1E6" stroke="#B08A2E"/>
+  <rect x="808" y="66" width="84" height="44" fill="#F1F4F7" stroke="#8FA3B4"/>
+
+  <text x="111" y="94" class="s" text-anchor="middle">起</text>
+  <text x="301" y="90" class="tb" text-anchor="middle">地址字节（8 bit）</text>
+  <text x="639" y="90" class="tb" text-anchor="middle">命令 / 数据字节（8 bit）</text>
+  <text x="850" y="94" class="s" text-anchor="middle">停止</text>
+
+  <text x="301" y="136" class="s" text-anchor="middle">0AAAAAAS / 100AAAAA / 1111111S</text>
+  <text x="639" y="136" class="s" text-anchor="middle">如 0xFE 设亮度、0x10 调用场景</text>
+  <text x="850" y="136" class="s" text-anchor="middle">2 位</text>
+
+  <text x="60" y="176" class="ttl">每一位中间必有一次跳变，收发两端靠它对齐节奏</text>
+  <path d="M90,220 L90,196 L111,196 L111,220 L132,220 L132,196 L153,196 L153,220 L174,220 L174,196 L195,196 L195,220"
+        fill="none" stroke="#12557E" stroke-width="2"/>
+  <line x1="90" y1="234" x2="195" y2="234" stroke="#8FA3B4" stroke-width="1"/>
+  <line x1="90" y1="229" x2="90" y2="239" stroke="#8FA3B4" stroke-width="1"/>
+  <line x1="111" y1="229" x2="111" y2="239" stroke="#8FA3B4" stroke-width="1"/>
+  <line x1="132" y1="229" x2="132" y2="239" stroke="#8FA3B4" stroke-width="1"/>
+  <line x1="174" y1="229" x2="174" y2="239" stroke="#8FA3B4" stroke-width="1"/>
+  <text x="90" y="252" class="s">0.833 ms</text>
+  <text x="200" y="216" class="s">两种跳变方向，分别代表 1 与 0</text>
+
+  <text x="470" y="176" class="ttl">由此产生的三条工程约束</text>
+  <text x="470" y="202" class="t">① 帧长固定，一条命令的最小时间成本为 15.8 ms，不随设备数变化。</text>
+  <text x="470" y="226" class="t">② 广播命令一帧即可作用于全总线，故“整组动作”并不随设备数变慢。</text>
+  <text x="470" y="250" class="t">③ 需回读的命令须追加后向帧，一次查询约 25 ms，逐台查询才形成时延累积。</text>
+  <text x="470" y="280" class="s">②③ 之差是现场误判“系统慢”的主要来源，详见 3.6。</text>
+</svg>
+<div class="cap">图 6　DALI 前向帧结构与曼彻斯特编码</div>
+</div>
+
+<h3 id="c33">3.3　地址空间的划分</h3>
+
+<p>DALI 的地址字节通过最高位区分三种寻址模式，这一设计使同一字段可承载不同粒度的目标，无需额外命令。</p>
+
+<ul>
+<li><b>短地址（0AAAAAAS）</b>：A 为 6 位设备地址，取值 0～63，对应总线上的 64 个控制装置。S 为选择位，用于区分“直接设定”与“渐变设定”。</li>
+<li><b>组地址（100AAAAA）</b>：A 为 4 位组号，取值 0～15，共 16 个逻辑组。设备可同属多个组，组员关系存于设备内部。</li>
+<li><b>广播（1111111S）</b>：不带具体地址，总线上所有设备均执行。</li>
+</ul>
+
+<p>此外，标准定义 <b>16 个场景（0～15）</b>，每个场景在设备内部保存一个亮度值（0～254，255 表示该设备不参与此场景）。需要区分的是：<b>16 个场景属协议能力，六键面板对应场景 1～6 属产品映射</b>。现场若使用两块六键面板扩展至 12 个场景，仍在该协议能力之内，不构成对标准的扩展。</p>
+
+<div class="principle">
+<b>协议能力与产品能力的区分：</b>凡涉及“系统最多支持多少”的表述，应明确所指层级。DALI 协议层为每端口 64 短地址、16 组、16 场景；睿壹产品层在此之上提供六键面板、场景号映射与平台侧场景管理。将产品限制表述为协议限制，会在方案阶段低估系统能力；反之则会造成交付不符。
+</div>
+
+<h3 id="c34">3.4　编址流程</h3>
+
+<p>新出厂的 DALI 设备没有短地址，必须由网关写进去。麻烦在于：这时候网关也不知道谁是谁，喊名字没人应。所以只能用一套“先编号、再挑人”的办法，分五步走完。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 452" role="img" aria-label="DALI编址流程">
+  <text x="0" y="15" class="ttl">编址五阶段：设备无身份时，靠随机地址与二分搜索逐台收敛</text>
+
+  <rect class="bx2" x="24" y="36" width="230" height="58" rx="4"/>
+  <text x="139" y="58" class="tb" text-anchor="middle">① 进入初始化</text>
+  <text x="139" y="80" class="s" text-anchor="middle">INITIALISE，设备接受编址命令</text>
+
+  <rect class="bx2" x="24" y="110" width="230" height="58" rx="4"/>
+  <text x="139" y="132" class="tb" text-anchor="middle">② 分配随机地址</text>
+  <text x="139" y="154" class="s" text-anchor="middle">RANDOMISE，各设备生成 24 位随机数</text>
+
+  <rect class="bx3" x="24" y="184" width="230" height="58" rx="4"/>
+  <text x="139" y="206" class="tb" text-anchor="middle">③ 二分搜索</text>
+  <text x="139" y="228" class="s" text-anchor="middle">COMPARE，逐位缩小至高地址最小者</text>
+
+  <rect class="bx4" x="24" y="258" width="230" height="58" rx="4"/>
+  <text x="139" y="280" class="tb" text-anchor="middle">④ 写入短地址</text>
+  <text x="139" y="302" class="s" text-anchor="middle">PROGRAM SHORT ADDRESS</text>
+
+  <rect class="bx2" x="24" y="332" width="230" height="58" rx="4"/>
+  <text x="139" y="354" class="tb" text-anchor="middle">⑤ 退出并复检</text>
+  <text x="139" y="376" class="s" text-anchor="middle">设备撤出搜索，重复至无应答</text>
+
+  <line class="lb" x1="139" y1="94" x2="139" y2="106" marker-end="url(#c1)"/>
+  <line class="lb" x1="139" y1="168" x2="139" y2="180" marker-end="url(#c1)"/>
+  <line class="lb" x1="139" y1="242" x2="139" y2="254" marker-end="url(#c1)"/>
+  <line class="lb" x1="139" y1="316" x2="139" y2="328" marker-end="url(#c1)"/>
+
+  <path class="ld" d="M254,366 L296,366 L296,213 L258,213" fill="none" marker-end="url(#c2)"/>
+  <text x="312" y="292" class="s" transform="rotate(-90 312 292)" text-anchor="middle">仍有设备应答则重复 ③④</text>
+
+  <rect class="bx" x="356" y="36" width="580" height="354" rx="4"/>
+  <text x="376" y="60" class="tb">② 随机地址与 ③ 二分搜索的机制</text>
+  <text x="376" y="86" class="t">每台设备生成一个 24 位随机数作为临时身份。随机数可能重复，故不能直接使用。</text>
+  <text x="376" y="110" class="t">控制设备持有一个 24 位搜索地址，逐位与设备随机数比较：</text>
+
+  <rect x="392" y="124" width="240" height="70" rx="3" fill="#F6F1E6" stroke="#B08A2E"/>
+  <text x="406" y="146" class="s">设备随机数 ≥ 搜索地址</text>
+  <text x="406" y="166" class="s">→ 应答（拉低总线）</text>
+  <text x="406" y="186" class="s">→ 参与下一轮比较</text>
+  <rect x="656" y="124" width="260" height="70" rx="3" fill="#FCF0EE" stroke="#A63A2C"/>
+  <text x="670" y="146" class="s">设备随机数 &lt; 搜索地址</text>
+  <text x="670" y="166" class="s">→ 不应答</text>
+  <text x="670" y="186" class="s">→ 本轮被排除</text>
+
+  <text x="376" y="222" class="t">网关手里也拿一个数，逐位往上抬。抬到只剩一台应答，就说明找到了当前最小的那一个。</text>
+  <text x="376" y="244" class="t">给它写上短地址，让它退出，再找下一个。如此反复，直到没有设备应答。</text>
+  <text x="376" y="268" class="t">如果两台设备的随机数恰好一样，它们会一直同时应答，这一轮就卡住。网关的办法是重新</text>
+  <text x="376" y="290" class="t">发一次“重取号码”的命令，让所有设备换一个随机数，再从头比。</text>
+
+  <rect x="376" y="306" width="540" height="30" rx="3" fill="#EFF5FA" stroke="#12557E"/>
+  <text x="390" y="326" class="s">全过程耗时与设备数近似线性，64 台设备典型耗时数十秒。</text>
+
+  <text x="376" y="360" class="s">现场判据：此阶段断电将使部分设备保留短地址、部分未编，重启后地址表不可预测，</text>
+  <text x="376" y="380" class="s">故编址过程严禁断电，且编址后须立即导出点位表。</text>
+
+  <defs>
+    <marker id="c1" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#12557E"/></marker>
+    <marker id="c2" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#8FA3B4"/></marker>
+  </defs>
+</svg>
+<div class="cap">图 7　DALI 编址五阶段与二分搜索机制</div>
+</div>
+
+<p>这套流程解释了三个现场现象。<b>一是扫描为什么要等几十秒</b>：设备越多，逐个挑出来的轮次越多，属正常，不是卡死。<b>二是编址中途不能断电</b>：断在中间，有的设备写好了、有的没写，随机数又已经丢了，重启后只能整条回路重编，结果不可预测。<b>三是换灯之后地址就没了</b>：地址存在驱动器里，新驱动器是空的，必须重新编址。</p>
+
+<div class="note">
+<b>在已经用着的回路上加灯，要按“重排”来对待。</b>DALI 编址不是“找个空号给新灯”，而是整条回路重新排一遍。所以加一台灯，可能把原来的地址全打乱。正确做法是：加之前先把地址表导出来，加完重新编址，再按点位表逐个核对。省掉核对这一步，下次按场景就会“整片错位”——因为场景是认地址的。
+</div>
+
+<h3 id="c35">3.5　场景与分组的存储模型</h3>
+
+<p>DALI 的场景与分组均存储于<b>控制装置内部</b>，而非平台或网关。这一模型决定了系统的断网行为与配置生效路径。</p>
+
+<p>每个控制装置内部维护一张场景表，共 16 项，每项保存一个亮度值（0～254）或“屏蔽”标志（255）。调用场景时，网关向总线发送“调用场景 N”的广播或组播命令，各设备读取自身表中第 N 项并输出对应亮度。整个过程不涉及平台，故断网、断云、网关离线时，面板按键仍可正常调用场景——前提是面板与设备之间的绑定关系不依赖网关。</p>
+
+<p>分组关系同理：设备内部保存 16 个组标志位，标记自己属于哪些组。组播命令由设备自行判断是否响应，网关无需维护组员清单。这一设计的好处是网关的组表损坏不影响既有分组，代价是<b>组关系的修改必须逐台下发</b>，无法在平台侧一次性完成。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 330" role="img" aria-label="DALI场景存储模型">
+  <text x="0" y="15" class="ttl">场景存储于设备：命令只携带编号，内容由各设备自行解释</text>
+
+  <rect class="bx2" x="24" y="40" width="180" height="70" rx="4"/>
+  <text x="114" y="64" class="tb" text-anchor="middle">控制设备</text>
+  <text x="114" y="86" class="s" text-anchor="middle">发出：调用场景 3</text>
+  <text x="114" y="104" class="s" text-anchor="middle">（一帧，15.8 ms）</text>
+
+  <line class="lb" x1="204" y1="75" x2="290" y2="75" marker-end="url(#d1)"/>
+  <text x="247" y="66" class="s" text-anchor="middle">广播 / 组播</text>
+
+  <rect class="bx" x="300" y="30" width="300" height="90" rx="4"/>
+  <text x="318" y="52" class="tb">设备 A 的场景表</text>
+  <text x="318" y="74" class="s">场景 1：254　场景 2：180　场景 3：100</text>
+  <text x="318" y="94" class="s">场景 4：0　　场景 5：255（屏蔽）</text>
+  <text x="318" y="112" class="s">→ 执行 100，输出约 39%</text>
+
+  <rect class="bx" x="300" y="136" width="300" height="90" rx="4"/>
+  <text x="318" y="158" class="tb">设备 B 的场景表</text>
+  <text x="318" y="180" class="s">场景 1：254　场景 2：254　场景 3：254</text>
+  <text x="318" y="200" class="s">场景 4：0　　场景 5：255（屏蔽）</text>
+  <text x="318" y="218" class="s">→ 执行 254，输出 100%</text>
+
+  <rect class="bx" x="300" y="242" width="300" height="70" rx="4"/>
+  <text x="318" y="264" class="tb">设备 C 的场景表</text>
+  <text x="318" y="286" class="s">场景 3：255（屏蔽）</text>
+  <text x="318" y="304" class="s">→ 忽略该命令，状态保持</text>
+
+  <rect class="bx3" x="632" y="30" width="304" height="202" rx="4"/>
+  <text x="652" y="54" class="tb">由此推出的三条结论</text>
+  <text x="652" y="80" class="t">① 同一场景号，不同设备可有不同亮度，</text>
+  <text x="652" y="100" class="t">　 这正是分区差异化的实现方式。</text>
+  <text x="652" y="126" class="t">② 屏蔽位是合法配置，“按了不变”</text>
+  <text x="652" y="146" class="t">　 未必是故障。</text>
+  <text x="652" y="172" class="t">③ 改场景不涉及面板，只需重写</text>
+  <text x="652" y="192" class="t">　 设备内的场景表。</text>
+  <text x="652" y="218" class="s">代价：设备更换即丢失，须重写。</text>
+
+  <text x="24" y="256" class="t">断网行为：场景调用不经过平台，故平台离线时面板仍可切场景；反之，平台侧修改场景若未下发，</text>
+  <text x="24" y="280" class="t">设备内仍是旧值，断网后表现为“改过但没生效”。这是配置下发与状态显示分离的必然结果。</text>
+  <text x="24" y="310" class="s">验收判据：修改场景后应断电重启再验，确认写入的是设备而非缓存。</text>
+
+  <defs>
+    <marker id="d1" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#12557E"/></marker>
+  </defs>
+</svg>
+<div class="cap">图 8　场景表存储于设备：命令与内容解耦</div>
+</div>
+
+<h3 id="c36">3.6　总线负载与轮询预算</h3>
+
+<p>“系统反应慢”是现场最常见的投诉之一，而其成因在 DALI 侧可以精确计算。关键在于区分三类操作的帧数成本：广播调用、单灯设定、逐灯回读。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 340" role="img" aria-label="DALI时间预算对比">
+  <text x="0" y="15" class="ttl">时间预算：广播最快，逐灯回读最慢，两者相差两个数量级</text>
+
+  <text x="20" y="48" class="s">广播调用场景（64 台同时动作）</text>
+  <rect x="290" y="36" width="26" height="18" fill="#0E6049"/>
+  <text x="326" y="50" class="s">15.8 ms</text>
+
+  <text x="20" y="88" class="s">单灯设定亮度（含后向确认）</text>
+  <rect x="290" y="76" width="42" height="18" fill="#12557E"/>
+  <text x="342" y="90" class="s">25 ms</text>
+
+  <text x="20" y="128" class="s">64 台逐灯设定（非广播）</text>
+  <rect x="290" y="116" width="330" height="18" fill="#12557E"/>
+  <text x="630" y="130" class="s">约 1.0 s</text>
+
+  <text x="20" y="168" class="s">64 台逐灯回读状态</text>
+  <rect x="290" y="156" width="540" height="18" fill="#B08A2E"/>
+  <text x="840" y="170" class="s">约 1.6 s</text>
+
+  <line x1="290" y1="196" x2="900" y2="196" stroke="#C4D2DE" stroke-width="1"/>
+  <text x="290" y="214" class="s">0</text>
+  <text x="560" y="214" class="s">0.8 s</text>
+  <text x="830" y="214" class="s">1.6 s</text>
+
+  <text x="20" y="252" class="ttl">结论与现场含义</text>
+  <text x="20" y="276" class="t">面板按键调用场景属广播类，总线侧耗时可忽略，故“按了要等一秒”的时延不在 DALI 段，应在网关处理、无线段或平台链路中查找。</text>
+  <text x="20" y="300" class="t">平台刷新全量状态属逐灯回读类，64 台需 1.6 s。若平台轮询周期短于该值，将造成总线持续占用，此时应延长轮询周期或改为事件上报。</text>
+  <text x="20" y="324" class="s">设计建议：单端口设备数按 24～32 台配置，可为回读与故障重试保留时间余量。</text>
+</svg>
+<div class="cap">图 9　DALI 三类操作的时间预算</div>
+</div>
+
+<p>这就给出一条很实用的排故判据：<b>按面板整组变亮有延迟，问题不在 DALI 总线</b>，去查网关处理、无线段或平台链路；<b>平台页面刷状态慢，是正常的回读成本</b>，调轮询周期就行，不用换网关。把两种“慢”当成一件事，是最容易误判网关性能的地方。</p>
+
+<h2 id="c4">第 4 章　OBUS 总线</h2>
+
+<p>OBUS 为欧普私有总线，物理层基于 RS-485 差分传输，采用四线制（两根电源、两根信号），以主从轮询方式工作。其定位与 DALI 明确分工：<b>DALI 承担调光与单灯寻址，OBUS 承担回路通断、分项计量与信号采集</b>。</p>
+
+<h3 id="c41">4.1　物理层与拓扑</h3>
+
+<p>RS-485 不看单根线对地的电压，只看 A、B 两根线之间的差值：差值为正判 1，为负判 0。现场干扰通常是两根线一起被抬高，一相减就抵消了，所以它能拉几百米、也能在强电旁边工作。但抵消有上限——两根线相对地的电压不能超出 −7～+12 V，超了收发器就撑不住，通信直接断。代价是<b>A、B 有极性</b>，接反了差值取反，一个字都通不了。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 350" role="img" aria-label="OBUS四线制与终端匹配">
+  <text x="0" y="15" class="ttl">四线制与终端匹配：电源两芯可并接，信号两芯须手拉手并在两端终接</text>
+
+  <rect class="bx4" x="30" y="52" width="110" height="82" rx="4"/>
+  <text x="85" y="76" class="tb" text-anchor="middle">网关</text>
+  <text x="85" y="98" class="s" text-anchor="middle">主站</text>
+  <text x="85" y="118" class="s" text-anchor="middle">24 V / 250 mA</text>
+
+  <line x1="140" y1="66" x2="878" y2="66" stroke="#B08A2E" stroke-width="2"/>
+  <line x1="140" y1="86" x2="878" y2="86" stroke="#B08A2E" stroke-width="2"/>
+  <line x1="140" y1="112" x2="878" y2="112" stroke="#12557E" stroke-width="1.8"/>
+  <line x1="140" y1="132" x2="878" y2="132" stroke="#0E6049" stroke-width="1.8"/>
+
+  <text x="760" y="58" class="s">24 V / GND　供电</text>
+  <text x="760" y="152" class="s">A / B　差分信号</text>
+
+  <rect x="878" y="108" width="10" height="28" fill="#12557E"/>
+  <text x="876" y="182" class="s" text-anchor="end">终端 120 Ω（跨接 A / B）</text>
+
+  <g stroke="#8FA3B4" stroke-width="1.2">
+    <line x1="250" y1="66" x2="250" y2="200"/>
+    <line x1="450" y1="66" x2="450" y2="200"/>
+    <line x1="650" y1="66" x2="650" y2="200"/>
+  </g>
+  <g fill="#37596F">
+    <circle cx="250" cy="66" r="2.6"/><circle cx="250" cy="86" r="2.6"/>
+    <circle cx="250" cy="112" r="2.6"/><circle cx="250" cy="132" r="2.6"/>
+    <circle cx="450" cy="66" r="2.6"/><circle cx="450" cy="86" r="2.6"/>
+    <circle cx="450" cy="112" r="2.6"/><circle cx="450" cy="132" r="2.6"/>
+    <circle cx="650" cy="66" r="2.6"/><circle cx="650" cy="86" r="2.6"/>
+    <circle cx="650" cy="112" r="2.6"/><circle cx="650" cy="132" r="2.6"/>
+  </g>
+
+  <rect class="bx" x="200" y="204" width="100" height="46" rx="3"/>
+  <text x="250" y="224" class="s" text-anchor="middle">面板</text>
+  <text x="250" y="242" class="s" text-anchor="middle">1.3 m 高</text>
+  <rect class="bx" x="400" y="204" width="100" height="46" rx="3"/>
+  <text x="450" y="224" class="s" text-anchor="middle">传感器</text>
+  <text x="450" y="242" class="s" text-anchor="middle">吊顶</text>
+  <rect class="bx" x="590" y="204" width="120" height="46" rx="3"/>
+  <text x="650" y="224" class="s" text-anchor="middle">开关量模块</text>
+  <text x="650" y="242" class="s" text-anchor="middle">箱内导轨</text>
+
+  <text x="30" y="284" class="ttl">三条电气约束</text>
+  <text x="30" y="306" class="t">① 信号两芯手拉手串接，不星型分支。485 边沿陡，分支点阻抗不连续会产生反射，表现为末端偶发丢包。</text>
+  <text x="30" y="326" class="t">② 首末两端各接 120 Ω，中间设备不接。少接会反射叠加，多接会使驱动负载过重。</text>
+  <text x="30" y="346" class="s">③ A/B 接反不损坏设备，但通信完全不建立；判据为“已通电、总线有 24 V、扫描无应答”。</text>
+</svg>
+<div class="cap">图 10　OBUS 四线制拓扑与终端匹配</div>
+</div>
+
+<h3 id="c42">4.2　轮询机制与时延构成</h3>
+
+<p>OBUS 为主从结构，从站不主动发起通信，仅在主站询问时应答。因此总线时延不是由数据量决定，而是由<b>轮询周期</b>决定：主站依次询问每个地址，一轮结束后回到起点。</p>
+
+<div class="formula">
+单次交互 ≈ 请求帧时长 + 从站响应时间 + 帧间隔<br>
+轮询周期 ≈ 节点数 × 单次交互时长 + 主站处理开销<br>
+例：单次交互 8 ms，32 台设备 → 一轮约 256 ms；64 台 → 约 512 ms
+</div>
+
+<p>由此产生两个与 DALI 不同的工程特征。其一，<b>从站的事件上报存在固有延迟</b>：面板按下后须等待主站轮询到该地址，最坏情况为一个完整轮询周期。其二，<b>设备数量直接影响响应速度</b>，且是线性关系——这一点与 DALI 的广播机制形成鲜明对照。故 OBUS 单端口设备数不宜按 64 台上限配置，工程上按 32～48 台分配，可显著改善操作手感。</p>
+
+<div class="principle">
+<b>DALI 与 OBUS 的时延来源不同：</b>DALI 的广播为一帧完成，逐灯回读才累积；OBUS 的每次交互均为点对点，故所有操作都随节点数线性增长。诊断“反应慢”时，必须先确认该动作属于哪条总线，再判断其延迟是否符合上述模型。符合模型者为设计容量问题，不符合者才属故障。
+</div>
+
+<h3 id="c43">4.3　总线供电预算</h3>
+
+<p>OBUS 四线制中的两根电源线由网关内置电源提供 24 V、限流 250 mA。该电流为<b>整条总线的总预算</b>，包含所有挂在总线上的面板、传感器与模块的自耗，而非仅传感器。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 300" role="img" aria-label="OBUS供电预算">
+  <text x="0" y="15" class="ttl">供电预算：250 mA 为整条总线总额，超出须外接电源并断开内置供电</text>
+
+  <text x="20" y="52" class="s">预算线：250 mA</text>
+  <line x1="60" y1="76" x2="880" y2="76" stroke="#12557E" stroke-width="2"/>
+  <line x1="880" y1="66" x2="880" y2="86" stroke="#12557E" stroke-width="2"/>
+  <text x="886" y="60" class="s">250</text>
+
+  <rect x="60" y="56" width="120" height="20" fill="#EDF6F2" stroke="#0E6049"/>
+  <text x="120" y="70" class="s" text-anchor="middle">网关自耗 30</text>
+
+  <rect x="180" y="56" width="140" height="20" fill="#EBF3F9" stroke="#12557E"/>
+  <text x="250" y="70" class="s" text-anchor="middle">面板 4×15＝60</text>
+
+  <rect x="320" y="56" width="160" height="20" fill="#F6F1E6" stroke="#B08A2E"/>
+  <text x="400" y="70" class="s" text-anchor="middle">传感器 5×25＝125</text>
+
+  <rect x="480" y="56" width="400" height="20" fill="#F1F4F7" stroke="#8FA3B4" stroke-dasharray="4 3"/>
+  <text x="680" y="70" class="s" text-anchor="middle">余量 35 mA</text>
+
+  <text x="20" y="120" class="s">超预算情形：传感器增至 8 台</text>
+  <line x1="60" y1="146" x2="880" y2="146" stroke="#12557E" stroke-width="2"/>
+  <rect x="60" y="126" width="120" height="20" fill="#EDF6F2" stroke="#0E6049"/>
+  <text x="120" y="140" class="s" text-anchor="middle">网关自耗 30</text>
+  <rect x="180" y="126" width="140" height="20" fill="#EBF3F9" stroke="#12557E"/>
+  <text x="250" y="140" class="s" text-anchor="middle">面板 4×15＝60</text>
+  <rect x="320" y="126" width="256" height="20" fill="#F6F1E6" stroke="#B08A2E"/>
+  <text x="448" y="140" class="s" text-anchor="middle">传感器 8×25＝200</text>
+  <rect x="576" y="126" width="64" height="20" fill="#FCF0EE" stroke="#A63A2C"/>
+  <text x="608" y="140" class="s" text-anchor="middle" fill="#A63A2C">超 40</text>
+
+  <text x="20" y="196" class="ttl">超预算的处理：外接 24 V 电源，并断开网关内置供电</text>
+  <text x="20" y="220" class="t">一条总线只允许一个供电源。两个电源的输出电压不可能完全相等，并联后将在两者之间产生环流，</text>
+  <text x="20" y="244" class="t">环流不经过负载，直接转为热量，表现为电源发热、端子变色，严重时触发保护或损坏输出级。</text>
+  <text x="20" y="268" class="t">外接电源的接入点宜选在总线中部，而非末端，以减小末端压降。</text>
+  <text x="20" y="292" class="s">判据：测量末端 24 V 若低于 20 V，应考虑线径与接入点，而非单纯增加电源。</text>
+</svg>
+<div class="cap">图 11　OBUS 供电预算分配与超支处理</div>
+</div>
+
+<p>预算计算应逐项累加，不可只计传感器。工程上常见的错误是按“可带 5 台传感器”直接配置，而忽略同一总线上还有 4 块面板与 2 台模块，实际已接近或超出总额。表现为设备时有时无、通信间歇性失败，而非干脆不工作——这类故障最难定位，因其现象与总线干扰高度相似。</p>
+
+<h3 id="c44">4.4　与 DALI 的工程差异</h3>
+
+<table>
+  <caption>表 1　DALI 与 OBUS 的工程差异</caption>
+  <thead><tr><th>维度</th><th>DALI</th><th>OBUS</th></tr></thead>
+  <tbody>
+    <tr><th>物理层</th><td>两线，无极性，总线供电 250 mA</td><td>四线，A/B 有极性，总线供电 24 V / 250 mA</td></tr>
+    <tr><th>寻址粒度</th><td>单灯，短地址 0～63</td><td>设备级，无单灯寻址能力</td></tr>
+    <tr><th>传输方式</th><td>广播为主，命令一帧完成</td><td>主从轮询，点对点交互</td></tr>
+    <tr><th>时延特性</th><td>广播恒定，回读随设备数累积</td><td>所有操作随节点数线性增长</td></tr>
+    <tr><th>终端匹配</th><td>不要求</td><td>首末两端各 120 Ω</td></tr>
+    <tr><th>拓扑</th><td>手拉手为宜，星型可用但不推荐</td><td>必须手拉手，不宜星型</td></tr>
+    <tr><th>主要职责</th><td>调光、单灯故障回读</td><td>回路通断、分项计量、信号采集</td></tr>
+  </tbody>
+</table>
+
+<h2 id="c5">第 5 章　蓝牙 Mesh 无线层</h2>
+
+<p>蓝牙 Mesh 基于 Bluetooth SIG 的 Mesh Profile，工作在 2.4 GHz ISM 频段。与有线总线相比，其约束从“线缆的电气特性”转为“空口的时分占用”，因此容量、时延、覆盖的计算方法完全不同。理解这一差异，是判断无线方案可行性的前提。</p>
+
+<h3 id="c51">5.1　网络结构与转发机制</h3>
+
+<p>BLE 在 2.4 GHz 上分了 40 个信道，其中 3 个专门用来广播。Mesh 没有路由表，也不算出哪条路最近。它的做法很直接：<b>谁收到报文，谁就再喊一遍</b>，直到报文里“还能转发几次”的计数用完为止。这个计数就是 TTL。</p>
+
+<p>好处是不用维护路线，节点挪了位置、中间断了一条链路，报文照样能绕过去。坏处是同一句话在空间里被喊了很多遍——节点越密，重复越多，占用空口的时间越长。这就是无线 Mesh 的容量不能按“能连多少台”算、只能按“空口忙不忙”算的原因。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 380" role="img" aria-label="Mesh泛洪与TTL衰减">
+  <text x="0" y="15" class="ttl">泛洪传播：同一报文向所有方向扩散，TTL 每转发一次减一</text>
+
+  <circle cx="480" cy="180" r="26" fill="#EBF3F9" stroke="#12557E" stroke-width="1.8"/>
+  <text x="480" y="185" class="s" text-anchor="middle">源</text>
+
+  <g stroke="#12557E" stroke-width="1.5" fill="none">
+    <line x1="480" y1="154" x2="480" y2="86"/>
+    <line x1="454" y1="166" x2="330" y2="106"/>
+    <line x1="454" y1="194" x2="330" y2="254"/>
+    <line x1="506" y1="166" x2="630" y2="106"/>
+    <line x1="506" y1="194" x2="630" y2="254"/>
+    <line x1="480" y1="206" x2="480" y2="274"/>
+  </g>
+
+  <g fill="#EDF6F2" stroke="#0E6049" stroke-width="1.5">
+    <circle cx="480" cy="72" r="16"/>
+    <circle cx="316" cy="98" r="16"/>
+    <circle cx="316" cy="262" r="16"/>
+    <circle cx="644" cy="98" r="16"/>
+    <circle cx="644" cy="262" r="16"/>
+    <circle cx="480" cy="288" r="16"/>
+  </g>
+  <g class="s" text-anchor="middle">
+    <text x="480" y="76">TTL 6</text>
+    <text x="316" y="102">TTL 6</text>
+    <text x="316" y="266">TTL 6</text>
+    <text x="644" y="102">TTL 6</text>
+    <text x="644" y="266">TTL 6</text>
+    <text x="480" y="292">TTL 6</text>
+  </g>
+
+  <g stroke="#8FA3B4" stroke-width="1.2" stroke-dasharray="4 3" fill="none">
+    <line x1="480" y1="56" x2="480" y2="34"/>
+    <line x1="300" y1="98" x2="240" y2="98"/>
+    <line x1="300" y1="262" x2="240" y2="262"/>
+    <line x1="660" y1="98" x2="720" y2="98"/>
+    <line x1="660" y1="262" x2="720" y2="262"/>
+    <line x1="480" y1="304" x2="480" y2="326"/>
+  </g>
+  <g class="s" fill="#54677A" text-anchor="middle">
+    <text x="480" y="30">TTL 5</text>
+    <text x="234" y="102">…</text>
+    <text x="234" y="266">…</text>
+    <text x="726" y="102">…</text>
+    <text x="726" y="266">…</text>
+    <text x="480" y="340">TTL 0 终止</text>
+  </g>
+
+  <rect class="bx" x="24" y="22" width="200" height="120" rx="4"/>
+  <text x="40" y="44" class="tb">泛洪的三个后果</text>
+  <text x="40" y="66" class="s">① 报文被空间内多次重复</text>
+  <text x="40" y="86" class="s">② 空口占用随节点密度上升</text>
+  <text x="40" y="106" class="s">③ 跳数越多，占用的时隙越多</text>
+  <text x="40" y="126" class="s">故容量以“空口占用率”计，</text>
+  <text x="40" y="142" class="s">而非“连接数”计。</text>
+
+  <rect class="bx4" x="740" y="22" width="196" height="120" rx="4"/>
+  <text x="756" y="44" class="tb">设计含义</text>
+  <text x="756" y="66" class="s">同一空间内节点越密，</text>
+  <text x="756" y="86" class="s">单条报文被重复的次数越多，</text>
+  <text x="756" y="106" class="s">有效吞吐越低。</text>
+  <text x="756" y="126" class="s">故“加节点”不等于“加容量”，</text>
+  <text x="756" y="142" class="s">超过阈值后反而降低吞吐。</text>
+
+  <text x="24" y="364" class="s">注：图中 TTL 起点为示意值。TTL 取值影响可达范围与空口开销，二者互为代价。</text>
+</svg>
+<div class="cap">图 12　Mesh 泛洪传播与 TTL 衰减</div>
+</div>
+
+<p>泛洪机制解释了一个与有线系统相反的现象：<b>在无线 Mesh 中，节点密度增加并不必然提升可靠性</b>。在链路层面，密度增加确实提高了可达性；但在空口层面，密度增加使同一报文被更多节点重复转发，占用更多时隙，结果是有效吞吐下降、时延上升。当密度超过某一阈值，网络进入“拥塞—重传—更拥塞”的正反馈，表现为大面积时延与丢包。此时正确的处理是<b>减少中继节点或拆分网关</b>，而非增加节点。</p>
+
+<h3 id="c52">5.2　容量模型</h3>
+
+<p>工程上把“单网关 150 个节点”当作蓝牙 Mesh 的容量上限。这是<b>工程上限，不是协议上限</b>——协议本身能带更多，但带得越多，空口越排不过来，时延和丢包就上去了。150 是“还能用”的那条线。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 340" role="img" aria-label="空口占用率与节点数关系">
+  <text x="0" y="15" class="ttl">空口占用率随节点数与上报频率上升；接近饱和后，时延与丢包同时恶化</text>
+
+  <line class="ln" x1="90" y1="270" x2="880" y2="270" marker-end="url(#e1)"/>
+  <line class="ln" x1="90" y1="270" x2="90" y2="46" marker-end="url(#e1)"/>
+  <text x="790" y="292" class="s">节点数</text>
+  <text x="96" y="38" class="s">空口占用率</text>
+
+  <g class="s" text-anchor="middle">
+    <text x="190" y="288">50</text>
+    <text x="330" y="288">100</text>
+    <text x="470" y="288">150</text>
+    <text x="610" y="288">200</text>
+    <text x="750" y="288">250</text>
+  </g>
+
+  <path d="M110,262 C200,240 300,206 400,166 C500,126 570,100 640,86 C710,72 790,64 860,58"
+        fill="none" stroke="#12557E" stroke-width="2.4"/>
+  <path d="M110,266 C220,258 340,244 460,222 C580,200 700,178 860,156"
+        fill="none" stroke="#0E6049" stroke-width="2" stroke-dasharray="7 4"/>
+
+  <line x1="470" y1="46" x2="470" y2="270" stroke="#B08A2E" stroke-width="1.3" stroke-dasharray="5 4"/>
+  <text x="476" y="42" class="s" fill="#7E5210">工程上限 150</text>
+
+  <rect x="600" y="196" width="290" height="62" rx="4" fill="#FCF0EE" stroke="#A63A2C"/>
+  <text x="616" y="218" class="s" fill="#A63A2C">饱和区：占用率接近 1 后，</text>
+  <text x="616" y="238" class="s" fill="#A63A2C">重传使有效吞吐反降，时延发散。</text>
+
+  <line x1="600" y1="60" x2="630" y2="60" stroke="#12557E" stroke-width="2.4"/>
+  <text x="638" y="64" class="s">上报频率高（如 1 s 一次）</text>
+  <line x1="600" y1="84" x2="630" y2="84" stroke="#0E6049" stroke-width="2" stroke-dasharray="7 4"/>
+  <text x="638" y="88" class="s">上报频率低（如 30 s 一次）</text>
+
+  <text x="90" y="318" class="s">设计取值：按 100～120 节点配置，预留约 30% 空口余量，用于重传、固件广播与临时峰值。</text>
+</svg>
+<div class="cap">图 13　空口占用率与节点数、上报频率的关系</div>
+</div>
+
+<p>容量核算必须按<b>设备总数</b>而非灯具数计。一块蓝牙面板、一只蓝牙继电器、一具蓝牙传感器，均占用一个节点地址与相应的空口份额。一个典型会议室（10 盏灯、2 块面板、1 只传感器）实际占用 13 个节点，而非 10 个。方案阶段按灯具数估算，将系统性低估 20%～30%。</p>
+
+<h3 id="c53">5.3　覆盖与衰减</h3>
+
+<p>2.4 GHz 的波长约 12.5 cm，其传播特性接近准光传播：遇金属反射、遇混凝土与人体吸收、遇孔径产生绕射。因此“覆盖面积”并非固定值，而取决于空间构造。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 340" role="img" aria-label="三种构造下的覆盖差异">
+  <text x="0" y="15" class="ttl">同一网关，三种构造下的有效覆盖差异显著</text>
+
+  <text x="24" y="46" class="s">A　空旷规则空间</text>
+  <rect x="24" y="56" width="280" height="130" fill="#EDF6F2" stroke="#0E6049"/>
+  <circle cx="164" cy="121" r="8" fill="#12557E"/>
+  <circle cx="164" cy="121" r="52" fill="none" stroke="#12557E" stroke-width="1.2" stroke-dasharray="4 4"/>
+  <text x="164" y="204" class="s" text-anchor="middle">覆盖约 500 ㎡，边缘场强仍有余量</text>
+
+  <text x="340" y="46" class="s">B　金属吊顶与货架</text>
+  <rect x="340" y="56" width="280" height="130" fill="#FCF0EE" stroke="#A63A2C"/>
+  <circle cx="480" cy="121" r="8" fill="#12557E"/>
+  <circle cx="480" cy="121" r="38" fill="none" stroke="#A63A2C" stroke-width="1.2" stroke-dasharray="4 4"/>
+  <path d="M380,70 L580,70 M380,90 L580,90" stroke="#A63A2C" stroke-width="1.6"/>
+  <text x="480" y="204" class="s" text-anchor="middle">覆盖降至约一半，边缘需靠中继补足</text>
+
+  <text x="656" y="46" class="s">C　竖井与隔墙</text>
+  <rect x="656" y="56" width="280" height="130" fill="#F1F4F7" stroke="#8FA3B4"/>
+  <circle cx="740" cy="121" r="8" fill="#12557E"/>
+  <path d="M800,66 L800,176" stroke="#37596F" stroke-width="3"/>
+  <path d="M860,66 L860,176" stroke="#37596F" stroke-width="3"/>
+  <text x="800" y="196" class="s" text-anchor="middle">混凝土墙</text>
+  <text x="796" y="230" class="s" text-anchor="middle">隔墙后场强骤降</text>
+
+  <line x1="0" y1="252" x2="960" y2="252" stroke="#D9E2EA"/>
+
+  <text x="24" y="278" class="ttl">三条布点原则</text>
+  <text x="24" y="302" class="t">① 网关宜置于空间几何中心，不宜置于角落或弱电间内。弱电间的金属门与墙体将造成单向衰减。</text>
+  <text x="24" y="324" class="t">② 走廊等狭长空间，设备间距宜按 ≤10 m 控制，而非按面积估算，因狭长空间的信号沿轴向衰减慢但横向覆盖窄。</text>
+  <text x="24" y="346" class="s">③ 金属吊顶、金属货架、设备机房为不可穿透构造，应视为物理边界，按分区拆分网关，不宜以增大发射功率补偿。</text>
+</svg>
+<div class="cap">图 14　构造对有效覆盖的影响</div>
+</div>
+
+<p>“增大发射功率可补偿遮挡”是常见误判。2.4 GHz 的穿透损耗以 dB 计，金属构造的衰减可达数十分贝，而发射功率的调整余量通常仅数分贝，二者不在同一量级。更关键的是，增大功率同时抬高了同频干扰与多径分量，在密集安装场景中将加剧而非缓解问题。</p>
+
+<h3 id="c54">5.4　时延构成</h3>
+
+<p>无线段的时延由三部分叠加：<b>广播间隔</b>（发送端等待下一次广播时隙）、<b>中继跳数</b>（每跳增加一次转发调度）、<b>空口排队</b>（拥塞时的重传等待）。三者中，前两者为确定性延迟，第三者随负载非线性增长。</p>
+
+<p>这解释了一个现场特征：<b>低负载时无线响应良好，高峰时段明显变慢</b>。若项目在调试期（人员稀少、上报稀少）验收，将无法暴露该问题。故无线系统的验收宜在代表性负载下进行，或直接以“节点数不超过设计值”作为替代判据。</p>
+
+<div class="principle">
+<b>无线方案的验收判据：</b>不以“按一下是否立刻响应”作为唯一判据，而应同时记录三项——① 节点总数是否在 100～120 以内；② 是否存在单跳超过 30 m 的链路；③ 高峰时段连续 30 次操作的失败次数。三项中任一不合格，均应调整布点，而非调整灵敏度或功率。
+</div>
+
+<h2 id="c6">第 6 章　系统构成</h2>
+
+<p>本章按“器件在系统中的职能”分类，而非按型号排列。型号随代际更替，职能不变；掌握职能与边界，即可在换代后自行对应。</p>
+
+<h3 id="c61">6.1　网关</h3>
+
+<p>网关承担三项职能：向下的总线主控（或无线网络管理）、协议解析与地址表维护、向上的以太网通信。其内部可划分为四个功能块，各块的失效表现不同，可作为故障定位的依据。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 340" role="img" aria-label="网关内部功能块">
+  <text x="0" y="15" class="ttl">网关内部四个功能块：故障表现可作为定位依据</text>
+
+  <rect x="24" y="36" width="912" height="150" rx="6" fill="#FCFDFE" stroke="#37596F" stroke-width="1.6"/>
+  <text x="40" y="58" class="tb">网关</text>
+
+  <rect class="bx3" x="44" y="72" width="190" height="86" rx="4"/>
+  <text x="139" y="96" class="tb" text-anchor="middle">① 电源</text>
+  <text x="139" y="118" class="s" text-anchor="middle">AC 220 V → 24 V / 3.3 V</text>
+  <text x="139" y="138" class="s" text-anchor="middle">总线供电由此引出</text>
+
+  <rect class="bx2" x="258" y="72" width="210" height="86" rx="4"/>
+  <text x="363" y="96" class="tb" text-anchor="middle">② 主控</text>
+  <text x="363" y="118" class="s" text-anchor="middle">MCU、存储、时钟</text>
+  <text x="363" y="138" class="s" text-anchor="middle">地址表、场景表、调度</text>
+
+  <rect class="bx4" x="492" y="72" width="210" height="86" rx="4"/>
+  <text x="597" y="96" class="tb" text-anchor="middle">③ 总线收发</text>
+  <text x="597" y="118" class="s" text-anchor="middle">DALI 电平驱动 / 485 收发</text>
+  <text x="597" y="138" class="s" text-anchor="middle">限流、隔离、保护</text>
+
+  <rect class="bx" x="726" y="72" width="186" height="86" rx="4"/>
+  <text x="819" y="96" class="tb" text-anchor="middle">④ 以太网</text>
+  <text x="819" y="118" class="s" text-anchor="middle">RJ45、MAC、IP</text>
+  <text x="819" y="138" class="s" text-anchor="middle">DHCP / 静态</text>
+
+  <line class="lb" x1="234" y1="115" x2="254" y2="115" marker-end="url(#f1)"/>
+  <line class="lb" x1="468" y1="115" x2="488" y2="115" marker-end="url(#f1)"/>
+  <line class="lb" x1="702" y1="115" x2="722" y2="115" marker-end="url(#f1)"/>
+
+  <text x="24" y="216" class="ttl">两个观察，四种结论</text>
+
+  <rect class="bx" x="24" y="232" width="216" height="86" rx="4"/>
+  <text x="40" y="254" class="s">平台可见 + 面板可控</text>
+  <text x="40" y="276" class="s">→ 四块均正常</text>
+  <text x="40" y="296" class="s">问题在配置层（场景、绑定）</text>
+
+  <rect class="bx" x="252" y="232" width="216" height="86" rx="4"/>
+  <text x="268" y="254" class="s">平台不可见 + 面板可控</text>
+  <text x="268" y="276" class="s">→ ④ 以太网或网络层故障</text>
+  <text x="268" y="296" class="s">现场控制不受影响</text>
+
+  <rect class="bx" x="480" y="232" width="216" height="86" rx="4"/>
+  <text x="496" y="254" class="s">平台可见 + 面板不可控</text>
+  <text x="496" y="276" class="s">→ ③ 总线收发或总线故障</text>
+  <text x="496" y="296" class="s">主控与网络正常</text>
+
+  <rect class="bx" x="708" y="232" width="216" height="86" rx="4"/>
+  <text x="724" y="254" class="s">全部不可用</text>
+  <text x="724" y="276" class="s">→ ① 电源或 ② 主控故障</text>
+  <text x="724" y="296" class="s">看指示灯与重启行为</text>
+
+  <defs>
+    <marker id="f1" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#12557E"/></marker>
+  </defs>
+</svg>
+<div class="cap">图 15　网关功能块与故障定位矩阵</div>
+</div>
+
+<p>四类网关的差别在于“向下会说几种语言”。纯 DALI 网关具备两个 DALI 端口，适合整层为 DALI 灯具的场合；纯 OBUS 网关具备两个 OBUS 端口，适合以回路控制与计量为主的场合；混合网关提供一个 DALI 端口与一个 OBUS 端口，适合同一配电区域内两种回路并存的场合；蓝牙网关向上为以太网、向下为 BLE Mesh，部分型号附带一路 DALI 与一路 RS-485，用于改造项目中的混合接入。</p>
+
+<p>选型原则应按<b>该配电区域内的回路类型</b>确定，而非按设备单价。同一箱内若两种回路并存，混合网关可减少一台设备、一个 IP 地址与一处故障点；若整片为单一类型，纯型网关的排查面更小。为“将来可能增加”而全部选用混合网关，将长期承担多一种协议的维护成本。</p>
+
+<h3 id="c62">6.2　开关量模块与计量</h3>
+
+<p>开关量模块为 OBUS 体系中的执行元件，提供 4 路、8 路、12 路三种规格，每路额定 20 A，采用磁保持继电器。磁保持的含义是：触点动作后由永磁保持，无需线圈持续通电，因而待机功耗与自身发热显著低于普通继电器。</p>
+
+<p>该类模块的核心能力不是开关，而是<b>逐路计量</b>。其内部对每路进行电压与电流采样，按瞬时功率对时间积分得到电量。这一能力使其适用于需要分项计量的场合（车库、走廊、广告灯箱、泛光照明），而这类场合通常不需要调光。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 340" role="img" aria-label="开关量模块计量原理">
+  <text x="0" y="15" class="ttl">逐路计量原理：采样—积分—累加，精度取决于采样与功率因数处理</text>
+
+  <rect class="bx3" x="24" y="44" width="120" height="70" rx="4"/>
+  <text x="84" y="68" class="tb" text-anchor="middle">进线</text>
+  <text x="84" y="90" class="s" text-anchor="middle">L / N</text>
+
+  <rect class="bx4" x="184" y="44" width="150" height="70" rx="4"/>
+  <text x="259" y="68" class="tb" text-anchor="middle">磁保持继电器</text>
+  <text x="259" y="90" class="s" text-anchor="middle">每路 20 A</text>
+
+  <rect class="bx" x="374" y="44" width="150" height="70" rx="4"/>
+  <text x="449" y="68" class="tb" text-anchor="middle">电流采样</text>
+  <text x="449" y="90" class="s" text-anchor="middle">互感器 / 分流器</text>
+
+  <rect class="bx" x="564" y="44" width="150" height="70" rx="4"/>
+  <text x="639" y="68" class="tb" text-anchor="middle">电压采样</text>
+  <text x="639" y="90" class="s" text-anchor="middle">分压网络</text>
+
+  <rect class="bx2" x="754" y="44" width="180" height="70" rx="4"/>
+  <text x="844" y="68" class="tb" text-anchor="middle">计量单元</text>
+  <text x="844" y="90" class="s" text-anchor="middle">P＝U×I×cosφ，对 t 积分</text>
+
+  <line class="lb" x1="144" y1="79" x2="180" y2="79" marker-end="url(#g1)"/>
+  <line class="lb" x1="334" y1="79" x2="370" y2="79" marker-end="url(#g1)"/>
+  <line class="lb" x1="524" y1="79" x2="560" y2="79" marker-end="url(#g1)"/>
+  <line class="lb" x1="714" y1="79" x2="750" y2="79" marker-end="url(#g1)"/>
+
+  <path class="ld" d="M639,114 L639,140 L844,140 L844,118" fill="none" marker-end="url(#g1)"/>
+
+  <rect class="bx" x="24" y="166" width="912" height="66" rx="4"/>
+  <text x="42" y="190" class="tb">三个影响计量精度的因素，均不在平台侧</text>
+  <text x="42" y="212" class="t">① 额定功率的录入值：平台按“额定功率 × 时长 × 调光系数”估算时，填错就是整体偏移，跟实际负载没有关系。</text>
+  <text x="42" y="230" class="s">② 功率因数：LED 驱动不是纯电阻，电压与电流不同步，直接相乘会比实际耗电偏大，模块未做修正则读数偏高。</text>
+
+  <text x="24" y="264" class="t">③ 最小可测电流：互感器在小电流段非线性，轻载（如待机、1% 调光）时读数不可靠，通常以额定电流的 2%～5% 作为下限。</text>
+
+  <text x="24" y="300" class="ttl">由此得出计量类项目的两条交付要求</text>
+  <text x="24" y="322" class="t">其一，模块侧计量应作为结算依据时，须提供计量精度等级与校准记录；平台侧估算值仅用于趋势分析，不得作为结算依据。</text>
+  <text x="24" y="344" class="s">其二，轻载回路的电量应标注“参考值”，避免在低负载时段给出误导性的节能结论。</text>
+
+  <defs>
+    <marker id="g1" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#12557E"/></marker>
+  </defs>
+</svg>
+<div class="cap">图 16　开关量模块的逐路计量链路</div>
+</div>
+
+<h3 id="c63">6.3　数字 IO 模块</h3>
+
+<p>数字 IO 模块用于系统间的信号交接，不参与照明控制。其规格为 8 路干接点输入（I8）或 4 路输入加 4 路输出（I4O4），由 OBUS 总线供电，体积小，可明装于被控设备附近。</p>
+
+<p>该模块的工程要点是<b>无源接入</b>。干接点指不携带电压的触点，仅提供通断两种状态。消防联动、门磁、按钮、第三方报警输出通常为干接点；若对方提供的是带 24 V 的有源信号，直接接入将造成输入回路过压。正确做法是中间加装继电器隔离，由继电器触点接入 DI。</p>
+
+<div class="note">
+<b>有源信号的识别方法：</b>断电状态下用万用表电阻档测量对方端子，若读数稳定在数十欧至数百欧（触点闭合）或开路（触点断开），为干接点；若在断电状态下测量到直流电压，或端子间存在稳定的半导体结压降，则为有源输出，不得直接接入。
+</div>
+
+<h3 id="c64">6.4　人机输入设备</h3>
+
+<p>面板按供电与通信方式分为两类：<b>总线面板</b>由 OBUS 供电（DC 24 V），按键产生总线报文；<b>无线面板</b>由纽扣电池供电，按键产生 BLE 报文。二者的功能等价，差别在施工条件与维护成本。</p>
+
+<p>总线面板不需更换电池，不受无线干扰，但须敷设总线并预埋 86 底盒；无线面板可贴装于任意位置，改造项目无需开槽，但需定期更换电池，且电池电压下降时平台将产生“电量低”告警。选型判据只有一条：<b>该位置是否具备敷设总线的条件</b>。</p>
+
+<p>面板在系统中的角色是<b>事件源</b>而非控制器。按键动作被编码为“某键被按下”的事件，由网关或平台按预置的绑定关系决定其效果。因此修改按键功能不需要更换面板，只需修改绑定；反之，绑定关系丢失时，面板本身仍是完好的，表现为“按键有反馈但灯不动”。</p>
+
+<h3 id="c65">6.5　传感器</h3>
+
+<p>传感器按探测原理分为三类，其误报与漏报的成因完全不同。选型错误无法通过调整灵敏度弥补，必须先确认原理与场景的匹配性。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 430" role="img" aria-label="三类探测原理">
+  <text x="0" y="15" class="ttl">三类探测原理：探测的物理量不同，失效模式亦不同</text>
+
+  <rect class="bx" x="24" y="34" width="296" height="216" rx="4"/>
+  <text x="172" y="58" class="tb" text-anchor="middle">被动红外（PIR）</text>
+  <path d="M104,132 Q172,80 240,132" fill="none" stroke="#12557E" stroke-width="1.4"/>
+  <path d="M120,144 Q172,100 224,144" fill="none" stroke="#12557E" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <circle cx="172" cy="158" r="10" fill="#EBF3F9" stroke="#12557E" stroke-width="1.5"/>
+  <text x="172" y="200" class="s" text-anchor="middle">探测红外辐射的变化量</text>
+  <text x="40" y="220" class="s">· 仅对移动敏感，静止判无人</text>
+  <text x="40" y="240" class="s">· 误报源：风口、阳光、热源</text>
+
+  <rect class="bx" x="332" y="34" width="296" height="216" rx="4"/>
+  <text x="480" y="58" class="tb" text-anchor="middle">多普勒微波（5.8 GHz）</text>
+  <path d="M414,158 L546,158" stroke="#12557E" stroke-width="1.2"/>
+  <path d="M422,140 Q480,120 538,140" fill="none" stroke="#0E6049" stroke-width="1.3"/>
+  <path d="M422,176 Q480,196 538,176" fill="none" stroke="#0E6049" stroke-width="1.3" stroke-dasharray="4 3"/>
+  <circle cx="480" cy="158" r="10" fill="#EDF6F2" stroke="#0E6049" stroke-width="1.5"/>
+  <text x="480" y="200" class="s" text-anchor="middle">探测移动引起的频移</text>
+  <text x="348" y="220" class="s">· 可穿透门、窗、薄隔墙</text>
+  <text x="348" y="240" class="s">· 误报源：风机、窗帘、水流</text>
+
+  <rect class="bx" x="640" y="34" width="296" height="216" rx="4"/>
+  <text x="788" y="58" class="tb" text-anchor="middle">毫米波存在式</text>
+  <path d="M722,158 L854,158" stroke="#12557E" stroke-width="1.2"/>
+  <path d="M730,140 Q788,128 846,140" fill="none" stroke="#0E6049" stroke-width="1.2"/>
+  <path d="M730,176 Q788,188 846,176" fill="none" stroke="#0E6049" stroke-width="1.2"/>
+  <path d="M774,158 Q788,146 802,158 Q788,170 774,158" fill="none" stroke="#A63A2C" stroke-width="1.3"/>
+  <circle cx="788" cy="158" r="9" fill="#EDF6F2" stroke="#0E6049" stroke-width="1.5"/>
+  <text x="788" y="200" class="s" text-anchor="middle">探测呼吸、心跳引起的微动</text>
+  <text x="656" y="220" class="s">· 静止、久坐仍可判有人</text>
+  <text x="656" y="240" class="s">· 受安装角度与金属反射影响</text>
+
+  <line x1="24" y1="270" x2="936" y2="270" stroke="#D9E2EA"/>
+  <text x="24" y="296" class="ttl">选型判据：以“人的状态”而非“空间类型”决定</text>
+  <text x="24" y="320" class="t">人持续走动（走廊、楼梯、通道）→ 被动红外，成本最低，静止时不误报。</text>
+  <text x="24" y="342" class="t">人时有停留但以移动为主（车库、大空间）→ 微波，探测距离远，可穿薄隔断；须排除风机与管道扰动。</text>
+  <text x="24" y="364" class="t">人久坐不动（工位、会议、阅读）→ 存在式，三者的成本差异在此场景不构成决策依据。</text>
+  <text x="24" y="392" class="s">调整顺序：先确认原理匹配，再排除误报源（风口、窗帘、热源、隔墙），最后才调灵敏度。顺序颠倒将导致参数互相掩盖。</text>
+</svg>
+<div class="cap">图 17　三类探测原理与失效模式</div>
+</div>
+
+<p>四合一传感器在红外与微波之外，增加了照度与温湿度测量。其价值不在于“功能多”，而在于<b>提供闭环控制的反馈量</b>：照度用于恒照度控制，温湿度用于环境联动。若项目不含恒照度需求，四合一相对单一原理传感器并无必要优势。</p>
+
+<h3 id="c66">6.6　天幕控制器与模组</h3>
+
+<p>天幕不属于灯具，而属于发光面系统，其控制器与模组单独成类。控制器按接入方式分为 Wi-Fi 版与以太网版，每台提供 2 路输出，一台主机可级联最多 19 台从机。模组按块计，逐块拼接为面。</p>
+
+<p>该子系统的设计约束与前六章不同：其性能由<b>几何尺寸</b>决定，而非电气参数。相关内容独立成第 9 章，此处仅明确其计价与设计单位：天幕按模组块数与控制器台数计价，不按灯具套数计价；其光学边界由腔体几何决定，不能通过调光参数修正。</p>
+
+<h2 id="c7">第 7 章　接口与转换</h2>
+
+<p>既有建筑的照明系统中，具备数字接口的灯具占比有限。大量普通灯具仅有通断能力，部分可调光灯具采用切相驱动，另有部分系统保留着早期的 DALI 总线。转换模块的作用，是在不改动原有配电与灯具的前提下，将上述负载纳入统一控制。</p>
+
+<h3 id="c71">7.1　三类接口断点</h3>
+
+<p>从控制端到负载，链路上存在三类不连续点。转换模块的设计，本质是针对其中某一类断点进行补足。判断断点类型是选型的第一步，判断错误将导致模块能力与实际需求不匹配。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 330" role="img" aria-label="三类接口断点">
+  <text x="0" y="15" class="ttl">三类断点：协议、驱动、信号，各自对应一类转换器件</text>
+
+  <rect class="bx2" x="24" y="40" width="150" height="64" rx="4"/>
+  <text x="99" y="64" class="tb" text-anchor="middle">控制端</text>
+  <text x="99" y="86" class="s" text-anchor="middle">网关 / 平台</text>
+
+  <line x1="174" y1="72" x2="248" y2="72" stroke="#12557E" stroke-width="1.6"/>
+  <line x1="248" y1="52" x2="248" y2="92" stroke="#A63A2C" stroke-width="2.4"/>
+  <text x="211" y="44" class="s" fill="#A63A2C">断点 ①</text>
+  <text x="211" y="112" class="s" text-anchor="middle">协议不同</text>
+
+  <rect class="bx4" x="268" y="40" width="160" height="64" rx="4"/>
+  <text x="348" y="64" class="tb" text-anchor="middle">转换器件</text>
+  <text x="348" y="86" class="s" text-anchor="middle">蓝牙 ↔ DALI / 485</text>
+
+  <line x1="428" y1="72" x2="502" y2="72" stroke="#12557E" stroke-width="1.6"/>
+  <line x1="502" y1="52" x2="502" y2="92" stroke="#A63A2C" stroke-width="2.4"/>
+  <text x="465" y="44" class="s" fill="#A63A2C">断点 ②</text>
+  <text x="465" y="112" class="s" text-anchor="middle">驱动不同</text>
+
+  <rect class="bx3" x="522" y="40" width="160" height="64" rx="4"/>
+  <text x="602" y="64" class="tb" text-anchor="middle">执行元件</text>
+  <text x="602" y="86" class="s" text-anchor="middle">继电器 / 切相 / 恒流</text>
+
+  <line x1="682" y1="72" x2="756" y2="72" stroke="#12557E" stroke-width="1.6"/>
+  <line x1="756" y1="52" x2="756" y2="92" stroke="#A63A2C" stroke-width="2.4"/>
+  <text x="719" y="44" class="s" fill="#A63A2C">断点 ③</text>
+  <text x="719" y="112" class="s" text-anchor="middle">信号不联网</text>
+
+  <rect class="bx" x="776" y="40" width="160" height="64" rx="4"/>
+  <text x="856" y="64" class="tb" text-anchor="middle">外部设备</text>
+  <text x="856" y="86" class="s" text-anchor="middle">消防 / 门磁 / 按钮</text>
+
+  <line x1="0" y1="140" x2="960" y2="140" stroke="#D9E2EA"/>
+
+  <text x="24" y="166" class="ttl">三者的判别方法</text>
+  <text x="24" y="192" class="t">① 协议断点：两侧都能通信，但语言不同。判据是“网关无法直接寻址该设备”，而设备本身具备数字接口。</text>
+  <text x="24" y="216" class="t">② 驱动断点：控制信号能到达，但负载不响应。判据是“更换控制信号后负载行为不变”，说明限制在驱动侧。</text>
+  <text x="24" y="240" class="t">③ 信号断点：对方只提供触点。判据是“对方无通信接口，仅有继电器输出或干接点”。</text>
+
+  <rect class="bxr" x="24" y="258" width="912" height="52" rx="4"/>
+  <text x="42" y="280" class="tb">一处常见误判</text>
+  <text x="42" y="300" class="t">将“驱动断点”误判为“协议断点”，会导致选用协议转换模块去解决驱动不匹配问题。结果是通信正常、灯具无响应，排查方向完全偏离。</text>
+</svg>
+<div class="cap">图 18　三类接口断点及其判别</div>
+</div>
+
+<h3 id="c72">7.2　协议转换：蓝牙转 DALI</h3>
+
+<p>该器件的输入侧为 BLE Mesh 节点，输出侧为 DALI 总线的主控角色。它在两条协议之间完成三件事：接收无线报文、解析为控制意图、以 DALI 帧格式发往总线。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 340" role="img" aria-label="蓝牙转DALI的转换层级">
+  <text x="0" y="15" class="ttl">转换发生在应用层：无线报文被重新封装为 DALI 广播帧，地址语义丢失</text>
+
+  <rect x="24" y="36" width="440" height="252" rx="5" fill="#FCFDFE" stroke="#37596F"/>
+  <text x="42" y="58" class="tb">输入侧：BLE Mesh 报文</text>
+
+  <rect class="bx2" x="44" y="72" width="400" height="34" rx="3"/>
+  <text x="56" y="94" class="s">MAC / 网络层：源节点、序列号、TTL</text>
+  <rect class="bx2" x="44" y="112" width="400" height="34" rx="3"/>
+  <text x="56" y="134" class="s">传输层：分段与重组</text>
+  <rect class="bx4" x="44" y="152" width="400" height="34" rx="3"/>
+  <text x="56" y="174" class="s">应用层：模型 ID、操作码、目标地址、参数</text>
+  <rect class="bx3" x="44" y="192" width="400" height="34" rx="3"/>
+  <text x="56" y="214" class="s">访问层：目标元素（灯 / 组 / 场景）</text>
+
+  <text x="44" y="252" class="s">此处具备完整的目标语义：可指定单个元素、</text>
+  <text x="44" y="272" class="s">也可指定组或场景。</text>
+
+  <rect class="bx" x="500" y="120" width="180" height="86" rx="4"/>
+  <text x="590" y="146" class="tb" text-anchor="middle">转换器件</text>
+  <text x="590" y="168" class="s" text-anchor="middle">映射与降级</text>
+  <text x="590" y="188" class="s" text-anchor="middle">目标地址 → 广播</text>
+
+  <line class="lb" x1="464" y1="163" x2="496" y2="163" marker-end="url(#h1)"/>
+  <line class="lb" x1="680" y1="163" x2="712" y2="163" marker-end="url(#h1)"/>
+
+  <rect x="716" y="36" width="220" height="252" rx="5" fill="#FCFDFE" stroke="#37596F"/>
+  <text x="734" y="58" class="tb">输出侧：DALI 前向帧</text>
+  <rect class="bx2" x="734" y="72" width="184" height="34" rx="3"/>
+  <text x="746" y="94" class="s">地址字节：1111111S</text>
+  <rect class="bx3" x="734" y="112" width="184" height="34" rx="3"/>
+  <text x="746" y="134" class="s">命令字节：调用场景 / 设亮度</text>
+  <rect class="bx" x="734" y="152" width="184" height="34" rx="3"/>
+  <text x="746" y="174" class="s">数据字节：0～254</text>
+
+  <text x="734" y="212" class="s" fill="#A63A2C">地址字段被固定为广播，</text>
+  <text x="734" y="232" class="s" fill="#A63A2C">原有的单元素语义不可表达。</text>
+  <text x="734" y="256" class="s">故：整组可控，逐灯不可控。</text>
+
+  <text x="24" y="312" class="s">这不是做不好，是协议本身决定的：DALI 广播帧里没有“目标地址”这一栏，发出去就没法指定是哪一盏。</text>
+</svg>
+<div class="cap">图 19　蓝牙转 DALI 的转换层级与语义降级</div>
+</div>
+
+<p>由此可确定该器件的能力边界：<b>整组开关、整组调光、整组场景调用可以；逐灯控制不可以</b>。其适用条件是“原有回路本身即为整组动作”，例如商场中庭、展厅的既有 DALI 分组。若业主需要逐灯控制，正确的方案是恢复 DALI 网关与总线，而非在该模块上寻求突破。</p>
+
+<h3 id="c73">7.3　驱动匹配：继电器与切相</h3>
+
+<p>驱动断点的补足方式由负载类型决定，二者不可互换。</p>
+
+<p><b>继电器型</b>串接于负载回路，提供通断。其能力为“全电压或零”，不存在中间态。选型时须核算两项：触点额定电流应大于回路满载电流并留有余量；动作次数应与实际使用频次匹配。感应控制一类每天动作数十次的场合，机械寿命将成为限制因素，此时应改由驱动器自带的控制接口实现，或选用固态开关。</p>
+
+<p><b>切相型</b>通过每半周切去波形的一部分改变有效值。分前沿切相（切去上升段）与后沿切相（切去下降段），前者适配感性负载，后者适配容性负载。LED 驱动多为容性输入，故后沿切相更为适配，但具体兼容性取决于驱动器内部电路，<b>必须以单灯试装确认</b>。</p>
+
+<div class="note">
+<b>切相调光的批量风险：</b>不同批次、不同型号的 LED 驱动器，其输入滤波电路差异较大。同一批试装合格，不等于全楼合格。工程做法是：按驱动器型号分批抽检，每批不少于三具，在最低亮度与最高亮度各保持十分钟，观察有无闪烁、啸叫与熄灭。抽检不合格的批次，不得批量安装。
+</div>
+
+<h3 id="c74">7.4　信号接口：干接点与 IO</h3>
+
+<p>消防联动、门磁、水浸、第三方报警等信号，通常以干接点形式提供。此类信号不携带地址与语义，仅表达“通”或“断”，因此需要由 IO 模块完成两件事：采集电平变化、将其映射为具有语义的事件。</p>
+
+<p>映射关系在平台侧配置，而非在模块内部固化。例如 1 号输入闭合映射为“火警联动，全楼强制点亮”，2 号输入闭合映射为“消防强切，非应急回路断电”。这一分离设计的含义是：模块只负责采集，语义由配置决定，修改联动逻辑不需要更换硬件。</p>
+
+<p>反向输出同理：I4O4 的 4 路输出可向第三方提供干接点信号，用于告知“本系统当前处于何种状态”。此类接口常用于与楼宇自控系统的握手，其可靠性高于协议对接，但信息量低，仅能表达离散状态。</p>
+
+<h3 id="c75">7.5　转换链的能力边界</h3>
+
+<p>转换模块通常不单独使用，而是形成链路。三条典型链路的能力上限差异显著，选型时应先确定目标能力，再倒推链路构成。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 372" role="img" aria-label="三条转换链的能力边界">
+  <text x="0" y="15" class="ttl">三条链：链路构成决定能力上限，而非器件数量</text>
+
+  <text x="24" y="46" class="tb">链 A　无线 → DALI 广播 → 既有灯具</text>
+  <rect class="bx2" x="24" y="58" width="118" height="40" rx="3"/>
+  <text x="83" y="83" class="s" text-anchor="middle">蓝牙网关</text>
+  <rect class="bx4" x="166" y="58" width="160" height="40" rx="3"/>
+  <text x="246" y="83" class="s" text-anchor="middle">蓝牙转 DALI</text>
+  <rect class="bx" x="350" y="58" width="130" height="40" rx="3"/>
+  <text x="415" y="83" class="s" text-anchor="middle">DALI 总线</text>
+  <rect class="bx" x="504" y="58" width="150" height="40" rx="3"/>
+  <text x="579" y="83" class="s" text-anchor="middle">既有灯具（整组）</text>
+  <line class="lb" x1="142" y1="78" x2="162" y2="78" marker-end="url(#i1)"/>
+  <line class="lb" x1="326" y1="78" x2="346" y2="78" marker-end="url(#i1)"/>
+  <line class="lb" x1="480" y1="78" x2="500" y2="78" marker-end="url(#i1)"/>
+  <text x="676" y="72" class="s">能力：整组开关、调光、场景</text>
+  <text x="676" y="92" class="s" fill="#A63A2C">不可：逐灯、故障回读</text>
+
+  <text x="24" y="140" class="tb">链 B　无线 → 继电器 → 普通灯具</text>
+  <rect class="bx2" x="24" y="152" width="118" height="40" rx="3"/>
+  <text x="83" y="177" class="s" text-anchor="middle">蓝牙网关</text>
+  <rect class="bx4" x="166" y="152" width="160" height="40" rx="3"/>
+  <text x="246" y="177" class="s" text-anchor="middle">蓝牙继电器</text>
+  <rect class="bx" x="350" y="152" width="130" height="40" rx="3"/>
+  <text x="415" y="177" class="s" text-anchor="middle">原照明回路</text>
+  <rect class="bx" x="504" y="152" width="150" height="40" rx="3"/>
+  <text x="579" y="177" class="s" text-anchor="middle">普通灯具</text>
+  <line class="lb" x1="142" y1="172" x2="162" y2="172" marker-end="url(#i1)"/>
+  <line class="lb" x1="326" y1="172" x2="346" y2="172" marker-end="url(#i1)"/>
+  <line class="lb" x1="480" y1="172" x2="500" y2="172" marker-end="url(#i1)"/>
+  <text x="676" y="166" class="s">能力：单路通断</text>
+  <text x="676" y="186" class="s" fill="#A63A2C">不可：调光</text>
+
+  <text x="24" y="234" class="tb">链 C　DALI 传感器 → 转换器 → 无线</text>
+  <rect class="bx" x="24" y="246" width="130" height="40" rx="3"/>
+  <text x="89" y="271" class="s" text-anchor="middle">DALI 传感器</text>
+  <rect class="bx4" x="178" y="246" width="190" height="40" rx="3"/>
+  <text x="273" y="271" class="s" text-anchor="middle">DALI-BLE / 485 转换器</text>
+  <rect class="bx2" x="392" y="246" width="118" height="40" rx="3"/>
+  <text x="451" y="271" class="s" text-anchor="middle">蓝牙网关</text>
+  <rect class="bx" x="534" y="246" width="150" height="40" rx="3"/>
+  <text x="609" y="271" class="s" text-anchor="middle">平台事件</text>
+  <line class="lb" x1="154" y1="266" x2="174" y2="266" marker-end="url(#i1)"/>
+  <line class="lb" x1="368" y1="266" x2="388" y2="266" marker-end="url(#i1)"/>
+  <line class="lb" x1="510" y1="266" x2="530" y2="266" marker-end="url(#i1)"/>
+  <text x="706" y="260" class="s">能力：信号回传</text>
+  <text x="706" y="280" class="s" fill="#A63A2C">不可：控制灯具</text>
+
+  <rect class="bx3" x="24" y="304" width="912" height="50" rx="4"/>
+  <text x="42" y="326" class="tb">选链顺序</text>
+  <text x="42" y="346" class="t">先定能力（是否需要逐灯、是否需要调光、是否需要回读），再选链路；能力不足时更换方案，而非在链路上叠加器件。</text>
+
+  <defs>
+    <marker id="i1" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#12557E"/></marker>
+  </defs>
+</svg>
+<div class="cap">图 20　三条转换链与能力上限</div>
+</div>
+
+<h3 id="c76">7.6　选型矩阵</h3>
+
+<table>
+  <caption>表 2　转换器件选型矩阵</caption>
+  <thead><tr><th>受控对象</th><th>对象现状</th><th>选用</th><th>能力上限</th></tr></thead>
+  <tbody>
+    <tr><th>DALI 灯具</th><td>已有 DALI 驱动，总线可用但无网关</td><td>DALI 网关（恢复总线控制）</td><td>逐灯调光、故障回读</td></tr>
+    <tr><th>DALI 灯具</th><td>总线不可改造，仅需整组控制</td><td>蓝牙转 DALI</td><td>整组开关与调光</td></tr>
+    <tr><th>切相调光灯</th><td>驱动支持后沿切相</td><td>蓝牙转可控硅</td><td>单路调光</td></tr>
+    <tr><th>普通灯具</th><td>仅通断</td><td>蓝牙继电器</td><td>单路开关</td></tr>
+    <tr><th>24 V 灯带</th><td>恒压灯带</td><td>灯带控制器</td><td>调光、调色</td></tr>
+    <tr><th>消防、门磁</th><td>提供无源触点</td><td>IO 模块 I8 / I4O4</td><td>采集，不控制</td></tr>
+    <tr><th>DALI 传感器</th><td>标准 DALI 输入设备</td><td>DALI-BLE / 485 转换器</td><td>信号回传</td></tr>
+    <tr><th>第三方系统</th><td>需离散状态握手</td><td>IO 模块输出</td><td>4 路干接点</td></tr>
+  </tbody>
+</table>
+
+<h3 id="c77">7.7　第三方对接：四种方式与网关后台</h3>
+
+<p>前面六节讲的是系统内部怎么接（蓝牙转 DALI、驱动匹配、干接点）。这一节讲的是系统对外怎么交：<b>BMS、楼宇自控、云平台要读状态、下命令，走哪条路，会卡在哪里</b>。四种方式各有明确适用面，选错方式比配错参数更费时间。</p>
+
+<div class="fig">
+<svg viewBox="0 0 1000 210" role="img" aria-label="第三方对接的四种方式与网关后台">
+  <defs><marker id="b1" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#12557E"/></marker></defs>
+
+  <rect class="bx2" x="8" y="34" width="176" height="112" rx="6"/>
+  <text x="96" y="64" class="tb" text-anchor="middle" font-size="14">网关后台</text>
+  <text x="96" y="88" class="t" text-anchor="middle" font-size="12.4">第三方平台</text>
+  <text x="96" y="106" class="t" text-anchor="middle" font-size="12.4">对接配置</text>
+  <text x="96" y="130" class="s" text-anchor="middle" font-size="11.4">先同网段才能打开</text>
+
+  <line class="lb" x1="188" y1="90" x2="214" y2="90" marker-end="url(#b1)"/>
+
+  <rect class="bx" x="218" y="34" width="180" height="112" rx="6"/>
+  <text x="308" y="62" class="tb" text-anchor="middle" font-size="14">华为云</text>
+  <text x="308" y="86" class="t" text-anchor="middle" font-size="12.4">IoTDA · MQTT/TLS</text>
+  <text x="308" y="106" class="s" text-anchor="middle" font-size="11.4">三元组：设备码／产品ID</text>
+  <text x="308" y="126" class="s" text-anchor="middle" font-size="11.4">上云看板与数据分析</text>
+
+  <rect class="bx4" x="412" y="34" width="180" height="112" rx="6"/>
+  <text x="502" y="62" class="tb" text-anchor="middle" font-size="14">Modbus</text>
+  <text x="502" y="86" class="t" text-anchor="middle" font-size="12.4">TCP 502／RTU 9600</text>
+  <text x="502" y="106" class="s" text-anchor="middle" font-size="11.4">04 读、16 写、广播</text>
+  <text x="502" y="126" class="s" text-anchor="middle" font-size="11.4">本地 BMS 与上位机</text>
+
+  <rect class="bx3" x="606" y="34" width="180" height="112" rx="6"/>
+  <text x="696" y="62" class="tb" text-anchor="middle" font-size="14">BACnet</text>
+  <text x="696" y="86" class="t" text-anchor="middle" font-size="12.4">IP／MS-TP</text>
+  <text x="696" y="106" class="s" text-anchor="middle" font-size="11.4">AI／AO／BI／BO 对象</text>
+  <text x="696" y="126" class="s" text-anchor="middle" font-size="11.4">楼宇自控 BAS</text>
+
+  <rect class="bx" x="800" y="34" width="176" height="112" rx="6"/>
+  <text x="888" y="62" class="tb" text-anchor="middle" font-size="14">节目单</text>
+  <text x="888" y="86" class="t" text-anchor="middle" font-size="12.4">Excel 导入／导出</text>
+  <text x="888" y="106" class="s" text-anchor="middle" font-size="11.4">场景号／亮度／色温</text>
+  <text x="888" y="126" class="s" text-anchor="middle" font-size="11.4">批量配置与备份</text>
+
+  <text x="500" y="180" class="s" text-anchor="middle" font-size="11.6">四种方式都在网关后台配置；Modbus 与 BACnet 面向本地集成，华为云面向云端，节目单面向工程复制</text>
+</svg>
+<div class="cap">图 21　第三方对接：网关后台统一配置，四条出口对应四类集成方</div>
+</div>
+
+<table>
+<caption>表 3　四种对接方式的选型</caption>
+<thead><tr><th style="width:14%">方式</th><th style="width:20%">协议</th><th style="width:24%">适用场景</th><th style="width:18%">数据流向</th><th>一句话判断</th></tr></thead>
+<tbody>
+<tr><td>华为云</td><td>IoTDA／MQTT</td><td>云端统一管理、数据分析、远程运维</td><td>双向（上报＋下发）</td><td>客户要上云看板</td></tr>
+<tr><td>Modbus</td><td>TCP／RTU</td><td>本地 BMS 集成、第三方上位机</td><td>主站轮询读＋写控制</td><td>客户有机房监控</td></tr>
+<tr><td>BACnet</td><td>IP／MS-TP</td><td>楼宇自控 BAS 集成</td><td>对象读写＋COV 订阅</td><td>客户是商业楼宇</td></tr>
+<tr><td>节目单</td><td>Excel 文件</td><td>场景批量配置、跨项目复用、备份</td><td>导入＋导出</td><td>多项目复制场景</td></tr>
+</tbody>
+</table>
+
+<p><b>第一道坎是连上网关后台，不是协议本身。</b>网关自带 Web 管理后台，对接配置、文件导出、固件升级都在这里；而打开后台的前提只有一个——<b>电脑与网关在同一网段</b>。不在同段，浏览器直接打不开，后面所有排错都无从谈起。</p>
+
+<table>
+<caption>表 4　网关 IP 的三种状态与进入方式</caption>
+<thead><tr><th style="width:18%">状态</th><th style="width:22%">网关 IP</th><th>怎么进</th></tr></thead>
+<tbody>
+<tr><td>出厂默认</td><td><code>192.168.1.1</code></td><td>网线直连网关 LAN 口，电脑网卡改成 <code>192.168.1.100</code>、掩码 <code>255.255.255.0</code></td></tr>
+<tr><td>上云后（DHCP）</td><td>路由器分配</td><td>登录路由器后台看 DHCP 客户端列表，网关可能显示为“安卓设备／android”，记下实际 IP</td></tr>
+<tr><td>本地部署（静态）</td><td>项目规划值</td><td>在后台手改成项目网段静态 IP，与弱电网络规划一致</td></tr>
+</tbody>
+</table>
+
+<p><b>Modbus 对接有三条铁律</b>，任意一条不遵守，都会出现“连通但数据错乱”：</p>
+
+<ol class="steps">
+<li><b>读用 04、写用 16，03 在未确认映射前不要用。</b>读状态统一走输入寄存器（功能码 04），下发控制统一走预置多寄存器（功能码 16）。</li>
+<li><b>数据域大端、校验小端。</b>字节序读反的典型现象是“通信正常、数值离谱”，这是排错第一嫌疑点。</li>
+<li><b>跨网关命令用广播。</b>场景调用、组控这类命令对所有 Modbus 设备广播发送，不要单播给某一路网关。</li>
+</ol>
+
+<p>网关侧参数必须与主站完全一致：从站地址默认 <code>1</code>（范围 1–247）、RS485 波特率默认 <code>9600</code>、校验默认<b>无</b>、响应延时 <code>10 ms</code>；TCP 方式另需确认端口 <code>502</code>。这三项（地址、波特率、校验）是 RS485 最容易翻车的地方，任何一项对不上就是“读不到数据”。</p>
+
+<p><b>点位模型分两个维度</b>，这是 Modbus 对接最容易搞混的地方：<b>设备维度</b>按“每台设备一段地址”排列，用于读单灯状态；<b>功能维度</b>按“场景号、组号”排列，用于下发控制。功能维度的场景控制占 2 个寄存器（<code>0x0001</code>～<code>0x0002</code>），区域控制占 5 个（<code>0x0007</code>～<code>0x000B</code>）。下发区域或场景时用的是功能维度的标识码，不是设备云 ID——用错就会出现“写了没反应”。</p>
+
+<p>还有四个细节，几乎每个项目都会踩：</p>
+
+<ul>
+<li><b>网络状态共用一个寄存器 <code>0x00A0</code>，必须按 bit 取</b>，不能整寄存器判断。其中 <code>0x0040</code> 是 BLE/DALI 网络、<code>0x0041</code> 是 485/DALI、<code>0x0042</code> 是 Ethernet/WiFi，某位为 1 表示该链路通信故障。</li>
+<li><b>换算系数要乘</b>：普通灯 ×0.1，磁吸轨道 ×0.00625。漏乘的表现是“数据差一个数量级”。</li>
+<li><b>不修改的寄存器填 <code>65535</code>（保持不变）</b>，留空会被写成 0，出现“只调一项却把别的关掉了”。</li>
+<li><b>系统时间用 UTC</b>，且月份 0–11、星期 0–6、年份从 1900 起算，直接填“2026 年 11 月”会差一位。</li>
+</ul>
+
+<table>
+<caption>表 5　BACnet 对象映射</caption>
+<thead><tr><th style="width:26%">BACnet 对象</th><th style="width:34%">对应的欧普数据</th><th>关键属性</th></tr></thead>
+<tbody>
+<tr><td>Analog Input（AI）</td><td>照度、功率、电量</td><td>Present_Value、Units、Status_Flags</td></tr>
+<tr><td>Analog Output（AO）</td><td>亮度、色温调节</td><td>Present_Value、Priority_Array</td></tr>
+<tr><td>Binary Input（BI）</td><td>开关状态、在线状态、故障状态</td><td>Present_Value（Active/Inactive）</td></tr>
+<tr><td>Binary Output（BO）</td><td>开关控制</td><td>Present_Value、Priority_Array</td></tr>
+<tr><td>Device</td><td>网关本身</td><td>Object_Identifier、System_Status</td></tr>
+</tbody>
+</table>
+
+<p>BACnet 流程是五步：后台点【导出】拿对象列表 → 为每台网关规划<b>唯一的 Device Instance</b>（不能与 BAS 里其它设备冲突）→ 确认用 BACnet/IP 还是 MS/TP 并配好网络参数 → BAS 侧添加设备、发现对象 → 把 AI/AO/BI/BO 绑到画面与逻辑上。<b>最容易漏的是第二步</b>：实例号重复，BAS 只会认到其中一台。</p>
+
+<p><b>华为云对接只认三个值</b>：设备标识码、产品 ID、网关 ID，填错任何一个都注册不上；鉴权走 <code>8883</code>（MQTT over TLS）。<b>节目单</b>是 Excel 导入导出，字段为场景号（<code>100000</code>、<code>100001</code>…）、亮度（0–1023，800 约等于 78%）、色温（2700–6500 K）、开关（1 开／0 关／<code>65535</code> 保持）。它的价值在工程复用：多项目复制场景、验收存档；<b>导入前必须先备份当前配置</b>，因为导入是覆盖式的。</p>
+
+<div class="note">
+<b>联调前双方必须确认的七项：</b>① 对接方式与协议类型；② Modbus 从站地址一致（默认 1）；③ RS485 波特率、校验、停止位一致；④ TCP 端口 502 可达；⑤ BACnet Device Instance 唯一、网络层已确认；⑥ 华为云设备标识码唯一、产品 ID 正确；⑦ 节目单导入前已备份。
+</div>
+
+<p><b>七个高频坑，按出现概率排序：</b>读不到任何数据（先查介质/协议选错、地址不一致）；通信正常但数值离谱（字节序读反或换算系数未乘）；状态位取错（整寄存器判断而非按 bit）；写了控制无反应（用了 03 或单播，或用了设备 ID 而非功能维度标识码）；只调一项却把别的改了（未填 65535）；时间对不上（未按 UTC 与偏移量）；网关离线但子设备在线（查 <code>0x0040</code>～<code>0x0042</code> 哪条链路断了）。</p>
+
+<h2 id="c8">第 8 章　电气设计与布线</h2>
+
+<p>本章讨论的是“线怎么走、凭什么这么走”。总线的可靠性由三个变量决定：拓扑、线缆参数、电磁环境。三者中任一不满足，系统将表现为间歇性故障，且难以通过更换设备消除。</p>
+
+<h3 id="c81">8.1　配电与回路划分</h3>
+
+<p>照明配电的基本结构为：总进线 → 总开关 → 分支回路开关 → 执行元件（模块或驱动器）→ 灯具。网关自身取电于同一配电箱，但其供电回路应与照明回路分开，以避免照明回路断电时网关同时失电，导致平台失去对该区域的监控。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 400" role="img" aria-label="配电与回路结构">
+  <text x="0" y="15" class="ttl">配电结构：网关单独供电，执行元件按回路分组，计量单元位于回路侧</text>
+
+  <rect class="bx3" x="24" y="40" width="110" height="56" rx="4"/>
+  <text x="79" y="64" class="tb" text-anchor="middle">总进线</text>
+  <text x="79" y="84" class="s" text-anchor="middle">三相 / 单相</text>
+
+  <line class="lb" x1="134" y1="68" x2="180" y2="68" marker-end="url(#j1)"/>
+
+  <rect class="bx" x="184" y="40" width="120" height="56" rx="4"/>
+  <text x="244" y="64" class="tb" text-anchor="middle">总开关</text>
+  <text x="244" y="84" class="s" text-anchor="middle">带漏电保护</text>
+
+  <line class="lb" x1="304" y1="68" x2="350" y2="68"/>
+  <line x1="350" y1="34" x2="350" y2="300" stroke="#12557E" stroke-width="1.6"/>
+
+  <line class="lb" x1="350" y1="96" x2="396" y2="96" marker-end="url(#j1)"/>
+  <rect class="bx2" x="400" y="72" width="130" height="48" rx="3"/>
+  <text x="465" y="92" class="tb" text-anchor="middle">网关回路</text>
+  <text x="465" y="110" class="s" text-anchor="middle">独立空开，常带电</text>
+
+  <line class="lb" x1="350" y1="170" x2="396" y2="170" marker-end="url(#j1)"/>
+  <rect class="bx4" x="400" y="146" width="130" height="48" rx="3"/>
+  <text x="465" y="166" class="tb" text-anchor="middle">回路开关 1</text>
+  <text x="465" y="184" class="s" text-anchor="middle">L1 照明</text>
+
+  <line class="lb" x1="350" y1="244" x2="396" y2="244" marker-end="url(#j1)"/>
+  <rect class="bx4" x="400" y="220" width="130" height="48" rx="3"/>
+  <text x="465" y="240" class="tb" text-anchor="middle">回路开关 2</text>
+  <text x="465" y="258" class="s" text-anchor="middle">L2 照明</text>
+
+  <line class="lb" x1="530" y1="170" x2="580" y2="170" marker-end="url(#j1)"/>
+  <rect class="bx3" x="584" y="146" width="140" height="48" rx="3"/>
+  <text x="654" y="166" class="tb" text-anchor="middle">执行元件</text>
+  <text x="654" y="184" class="s" text-anchor="middle">模块 / 驱动器</text>
+
+  <line class="lb" x1="724" y1="170" x2="774" y2="170" marker-end="url(#j1)"/>
+  <rect class="bx" x="778" y="146" width="150" height="48" rx="3"/>
+  <text x="853" y="166" class="tb" text-anchor="middle">灯具</text>
+  <text x="853" y="184" class="s" text-anchor="middle">按回路分组</text>
+
+  <line class="ld" x1="654" y1="194" x2="654" y2="232"/>
+  <line class="ld" x1="654" y1="232" x2="465" y2="232"/>
+  <line class="ld" x1="465" y1="232" x2="465" y2="124" marker-end="url(#j1)"/>
+  <text x="560" y="226" class="s" text-anchor="middle">总线（24 V / DALI）</text>
+
+  <rect class="bx" x="24" y="312" width="912" height="72" rx="4"/>
+  <text x="42" y="334" class="tb">三条配电原则</text>
+  <text x="42" y="356" class="t">① 网关与照明回路分属不同空开。照明回路断电检修时，网关应保持在线，否则平台失去该区域状态，且场景表虽在设备内，平台侧无法下发。</text>
+  <text x="42" y="376" class="s">② 计量单元应位于回路侧而非灯具侧，否则一台模块跨接多个回路时，电量无法分摊到回路。</text>
+
+  <defs>
+    <marker id="j1" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#12557E"/></marker>
+  </defs>
+</svg>
+<div class="cap">图 22　配电与回路结构</div>
+</div>
+
+<h3 id="c82">8.2　总线拓扑与传输线效应</h3>
+
+<p>信号在导线上跑，跑到线头如果没被“吸收”掉，就会反弹回来。反弹波和后面的信号叠在一起，波形出现台阶、毛刺、过冲，接收端就可能把 1 读成 0。分支点、接头、末端，都是这种“反弹点”。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 340" role="img" aria-label="终端匹配与反射">
+  <text x="0" y="15" class="ttl">同一段总线，三种终接状态下的接收波形</text>
+
+  <text x="24" y="46" class="s">A　首末均接 120 Ω（正确）</text>
+  <line x1="24" y1="130" x2="330" y2="130" stroke="#C4D2DE" stroke-width="1.2"/>
+  <path d="M40,130 L40,80 L70,80 L70,130 L100,130 L100,80 L130,80 L130,130 L160,130 L160,80 L190,80 L190,130 L220,130 L220,80 L250,80 L250,130 L300,130"
+        fill="none" stroke="#0E6049" stroke-width="2"/>
+  <text x="24" y="152" class="s">边沿干净，无振铃，判决余量充足</text>
+
+  <text x="24" y="196" class="s">B　缺失终端</text>
+  <line x1="24" y1="280" x2="330" y2="280" stroke="#C4D2DE" stroke-width="1.2"/>
+  <path d="M40,280 L40,230 L70,230 L70,280 L100,280 L100,230 L130,230 L130,280 L160,280 L160,230 L190,230 L190,280 L220,280 L220,230 L250,230 L250,280"
+        fill="none" stroke="#A63A2C" stroke-width="2"/>
+  <path d="M100,230 Q108,214 116,230 M160,230 Q168,214 176,230" fill="none" stroke="#A63A2C" stroke-width="1.2"/>
+  <text x="24" y="302" class="s">末端反射叠加，出现振铃与过冲</text>
+
+  <text x="440" y="46" class="ttl">为什么会反弹，接电阻有什么用</text>
+  <text x="440" y="72" class="t">导线本身有个“特性阻抗”，双绞线大约 100～120 Ω。信号跑到末端，如果末端阻抗与它</text>
+  <text x="440" y="96" class="t">不一样，就会有能量弹回来；末端开路，几乎全部弹回。末端接一只同阻值的电阻，能量</text>
+  <text x="440" y="120" class="t">被电阻吸收，就不再反弹。这就是终端电阻取 120 Ω 的由来。</text>
+
+  <text x="440" y="156" class="t">分支点是同一个道理：主干上半路开个口，信号在这里分成两路，反弹更复杂，而且接一只</text>
+  <text x="440" y="180" class="t">电阻也补不回来。这就是手拉手优于星型的物理原因，不是施工习惯问题。</text>
+
+  <rect class="bx3" x="440" y="200" width="496" height="88" rx="4"/>
+  <text x="458" y="222" class="tb">工程判据</text>
+  <text x="458" y="244" class="s">· OBUS：必须手拉手，首末各接 120 Ω，中间不接。</text>
+  <text x="458" y="264" class="s">· DALI：速率低（1200 bit/s），对反射容忍度高，星型通常可运行，但分支将使断点定位困难。</text>
+  <text x="458" y="284" class="s">· 任一总线，单段支线不宜超过 15 m；超过时应改为主干延伸。</text>
+
+  <text x="440" y="318" class="s">现场现象对照：末端设备偶发丢包、更换设备无效、白天正常夜间异常，均指向拓扑或终接问题，而非设备个体。</text>
+</svg>
+<div class="cap">图 23　终端匹配与反射波形</div>
+</div>
+
+<p>基于上述机理，两条布线规则可给出物理解释，而非仅作为施工惯例：</p>
+
+<ul>
+<li><b>OBUS 应采用手拉手，不应星型。</b>星型拓扑的分支点无法终接，反射无法消除；且分支使链路失去明确的“两端”，终端电阻无处安放。</li>
+<li><b>DALI 可采用星型，但不宜。</b>1200 bit/s 的边沿速率低，反射在时间上被平滑，通常不影响判决。但分支导致故障定位困难：某一支路断开后，无法从“最后一台正常设备”推断断点位置，只能逐支路排查。</li>
+</ul>
+
+<h3 id="c83">8.3　线缆规格与允许长度</h3>
+
+<p>线缆选择涉及三个参数：导体截面、屏蔽结构、绞合方式。三者分别对应压降、抗干扰与阻抗一致性。</p>
+
+<table>
+  <caption>表 6　线缆规格与适用场合</caption>
+  <thead><tr><th>用途</th><th>规格</th><th>允许长度</th><th>说明</th></tr></thead>
+  <tbody>
+    <tr><th>DALI 总线</th><td>RVVP 2×1.5（屏蔽）<br>或 RVSP 2×1.5（双绞屏蔽）</td><td>300 m（1.5 mm²）<br>200 m（1.0 mm²）</td><td>两值对应相同压降，见 8.7</td></tr>
+    <tr><th>OBUS 总线</th><td>RVVP / RVSP 4×1.0～4×2.0<br>或 CAT5E 及以上</td><td>500 m（网关至最远端）</td><td>含供电与信号四芯</td></tr>
+    <tr><th>以太网</th><td>CAT5E 及以上，屏蔽型为宜</td><td>90 m（链路）</td><td>超长应设中继或光纤</td></tr>
+    <tr><th>天幕模组串</th><td>网线（36 V / GND / SIG）</td><td>按压降核算，见 9.3</td><td>串长受末端压降限制</td></tr>
+  </tbody>
+</table>
+
+<p>三个型号容易混，拆开看就清楚了：<b>RVS 是双绞、不屏蔽；RVVP 是屏蔽、不双绞；RVSP 是双绞加屏蔽</b>。三种都能通，差别在抗干扰。走在强电桥架里、或者跟变频器待在一个房间，没有屏蔽层的那一种就等于把干扰直接引进总线，表现是偶发丢包、设备掉线。</p>
+
+<h3 id="c84">8.4　屏蔽、接地与等电位</h3>
+
+<p>屏蔽层像一层金属网，把空间里的电场挡在外面。但它只在一头接地，另一头悬空。两头都接的话，两地电位不完全一样，屏蔽层里就会有电流来回跑，这层网自己变成了干扰源。</p>
+
+<p>等电位连接的意义在于消除地电位差。不同楼层、不同配电区域的接地电阻不同，长距离总线的两端可能存在数伏电位差。该电位差以共模形式叠加在差分信号上，一旦超出收发器的共模范围（RS-485 为 −7～+12 V），通信即中断。跨层布线时该现象尤为明显，表现为“单层正常，跨层不稳”。</p>
+
+<div class="principle">
+<b>三条屏蔽纪律：</b>① 屏蔽层单端接地，接地点选在控制柜侧；② 屏蔽层应连续，中间断开处应做电气连接，不应简单绞接；③ 屏蔽层不得兼作信号回流路径，四线制中的 GND 与屏蔽层是两回事。
+</div>
+
+<h3 id="c85">8.5　强弱电分离与电磁兼容</h3>
+
+<p>强电导线周围存在交变电场与磁场，两者通过分布电容与互感耦合至邻近的弱电线路。耦合强度与平行长度成正比、与间距成反比、与频率成正比。LED 驱动器与变频器产生的高频谐波，其频谱可延伸至数兆赫，恰在总线的工作频段附近。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 300" role="img" aria-label="强弱电分离">
+  <text x="0" y="15" class="ttl">耦合强度取决于平行长度与间距；交叉时应垂直，平行时应保持间距</text>
+
+  <text x="24" y="48" class="s">A　长距离平行（不利）</text>
+  <line x1="40" y1="76" x2="420" y2="76" stroke="#A63A2C" stroke-width="2.6"/>
+  <text x="40" y="68" class="s">强电</text>
+  <line x1="40" y1="96" x2="420" y2="96" stroke="#12557E" stroke-width="1.8"/>
+  <text x="40" y="116" class="s">总线</text>
+  <g stroke="#A63A2C" stroke-width="1.1" stroke-dasharray="3 4">
+    <line x1="80" y1="82" x2="80" y2="92"/>
+    <line x1="140" y1="82" x2="140" y2="92"/>
+    <line x1="200" y1="82" x2="200" y2="92"/>
+    <line x1="260" y1="82" x2="260" y2="92"/>
+    <line x1="320" y1="82" x2="320" y2="92"/>
+    <line x1="380" y1="82" x2="380" y2="92"/>
+  </g>
+  <text x="40" y="140" class="s">分布电容逐段累积，共模噪声叠加</text>
+
+  <text x="520" y="48" class="s">B　垂直交叉（可接受）</text>
+  <line x1="540" y1="76" x2="900" y2="76" stroke="#A63A2C" stroke-width="2.6"/>
+  <line x1="700" y1="52" x2="700" y2="112" stroke="#12557E" stroke-width="1.8"/>
+  <text x="540" y="68" class="s">强电</text>
+  <text x="706" y="126" class="s">总线</text>
+  <text x="540" y="146" class="s">耦合面积最小，干扰可忽略</text>
+
+  <line x1="0" y1="176" x2="960" y2="176" stroke="#D9E2EA"/>
+
+  <text x="24" y="202" class="ttl">布线与器件的四条要求</text>
+  <text x="24" y="226" class="t">① 总线应独立穿管或走弱电桥架。不可避免平行时，间距宜 ≥300 mm；平行长度宜 ≤10 m。</text>
+  <text x="24" y="248" class="t">② 交叉时应垂直跨越，不应斜穿或沿强电管同向敷设。</text>
+  <text x="24" y="270" class="t">③ 驱动器的输出线（恒流侧）走线宜短，长走线将形成辐射天线，其谐波可回灌至总线。</text>
+  <text x="24" y="292" class="s">④ 总线不宜与变频器、软启动器、大功率接触器同柜布置；无法避免时，应加金属隔板并将总线贴柜壁敷设。</text>
+</svg>
+<div class="cap">图 24　强弱电耦合路径与分离要求</div>
+</div>
+
+<h3 id="c86">8.6　保护配合与安全规程</h3>
+
+<p>照明回路的保护配合涉及三个问题：过载与短路保护、漏电保护、以及检修安全。</p>
+
+<p><b>过载与短路保护</b>由断路器承担。需注意的是，LED 驱动器的启动冲击电流可达额定值的数倍至十余倍，若断路器按稳态电流选型，可能在启动瞬间误跳。故 LED 回路的断路器宜选用 C 型或 D 型脱扣特性，其瞬时脱扣倍数较高，可躲过启动冲击。</p>
+
+<p><b>漏电保护</b>的难点在于 LED 驱动的对地漏电流。单具驱动器漏电流通常小于 1 mA，但一条回路上数十具并联后，正常漏电流可累积至数十毫安，接近 30 mA 漏保的动作阈值，造成无故障跳闸。处理方式应通过回路拆分或选用延时型漏保解决，<b>不得以提高动作阈值的方式规避</b>——后者以牺牲人身保护为代价。</p>
+
+<p><b>检修安全</b>的关键是残余电荷。驱动器内部的直流母线电容在断电后仍保持高压，容量越大、放电越慢。规范做法是断电后等待足够时间（通常不少于 5 分钟）再接触端子，或用带放电电阻的工具放电。直接短接端子放电将产生电弧，可能损伤电容与端子。</p>
+
+<div class="note">
+<b>三条不得违反的操作要求：</b>① 验电应先用已知带电体确认验电器完好，验被测体，再回到已知带电体复核；② 断电检修应挂牌上锁，挂牌与摘牌须由同一人完成；③ 不得带电插拔总线端子。DALI 总线电压虽低，但短路电流足以触发网关保护并使整条回路掉电。
+</div>
+
+<h3 id="c87">8.7　典型回路设计算例</h3>
+
+<p>以下算例说明设计过程，而非给出通用结论。所有数值须按项目实际参数重算。</p>
+
+<p><b>条件：</b>一层办公，使用面积约 1200 ㎡，DALI 面板灯 48 具，每具额定功率 36 W，额定电流 0.17 A；分为东西两区；配电箱位于楼层中部；东区最远端沿线长度约 80 m，西区约 65 m。</p>
+
+<p><b>第一步，确定单端口设备数。</b>DALI 单端口上限 64 个短地址，但按 3.6 的时间预算，逐灯回读 64 台需约 1.6 s。为保留回读与故障重试余量，按每端口 24 台配置。48 具分两路，每路 24 具，占用一台双端口网关。</p>
+
+<p><b>第二步，核算总线供电。</b>DALI 总线限流 250 mA。单具驱动器的总线取电通常为 2～10 mA，按 10 mA 计，24 具合计 240 mA，接近上限。此时应查阅驱动器规格：若其总线取电可由辅助电源供给，应改接辅助电源；若不可，则应减少每路设备数或增加网关端口。</p>
+
+<div class="formula">
+总线电流　I ＝ 24 × 10 mA ＝ 240 mA　＜　250 mA（余量 4%，偏紧）
+建议　　　I ≤ 200 mA，即每路 ≤20 具，或选用低取电驱动器
+</div>
+
+<p><b>第三步，核算压降。</b>压降决定末端设备能否获得足够的总线电压。按单程长度 L、导体电阻率 ρ＝0.0175 Ω·mm²/m、截面 S，往返电阻为：</p>
+
+<div class="formula">
+R ＝ ρ × 2L / S　　ΔU ＝ I × R
+
+东区：L＝80 m，S＝1.5 mm²，I＝0.24 A
+R ＝ 0.0175 × 160 / 1.5 ＝ 1.87 Ω
+ΔU ＝ 0.24 × 1.87 ＝ 0.45 V　（占 16 V 的 2.8%，可接受）
+</div>
+
+<p>由此可解释一组看似无关的规范数值。若将长度与截面同时放大：</p>
+
+<div class="formula">
+200 m / 1.0 mm²：R ＝ 0.0175 × 400 / 1.0 ＝ 7.0 Ω　→　ΔU ＝ 1.75 V
+300 m / 1.5 mm²：R ＝ 0.0175 × 600 / 1.5 ＝ 7.0 Ω　→　ΔU ＝ 1.75 V
+</div>
+
+<p>两组参数的回路电阻相同，压降亦相同。这说明“200 m 用 1.0、300 m 用 1.5”并非两条独立的规范，而是<b>同一条压降约束在两个截面上的解</b>。掌握该关系后，遇到非标准长度可自行插值：长度增加 50%，截面亦应增加 50%，压降方可不变。</p>
+
+<p><b>第四步，核算 OBUS 供电（若该层含 OBUS 回路）。</b>OBUS 供电为 24 V，允许末端电压不低于 20 V，即压降不超过 4 V。按满载 250 mA、长度 500 m 计算：</p>
+
+<div class="formula">
+S＝1.0 mm²：R ＝ 0.0175 × 1000 / 1.0 ＝ 17.5 Ω　→　ΔU ＝ 4.4 V　（超限）
+S＝1.5 mm²：R ＝ 11.7 Ω　　　　　　　　　　　→　ΔU ＝ 2.9 V　（可接受）
+S＝2.5 mm²：R ＝ 7.0 Ω　　　　　　　　　　　 →　ΔU ＝ 1.75 V　（余量充足）
+</div>
+
+<p>结论：<b>OBUS 在 500 m 满载条件下，供电芯线截面不应小于 1.5 mm²，宜取 2.5 mm²</b>。若受线径限制，应将外接 24 V 电源的接入点移至总线中部，使供电路径减半。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 356" role="img" aria-label="办公层回路划分">
+  <text x="0" y="15" class="ttl">算例平面：一台双端口网关，两路各 24 具，主干沿走廊弱电桥架</text>
+
+  <rect x="24" y="34" width="912" height="252" fill="#FCFDFE" stroke="#D9E2EA"/>
+
+  <rect x="392" y="46" width="176" height="66" fill="#F6F1E6" stroke="#B08A2E"/>
+  <text x="480" y="70" class="t" text-anchor="middle">配电箱</text>
+  <text x="480" y="90" class="s" text-anchor="middle">DALI 网关（2 端口）</text>
+  <text x="480" y="106" class="s" text-anchor="middle">独立空开供电</text>
+
+  <rect x="48" y="46" width="300" height="66" fill="none" stroke="#37596F"/>
+  <text x="62" y="68" class="t">西区 · 上排</text>
+  <rect x="636" y="46" width="284" height="66" fill="none" stroke="#37596F"/>
+  <text x="650" y="68" class="t">东区 · 上排</text>
+
+  <rect x="48" y="200" width="300" height="76" fill="none" stroke="#37596F"/>
+  <text x="62" y="222" class="t">西区 · 下排</text>
+  <rect x="636" y="200" width="284" height="76" fill="none" stroke="#37596F"/>
+  <text x="650" y="222" class="t">东区 · 下排</text>
+
+  <line x1="480" y1="112" x2="480" y2="158" stroke="#12557E" stroke-width="2.6"/>
+  <line x1="480" y1="176" x2="88" y2="176" stroke="#12557E" stroke-width="2.2"/>
+  <line x1="480" y1="158" x2="872" y2="158" stroke="#0E6049" stroke-width="2.2"/>
+
+  <g stroke="#12557E" stroke-width="1.4" fill="none">
+    <path d="M140,176 L140,112"/><path d="M256,176 L256,112"/>
+    <path d="M110,176 L110,200"/><path d="M268,176 L268,200"/>
+  </g>
+  <g stroke="#0E6049" stroke-width="1.4" fill="none">
+    <path d="M700,158 L700,112"/><path d="M816,158 L816,112"/>
+    <path d="M724,158 L724,200"/><path d="M860,158 L860,200"/>
+  </g>
+
+  <g fill="#12557E">
+    <circle cx="140" cy="120" r="4.5"/><circle cx="256" cy="120" r="4.5"/>
+    <circle cx="110" cy="208" r="4.5"/><circle cx="268" cy="208" r="4.5"/>
+  </g>
+  <g fill="#0E6049">
+    <circle cx="700" cy="120" r="4.5"/><circle cx="816" cy="120" r="4.5"/>
+    <circle cx="724" cy="208" r="4.5"/><circle cx="860" cy="208" r="4.5"/>
+  </g>
+
+  <line x1="48" y1="262" x2="76" y2="262" stroke="#12557E" stroke-width="2.2"/>
+  <text x="84" y="266" class="s" fill="#12557E">端口 1（西区 24 具）</text>
+  <line x1="290" y1="262" x2="318" y2="262" stroke="#0E6049" stroke-width="2.2"/>
+  <text x="326" y="266" class="s" fill="#0E6049">端口 2（东区 24 具）</text>
+  <text x="520" y="266" class="s">每区实际 24 具，图中每区示意 4 点</text>
+
+  <text x="24" y="310" class="t">核算结果：单端口 24 具，总线电流约 240 mA（偏紧，宜降至 20 具）；东区最远端 80 m，1.5 mm² 压降 0.45 V，满足要求。</text>
+  <text x="24" y="332" class="s">两端口出线沿同一桥架敷设，但不得并联、不得混标；每区主干连续，设备并接于通过式端子。</text>
+</svg>
+<div class="cap">图 25　办公层回路划分与核算结果</div>
+</div>
+
+<h2 id="c9">第 9 章　SDL 天幕系统</h2>
+
+<p>天幕是睿壹体系中单位造价最高、设计约束最严的子系统。其造价不在光源本身，而在模组数量、控制器数量、软膜面积、腔体结构与调试工时五项叠加；其质量不在电气性能，而在几何尺寸——腔体净高偏差 20 mm 即导致可见光斑，且无法通过调光参数修正。因此本章的叙述顺序与前述各章不同：先定几何，再定电气，最后定控制。</p>
+
+<h3 id="c91">9.1　系统构成与成本结构</h3>
+
+<p>一套天幕由四个层次构成，自上而下为：软膜（透光面材）、空气腔（模组至膜的距离）、光电模组（发光单元）、控制器（驱动与内容源）。四层中，软膜与腔体属装修与结构专业，模组与控制器属照明专业，界面划分须在深化设计阶段明确。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 400" role="img" aria-label="天幕构成剖面">
+  <text x="0" y="15" class="ttl">天幕剖面：四层构成，槽深为腔体净高，属结构尺寸而非灯具尺寸</text>
+
+  <line x1="60" y1="52" x2="900" y2="52" stroke="#37596F" stroke-width="1.4" stroke-dasharray="6 4"/>
+  <text x="60" y="44" class="s">结构楼板</text>
+
+  <rect x="120" y="60" width="18" height="96" fill="#E8EDF2" stroke="#8FA3B4"/>
+  <rect x="822" y="60" width="18" height="96" fill="#E8EDF2" stroke="#8FA3B4"/>
+  <text x="129" y="172" class="s" text-anchor="middle">吊杆</text>
+
+  <rect x="120" y="156" width="720" height="16" fill="#F6F1E6" stroke="#B08A2E"/>
+  <text x="840" y="168" class="s">腔体顶板</text>
+
+  <line x1="200" y1="172" x2="200" y2="252" stroke="#A63A2C" stroke-width="1.3" stroke-dasharray="5 4"/>
+  <text x="206" y="216" class="s" fill="#A63A2C">槽深 H</text>
+
+  <rect x="180" y="252" width="46" height="14" fill="#EBF3F9" stroke="#12557E"/>
+  <rect x="300" y="252" width="46" height="14" fill="#EBF3F9" stroke="#12557E"/>
+  <rect x="420" y="252" width="46" height="14" fill="#EBF3F9" stroke="#12557E"/>
+  <rect x="540" y="252" width="46" height="14" fill="#EBF3F9" stroke="#12557E"/>
+  <rect x="660" y="252" width="46" height="14" fill="#EBF3F9" stroke="#12557E"/>
+  <text x="720" y="264" class="s">光电模组</text>
+
+  <path d="M203,252 L176,180 M203,252 L230,180" stroke="#0E6049" stroke-width="1.1" stroke-dasharray="4 3"/>
+  <path d="M323,252 L296,180 M323,252 L350,180" stroke="#0E6049" stroke-width="1.1" stroke-dasharray="4 3"/>
+  <text x="392" y="212" class="s" fill="#0E6049">相邻模组光锥在膜前交叠</text>
+
+  <rect x="120" y="280" width="720" height="12" fill="#EDF2F6" stroke="#8FA3B4"/>
+  <text x="852" y="290" class="s">软膜</text>
+
+  <line x1="226" y1="262" x2="300" y2="262" stroke="#12557E" stroke-width="1.2"/>
+  <line x1="226" y1="256" x2="226" y2="268" stroke="#12557E" stroke-width="1.2"/>
+  <line x1="300" y1="256" x2="300" y2="268" stroke="#12557E" stroke-width="1.2"/>
+  <text x="263" y="278" class="s" fill="#12557E" text-anchor="middle">间距 P</text>
+
+  <text x="60" y="326" class="ttl">四项成本构成与计价单位</text>
+
+  <rect class="bx" x="60" y="338" width="200" height="52" rx="3"/>
+  <text x="74" y="358" class="t">模组　按块计</text>
+  <text x="74" y="378" class="s">面积 ÷ 单块覆盖 ＝ 块数</text>
+
+  <rect class="bx" x="276" y="338" width="200" height="52" rx="3"/>
+  <text x="290" y="358" class="t">控制器　按台计</text>
+  <text x="290" y="378" class="s">按串数定，非按面积定</text>
+
+  <rect class="bx" x="492" y="338" width="200" height="52" rx="3"/>
+  <text x="506" y="358" class="t">软膜　按 ㎡ 计</text>
+  <text x="506" y="378" class="s">含印刷、防火等级</text>
+
+  <rect class="bx" x="708" y="338" width="200" height="52" rx="3"/>
+  <text x="722" y="358" class="t">腔体　按 ㎡ 或项计</text>
+  <text x="722" y="378" class="s">属装修，非灯具报价</text>
+</svg>
+<div class="cap">图 26　天幕四层构成与成本项</div>
+</div>
+
+<p>成本核算中，控制器数量是最易误判的一项。其数量由<b>模组串数</b>决定，而非面积：一台控制器提供 2 路输出，一路驱动一串模组；若单串长度受末端压降限制而必须拆短，则串数增加，控制器随之增加。因此大面积天幕的控制器数量往往超出按面积估算的结果，报价阶段若按“每平方米一台”估算，将出现显著偏差。</p>
+
+<p>腔体常被排除在照明报价之外，但它决定天幕能否成立。腔体由龙骨、吊杆、封板与开孔组成，其净高即槽深。工程中常见的情形是灯具预算获批而腔体预算未列，施工阶段只能压缩槽深，最终出光出现规律性亮斑，且无法通过调光补救。</p>
+
+<div class="principle">
+<b>报价应列明的五项：</b>① 模组块数与规格；② 控制器台数与主从配置；③ 软膜面积、透光率与防火等级；④ 腔体是否含于本次报价；⑤ 调试工时。五项缺一，后续必然产生界面争议，其中腔体一项争议概率最高。
+</div>
+
+<h3 id="c92">9.2　光学设计约束</h3>
+
+<p>天幕的光学问题，本质是<b>点光源阵列经有限距离后在漫透射面上的均匀度问题</b>。模组为点光源，若相邻光锥在膜面处未充分交叠，膜面将出现周期性亮暗，工程上称排骨纹。使光锥交叠的手段有二：减小间距，或增大槽深。二者互为替代，构成设计上的基本权衡。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 400" role="img" aria-label="混光与三距离">
+  <text x="0" y="15" class="ttl">均匀度取决于间距与槽深之比：间距越小、槽深越大，交叠越充分</text>
+
+  <text x="24" y="46" class="s">A　交叠充分（均匀）：光锥相互重叠，膜面照度连续</text>
+  <line x1="24" y1="64" x2="440" y2="64" stroke="#37596F" stroke-width="2.6"/>
+  <g fill="#0E6049" fill-opacity="0.14" stroke="#0E6049" stroke-width="1" stroke-dasharray="3 3">
+    <path d="M37,66 L137,66 L87,150 Z"/>
+    <path d="M117,66 L217,66 L167,150 Z"/>
+    <path d="M197,66 L297,66 L247,150 Z"/>
+    <path d="M277,66 L377,66 L327,150 Z"/>
+  </g>
+  <g fill="#EBF3F9" stroke="#12557E">
+    <rect x="70" y="150" width="34" height="12"/>
+    <rect x="150" y="150" width="34" height="12"/>
+    <rect x="230" y="150" width="34" height="12"/>
+    <rect x="310" y="150" width="34" height="12"/>
+  </g>
+  <text x="24" y="186" class="s">膜面照度近似恒定，看不到纹理</text>
+
+  <text x="500" y="46" class="s">B　交叠不足（排骨纹）：锥与锥之间留有空隙</text>
+  <line x1="500" y1="64" x2="916" y2="64" stroke="#37596F" stroke-width="2.6"/>
+  <path d="M500,64 Q512,54 524,64 Q536,74 548,64 Q560,54 572,64 Q584,74 596,64 Q608,54 620,64 Q632,74 644,64
+           Q656,54 668,64 Q680,74 692,64 Q704,54 716,64 Q728,74 740,64 Q752,54 764,64 Q776,74 788,64
+           Q800,54 812,64 Q824,74 836,64 Q848,54 860,64 Q872,74 884,64 Q896,54 908,64"
+        fill="none" stroke="#A63A2C" stroke-width="2.2"/>
+  <g fill="#A63A2C" fill-opacity="0.12" stroke="#A63A2C" stroke-width="1" stroke-dasharray="3 3">
+    <path d="M532,66 L588,66 L560,150 Z"/>
+    <path d="M682,66 L738,66 L710,150 Z"/>
+    <path d="M832,66 L888,66 L860,150 Z"/>
+  </g>
+  <g fill="#EBF3F9" stroke="#12557E">
+    <rect x="543" y="150" width="34" height="12"/>
+    <rect x="693" y="150" width="34" height="12"/>
+    <rect x="843" y="150" width="34" height="12"/>
+  </g>
+  <text x="600" y="112" class="s" fill="#A63A2C">锥间无光，膜面出现暗带</text>
+  <text x="500" y="186" class="s" fill="#A63A2C">亮暗交替的周期等于模组间距</text>
+
+  <line x1="0" y1="200" x2="960" y2="200" stroke="#D9E2EA"/>
+
+  <text x="24" y="226" class="ttl">三个几何参数的定义与关系</text>
+  <text x="24" y="250" class="t"><tspan fill="#A63A2C">间距 P</tspan>：相邻模组中心距。决定纹理周期，P 越小越均匀，但模组数量与成本上升。</text>
+  <text x="24" y="274" class="t"><tspan fill="#A63A2C">槽深 H</tspan>：模组发光面至软膜的净距。决定光锥交叠程度，H 越大越均匀，但光效下降。</text>
+  <text x="24" y="298" class="t"><tspan fill="#A63A2C">离边 E</tspan>：边缘模组至槽壁的距离。决定边缘亮度，E 过大则四周出现暗框。</text>
+
+  <rect class="bx3" x="24" y="316" width="912" height="70" rx="4"/>
+  <text x="42" y="338" class="tb">三者的约束方向相反，不能同时取优</text>
+  <text x="42" y="360" class="t">P 减小 → 均匀度提高、成本上升；H 增大 → 均匀度提高、效率下降；E 减小 → 边缘亮度提高、但过小将暴露光源。</text>
+  <text x="42" y="380" class="s">故设计顺序为：先由建筑条件确定 H 的上限，再由 H 反推允许的 P，最后由 P 确定模组数量与排布。</text>
+</svg>
+<div class="cap">图 27　混光原理与三个几何参数</div>
+</div>
+
+<p>三者的取值边界由厂家给出。边界值的含义是“小于（或大于）该值必然出现可见缺陷”，而非推荐值。实际工程应按设计软件的计算结果执行，边界表仅用于快速校验。</p>
+
+<table>
+  <caption>表 7　天幕几何参数边界</caption>
+  <thead><tr><th>参数</th><th>间距 150 系列</th><th>间距 120 系列</th><th>依据</th></tr></thead>
+  <tbody>
+    <tr><th>有透镜时模组间距</th><td>≥100 mm</td><td>≥80 mm</td><td>透镜扩散，允许更密排布</td></tr>
+    <tr><th>无透镜时模组间距</th><td>≥200 mm</td><td>≥150 mm</td><td>无扩散，依赖距离混光</td></tr>
+    <tr><th>槽深（模组至膜）</th><td>≤40 mm</td><td>≤25 mm</td><td>间距小者混光距离可短</td></tr>
+    <tr><th>单块天幕长宽</th><td>4.2 m</td><td>4.2 m</td><td>膜材与结构边界</td></tr>
+    <tr><th>模组至槽边</th><td>≤40 mm</td><td>≤40 mm</td><td>过大则边缘暗，过小则露光源</td></tr>
+  </tbody>
+</table>
+
+<p>该表的使用要点是<b>先定间距、再定槽深</b>。间距决定混光所需的最小距离，槽深是该距离的结果而非原因。若装修已先行确定槽深，则模组规格的可选范围被压缩：槽深 20 mm 时，只能选用 120 系列配透镜、间距不小于 80 mm 的方案；若强行选用 150 系列无透镜（间距 200 mm），必然出现排骨纹。</p>
+
+<div class="note">
+<b>槽深必须在木工封板前确定。</b>槽深属吊顶构造，封板后调整须拆顶。设计交底时应将槽深标注于吊顶深化图，并与装修单位书面确认；仅口头告知，在工序交叉时极易被压缩。此条为天幕项目返工的首要原因。
+</div>
+
+<p>除几何约束外，色彩一致性构成第二类约束。白光模组存在色容差，单灯观察时不可辨，但天幕为大面积连续发光面，色差将被放大为可见色块。故同一片天幕<b>应使用同一批次模组</b>，不同批次不得混用。此项要求在普通照明中可放宽，在天幕中为硬性条件。</p>
+
+<h3 id="c93">9.3　电气结构与压降</h3>
+
+<p>天幕是恒压驱动：控制器输出 36 V 直流，一串模组并排挂在这条线上。选 36 V 而不是 24 V，是因为同样电流下能带更多模组。麻烦在于，线路上损耗的那一两伏，在 36 V 系统里占 5%，肉眼就能看出末端偏暗；在 220 V 系统里只占零点几，根本看不出来。所以天幕对串长和线径比普通照明敏感得多。</p>
+
+<p>恒压系统的固有问题在于：串首至串尾的线路电阻逐段累积，末端模组获得的电压低于首端，表现为“末端偏暗”。压降与串长、总电流成正比，与导体截面成反比：</p>
+
+<div class="formula">
+ΔU ＝ I_串 × R_往返 ＝ (N × I_模组) × (ρ × 2L / S)
+
+N：单串模组数　I_模组：单模组工作电流　L：串长　S：导体截面
+判据：ΔU ≤ 36 V × 5% ＝ 1.8 V
+</div>
+
+<p>拆串的作用可由上式直接看出。若将一条串长为 L、模组数为 N 的串，拆为两条串长为 L/2、模组数为 N/2 的串，则电流减半、线路长度减半，压降降至原来的四分之一。这一结论是“增加控制器”的真实动因：并非扩容，而是缩短单串以控制压降。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 360" role="img" aria-label="串长与末端压降">
+  <text x="0" y="15" class="ttl">串长与末端电压：拆串使压降降至四分之一</text>
+
+  <line class="ln" x1="80" y1="250" x2="880" y2="250"/>
+  <line class="ln" x1="80" y1="250" x2="80" y2="52"/>
+  <text x="800" y="272" class="s">沿串位置</text>
+  <text x="86" y="44" class="s">端电压</text>
+
+  <line x1="80" y1="86" x2="880" y2="86" stroke="#C4D2DE" stroke-width="1.1" stroke-dasharray="5 4"/>
+  <text x="790" y="80" class="s">36 V</text>
+  <line x1="80" y1="118" x2="880" y2="118" stroke="#A63A2C" stroke-width="1.1" stroke-dasharray="5 4"/>
+  <text x="790" y="112" class="s" fill="#A63A2C">34.2 V（−5%）</text>
+
+  <path d="M80,86 L820,236" stroke="#A63A2C" stroke-width="2.4"/>
+  <text x="560" y="206" class="s" fill="#A63A2C">单串 14 块：末端降至 34.2 V 以下</text>
+
+  <path d="M80,86 L450,152 L820,216" fill="none" stroke="#0E6049" stroke-width="2.2" stroke-dasharray="7 4"/>
+  <text x="300" y="142" class="s" fill="#0E6049">拆为两串、各 7 块：末端约 35.6 V</text>
+
+  <line x1="450" y1="152" x2="450" y2="250" stroke="#0E6049" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="450" y="270" class="s" text-anchor="middle" fill="#0E6049">串 1 结束 / 串 2 起始</text>
+
+  <text x="80" y="300" class="t">压降与电流、长度同时成正比，故拆串的效果为平方关系：电流减半、长度减半，压降降为 1/4。</text>
+  <text x="80" y="324" class="s">这也解释了控制器的 2 路输出设计：其工程意义在于“天生支持拆两串”，而非单纯的端口数量。</text>
+  <text x="80" y="346" class="s">若仍超限，可选加粗供电芯线、将控制器移至串中部就近供电，或继续拆串。</text>
+</svg>
+<div class="cap">图 28　串长与末端压降的关系</div>
+</div>
+
+<p><b>算例。</b>假设单模组工作电流 0.4 A，模组间距 0.5 m，采用 0.5 mm² 导体（网线规格），单串 13 块，串长 6 m：</p>
+
+<div class="formula">
+I ＝ 13 × 0.4 ＝ 5.2 A
+R ＝ 0.0175 × 12 / 0.5 ＝ 0.42 Ω
+ΔU ＝ 5.2 × 0.42 ＝ 2.18 V　＞　1.8 V　（超限，末端可见偏暗）
+
+拆为两串（各 7 块，串长 3 m）：
+I ＝ 2.8 A，R ＝ 0.0175 × 6 / 0.5 ＝ 0.21 Ω
+ΔU ＝ 2.8 × 0.21 ＝ 0.59 V　（合格，余量充足）
+</div>
+
+<p>该算例说明两点。其一，0.5 mm² 导体在大电流串上的压降不可忽略，长串必须核算，不能凭经验确定串长。其二，拆串的收益远超线性预期，故在方案阶段宁可多配一台控制器，也不宜以长串压缩成本——后者将以不可修复的亮度不均作为代价。</p>
+
+<div class="principle">
+<b>现场判据：</b>若天幕呈现“自某一侧起逐渐变暗”，属压降问题，处理方向为拆串或加粗供电线；若呈现“周期性亮斑”，属几何问题，处理方向为调整间距或槽深。两类现象的形状不同，不应混用同一套处置手段。
+</div>
+
+<h3 id="c94">9.4　主从同步</h3>
+
+<p>大面积天幕由多台控制器驱动，各控制器负责一段模组串。当显示内容为静态画面时，各段独立输出即可；当内容为动效（颜色沿某一方向流动、波纹自中心扩散）时，各段必须在统一时基下执行同一指令，否则动效在段与段的交界处出现断裂。</p>
+
+<p>人眼对动效断裂的敏感度高于对绝对延迟的敏感度。各段同时延迟 100 ms，观感为“整体慢”；而各段之间存在 50 ms 相位差，观感即为“卡顿”。故同步设计的目标不是降低绝对延迟，而是<b>压缩段间相位差</b>。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 340" role="img" aria-label="主从同步时序">
+  <text x="0" y="15" class="ttl">主从同步：主机提供统一时基，从机按时基执行；段间相位差决定动效连续性</text>
+
+  <text x="24" y="48" class="s">主机</text>
+  <line x1="90" y1="56" x2="900" y2="56" stroke="#8FA3B4" stroke-width="1.2"/>
+  <g stroke="#12557E" stroke-width="1.6">
+    <line x1="140" y1="46" x2="140" y2="66"/>
+    <line x1="380" y1="46" x2="380" y2="66"/>
+    <line x1="620" y1="46" x2="620" y2="66"/>
+    <line x1="860" y1="46" x2="860" y2="66"/>
+  </g>
+  <g class="s" text-anchor="middle">
+    <text x="140" y="82">T0</text><text x="380" y="82">T1</text>
+    <text x="620" y="82">T2</text><text x="860" y="82">T3</text>
+  </g>
+  <text x="480" y="82" class="s" text-anchor="middle">同步帧（时基广播）</text>
+
+  <text x="24" y="120" class="s">从机 1</text>
+  <line x1="90" y1="128" x2="900" y2="128" stroke="#8FA3B4" stroke-width="1.2"/>
+  <g stroke="#0E6049" stroke-width="1.6">
+    <line x1="152" y1="118" x2="152" y2="138"/>
+    <line x1="392" y1="118" x2="392" y2="138"/>
+    <line x1="632" y1="118" x2="632" y2="138"/>
+    <line x1="872" y1="118" x2="872" y2="138"/>
+  </g>
+  <path d="M140,92 L152,114" stroke="#0E6049" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <text x="24" y="176" class="s">从机 2</text>
+  <line x1="90" y1="184" x2="900" y2="184" stroke="#8FA3B4" stroke-width="1.2"/>
+  <g stroke="#0E6049" stroke-width="1.6">
+    <line x1="164" y1="174" x2="164" y2="194"/>
+    <line x1="404" y1="174" x2="404" y2="194"/>
+    <line x1="644" y1="174" x2="644" y2="194"/>
+    <line x1="884" y1="174" x2="884" y2="194"/>
+  </g>
+  <path d="M140,92 L164,170" stroke="#0E6049" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <text x="24" y="232" class="s">相位差</text>
+  <line x1="140" y1="240" x2="164" y2="240" stroke="#A63A2C" stroke-width="2"/>
+  <text x="170" y="244" class="s" fill="#A63A2C">δ　小于人眼可辨阈值，观感连续</text>
+
+  <rect class="bx3" x="24" y="264" width="912" height="66" rx="4"/>
+  <text x="42" y="286" class="tb">三条配置纪律</text>
+  <text x="42" y="308" class="t">① 一条回路只设一台主机，其余全部设为从机。两台主机将各自广播时基，从机收到冲突时基，表现为画面反复跳变。</text>
+  <text x="42" y="326" class="s">② 从机拨码应一致；③ 拨码变更后须断电重启，因主从关系在通电初始化时读取，不断电不生效。</text>
+</svg>
+<div class="cap">图 29　主从同步时序与相位差</div>
+</div>
+
+<p>主从关系失效的典型现象是<b>整片天幕仅一段亮，或数段各亮各的</b>。前者因从机未收到有效时基，停留在默认状态；后者因主从配置混乱，各段按自身时基独立运行。两类现象均与模组无关，排查应首先核对拨码与断电重启，不应拆检模组。</p>
+
+<h3 id="c95">9.5　场景映射</h3>
+
+<p>天幕的场景由两部分构成：<b>图像</b>与<b>映射</b>。图像决定显示内容；映射决定图像如何从一维的模组串还原为二维的发光面。映射错误将导致图案错位、拉伸或局部不亮，其现象类似软件缺陷，实为输入参数错误。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 400" role="img" aria-label="场景映射">
+  <text x="0" y="15" class="ttl">映射：一维串按行列数“折”为二维面，路径顺序须与物理串序一致</text>
+
+  <text x="24" y="46" class="s">物理排布：4 串 × 6 块</text>
+  <g>
+    <rect x="24" y="58" width="72" height="24" fill="#EDF6F2" stroke="#0E6049"/>
+    <rect x="24" y="86" width="72" height="24" fill="#EDF6F2" stroke="#0E6049"/>
+    <rect x="24" y="114" width="72" height="24" fill="#EDF6F2" stroke="#0E6049"/>
+    <rect x="24" y="142" width="72" height="24" fill="#EDF6F2" stroke="#0E6049"/>
+    <text x="60" y="74" class="s" text-anchor="middle">串 1</text>
+    <text x="60" y="102" class="s" text-anchor="middle">串 2</text>
+    <text x="60" y="130" class="s" text-anchor="middle">串 3</text>
+    <text x="60" y="158" class="s" text-anchor="middle">串 4</text>
+  </g>
+  <text x="24" y="186" class="s">系统参数：6 列 × 4 行</text>
+
+  <line class="ld" x1="104" y1="112" x2="146" y2="112" marker-end="url(#k1)"/>
+
+  <text x="156" y="46" class="s">映射网格：按行折返</text>
+  <g fill="#EBF3F9" stroke="#8FA3B4">
+    <rect x="156" y="58" width="32" height="22"/><rect x="192" y="58" width="32" height="22"/><rect x="228" y="58" width="32" height="22"/>
+    <rect x="264" y="58" width="32" height="22"/><rect x="300" y="58" width="32" height="22"/><rect x="336" y="58" width="32" height="22"/>
+    <rect x="156" y="84" width="32" height="22"/><rect x="192" y="84" width="32" height="22"/><rect x="228" y="84" width="32" height="22"/>
+    <rect x="264" y="84" width="32" height="22"/><rect x="300" y="84" width="32" height="22"/><rect x="336" y="84" width="32" height="22"/>
+    <rect x="156" y="110" width="32" height="22"/><rect x="192" y="110" width="32" height="22"/><rect x="228" y="110" width="32" height="22"/>
+    <rect x="264" y="110" width="32" height="22"/><rect x="300" y="110" width="32" height="22"/><rect x="336" y="110" width="32" height="22"/>
+    <rect x="156" y="136" width="32" height="22"/><rect x="192" y="136" width="32" height="22"/><rect x="228" y="136" width="32" height="22"/>
+    <rect x="264" y="136" width="32" height="22"/><rect x="300" y="136" width="32" height="22"/><rect x="336" y="136" width="32" height="22"/>
+  </g>
+  <path d="M160,68 L364,68 L364,94 L160,94 L160,120 L364,120 L364,146 L160,146"
+        fill="none" stroke="#A63A2C" stroke-width="1.6"/>
+  <text x="156" y="182" class="s" fill="#A63A2C">路径：1→6，7→12，逐行折返</text>
+
+  <line class="ld" x1="376" y1="112" x2="418" y2="112" marker-end="url(#k1)"/>
+
+  <text x="428" y="46" class="s">输出：图案铺满</text>
+  <defs>
+    <linearGradient id="tsky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#C6DCF2"/><stop offset="65%" stop-color="#E7F0FA"/><stop offset="100%" stop-color="#F6E6CB"/>
+    </linearGradient>
+  </defs>
+  <rect x="428" y="58" width="212" height="100" fill="url(#tsky)" stroke="#37596F"/>
+  <circle cx="596" cy="82" r="11" fill="#F3C56A"/>
+  <text x="428" y="182" class="s">行列数正确时，图案比例与位置均正确</text>
+
+  <rect class="bxr" x="664" y="58" width="272" height="100" rx="3"/>
+  <text x="680" y="80" class="tb">行列数输入错误的后果</text>
+  <text x="680" y="102" class="s">填 8×4（实际 6×4）：</text>
+  <text x="680" y="122" class="s">图案横向压缩，右侧两列不亮</text>
+  <text x="680" y="144" class="s">填 6×3（实际 6×4）：</text>
+  <text x="680" y="164" class="s">末行被折回，图案错位一行</text>
+
+  <line x1="0" y1="210" x2="960" y2="210" stroke="#D9E2EA"/>
+
+  <text x="24" y="236" class="ttl">配置步骤</text>
+  <text x="24" y="260" class="t">① 选中同一片天幕的全部控制器。选前应逐台执行识别，确认各台所辖段，并命名。</text>
+  <text x="24" y="282" class="t">② 选择样式：圆形、矩形或 S 形。圆形样式最多可选 4 台设备。</text>
+  <text x="24" y="304" class="t">③ 逐台填写每行、每列的模组块数。该数值须与排布图一致，不可估算。</text>
+  <text x="24" y="326" class="t">④ 选择内置图像，或上传自定义图像。自定义规格为 1000×1000 px、小于 3 MB、jpg 或 png。</text>
+  <text x="24" y="348" class="t">⑤ 在图像上按物理串序绘制路径，方向为竖直或水平。⑥ 保存并预览。</text>
+
+  <rect class="bx3" x="24" y="362" width="912" height="30" rx="3"/>
+  <text x="42" y="382" class="s">内置图像八张：晨曦、静夜、蓝天白云、蓝天白云含日、沐日、晚霞、夕照、旭日。自定义图像建议按实际宽高比裁剪，避免拉伸。</text>
+
+  <defs>
+    <marker id="k1" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#8FA3B4"/></marker>
+  </defs>
+</svg>
+<div class="cap">图 30　场景映射：行列数决定折法，路径顺序决定铺法</div>
+</div>
+
+<p>映射错误的判据可归纳为两类：<b>比例失真</b>与<b>位置错位</b>。前者源于行列数与实际排布不符，表现为图案被压缩或拉伸；后者源于路径顺序与物理串序不一致，表现为图案整体平移或镜像。二者均属配置问题，不涉及硬件，修正后即时生效。</p>
+
+<p>调试顺序因此与普通照明相反。普通照明为“先配场景、再看效果”；天幕须“先确认物理排布、再配场景”。物理排布包含三项：主从关系、串序、行列数。任一项未确认即配场景，后续所有场景均建立在错误基础上。</p>
+
+<h3 id="c96">9.6　施工工序与检修设计</h3>
+
+<p>天幕的施工工序不可颠倒，颠倒将导致拆顶。标准工序为六阶段，各阶段之间存在强制前置关系。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 300" role="img" aria-label="天幕施工工序">
+  <text x="0" y="15" class="ttl">六阶段工序：模组试亮必须在装膜之前完成</text>
+
+  <text x="24" y="46" class="s">阶段</text>
+  <text x="220" y="46" class="s">内容</text>
+  <text x="620" y="46" class="s">前置条件与判据</text>
+
+  <line x1="24" y1="58" x2="936" y2="58" stroke="#D9E2EA"/>
+
+  <rect class="bx2" x="24" y="68" width="140" height="30" rx="3"/>
+  <text x="94" y="88" class="s" text-anchor="middle">① 结构放线</text>
+  <text x="220" y="88" class="t">标注槽深、边界、检修口位置</text>
+  <text x="620" y="88" class="s">依据设计排布图，与装修单位会签</text>
+
+  <rect class="bx2" x="24" y="104" width="140" height="30" rx="3"/>
+  <text x="94" y="124" class="s" text-anchor="middle">② 腔体制作</text>
+  <text x="220" y="124" class="t">龙骨、吊杆、封板、开孔</text>
+  <text x="620" y="124" class="s">槽深实测值与设计值偏差 ≤5 mm</text>
+
+  <rect class="bx3" x="24" y="140" width="140" height="30" rx="3"/>
+  <text x="94" y="160" class="s" text-anchor="middle">③ 布线与控制器</text>
+  <text x="220" y="160" class="t">36 V 供电、信号线、主从级联</text>
+  <text x="620" y="160" class="s">控制器就位且可检修；主从拨码已设</text>
+
+  <rect class="bx3" x="24" y="176" width="140" height="30" rx="3"/>
+  <text x="94" y="196" class="s" text-anchor="middle">④ 装模组</text>
+  <text x="220" y="196" class="t">按排布图逐串安装，核对串序</text>
+  <text x="620" y="196" class="s">串序与图纸一致，编号可追溯</text>
+
+  <rect class="bx4" x="24" y="212" width="140" height="30" rx="3"/>
+  <text x="94" y="232" class="s" text-anchor="middle">⑤ 通电试亮</text>
+  <text x="220" y="232" class="t">全亮、单串、渐变三种模式</text>
+  <text x="620" y="232" class="s">无死灯、无暗串、末端无明显偏暗</text>
+
+  <rect class="bx4" x="24" y="248" width="140" height="30" rx="3"/>
+  <text x="94" y="268" class="s" text-anchor="middle">⑥ 装膜与调试</text>
+  <text x="220" y="268" class="t">张紧、收边、场景映射与预览</text>
+  <text x="620" y="268" class="s">无排骨纹、无暗边、图案无错位</text>
+</svg>
+<div class="cap">图 31　天幕施工六阶段</div>
+</div>
+
+<p>工序中的关键约束有三。其一，<b>模组须在装膜前试亮</b>：装膜后无法分辨单块模组的亮暗差异，且拆膜存在损伤风险。其二，<b>膜应最后安装</b>：场景调试须以最终光学状态为准，裸模组状态下的调光结果不具参考性。其三，<b>检修口须在排布图中预留</b>：检修口占用模组位置，其位置影响该区域的排布，属设计参数而非施工自由项。</p>
+
+<p>检修设计的另一对象是控制器。控制器常置于吊顶内、靠近天幕边缘，若设于人手不可及处，后续更换须拆顶。合理做法是将控制器置于天幕边缘的活动板后方，或在控制器附近单独设置检修口，并在竣工图中标注位置。</p>
+
+<h3 id="c97">9.7　故障模式</h3>
+
+<p>天幕故障按成因分为几何类、配置类、电气类三组。三者的现象形状不同，可据此快速分流，避免以电气手段处置几何问题。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 372" role="img" aria-label="天幕故障分流">
+  <text x="0" y="15" class="ttl">三类故障的现象形状不同，可据此分流</text>
+
+  <rect class="bx2" x="330" y="30" width="300" height="46" rx="4"/>
+  <text x="480" y="59" class="tb" text-anchor="middle">天幕显示异常</text>
+
+  <path class="ln" d="M480,76 L480,96 L160,96 L160,120" fill="none" marker-end="url(#l1)"/>
+  <path class="ln" d="M480,76 L480,120" fill="none" marker-end="url(#l1)"/>
+  <path class="ln" d="M480,76 L480,96 L800,96 L800,120" fill="none" marker-end="url(#l1)"/>
+
+  <rect class="bx3" x="24" y="124" width="272" height="52" rx="4"/>
+  <text x="160" y="146" class="tb" text-anchor="middle">几何类</text>
+  <text x="160" y="166" class="s" text-anchor="middle">周期性纹理、边缘暗框</text>
+
+  <rect class="bx" x="344" y="124" width="272" height="52" rx="4"/>
+  <text x="480" y="146" class="tb" text-anchor="middle">配置类</text>
+  <text x="480" y="166" class="s" text-anchor="middle">图案错位、拉伸、局部不亮</text>
+
+  <rect class="bx4" x="664" y="124" width="272" height="52" rx="4"/>
+  <text x="800" y="146" class="tb" text-anchor="middle">电气类</text>
+  <text x="800" y="166" class="s" text-anchor="middle">整片不亮、单段不亮、末端偏暗</text>
+
+  <line class="ln" x1="160" y1="176" x2="160" y2="196" marker-end="url(#l1)"/>
+  <line class="ln" x1="480" y1="176" x2="480" y2="196" marker-end="url(#l1)"/>
+  <line class="ln" x1="800" y1="176" x2="800" y2="196" marker-end="url(#l1)"/>
+
+  <rect class="bxr" x="24" y="200" width="272" height="150" rx="4"/>
+  <text x="40" y="222" class="s">排骨纹 → 间距过大或槽深不足</text>
+  <text x="40" y="244" class="s">边缘暗 → 离边 &gt;40 mm</text>
+  <text x="40" y="266" class="s">色块 → 模组批次混用</text>
+  <text x="40" y="294" class="s">处置：改结构或换模组规格。</text>
+  <text x="40" y="316" class="s">调光与换图无效。</text>
+  <text x="40" y="340" class="s" fill="#A63A2C">不可通过参数修正。</text>
+
+  <rect class="bxr" x="344" y="200" width="272" height="150" rx="4"/>
+  <text x="360" y="222" class="s">错位 → 路径顺序与串序不符</text>
+  <text x="360" y="244" class="s">拉伸 → 行列数与实际不符</text>
+  <text x="360" y="266" class="s">局部不亮 → 该段未纳入映射</text>
+  <text x="360" y="294" class="s">处置：核对排布图，重填行列数，</text>
+  <text x="360" y="316" class="s">按物理顺序重绘路径。</text>
+  <text x="360" y="340" class="s" fill="#0E6049">纯配置，改后即时生效。</text>
+
+  <rect class="bxr" x="664" y="200" width="272" height="150" rx="4"/>
+  <text x="680" y="222" class="s">整片不亮 → 控制器供电或主从拨码</text>
+  <text x="680" y="244" class="s">单段不亮 → 该台从机失电或级联断</text>
+  <text x="680" y="266" class="s">末端偏暗 → 串长超压降允许值</text>
+  <text x="680" y="294" class="s">处置：量 36 V 电压、核拨码并重启、</text>
+  <text x="680" y="316" class="s">拆串或加粗供电线。</text>
+  <text x="680" y="340" class="s" fill="#0E6049">可现场处置。</text>
+
+  <defs>
+    <marker id="l1" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#37596F"/></marker>
+  </defs>
+</svg>
+<div class="cap">图 32　天幕故障的三类分流</div>
+</div>
+
+<h3 id="c98">9.8　现场配置实务：灯片数、路径与清晰度</h3>
+
+<p>9.5 讲的是映射的原理，这一节讲的是现场真正会卡住的三件事：<b>灯片数怎么填、路径怎么画、清晰度为什么上不去</b>。三条都来自实际项目，书本资料里没有。</p>
+
+<p>先统一口径。<b>一个“灯片”是一块灯板，不是一颗灯珠。</b>600×600 灯盘内为 6×6 块灯板，共 36 块；每块灯板内部还有 4×4＝16 颗灯珠，这 16 颗共用同一个颜色值，平台不单独寻址。所以平台能表达的分辨率是灯板级，不是灯珠级——这一点决定了后面所有数字。</p>
+
+<table>
+<caption>表 8　常见排布的点数换算（间距 100 mm）</caption>
+<thead><tr><th>灯盘排布</th><th>灯盘数</th><th>灯片总数</th><th>平台行列</th><th>像素间距</th></tr></thead>
+<tbody>
+<tr><td>4 列 × 2 排</td><td>8</td><td>288</td><td>24 列 × 12 行</td><td>100 mm</td></tr>
+<tr><td>5 列 × 3 排</td><td>15</td><td>540</td><td>30 列 × 18 行</td><td>100 mm</td></tr>
+<tr><td>6 列 × 3 排</td><td>18</td><td>648</td><td>36 列 × 18 行</td><td>100 mm</td></tr>
+<tr><td>6 列 × 4 排</td><td>24</td><td>864</td><td>36 列 × 24 行</td><td>100 mm</td></tr>
+</tbody>
+</table>
+
+<p><b>填法：</b>灯片数一栏填的是“每一行的灯片个数”，用英文逗号分隔，<b>行数由数字的个数决定</b>。例如一台设备覆盖 3 个灯盘（横向并排），就是 18 列 × 6 行，填 <code>18,0,18,0,18,0,18,0,18,0,18</code>。</p>
+
+<div class="fig">
+<svg viewBox="0 0 900 412" role="img" aria-label="天幕灯片数填法与蛇形路径">
+  <text x="48" y="66" class="s" font-size="12.5">一个灯盘 ＝ 6×6 ＝ 36 块灯板</text>
+  <rect x="48" y="84" width="180" height="180" fill="#EBF3F9" stroke="#12557E" stroke-width="1.6"/>
+  <line x1="78" y1="84" x2="78" y2="264" stroke="#A9BFD2" stroke-width="1"/><line x1="108" y1="84" x2="108" y2="264" stroke="#A9BFD2" stroke-width="1"/><line x1="138" y1="84" x2="138" y2="264" stroke="#A9BFD2" stroke-width="1"/><line x1="168" y1="84" x2="168" y2="264" stroke="#A9BFD2" stroke-width="1"/><line x1="198" y1="84" x2="198" y2="264" stroke="#A9BFD2" stroke-width="1"/>
+  <line x1="48" y1="114" x2="228" y2="114" stroke="#A9BFD2" stroke-width="1"/><line x1="48" y1="144" x2="228" y2="144" stroke="#A9BFD2" stroke-width="1"/><line x1="48" y1="174" x2="228" y2="174" stroke="#A9BFD2" stroke-width="1"/><line x1="48" y1="204" x2="228" y2="204" stroke="#A9BFD2" stroke-width="1"/><line x1="48" y1="234" x2="228" y2="234" stroke="#A9BFD2" stroke-width="1"/>
+  <text x="138" y="286" class="s" text-anchor="middle" font-size="12">6 列 × 6 行</text>
+  <text x="138" y="304" class="s" text-anchor="middle" font-size="12">灯板间距 100 mm</text>
+
+  <text x="290" y="66" class="s" font-size="12.5">一台设备 ＝ 3 个灯盘并排 ＝ 18 列 × 6 行 ＝ 108 点</text>
+  <rect x="290" y="100" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="320" y="100" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="350" y="100" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="380" y="100" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="410" y="100" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="440" y="100" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="470" y="100" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="500" y="100" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="530" y="100" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="560" y="100" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="590" y="100" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="620" y="100" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="650" y="100" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="680" y="100" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="710" y="100" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="740" y="100" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="770" y="100" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="800" y="100" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="290" y="130" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="320" y="130" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="350" y="130" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="380" y="130" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="410" y="130" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="440" y="130" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="470" y="130" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="500" y="130" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="530" y="130" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="560" y="130" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="590" y="130" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="620" y="130" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="650" y="130" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="680" y="130" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="710" y="130" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="740" y="130" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="770" y="130" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="800" y="130" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="290" y="160" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="320" y="160" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="350" y="160" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="380" y="160" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="410" y="160" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="440" y="160" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="470" y="160" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="500" y="160" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="530" y="160" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="560" y="160" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="590" y="160" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="620" y="160" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="650" y="160" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="680" y="160" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="710" y="160" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="740" y="160" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="770" y="160" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="800" y="160" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="290" y="190" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="320" y="190" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="350" y="190" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="380" y="190" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="410" y="190" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="440" y="190" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="470" y="190" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="500" y="190" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="530" y="190" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="560" y="190" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="590" y="190" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="620" y="190" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="650" y="190" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="680" y="190" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="710" y="190" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="740" y="190" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="770" y="190" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="800" y="190" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="290" y="220" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="320" y="220" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="350" y="220" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="380" y="220" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="410" y="220" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="440" y="220" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="470" y="220" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="500" y="220" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="530" y="220" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="560" y="220" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="590" y="220" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="620" y="220" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="650" y="220" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="680" y="220" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="710" y="220" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="740" y="220" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="770" y="220" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="800" y="220" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="290" y="250" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="320" y="250" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="350" y="250" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="380" y="250" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="410" y="250" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="440" y="250" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="470" y="250" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="500" y="250" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="530" y="250" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="560" y="250" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="590" y="250" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="620" y="250" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="650" y="250" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="680" y="250" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="710" y="250" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="740" y="250" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="770" y="250" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/><rect x="800" y="250" width="30" height="30" fill="#FCFDFE" stroke="#C9D8E4" stroke-width="0.85"/>
+  <line x1="470" y1="100" x2="470" y2="280" stroke="#12557E" stroke-width="2.4"/><line x1="650" y1="100" x2="650" y2="280" stroke="#12557E" stroke-width="2.4"/>
+  <polyline points="305,115 815,115 815,145 305,145 305,175 815,175 815,205 305,205 305,235 815,235 815,265 305,265" fill="none" stroke="#12557E" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+  <circle cx="305.0" cy="115.0" r="4.5" fill="#12557E"/>
+  <text x="314.0" y="108.0" class="s" font-size="11.5" fill="#12557E">起点</text>
+  <text x="815.0" y="300" class="s" text-anchor="end" font-size="11.5" fill="#54677A">6 行来回，行间只连一根竖线</text>
+
+  <text x="48" y="342" class="s" font-size="12.5">灯片数填：<tspan font-weight="700" fill="#0A3D5C">18,0,18,0,18,0,18,0,18,0,18</tspan></text>
+  <text x="48" y="362" class="s" font-size="12">6 个 18 对应 6 行；0 是空行占位，省掉它行距就会被拉伸</text>
+  <text x="48" y="384" class="s" font-size="12" fill="#A63A2C">8 台设备 ＝ 8 条独立路径：每条画完右键结束，否则会接到上一条末尾，出现跨块斜线</text>
+</svg>
+<div class="cap">图 33　灯片数按“每行个数”填；路径按灯板逐点蛇形，行间不补点，画完即右键收尾</div>
+</div>
+
+
+
+<div class="principle">
+<b>0 是空行占位，不能省。</b>真实灯盘的灯板是 6 行，但画面是全幅映射的。若只写 6 个 18，平台会把 6 行均匀摊到整幅高度，灯珠间距被拉伸，观感发虚、显色不匀；写成 <code>18,0,18,…</code> 后，真正的 6 行只占应有的位置，间距才对得上物理尺寸。这条规则同样适用于所有“隔行”排布的天幕。
+</div>
+
+<p><b>路径的绘制规则有四条，缺一条就会出错：</b></p>
+
+<ol class="steps">
+<li><b>路径按设备绑定。</b>一个场景里有几台控制器，就有几条独立路径。画之前必须先在设备列表中点中那一台，否则点会记到上一台身上，表现为“只有一台亮”。</li>
+<li><b>“绘制路径”是模式开关，不是单次命令。</b>点亮后进入绘制态，左键逐点添加，点与点自动连线。</li>
+<li><b>右键结束当前一条，同时退出绘制态。</b>退出后必须重新点亮开关再画下一条。不结束就继续点，新点会接在上一条末尾，画面上出现跨块的斜线——这是最常见的错误形态。</li>
+<li><b>每行点数必须与灯片数一致。</b>每行 18 个就点 18 个，多点的部分不生效，少点会导致后续行整体前移、图案错位。</li>
+</ol>
+
+<p>还有一条容易被忽略：<b>被吊顶遮挡的灯盘也必须画进路径。</b>它虽然看不见，但仍在同一条串上；跳过它会让后面所有点的序号错位，图案整体平移。正确的做法是按完整网格画满，遮挡处照画不误。</p>
+
+<p><b>电气侧的红线是单路 80 点。</b>单条回路像素点超过 80，末端压降开始显现，表现为同一串里离控制器最远的那块灯盘偏暗，用户描述通常是“颜色不均匀”。处置有两条：在串尾并联一路 36 V 补电（线径 ≥1.0 mm²、长度 ≤5 m），或者把长串拆成 2+1 分挂控制器的两路。拆串优先——双路本来就空着一路，不必额外布线。</p>
+
+<p><b>装上去之前有三条硬约束</b>，任何一条不满足，参数配得再对也点不亮：① <b>控制器到模组、驱动到模组的线长都 ≤5 m</b>，线径 ≥1.0 mm²——房间对角线往往超过 6 m，所以控制器不能集中在门口配电箱，要就近放在天幕上方龙骨内；② <b>槽深要够</b>，P150 配透镜 ≥100 mm、不配透镜 ≥200 mm，槽深不够就降规格改用 P120 或 P100，此时灯片数要按新间距重算；③ <b>首次上电先复位再入网</b>，快速上下电 5 次，或用磁铁靠近驱动上的 NFC 位置，等光源闪 3 次，之后平台才搜得到。</p>
+
+<p><b>调试顺序是“复位 → 平台添加设备 → 逐台点亮 → 整屏纯白查缝”。</b>最后一步不能省：纯白画面下，拼接缝、错位、单块偏暗会一眼看出来；用彩色图反而把这些遮住，等交付后才发现就难改了。</p>
+
+<p>界面还有两个动作容易漏：灯片数旁边的<b>上移／下移</b>决定每一串在画面里占哪一带，顺序错了图案会整体错位（现场说法是“云跑到墙上”）；<b>“识别”按钮不做自动生成</b>，它只做校验，路径仍然要一条条手画——别指望点一下就有。</p>
+
+<p><b>最后是清晰度的天花板。</b>36×24＝864 像素铺在 3.6×2.4 m 上，等于每 100 mm 一个像素，一米只有 10 个像素。这个密度下，写实照片、文字、细线条必然发虚，不是参数问题，是物理上限；柔光膜还在灯板之间进一步混光。所以选图应遵循：<b>大色块、高对比、少细节</b>——蓝天白云、夕照、纯色渐变、剪影可用；花鸟、人物、带文字的图不要用。上传规格为 1000×1000 px、小于 3 MB 的 jpg 或 png，超出会被压缩，细节进一步丢失。</p>
+
+<div class="note">
+<b>排障顺序：</b>图案拉伸 → 查行列数；图案错位 → 查路径起点与方向；只有一台亮 → 查路径是否绑到该台；局部偏暗 → 查串长是否超 80 点；整体发虚 → 换图，不要调参数。
+</div>
+
+<h2 id="c10">第 10 章　软件平台与数据模型</h2>
+
+<p>平台的作用是将现场设备组织为可管理的对象，并在对象之上承载策略。所有“找不到设备、控制不到、场景不生效”的问题，本质是对象树的某个节点挂接错误，而非平台功能缺失。理解对象模型，比熟悉菜单位置更为有效。</p>
+
+<h3 id="cA1">10.1　对象模型</h3>
+
+<p>平台采用五层对象树：项目 → 区域 → 房间 → 组 → 设备。五层并非冗余，各层对应不同的控制粒度与权限范围。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 340" role="img" aria-label="平台对象模型">
+  <text x="0" y="15" class="ttl">五层对象树：每一层对应一种控制粒度</text>
+
+  <rect class="bx2" x="30" y="40" width="160" height="56" rx="4"/>
+  <text x="110" y="64" class="tb" text-anchor="middle">项目</text>
+  <text x="110" y="84" class="s" text-anchor="middle">一个案场</text>
+
+  <rect class="bx" x="230" y="40" width="160" height="56" rx="4"/>
+  <text x="310" y="64" class="tb" text-anchor="middle">区域</text>
+  <text x="310" y="84" class="s" text-anchor="middle">楼层 / 业态</text>
+
+  <rect class="bx" x="430" y="40" width="160" height="56" rx="4"/>
+  <text x="510" y="64" class="tb" text-anchor="middle">房间</text>
+  <text x="510" y="84" class="s" text-anchor="middle">301 会议室</text>
+
+  <rect class="bx" x="630" y="40" width="160" height="56" rx="4"/>
+  <text x="710" y="64" class="tb" text-anchor="middle">组</text>
+  <text x="710" y="84" class="s" text-anchor="middle">前排 / 后排</text>
+
+  <rect class="bx4" x="630" y="120" width="160" height="56" rx="4"/>
+  <text x="710" y="144" class="tb" text-anchor="middle">设备</text>
+  <text x="710" y="164" class="s" text-anchor="middle">灯 / 面板 / 传感器</text>
+
+  <line class="lb" x1="190" y1="68" x2="226" y2="68" marker-end="url(#m1)"/>
+  <line class="lb" x1="390" y1="68" x2="426" y2="68" marker-end="url(#m1)"/>
+  <line class="lb" x1="590" y1="68" x2="626" y2="68" marker-end="url(#m1)"/>
+  <line class="lb" x1="710" y1="96" x2="710" y2="116" marker-end="url(#m1)"/>
+
+  <text x="110" y="120" class="s" text-anchor="middle">粒度：全项目</text>
+  <text x="310" y="120" class="s" text-anchor="middle">粒度：一层</text>
+  <text x="510" y="120" class="s" text-anchor="middle">粒度：一间</text>
+
+  <line x1="0" y1="196" x2="960" y2="196" stroke="#D9E2EA"/>
+
+  <text x="30" y="222" class="ttl">三类挂接错误及其现象</text>
+
+  <rect class="bxr" x="30" y="236" width="290" height="86" rx="4"/>
+  <text x="46" y="258" class="s">设备已加入，但未归入房间</text>
+  <text x="46" y="280" class="s">现象：可单点控制，无法按房间调用</text>
+  <text x="46" y="302" class="s">处置：建立房间并将设备归位</text>
+
+  <rect class="bxr" x="336" y="236" width="290" height="86" rx="4"/>
+  <text x="352" y="258" class="s">房间名与业主称谓不一致</text>
+  <text x="352" y="280" class="s">现象：业主报房号，运维无法检索</text>
+  <text x="352" y="302" class="s">处置：按竣工图统一命名，一次定死</text>
+
+  <rect class="bxr" x="642" y="236" width="290" height="86" rx="4"/>
+  <text x="658" y="258" class="s">组跨越房间边界</text>
+  <text x="658" y="280" class="s">现象：调用该组时相邻房间动作</text>
+  <text x="658" y="302" class="s">处置：组只在房间内建立</text>
+
+  <defs>
+    <marker id="m1" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#12557E"/></marker>
+  </defs>
+</svg>
+<div class="cap">图 34　平台对象模型与三类挂接错误</div>
+</div>
+
+<p>命名应在调试前一次确定，并与竣工图一致。原因是名称同时被场景、自动化、面板绑定引用，改名将断开全部引用，且断开时通常不产生错误提示，仅表现为“按了没反应”。</p>
+
+<h3 id="cA2">10.2　接入路径</h3>
+
+<p>有线设备与无线设备在平台中的接入路径不同，其根源在对象模型的差异，而非界面设计。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 340" role="img" aria-label="两条接入路径">
+  <text x="0" y="15" class="ttl">两条接入路径：父子关系与对接关系，决定平台可见的粒度</text>
+
+  <rect class="bx2" x="30" y="40" width="420" height="56" rx="4"/>
+  <text x="240" y="64" class="tb" text-anchor="middle">有线（DALI / OBUS）</text>
+  <text x="240" y="84" class="s" text-anchor="middle">添加设备 → 设备 → 网关子设备 → 选端口扫描</text>
+
+  <rect class="bx4" x="510" y="40" width="420" height="56" rx="4"/>
+  <text x="720" y="64" class="tb" text-anchor="middle">无线（蓝牙 / 自组网）</text>
+  <text x="720" y="84" class="s" text-anchor="middle">添加设备 → 第三方 → 商照网关 / 网关登记</text>
+
+  <line class="lb" x1="240" y1="96" x2="240" y2="130" marker-end="url(#n1)"/>
+  <line class="lb" x1="720" y1="96" x2="720" y2="130" marker-end="url(#n1)"/>
+
+  <rect class="bx" x="30" y="134" width="420" height="96" rx="4"/>
+  <text x="48" y="158" class="t">网关</text>
+  <text x="48" y="180" class="t">└ 端口（DALI / OBUS）</text>
+  <text x="48" y="202" class="t">　└ 设备（短地址 / 设备地址）</text>
+  <text x="48" y="222" class="s">父子关系：平台可逐一读取每台设备状态</text>
+
+  <rect class="bx" x="510" y="134" width="420" height="96" rx="4"/>
+  <text x="528" y="158" class="t">商照网关</text>
+  <text x="528" y="180" class="t">└ 区组</text>
+  <text x="528" y="202" class="t">　└（单灯对象不暴露）</text>
+  <text x="528" y="222" class="s">对接关系：平台仅可见区组层对象</text>
+
+  <rect class="bx3" x="30" y="250" width="900" height="74" rx="4"/>
+  <text x="48" y="272" class="tb">由此产生的三条工程结论</text>
+  <text x="48" y="294" class="t">① 有线路径具备单灯调光与单灯故障回读；无线经对接入口时仅具备区组级开关，且不具备调光能力。</text>
+  <text x="48" y="314" class="s">② 有线路径的扫描即编址，须等待收敛；无线路径的添加即登记，不涉及编址。③ 两条路径不应混点，点错入口将不出现预期层级。</text>
+
+  <defs>
+    <marker id="n1" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#12557E"/></marker>
+  </defs>
+</svg>
+<div class="cap">图 35　两条接入路径与可见粒度</div>
+</div>
+
+<h3 id="cA3">10.3　场景与自动化</h3>
+
+<p>场景为静态的一帧状态，由人工触发；自动化为条件与动作的规则集，由事件触发。二者在平台上并存，但作用机制不同：场景修改的是设备的即时输出，自动化修改的是触发逻辑。</p>
+
+<p>自动化的类型包括面板绑定、条件组合、恒照度、日程、节律、定时与复制。其中“复制”对批量调试效率影响最大，但存在一项固有风险：复制将连同设备引用一并复制，若目标房间缺少对应设备，规则将指向空对象。故复制后应逐房间核验引用有效性，不可默认成立。</p>
+
+<h3 id="cA4">10.4　能耗计算模型</h3>
+
+<p>平台能耗数据分两类：<b>计量值</b>与<b>估算值</b>。二者不可混用，其差异应在交付文件中明确。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 320" role="img" aria-label="能耗计算链路">
+  <text x="0" y="15" class="ttl">两类能耗数据：计量值来自采样，估算值来自模型，不可互相替代</text>
+
+  <rect class="bx4" x="24" y="40" width="440" height="130" rx="4"/>
+  <text x="42" y="62" class="tb">计量值（模块侧）</text>
+  <text x="42" y="86" class="s">电压采样 × 电流采样 × 功率因数 → 瞬时功率</text>
+  <text x="42" y="108" class="s">瞬时功率对时间积分 → 电量</text>
+  <text x="42" y="132" class="s">精度取决于互感器线性度与功率因数修正</text>
+  <text x="42" y="156" class="s" fill="#0E6049">可用于结算，须提供精度等级与校准记录</text>
+
+  <rect class="bx3" x="496" y="40" width="440" height="130" rx="4"/>
+  <text x="514" y="62" class="tb">估算值（平台侧）</text>
+  <text x="514" y="86" class="s">额定功率 × 运行时长 × 调光系数 → 电量</text>
+  <text x="514" y="108" class="s">额定功率为人工录入，非实测</text>
+  <text x="514" y="132" class="s">调光系数由场景设定推定，非实际电流</text>
+  <text x="514" y="156" class="s" fill="#A63A2C">仅可用于趋势分析，不可作为结算依据</text>
+
+  <line x1="0" y1="196" x2="960" y2="196" stroke="#D9E2EA"/>
+
+  <text x="24" y="222" class="ttl">估算偏差的三个来源</text>
+  <text x="24" y="246" class="t">① 额定功率录入错误：系统性偏移，比例与录入误差一致。填 18 W 而实际 24 W，全部统计偏低 25%。</text>
+  <text x="24" y="268" class="t">② 调光系数失真：按场景设定值推定，与实际驱动输出存在偏差，低亮度段尤为明显。</text>
+  <text x="24" y="290" class="t">③ 运行时长口径：按场景切换记录推算，未计入手动干预、感应触发与临时覆盖。</text>
+  <text x="24" y="312" class="s">结论：能耗数据的可信度由“口径”决定，而非由平台算法决定。交付时应注明数据来源与适用用途。</text>
+</svg>
+<div class="cap">图 36　两类能耗数据的生成链路</div>
+</div>
+
+<h3 id="cA5">10.5　权限、日志与升级</h3>
+
+<p>权限管理的作用域为项目，而非设备。常见现象“用户看不到某项目”，多因账号未绑定该项目，而非权限配置错误。日志记录操作痕迹，其价值在于事后追溯：业主反馈“昨日正常、今日异常”时，日志通常可定位至某次配置变更。</p>
+
+<p>升级应在调试前完成。网关固件的新版本通常修正了上一版本在现场暴露的问题，使用旧版本调试，可能将已修正的缺陷误判为设计问题。升级后应复核地址表与场景表，因部分版本升级涉及存储结构变更。</p>
+
+<h2 id="c11">第 11 章　调试与验收</h2>
+
+<p>调试的本质是<b>按层次逐级确认</b>，而非按界面逐项操作。前一层未确认即进入后一层，将导致故障现象与成因跨越多个层次，定位成本成倍上升。本章按阶段划分调试过程，各阶段之间为强制前置关系。</p>
+
+<h3 id="cB1">11.1　调试流程</h3>
+
+<div class="fig">
+<svg viewBox="0 0 960 330" role="img" aria-label="调试五阶段">
+  <text x="0" y="15" class="ttl">五个阶段：前三个阶段以施工方为主，调试方须到场确认</text>
+
+  <rect class="bx2" x="24" y="38" width="172" height="86" rx="4"/>
+  <text x="110" y="62" class="tb" text-anchor="middle">① 图</text>
+  <text x="110" y="84" class="s" text-anchor="middle">深化图、点位表</text>
+  <text x="110" y="104" class="s" text-anchor="middle">回路划分、总线走向</text>
+
+  <rect class="bx2" x="224" y="38" width="172" height="86" rx="4"/>
+  <text x="310" y="62" class="tb" text-anchor="middle">② 线</text>
+  <text x="310" y="84" class="s" text-anchor="middle">线径、拓扑、终接</text>
+  <text x="310" y="104" class="s" text-anchor="middle">通断、绝缘、标识</text>
+
+  <rect class="bx2" x="424" y="38" width="172" height="86" rx="4"/>
+  <text x="510" y="62" class="tb" text-anchor="middle">③ 电</text>
+  <text x="510" y="84" class="s" text-anchor="middle">强电通电</text>
+  <text x="510" y="104" class="s" text-anchor="middle">回路、驱动器、无短路</text>
+
+  <rect class="bx3" x="624" y="38" width="150" height="86" rx="4"/>
+  <text x="699" y="62" class="tb" text-anchor="middle">④ 网</text>
+  <text x="699" y="84" class="s" text-anchor="middle">网关上线</text>
+  <text x="699" y="104" class="s" text-anchor="middle">IP、指示灯、登记</text>
+
+  <rect class="bx4" x="802" y="38" width="134" height="86" rx="4"/>
+  <text x="869" y="62" class="tb" text-anchor="middle">⑤ 点</text>
+  <text x="869" y="84" class="s" text-anchor="middle">编址、归位</text>
+  <text x="869" y="104" class="s" text-anchor="middle">逐点识别</text>
+
+  <line class="lb" x1="196" y1="81" x2="220" y2="81" marker-end="url(#o1)"/>
+  <line class="lb" x1="396" y1="81" x2="420" y2="81" marker-end="url(#o1)"/>
+  <line class="lb" x1="596" y1="81" x2="620" y2="81" marker-end="url(#o1)"/>
+  <line class="lb" x1="774" y1="81" x2="798" y2="81" marker-end="url(#o1)"/>
+
+  <rect class="bx" x="24" y="152" width="440" height="80" rx="4"/>
+  <text x="42" y="174" class="tb">前置阶段的确认要点</text>
+  <text x="42" y="196" class="s">图：点位表与深化图一致，回路编号唯一</text>
+  <text x="42" y="216" class="s">线：抽测通断与绝缘，核对线径与屏蔽结构</text>
+
+  <rect class="bx4" x="484" y="152" width="452" height="80" rx="4"/>
+  <text x="502" y="174" class="tb">调试阶段的工作内容</text>
+  <text x="502" y="196" class="s">网：复位、接网、指示灯确认、MAC 登记</text>
+  <text x="502" y="216" class="s">点：编址、归位、逐点识别、场景与联动</text>
+
+  <text x="24" y="264" class="ttl">顺序不可颠倒的物理原因</text>
+  <text x="24" y="288" class="t">在未确认线路的情况下编址，编址失败将无法区分“设备未通电”与“总线断开”；在未确认编址的情况下配置场景，场景将绑定到错误的地址，后续修正须整体重配。</text>
+  <text x="24" y="312" class="s">故每一阶段的输出是下一阶段的输入，跳过任一阶段，后续工作的可信度均无法建立。</text>
+
+  <defs>
+    <marker id="o1" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#12557E"/></marker>
+  </defs>
+</svg>
+<div class="cap">图 37　调试五阶段与前置关系</div>
+</div>
+
+<h3 id="cB2">11.2　网关上线</h3>
+
+<p><b>复位。</b>网关在进入项目前应执行复位，清除上一次配置残留。复位方式随机型而异，判据为指示灯状态变化，而非按键时长：具有独立复位孔的机型，按住至指示灯变化；无独立复位孔的机型，长按功能键至状态灯进入快闪（表示等待配网）。以时长作为判据不可靠，因不同固件的判定阈值不同。</p>
+
+<p><b>接网。</b>三个前提须同时满足：链路为 CAT5E 及以上；接入的交换机开启 DHCP，或已为网关分配静态地址；该网络可到达平台（云部署）或本地服务器（本地部署）。上电与接网的顺序宜为“先上电、后插网线”，原因是可观察状态变化：上电后指示灯进入初始化闪烁，插网线后网口指示灯点亮，自检完成后全部指示灯进入稳定状态。</p>
+
+<p><b>登记。</b>平台以 MAC 地址识别网关。MAC 为出厂烧录的物理地址，全球唯一，不可修改；设备名可修改、可重复，故不可作为识别依据。抄录 MAC 时须注意字符集：MAC 仅含 0～9 与 A～F，不含字母 O、I；长度为 12 位十六进制，长于该值者为序列号。</p>
+
+<div class="note">
+<b>未完成自检即登记，将产生无效记录。</b>平台中会出现一条始终离线的网关条目，后续须手工清除。清除操作同时删除该网关下的设备归属与历史数据，故应在登记前确认指示灯状态，而非登记后修补。
+</div>
+
+<h3 id="cB3">11.3　编址与点位核对</h3>
+
+<p>编址由平台发起，其过程见 3.4。工程上须把握三点：<b>编址期间不得断电</b>；<b>编址耗时与设备数近似线性</b>，数十秒属正常；<b>编址结果为整条回路重排</b>，非增量分配。</p>
+
+<p>编址完成后，须将地址与物理位置建立对应关系，形成点位表。建立方式为逐点识别：平台对指定地址发送识别命令，对应设备产生可见反馈（灯具闪烁、面板指示灯闪烁、传感器指示闪烁），现场人员确认位置后记录。该过程不可省略，理由有三：</p>
+
+<ul>
+<li><b>地址与位置无先天对应关系。</b>编址结果取决于随机数与搜索顺序，与安装位置无关。</li>
+<li><b>场景按地址存储。</b>地址与位置错配，将导致场景整体错位，且现象为“灯亮但不对”，易误判为场景配置错误。</li>
+<li><b>交付后无法重建。</b>缺少点位表时，任一故障均须在数十个地址中逐个尝试，运维成本不可控。</li>
+</ul>
+
+<p>点位表应包含四列：地址、位置（房间与点位编号）、所属端口、设备类型。表应与竣工图一并归档，并在每次更换设备后更新。</p>
+
+<h3 id="cB4">11.4　场景与联动调试</h3>
+
+<p>场景调试的顺序为：<b>单点 → 分组 → 场景</b>。先确认每台设备可单独开关与调光，再确认组内设备可同步动作，最后将状态存为场景。反向操作（先配场景再看效果）将使故障成因难以分离：场景不达预期时，无法判断是设备问题、分组问题还是场景参数问题。</p>
+
+<p>场景保存后须执行三项确认：其一，逐场景预览，不以设定值代替实际观察；其二，确认保存与下发为两个动作，仅保存未下发时设备输出不变；其三，断电重启后复验，确认配置写入设备而非停留于缓存。</p>
+
+<p>联动调试包括面板绑定、传感器触发、恒照度闭环与定时任务。其中恒照度须现场标定：传感器安装位置所测照度与工作面照度存在固定偏差，目标值应按实测比值折算，不可直接采用设计值。标定后应观察一个完整调节周期，确认无持续振荡。</p>
+
+<h3 id="cB5">11.5　验收项目</h3>
+
+<table>
+  <caption>表 9　验收项目与判据</caption>
+  <thead><tr><th>序</th><th>项目</th><th>判据</th></tr></thead>
+  <tbody>
+    <tr><th>1</th><td>点位一致性</td><td>逐点识别完成，点位表与现场一致，无未归属设备</td></tr>
+    <tr><th>2</th><td>单灯功能</td><td>逐台可单独开关；DALI 回路逐台可调光，最低亮度无闪烁</td></tr>
+    <tr><th>3</th><td>分组与场景</td><td>逐场景预览通过；切换无残留状态；场景号与面板键位对应</td></tr>
+    <tr><th>4</th><td>面板</td><td>逐键操作，动作与配置一致；指示灯反馈正常</td></tr>
+    <tr><th>5</th><td>感应</td><td>进入与离开各三次，延时与亮度符合设定；无误触发</td></tr>
+    <tr><th>6</th><td>恒照度</td><td>遮光与照光各一次，输出跟随且不振荡</td></tr>
+    <tr><th>7</th><td>天幕</td><td>无排骨纹、无暗边、图案无错位、动效段间连续</td></tr>
+    <tr><th>8</th><td>断电恢复</td><td>总电断开再恢复，地址、场景、参数均不丢失</td></tr>
+    <tr><th>9</th><td>能耗</td><td>额定功率已录入，监控数据量级合理</td></tr>
+    <tr><th>10</th><td>资料移交</td><td>系统图、平面图、点位表、账号权限、配电箱内照片</td></tr>
+  </tbody>
+</table>
+
+<h2 id="c12">第 12 章　故障诊断</h2>
+
+<p>诊断的核心不是记忆故障现象，而是<b>以最小代价缩小可能原因的集合</b>。本章给出一套分层模型、一组测量判据与若干因果链，其目的是使诊断过程可复现，而非依赖经验。</p>
+
+<h3 id="cC1">12.1　分层诊断模型</h3>
+
+<p>依据第 1 章的四层模型，故障可按“影响范围”归层。影响范围是最经济的信息，因其无需任何工具即可获得。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 400" role="img" aria-label="分层诊断模型">
+  <text x="0" y="15" class="ttl">按影响范围归层：范围越窄，层级越低</text>
+
+  <rect class="bx2" x="350" y="30" width="260" height="46" rx="4"/>
+  <text x="480" y="59" class="tb" text-anchor="middle">现象</text>
+
+  <path class="ln" d="M480,76 L480,96 L160,96 L160,120" fill="none" marker-end="url(#p1)"/>
+  <path class="ln" d="M480,76 L480,120" fill="none" marker-end="url(#p1)"/>
+  <path class="ln" d="M480,76 L480,96 L800,96 L800,120" fill="none" marker-end="url(#p1)"/>
+
+  <rect class="bx" x="24" y="124" width="272" height="48" rx="4"/>
+  <text x="160" y="145" class="tb" text-anchor="middle">整片（跨网关）</text>
+  <text x="160" y="164" class="s" text-anchor="middle">应用层 / 网络层</text>
+
+  <rect class="bx" x="344" y="124" width="272" height="48" rx="4"/>
+  <text x="480" y="145" class="tb" text-anchor="middle">单条回路</text>
+  <text x="480" y="164" class="s" text-anchor="middle">控制层 / 总线层</text>
+
+  <rect class="bx" x="664" y="124" width="272" height="48" rx="4"/>
+  <text x="800" y="145" class="tb" text-anchor="middle">单台设备</text>
+  <text x="800" y="164" class="s" text-anchor="middle">设备层 / 配置层</text>
+
+  <line class="ln" x1="160" y1="172" x2="160" y2="192" marker-end="url(#p1)"/>
+  <line class="ln" x1="480" y1="172" x2="480" y2="192" marker-end="url(#p1)"/>
+  <line class="ln" x1="800" y1="172" x2="800" y2="192" marker-end="url(#p1)"/>
+
+  <rect class="bx3" x="24" y="196" width="272" height="120" rx="4"/>
+  <text x="40" y="218" class="s">· 平台是否可见该区域网关</text>
+  <text x="40" y="240" class="s">· 全局策略是否生效</text>
+  <text x="40" y="262" class="s">· 账号权限与项目绑定</text>
+  <text x="40" y="288" class="s">判定：仅本区域异常而其他区域</text>
+  <text x="40" y="306" class="s" fill="#0E6049">正常 → 排除应用层。</text>
+
+  <rect class="bx3" x="344" y="196" width="272" height="120" rx="4"/>
+  <text x="360" y="218" class="s">· 网关在线状态与指示灯</text>
+  <text x="360" y="240" class="s">· 总线电压与终接</text>
+  <text x="360" y="262" class="s">· 端口选择是否正确</text>
+  <text x="360" y="288" class="s">判定：同网关另一端口正常</text>
+  <text x="360" y="306" class="s" fill="#0E6049">→ 故障在该端口及总线。</text>
+
+  <rect class="bx3" x="664" y="196" width="272" height="120" rx="4"/>
+  <text x="680" y="218" class="s">· 该设备供电与地址</text>
+  <text x="680" y="240" class="s">· 是否在场景与组内</text>
+  <text x="680" y="262" class="s">· 短地址是否被重排</text>
+  <text x="680" y="288" class="s">判定：识别有反馈但输出不对</text>
+  <text x="680" y="306" class="s" fill="#0E6049">→ 配置层问题。</text>
+
+  <rect class="bx3" x="24" y="336" width="912" height="48" rx="4"/>
+  <text x="42" y="358" class="tb">两个不需要工具的判断</text>
+  <text x="42" y="378" class="s">① 平台可见性与现场可控性的组合（见图 15）可区分网络层与总线层；② 识别是否有反馈可区分设备层与配置层。</text>
+
+  <defs>
+    <marker id="p1" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#37596F"/></marker>
+  </defs>
+</svg>
+<div class="cap">图 38　按影响范围归层</div>
+</div>
+
+<h3 id="cC2">12.2　电气测量方法</h3>
+
+<p>测量方法决定测量结果是否可信。以下四项为现场常用，各有其适用条件与陷阱。</p>
+
+<p><b>直流电压档。</b>用于判断总线供电与信号静态电平。DALI 空载电压典型 16 V，标准允许 9.5～22.5 V；测量值接近零表示短路或控制设备输出级保护；明显偏低表示负载过重或线损过大。OBUS 供电为 24 V，低于 20 V 时应检查负载是否超出 250 mA 预算，或线径与长度是否匹配。</p>
+
+<p><b>通断档。</b>用来找断点，但有个坑：线两头还接着设备时，设备内部的电子元件会让万用表“顺着它”导通，明明断了也响一声。正确做法是拆开一端再量，或者改用电阻档看具体数值——几十米的线应该是几欧，读到几百欧就是接头氧化了。</p>
+
+<p><b>钳形电流表。</b>用于测量回路电流与漏电流。测量漏电流时，将火线与零线同时夹入钳口，读数为两者之差，即对地泄漏电流。正常应接近零；读到数十毫安且随回路投入数量增加而上升，说明为驱动器正常漏电流累积，而非绝缘故障。</p>
+
+<p><b>示波器。</b>用于观察波形，适用于“电压正常但通信不稳”的疑难情形。观察要点有二：DALI 的高低电平是否存在毛刺或台阶（判断干扰与反射）；RS-485 的差分波形是否对称（判断 A/B 极性、终端匹配与共模偏移）。</p>
+
+<div class="note">
+<b>测量安全：</b>通断与电阻测量应在断电状态进行，且须确认线路无残余电荷；电压测量应在通电状态进行，表笔与档位须预先确认。配电箱内作业前应摘除手表、戒指等金属物件。驱动器断电后母线电容仍存高压，须等待放电完成。
+</div>
+
+<h3 id="cC3">12.3　典型故障因果链</h3>
+
+<p>以下十条为现场高频故障。每条给出“现象—机理—判据—处置”，重点在机理：理解机理后，未列入的情形亦可推导。</p>
+
+<p><b>① 整片不亮。</b>机理：总线短路触发控制设备限流保护，输出切断，整条回路失电。判据：断开总线后测量控制设备端口电压，有电压说明设备正常、故障在总线；无电压说明设备或供电异常。处置：分段断开定位短路点，不得反复复位强行送电。</p>
+
+<p><b>② 单条回路成片不响应而网关在线。</b>机理：断点位于链路中部，断点之前仍可通信，之后全部失联。判据：故障边界清晰，且边界位置固定。处置：自中点断开，观察前半段是否恢复，逐次二分，三至四次可定位至具体段。</p>
+
+<p><b>③ 末端偶发丢包，更换设备无效。</b>机理：反射或压降导致末端信号裕量不足。判据：首端与末端电压差显著（压降），或波形存在振铃（反射）；更换设备后现象不变。处置：核对拓扑与终接，核算压降与线径。</p>
+
+<p><b>④ 单台设备不亮而其余正常。</b>机理：三类可能——驱动器或光源损坏、短地址丢失、该支路未供电。判据：执行识别，有反馈说明通信正常、故障在光源；无反馈说明设备不在线，须查供电与驱动器。处置：按判据分流，不得直接更换整灯。</p>
+
+<p><b>⑤ 可亮但不可调光。</b>机理：通道类型与负载不匹配，或驱动器不具备调光能力。判据：确认该回路所属通道类型；确认驱动器型号是否支持调光。处置：更换驱动器或改由调光通道控制，不能通过平台参数解决。</p>
+
+<p><b>⑥ 面板操作无响应。</b>机理：事件已产生但未绑定，或绑定对象不存在。判据：面板指示灯有反馈（事件已发出），而目标设备无动作。处置：核对绑定关系与目标设备归属，不涉及更换面板。</p>
+
+<p><b>⑦ 场景整体错位。</b>机理：编址重排导致地址与位置对应关系改变，而场景按地址存储。判据：多点同时错位，且错位呈规律性（整体平移或交换）。处置：按点位表逐点识别，重建对应关系后重配场景。</p>
+
+<p><b>⑧ 天幕仅一段亮。</b>机理：从机未获得有效时基，停留于默认状态。判据：故障段边界与控制器分界一致。处置：核对主从拨码，断电重启后复验。</p>
+
+<p><b>⑨ 天幕图案错位或拉伸。</b>机理：行列数与实际排布不符，或路径顺序与串序不一致。判据：错位形态为比例失真或整体平移，且不随内容更换而改变。处置：按排布图重填参数，重绘路径。</p>
+
+<p><b>⑩ 能耗为零或量级异常。</b>机理：额定功率未录入或录入错误；或轻载工况低于计量下限。判据：排查录入值；核对回路实际负载率。处置：校准录入值；对轻载回路标注参考值。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 330" role="img" aria-label="因果链与判据关系">
+  <text x="0" y="15" class="ttl">因果链的通用结构：现象只是入口，机理决定判据，判据决定处置</text>
+
+  <rect class="bx2" x="24" y="40" width="180" height="70" rx="4"/>
+  <text x="114" y="64" class="tb" text-anchor="middle">现象</text>
+  <text x="114" y="86" class="s" text-anchor="middle">可观察的外部表现</text>
+
+  <rect class="bx3" x="254" y="40" width="200" height="70" rx="4"/>
+  <text x="354" y="64" class="tb" text-anchor="middle">机理</text>
+  <text x="354" y="86" class="s" text-anchor="middle">物理或协议层面的成因</text>
+
+  <rect class="bx4" x="504" y="40" width="200" height="70" rx="4"/>
+  <text x="604" y="64" class="tb" text-anchor="middle">判据</text>
+  <text x="604" y="86" class="s" text-anchor="middle">可测量或可观察的区分点</text>
+
+  <rect class="bx" x="754" y="40" width="182" height="70" rx="4"/>
+  <text x="845" y="64" class="tb" text-anchor="middle">处置</text>
+  <text x="845" y="86" class="s" text-anchor="middle">针对机理的修正动作</text>
+
+  <line class="lb" x1="204" y1="75" x2="250" y2="75" marker-end="url(#q1)"/>
+  <line class="lb" x1="454" y1="75" x2="500" y2="75" marker-end="url(#q1)"/>
+  <line class="lb" x1="704" y1="75" x2="750" y2="75" marker-end="url(#q1)"/>
+
+  <text x="24" y="146" class="ttl">跳过机理环节的两种后果</text>
+  <text x="24" y="170" class="t">其一，没有判据：只能“换一个试试”。每换一次都动了几个变量，最后好了也不知道是哪一步起的作用。</text>
+  <text x="24" y="192" class="t">其二，用错方法：明明是电压不够，却反复去改场景；明明是绑定丢了，却把面板换掉。</text>
+
+  <rect class="bxr" x="24" y="212" width="912" height="98" rx="4"/>
+  <text x="42" y="234" class="tb">一条通用纪律</text>
+  <text x="42" y="256" class="t">每次只改变一个变量，并在改变前后各记录一次可观察结果。现场常见的“调了半天终于好了”，其代价是故障原因未被识别，同一问题将在其他区域重现。</text>
+  <text x="42" y="278" class="t">若条件不允许逐项验证，至少应记录最终生效的那一项变更，并在交付文件中注明，供后续运维参考。</text>
+  <text x="42" y="300" class="s">该纪律对多专业交叉故障尤为重要：同一现象可能由电气、协议、配置三类原因中的任一类引起。</text>
+
+  <defs>
+    <marker id="q1" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#12557E"/></marker>
+  </defs>
+</svg>
+<div class="cap">图 39　因果链的通用结构与越层处置的后果</div>
+</div>
+
+<h3 id="cC4">12.4　诊断流程</h3>
+
+<p>将前述内容合并为一条可执行的流程，用于“灯不听话”这一最笼统的输入。流程的分支点均为二元判断，每一步只需一次观察或一次测量。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 470" role="img" aria-label="诊断流程">
+  <text x="0" y="15" class="ttl">诊断流程：每个分支点只需一次观察，避免同时改变多个变量</text>
+
+  <rect class="bx2" x="360" y="34" width="240" height="40" rx="4"/>
+  <text x="480" y="60" class="tb" text-anchor="middle">灯不听话</text>
+
+  <path class="ln" d="M480,74 L480,92 L200,92 L200,112" fill="none" marker-end="url(#r1)"/>
+  <path class="ln" d="M480,74 L480,112" fill="none" marker-end="url(#r1)"/>
+  <path class="ln" d="M480,74 L480,92 L760,92 L760,112" fill="none" marker-end="url(#r1)"/>
+
+  <rect class="bx" x="60" y="116" width="280" height="52" rx="4"/>
+  <text x="200" y="138" class="tb" text-anchor="middle">完全无反应</text>
+  <text x="200" y="158" class="s" text-anchor="middle">面板、平台均无法控制</text>
+
+  <rect class="bx" x="340" y="116" width="280" height="52" rx="4"/>
+  <text x="480" y="138" class="tb" text-anchor="middle">有反应但效果不对</text>
+  <text x="480" y="158" class="s" text-anchor="middle">亮灭正常，亮度或状态不符</text>
+
+  <rect class="bx" x="620" y="116" width="280" height="52" rx="4"/>
+  <text x="760" y="138" class="tb" text-anchor="middle">时好时坏</text>
+  <text x="760" y="158" class="s" text-anchor="middle">偶发，与环境或时段相关</text>
+
+  <line class="ln" x1="200" y1="168" x2="200" y2="188" marker-end="url(#r1)"/>
+  <line class="ln" x1="480" y1="168" x2="480" y2="188" marker-end="url(#r1)"/>
+  <line class="ln" x1="760" y1="168" x2="760" y2="188" marker-end="url(#r1)"/>
+
+  <rect class="bx3" x="24" y="192" width="352" height="128" rx="4"/>
+  <text x="40" y="214" class="s">① 平台可见该网关？</text>
+  <text x="40" y="236" class="s">　否 → 查网络层（IP、DHCP、链路）</text>
+  <text x="40" y="258" class="s">　是 → ② 面板能控？</text>
+  <text x="40" y="280" class="s">　　否 → 查总线层（电压、极性、断点）</text>
+  <text x="40" y="302" class="s">　　是 → ③ 识别有反馈？</text>
+  <text x="40" y="320" class="s" fill="#0E6049">　　　否 → 设备层；是 → 配置层</text>
+
+  <rect class="bx3" x="392" y="192" width="352" height="128" rx="4"/>
+  <text x="408" y="214" class="s">① 单点动作是否正常？</text>
+  <text x="408" y="236" class="s">　否 → 通道或驱动不匹配</text>
+  <text x="408" y="258" class="s">　是 → ② 组内其他设备是否同样？</text>
+  <text x="408" y="280" class="s">　全部异常 → 场景或组配置</text>
+  <text x="408" y="302" class="s">　个别异常 → 该设备地址错位</text>
+  <text x="408" y="320" class="s" fill="#0E6049">③ 断电重启后是否复现</text>
+
+  <rect class="bx3" x="760" y="192" width="176" height="128" rx="4"/>
+  <text x="776" y="214" class="s">查三个余量</text>
+  <text x="776" y="236" class="s">· 信号裕量</text>
+  <text x="776" y="258" class="s">· 供电裕量</text>
+  <text x="776" y="280" class="s">· 空口/总线占用</text>
+  <text x="776" y="302" class="s">记录“好”与“坏”的</text>
+  <text x="776" y="320" class="s">环境差异</text>
+
+  <line x1="0" y1="344" x2="960" y2="344" stroke="#D9E2EA"/>
+
+  <text x="24" y="370" class="ttl">三分支的共同收尾</text>
+  <text x="24" y="394" class="t">定位后应完成三件事：修复、复验、记录。复验须包含断电重启，以排除缓存态；记录须写明现象、判据、变更项，供同类故障复用。</text>
+  <text x="24" y="416" class="t">若三分支均无法收敛，应回到第 1 章的四层模型，重新确认故障范围——范围判断错误是最常见的诊断失败原因。</text>
+  <text x="24" y="442" class="s">不推荐的做法：在未确定原因前更换设备。更换会同时改变接触状态、地址与配置，使原有证据失效，且无法排除同型号批次缺陷。</text>
+
+  <defs>
+    <marker id="r1" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#37596F"/></marker>
+  </defs>
+</svg>
+<div class="cap">图 40　诊断流程的三个分支</div>
+</div>
+
+<h2 id="c13">附录</h2>
+
+<h3 id="cD1">附录 A　产品型号与料号</h3>
+
+<p>下表按职能分类，料号取自商用项目渠道在售清单（2026-08 版）智控系统页。料号随版本调整，下单前应与商务核对。</p>
+
+<table>
+  <caption>表 A1　睿壹 MAX 主要产品</caption>
+  <thead><tr><th>类别</th><th>产品</th><th>料号</th><th>主要规格</th></tr></thead>
+  <tbody>
+    <tr><th rowspan="3">有线网关</th><td>OBUS 网关（2 路）</td><td>560000000900</td><td>2×OBUS，250 mA/路，2 路干接点，AC 220 V，35 mm 导轨</td></tr>
+    <tr><td>DALI 网关（2 路）</td><td>560000001000</td><td>2×DALI，64 地址/路，2 路干接点，AC 220 V，35 mm 导轨</td></tr>
+    <tr><td>OBUS/DALI 混合网关</td><td>821000000600</td><td>1×OBUS + 1×DALI，2 路干接点</td></tr>
+    <tr><th rowspan="2">无线网关</th><td>蓝牙网关（SigMesh）</td><td>821011002500</td><td>150 节点，1 路 DALI + 1 路 RS-485，AC 220 V，吸顶</td></tr>
+    <tr><td>睿壹融合网关 G2</td><td>822005000300</td><td>DALI ≤64 地址/≤300 m，BLE ≤150 节点，百兆网口</td></tr>
+    <tr><th rowspan="2">执行模块</th><td>开关量模块 12 / 8 / 4 路</td><td>821004000100 / 0200 / 0300</td><td>20 A 磁保持，逐路计量，DC 24 V，导轨</td></tr>
+    <tr><td>数字 IO 模块 I8 / I4O4</td><td>560004000100 / 0200</td><td>8 路 DI / 4 路 DI + 4 路 DO，干接点，DC 24 V</td></tr>
+    <tr><th rowspan="4">转换器件</th><td>蓝牙转 DALI</td><td>821017003100</td><td>1 路 DALI 广播 + 1 路 1000 W 继电器，带计量</td></tr>
+    <tr><td>蓝牙继电器</td><td>821017003700</td><td>1 路通断，1000 W，AC 220 V</td></tr>
+    <tr><td>蓝牙转可控硅</td><td>821017003500</td><td>1 路，250 W，前沿/后沿可配，带计量</td></tr>
+    <tr><td>蓝牙 8 路干接点</td><td>821017003300</td><td>8 路 DI，AC 220 V</td></tr>
+    <tr><th rowspan="2">协议转换</th><td>DALI-BLE / 485 转换器</td><td>822010000500</td><td>DALI 输入设备转 BLE 或 RS-485，AC 220 V</td></tr>
+    <tr><td>灯带控制器（24 V）</td><td>822010000600 / 0700</td><td>调光调色 / RGBW，DC 24 V</td></tr>
+    <tr><th rowspan="3">面板</th><td>OBUS 六键场景面板</td><td>600000457400</td><td>DC 24 V，86 底盒</td></tr>
+    <tr><td>OBUS 六键带显示屏</td><td>600000457300</td><td>DC 24 V，86 底盒</td></tr>
+    <tr><td>SigMesh 八键面板</td><td>821009000300</td><td>纽扣电池，86 底盒，贴装或手持</td></tr>
+    <tr><th rowspan="4">传感器</th><td>OBUS 四合一</td><td>560000005200</td><td>温湿度 + 照度 + 移动，DC 24 V，吸顶</td></tr>
+    <tr><td>SigMesh 微波</td><td>821006001700</td><td>5.8 GHz，检测半径 5～7 m，安装高度 7～12 m</td></tr>
+    <tr><td>SigMesh 四合一</td><td>821006001900</td><td>红外 + 照度 + 温湿度，AC 220 V</td></tr>
+    <tr><td>存在式 / 存在照度</td><td>821006002400 / 822001000500</td><td>雷达微动检测，静止可判有人</td></tr>
+    <tr><th rowspan="2">天幕</th><td>天幕控制器 Wi-Fi 版</td><td>822010000200</td><td>2 路输出，1 主 + 19 从</td></tr>
+    <tr><td>天幕控制器 ETH 版</td><td>822008000500</td><td>2 路输出，本地部署必需</td></tr>
+    <tr><th rowspan="2">其他</th><td>睿壹边缘服务器</td><td>822008000100</td><td>本地部署，内置睿壹系统</td></tr>
+    <tr><td>X02 智慧中控屏</td><td>822008000600</td><td>触摸屏，配套底盒 822008000700</td></tr>
+  </tbody>
+</table>
+
+<h3 id="cD2">附录 B　技术数据</h3>
+
+<table>
+  <caption>表 B1　关键参数汇总</caption>
+  <thead><tr><th>项目</th><th>数值</th><th>性质</th></tr></thead>
+  <tbody>
+    <tr><th>DALI 速率 / 编码</th><td>1200 bit/s，曼彻斯特编码</td><td>IEC 62386</td></tr>
+    <tr><th>DALI 总线电压</th><td>空载典型 16 V，允许 9.5～22.5 V；低电平 −6.5～+4.5 V</td><td>IEC 62386</td></tr>
+    <tr><th>DALI 帧长</th><td>前向 19 位 / 15.8 ms；后向 11 位 / 9.2 ms</td><td>IEC 62386</td></tr>
+    <tr><th>DALI 地址空间</th><td>短地址 0～63；组 0～15；场景 0～15</td><td>IEC 62386</td></tr>
+    <tr><th>DALI 总线电流</th><td>≤250 mA，不得外接电源</td><td>厂家文件</td></tr>
+    <tr><th>DALI 线缆 / 长度</th><td>RVVP 2×1.5；300 m（1.5 mm²）/ 200 m（1.0 mm²）</td><td>厂家文件</td></tr>
+    <tr><th>OBUS 物理层</th><td>RS-485 差分，四线（24 V / GND / A / B）</td><td>厂家文件</td></tr>
+    <tr><th>OBUS 长度 / 带载</th><td>≤500 m；≤64 台/路</td><td>厂家文件</td></tr>
+    <tr><th>OBUS 供电</th><td>24 V / 250 mA，可带 5 台传感器；超出须外接，且仅一个电源</td><td>厂家文件</td></tr>
+    <tr><th>OBUS 终接</th><td>首末各 120 Ω</td><td>TIA-485</td></tr>
+    <tr><th>蓝牙带载 / 覆盖 / 间距</th><td>150 节点（设计 100～120）；≤500 ㎡；设备间 ≤30 m</td><td>厂家文件</td></tr>
+    <tr><th>蓝牙走廊部署</th><td>首末 ≤200 m，设备间距 ≤10 m</td><td>厂家文件</td></tr>
+    <tr><th>天幕槽深</th><td>间距 150 系列 ≤40 mm；120 系列 ≤25 mm</td><td>厂家文件</td></tr>
+    <tr><th>天幕间距</th><td>有透镜 150 系列 ≥100 mm / 120 系列 ≥80 mm；无透镜 ≥200 / ≥150 mm</td><td>厂家文件</td></tr>
+    <tr><th>天幕单块 / 主从</th><td>长宽 ≤4.2 m；1 主机 + 最多 19 从机</td><td>厂家文件</td></tr>
+    <tr><th>天幕输出</th><td>36 V 恒压，末端压降宜 ≤5%（1.8 V）</td><td>计算值</td></tr>
+    <tr><th>平台端口</th><td>网关 TCP 80 + UDP 65501；客户端 TCP 80 + 443</td><td>厂家文件</td></tr>
+    <tr><th>网络质量</th><td>带宽 &gt;1 Mbit/s，延时 &lt;300 ms</td><td>厂家文件</td></tr>
+  </tbody>
+</table>
+
+<h3 id="cD3">附录 C　术语</h3>
+
+<table>
+  <caption>表 C1　术语与缩写</caption>
+  <thead><tr><th>术语</th><th>释义</th></tr></thead>
+  <tbody>
+    <tr><th>DALI</th><td>Digital Addressable Lighting Interface，IEC 62386 定义的数字可寻址照明接口</td></tr>
+    <tr><th>OBUS</th><td>欧普私有总线，物理层基于 RS-485，四线制</td></tr>
+    <tr><th>SigMesh</th><td>Bluetooth SIG 定义的蓝牙网状网协议</td></tr>
+    <tr><th>前向帧 / 后向帧</th><td>控制设备发往总线 / 控制装置回传的报文</td></tr>
+    <tr><th>短地址</th><td>DALI 控制装置的 6 位地址，取值 0～63</td></tr>
+    <tr><th>编址</th><td>为无地址设备分配短地址的过程，含随机化与二分搜索</td></tr>
+    <tr><th>广播 / 组播 / 单播</th><td>面向全总线 / 面向组 / 面向单一地址的寻址方式</td></tr>
+    <tr><th>场景</th><td>一组预设输出值的集合，按编号存储于设备或平台</td></tr>
+    <tr><th>手拉手</th><td>总线依次串接各设备，主线连续，设备并接</td></tr>
+    <tr><th>终端电阻</th><td>接于总线首末两端、与线缆特性阻抗匹配的电阻</td></tr>
+    <tr><th>反射系数</th><td>反射波幅值与入射波幅值之比，由阻抗失配程度决定</td></tr>
+    <tr><th>共模电压</th><td>差分信号两端相对地的公共电位，超出收发器范围将导致通信中断</td></tr>
+    <tr><th>干接点</th><td>不携带电压的触点，仅提供通断状态</td></tr>
+    <tr><th>磁保持继电器</th><td>触点动作后由永磁保持、无需线圈持续通电的继电器</td></tr>
+    <tr><th>泛洪</th><td>Mesh 中将报文向所有可达方向转发的传播方式</td></tr>
+    <tr><th>TTL</th><td>报文允许被转发的剩余次数</td></tr>
+    <tr><th>槽深</th><td>天幕模组发光面至软膜的净距，即腔体净高</td></tr>
+    <tr><th>排骨纹</th><td>天幕因混光不足而出现的周期性亮暗纹理</td></tr>
+    <tr><th>模组串</th><td>控制器单路输出所驱动的一组串联模组</td></tr>
+  </tbody>
+</table>
+
+<h3 id="cD4">附录 D　依据文件</h3>
+
+<p><b>标准与规范</b></p>
+<ul>
+<li>IEC 62386 系列：数字可寻址照明接口（物理层、控制装置、控制设备）</li>
+<li>TIA/EIA-485-A：差分数据传输的电气特性</li>
+<li>Bluetooth SIG Mesh Profile：蓝牙网状网协议规范</li>
+</ul>
+
+<p><b>厂家文件</b></p>
+<ul>
+<li>《智能照明技术交底手册（睿壹）》V01，OP-ZXF2023-A01 —— 线缆、长度、带载、供电、网络环境</li>
+<li>《天幕解决方案 2.0》—— 天幕构成、控制器、主从、几何边界、设计流程</li>
+<li>《睿壹 WEB 天幕场景 SOP v2.0》—— 复位、配网、场景映射、图像规格</li>
+<li>《SDL 天幕图片场景调试方式》—— 控制器选择、行列数、路径绘制</li>
+<li>商用项目渠道在售清单（2026-08）—— 产品料号与规格</li>
+</ul>
+
+<p><b>说明</b></p>
+<p>本手册中标注为“计算值”的条目，为按标准电气关系推导所得，非厂家给定值，使用时须按项目实际参数复算。天幕几何参数表中的组合关系系按厂家资料整理，项目应用时应以设计软件输出为准。</p>
+
+<footer>
+<b>睿壹 MAX 智能照明控制系统　技术手册　V5.0</b>　编制日期 2026-11<br>
+内容范围：系统概述、控制原理与寻址、DALI 协议实现、OBUS 总线、蓝牙 Mesh 无线层、系统构成、接口与转换、电气设计与布线、SDL 天幕系统、软件平台与数据模型、调试与验收、故障诊断。<br>
+配套文件：《欧普自组网技术专家手册》。两者分界为传输介质与系统归属：本书覆盖有线总线、蓝牙与天幕；自组网分册覆盖无线自组网。<br>
+文中数值如与厂家最新文件不一致，以厂家最新文件为准。
+</footer>
+
+</div>
+</body>
+</html>
