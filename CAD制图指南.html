@@ -1,0 +1,1466 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CAD 制图指南</title>
+<style>
+  :root{--ink:#16202B;--muted:#54677A;--brand:#12557E;--deep:#0A3D5C;--line:#D9E2EA;--bg:#F3F5F8;--soft:#EFF5FA;--warnbg:#FAF5E9}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC",sans-serif;line-height:1.82;font-size:14.2px}
+  .page{max-width:1060px;margin:0 auto;background:#fff;padding:52px 62px 72px}
+  header{border-bottom:2.5px solid var(--deep);padding-bottom:18px}
+  h1{margin:0;font-size:28px;letter-spacing:.6px;font-weight:700}
+  .sub{color:var(--muted);font-size:13.6px;margin-top:9px;line-height:1.7}
+  .meta{display:flex;flex-wrap:wrap;gap:20px;margin-top:12px;font-size:12px;color:var(--muted);border-top:1px solid #EAF0F5;padding-top:10px}
+  .meta i{font-style:normal;color:#93A4B4;margin-right:4px}
+  h2{font-size:18px;margin:42px 0 10px;padding:8px 0 8px 13px;border-left:4px solid var(--brand);background:linear-gradient(90deg,#F1F7FB,#fff);line-height:1.45;font-weight:700}
+  h2 span{color:#7C8FA1;font-size:12.2px;font-weight:400;margin-left:9px;letter-spacing:0}
+  h3{font-size:15.2px;margin:26px 0 6px;color:var(--deep);font-weight:700}
+  h2.partstart{margin-top:40px;font-size:20px;border-left-color:var(--deep);padding-top:10px;padding-bottom:10px}
+  h2.partstart.first{margin-top:34px}
+  p{margin:10px 0;text-align:justify}
+  ul,ol{margin:8px 0 12px;padding-left:23px}
+  li{margin:5px 0}
+  b{color:#0B2C42;font-weight:700}
+  code{background:#EEF3F7;border:1px solid #DCE6EE;border-radius:2px;padding:0 4px;font-size:12.2px;font-family:Consolas,"Microsoft YaHei",monospace}
+  .lead{background:var(--soft);border-left:3px solid var(--brand);padding:11px 15px;margin:16px 0;font-size:13.4px;border-radius:0 4px 4px 0}
+  .note{background:var(--warnbg);border-left:3px solid #B8862B;padding:10px 14px;margin:14px 0;font-size:13.2px;border-radius:0 4px 4px 0}
+  .fcs{display:grid;grid-template-columns:1fr 1fr;gap:10px 16px;margin:10px 0 4px}
+  .fc{border:1px solid #E1E8EF;border-radius:5px;padding:8px 11px 9px;background:#FCFDFE;page-break-inside:avoid}
+  .fch{font-size:12.5px;color:#0B2C42;font-weight:700;margin-bottom:5px;display:flex;gap:7px;align-items:baseline;flex-wrap:wrap}
+  .fch b{font-family:Consolas,"Microsoft YaHei",monospace;font-weight:400;color:#12557E;background:#E7F0F7;border:1px solid #CFE0EC;border-radius:3px;padding:0 6px;font-size:11.8px;letter-spacing:.3px}
+  .fcs2{counter-reset:st;list-style:none;padding:0;margin:0;font-size:12.1px;line-height:1.66;color:#33475A}
+  .fcs2 li{counter-increment:st;position:relative;padding-left:17px;margin:2px 0}
+  .fcs2 li:before{content:counter(st);position:absolute;left:0;top:2.5px;width:13px;height:13px;border-radius:2px;background:#DCE9F2;color:#0A3D5C;font-size:9.4px;text-align:center;line-height:13px;font-weight:700}
+  .fcn{margin-top:6px;font-size:11.4px;color:#7E5210;background:#FAF5E9;border-left:2px solid #C9A24A;padding:3px 7px;border-radius:0 2px 2px 0}
+  .qk{border:1px solid #C4D4E1;border-radius:6px;margin:16px 0 14px;overflow:hidden}
+  .qk .hd{background:linear-gradient(90deg,#0A3D5C,#12557E);color:#fff;padding:7px 14px;font-size:13.2px;font-weight:700;letter-spacing:.4px;display:flex;justify-content:space-between;align-items:center}
+  .qk .hd em{font-style:normal;font-weight:400;font-size:11.4px;opacity:.88}
+  .qk .bd{display:grid;grid-template-columns:1fr 1fr 1.08fr;padding:9px 14px 10px;background:#FBFDFE}
+  .qk .col{padding:0 11px;border-left:1px solid #E6EEF4}
+  .qk .col:first-child{border-left:none;padding-left:0}
+  .qk .ct{font-size:11.4px;color:#7C8FA1;font-weight:700;margin:0 0 3px;letter-spacing:.3px}
+  .qk .it{font-size:11.9px;line-height:1.62;color:#33475A;display:flex;justify-content:space-between;gap:6px}
+  .qk .it span{flex:1 1 auto;min-width:0}
+  .qk .it b{font-family:Consolas,"Microsoft YaHei",monospace;font-weight:400;color:#0A3D5C;white-space:nowrap;letter-spacing:.3px;flex:0 0 auto}
+  .qk .it.hi b{color:#12557E}
+  .qk .it.hi{color:#0B2C42}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;margin:9px 0 6px}
+  .chip{background:#fff;border:1px solid #C9D9E6;border-radius:3px;padding:3px 8px;font-family:Consolas,"Microsoft YaHei",monospace;font-size:12.4px;font-weight:700;color:var(--deep)}
+  .chip i{font-style:normal;font-family:"Microsoft YaHei",sans-serif;font-weight:400;color:#63788B;font-size:11.8px}
+  table{width:100%;border-collapse:collapse;margin:8px 0 16px;font-size:13px;line-height:1.62}
+  caption{caption-side:top;text-align:left;color:var(--muted);font-size:12px;padding-bottom:5px}
+  th,td{border:1px solid #DCE5EC;padding:5px 9px;text-align:left;vertical-align:top}
+  thead th{background:#F0F6FA;color:var(--deep);font-weight:700;font-size:12.6px}
+  td.k{font-family:Consolas,"Microsoft YaHei",monospace;font-weight:400;color:#0B2C42;white-space:nowrap;width:12%;letter-spacing:.4px}
+  td.c{font-family:Consolas,"Microsoft YaHei",monospace;color:#60758A;white-space:nowrap;width:19%;font-size:12px}
+  table.fixed{table-layout:fixed}
+  table.fixed td.k,table.fixed td.c{white-space:normal}
+  tr.star td{background:#FBFCF5}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 26px}
+  .toc{background:#FAFCFD;border:1px solid var(--line);border-radius:6px;padding:16px 22px;margin:22px 0 8px;font-size:13px}
+  .toc .cols{display:grid;grid-template-columns:1fr 1fr 1fr;column-gap:24px}
+  .toc .cols>div{min-width:0}
+  .toc a{color:var(--ink);text-decoration:none;display:block;padding:1.4px 0;border-bottom:1px dotted #E7EDF2}
+  .toc a:hover{color:var(--brand)}
+  .toc .part{font-weight:700;color:var(--deep);margin-top:9px;border:none;font-size:13.2px}
+  .fmt{background:#F7FAFC;border:1px solid #DCE6EE;border-left:3px solid var(--brand);border-radius:0 4px 4px 0;padding:10px 14px;margin:12px 0;font-family:Consolas,"Microsoft YaHei",monospace;font-size:13px;line-height:1.95;color:#123A55;white-space:pre-wrap}
+  .fig{background:#FCFDFE;border:1px solid #E1E8EF;border-radius:6px;padding:10px 14px 4px;margin:14px 0 18px}
+  .fig svg{width:100%;height:auto;display:block}
+  .fig .cap{font-size:12px;color:var(--muted);text-align:center;margin:6px 0 4px}
+  .formula{background:#F7FAFC;border:1px solid #E1E8EF;border-radius:4px;padding:10px 14px;margin:14px 0;font-family:Consolas,"Microsoft YaHei",monospace;font-size:12.6px;color:#123A55;line-height:1.85;overflow-x:auto}
+  .pit{counter-reset:pit;list-style:none;padding-left:0;margin:6px 0 0;font-size:13px}
+  .pit>li{counter-increment:pit;position:relative;padding-left:23px;margin:5px 0}
+  .pit>li:before{content:counter(pit);position:absolute;left:0;top:2px;width:16px;height:16px;border-radius:2px;background:#E6EFF6;color:var(--deep);font-size:10.5px;text-align:center;line-height:16px;font-weight:700}
+  footer{margin-top:36px;border-top:1px solid var(--line);padding-top:12px;color:var(--muted);font-size:11.8px;line-height:1.75}
+  svg text{font-family:"Microsoft YaHei","PingFang SC",sans-serif}
+  .bx2{fill:#EBF3F9;stroke:#12557E;stroke-width:1.3}
+  .bx4{fill:#EDF6F2;stroke:#0E6049;stroke-width:1.3}
+  .bx3{fill:#F6F1E6;stroke:#B08A2E;stroke-width:1.3}
+  .bx{fill:#fff;stroke:#8FA3B4;stroke-width:1.2}
+  .ttl{font-size:15px;font-weight:700;fill:#0A3D5C}
+  .s{font-size:12px;fill:#54677A}
+  .lb{stroke:#12557E;stroke-width:1.2;fill:none}
+  .kcap{font-size:15px;font-weight:700;fill:#0A3D5C;font-family:Consolas,"Microsoft YaHei",monospace}
+  @page{size:A4;margin:13mm 12mm}
+  @media print{
+    body{background:#fff;font-size:9.3pt;line-height:1.62}
+    .page{max-width:none;padding:0}
+    h1{font-size:18pt}
+    h2{page-break-after:avoid;background:none;font-size:11.6pt;margin:13pt 0 5pt}
+    h3{page-break-after:avoid}
+    table{font-size:8.6pt;page-break-inside:auto}
+    thead{display:table-header-group}
+    tr{page-break-inside:avoid}
+    th,td{padding:2.5px 5px}
+    .fig,.formula{page-break-inside:avoid}
+    .qk{page-break-inside:avoid}
+    .fcs{grid-template-columns:1fr 1fr;gap:7px 11px}
+    .fc{padding:5px 8px 6px}
+    .fch{font-size:8.8pt;margin-bottom:3px}
+    .fch b{font-size:8.4pt}
+    .fcs2{font-size:8.3pt;line-height:1.55}
+    .fcn{font-size:7.9pt;padding:2px 5px;margin-top:4px}
+    .qk .bd{padding:6px 8px 7px}
+    .qk .it{font-size:8.4pt;line-height:1.6}
+    .qk .hd{font-size:9.4pt;padding:4px 9px}
+    .qk .ct{font-size:7.8pt}
+    .grid2{display:block}
+    .grid2.keep{display:grid;grid-template-columns:1fr 1fr;column-gap:20px;page-break-inside:avoid}
+    .toc{padding:12px 16px;margin:14px 0 4px;font-size:8.7pt}
+    .toc .cols{grid-template-columns:1fr 1fr 1fr;column-gap:18px}
+    .toc a{padding:.6px 0;line-height:1.55}
+    .toc .part{font-size:8.9pt;margin-top:5px}
+    footer{margin-top:14pt}
+  }
+  @media screen and (max-width:820px){
+    .page{padding:24px 16px 40px}
+    h1{font-size:21px}
+    .toc .cols{grid-template-columns:1fr}
+    .grid2{display:block}
+    body{font-size:14px}
+    table{font-size:12.4px}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+<header>
+  <h1>CAD 制图指南</h1>
+  <div class="sub">智控工序速查 · 命令全表 · 设置与选项 · 自定义左手键 · 制图规范 · 工具库与模板——前半本教你怎么画得快，后半本管你忘了哪条去哪查</div>
+  <div class="meta">
+    <span><i>适用</i>照明智控点位图 / 系统图 / 桥架路由图（AutoCAD 2006 及以上，浩辰、中望通用）</span>
+    <span><i>配套</i>《智能照明工程基础手册》第六篇 CAD 制图基础</span>
+    <span><i>依据</i>AutoCAD 默认 acad.pgp 别名表 / 行业通行自定义方案 / 现场绘图习惯　<i>整合</i>CAD快捷指令大全、智控方案常用命令速查、智控深化工具库搭建手册</span>
+    <span><i>版本</i>V2.0（整合版）　2026-11-17</span>
+  </div>
+</header>
+
+<div class="qk">
+  <div class="hd"><span>按操作查：灯具智控方案最常用</span><em>左边是要做的事，右边是命令；具体走法见第 0 节</em></div>
+  <div class="bd">
+    <div class="col">
+      <div class="ct">图层与块</div>
+      <div class="it hi"><span>新建图层</span><b>LA 新建</b></div>
+      <div class="it hi"><span>复制图层</span><b>LA 右键复制</b></div>
+      <div class="it"><span>设为当前层</span><b>LA 双击</b></div>
+      <div class="it"><span>开关 / 锁定底图</span><b>LA 灯泡·锁</b></div>
+      <div class="it hi"><span>创建块</span><b>B</b></div>
+      <div class="it hi"><span>复制块</span><b>CO</b></div>
+      <div class="it"><span>插入块</span><b>I</b></div>
+      <div class="it"><span>改图例（全图同步）</span><b>BE / 双击</b></div>
+      <div class="it"><span>加块属性（回路号）</span><b>ATT</b></div>
+      <div class="it"><span>存成独立图例文件</span><b>W</b></div>
+    </div>
+    <div class="col">
+      <div class="ct">画图与对齐</div>
+      <div class="it hi"><span>画线</span><b>L</b></div>
+      <div class="it hi"><span>平行复制</span><b>O</b></div>
+      <div class="it hi"><span>图形对齐</span><b>AL</b></div>
+      <div class="it hi"><span>块对齐</span><b>AL + 捕捉</b></div>
+      <div class="it"><span>移动</span><b>M</b></div>
+      <div class="it"><span>旋转（连复制）</span><b>RO 选 C</b></div>
+      <div class="it"><span>镜像</span><b>MI</b></div>
+      <div class="it"><span>缩放</span><b>SC</b></div>
+      <div class="it"><span>阵列排灯</span><b>AR</b></div>
+      <div class="it"><span>沿线等分布点</span><b>DIV / ME</b></div>
+    </div>
+    <div class="col">
+      <div class="ct">修整 · 标注 · 出图</div>
+      <div class="it hi"><span>修剪</span><b>TR 空回车</b></div>
+      <div class="it hi"><span>延伸</span><b>EX Shift 互换</b></div>
+      <div class="it hi"><span>拉伸改尺寸</span><b>S 窗交</b></div>
+      <div class="it"><span>剪角 / 圆角</span><b>F 半径 0</b></div>
+      <div class="it"><span>分解底图</span><b>X</b></div>
+      <div class="it"><span>删除 / 找回删除</span><b>E / OOPS</b></div>
+      <div class="it"><span>标尺寸</span><b>DLI+DCO</b></div>
+      <div class="it"><span>引线＋回路号</span><b>LE</b></div>
+      <div class="it"><span>写字</span><b>DT / MT</b></div>
+      <div class="it"><span>数数量出清单</span><b>数据提取</b></div>
+      <div class="it"><span>显示全图 / 打印</span><b>Z+E / Ctrl+P</b></div>
+    </div>
+  </div>
+</div>
+
+<div class="lead">
+<b>这本怎么用：</b>第一篇按智控方案的实际工序走一遍——接底图、布点位、走桥架、套图例、标注、统数量、出图，每一步只留真正用得上的命令，第一次看十分钟就够；第二篇是全量命令表，按功能分类，忘了哪条直接翻；第三篇讲设置与键位自定义（acad.pgp、左手键、OPTIONS 与系统变量），属于提速阶段的事；第四篇是图能交出去的规范底线；第五篇解决"下一个项目怎么不从头开始"——样板、块库、选项板、图例说明。<b>先读第一篇，之后把它当字典。</b>
+</div>
+
+<div class="toc">
+  <div class="cols">
+  <div>
+  <div class="part">第一篇　智控方案工序速查</div>
+  <a href="#c0">0　常用命令操作流程（怎么点）</a>
+  <a href="#c1">1　接底图：剪裁、清理、锁层</a>
+  <a href="#c2">2　布点位：灯具、面板、传感器、网关</a>
+  <a href="#c3">3　走桥架与线管</a>
+  <a href="#c4">4　套图例：块与属性</a>
+  <a href="#c5">5　标注与文字</a>
+  <a href="#c6">6　统数量与核对</a>
+  <a href="#c7">7　出图与交付</a>
+  <a href="#c8">8　十个反复踩的坑</a>
+  </div>
+  <div>
+  <div class="part">第二篇　命令全表</div>
+  <a href="#c9">9　功能键 F1–F12</a>
+  <a href="#c10">10　Ctrl / Shift 组合键</a>
+  <a href="#c11">11　绘图命令</a>
+  <a href="#c12">12　修改命令</a>
+  <a href="#c13">13　标注命令</a>
+  <a href="#c14">14　对象捕捉</a>
+  <a href="#c15">15　图层、特性与查询</a>
+  <a href="#c16">16　块、编组与外部参照</a>
+  <a href="#c17">17　视图、布局与显示</a>
+  <a href="#c18">18　三维常用命令</a>
+  </div>
+  <div>
+  <div class="part">第三篇　自定义与提速</div>
+  <a href="#c19">19　acad.pgp：别名怎么改</a>
+  <a href="#c20">20　左手键方案</a>
+  <a href="#c21">21　设置与选项：OPTIONS 与系统变量</a>
+  <div class="part">第四篇　制图规范与交付审查</div>
+  <a href="#c22">22　图层与线型：图面的语法</a>
+  <a href="#c23">23　图例与符号</a>
+  <a href="#c24">24　定位与标注</a>
+  <a href="#c25">25　走线与路由：四条铁律</a>
+  <a href="#c26">26　交付与审查</a>
+  <div class="part">第五篇　工具库与模板</div>
+  <a href="#c27">27　先分清：哪些能搬，哪些搬不了</a>
+  <a href="#c28">28　样板 DWT：图层、样式、图框</a>
+  <a href="#c29">29　块库与工具选项板</a>
+  <a href="#c30">30　图例表、设计说明与点表</a>
+  <a href="#c31">31　新项目 SOP 与编号规范</a>
+  <div class="part">附录</div>
+  <a href="#cA1">A　十条补充技巧</a>
+  <a href="#cB1">B　恢复默认设置</a>
+  <a href="#cC1">C　版本差异与平台说明</a>
+  <div class="part">速查提示</div>
+  <a href="#c6">报量前先看第 6 节</a>
+  <a href="#c8">卡住了先看第 8 节</a>
+  <a href="#c19">想提速看第三篇</a>
+  </div>
+  </div>
+</div>
+
+<h2 id="p1" class="partstart first">第一篇　智控方案工序速查</h2>
+
+<p>智控方案的点位图、系统图、桥架路由图，工序是固定的七步。每一步真正在反复用的命令不超过三个，其余都是辅助。<b>卡在哪一步，就查对应那一节。</b></p>
+
+<div class="fig">
+<svg viewBox="0 0 1040 140" role="img" aria-label="智控方案 CAD 工作流">
+  <defs><marker id="ar1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#12557E"/></marker></defs>
+  <g>
+    <rect class="bx2" x="14" y="16" width="128" height="66" rx="5"/>
+    <text x="78" y="46" class="ttl" text-anchor="middle">① 接底图</text>
+    <text x="78" y="68" class="s" text-anchor="middle">XC · X · PU</text>
+
+    <rect class="bx2" x="156" y="16" width="128" height="66" rx="5"/>
+    <text x="220" y="46" class="ttl" text-anchor="middle">② 布点位</text>
+    <text x="220" y="70" class="s" text-anchor="middle">CO · AR · DIV</text>
+
+    <rect class="bx2" x="298" y="16" width="128" height="66" rx="5"/>
+    <text x="362" y="46" class="ttl" text-anchor="middle">③ 走桥架</text>
+    <text x="362" y="70" class="s" text-anchor="middle">PL · O · TR</text>
+
+    <rect class="bx4" x="440" y="16" width="128" height="66" rx="5"/>
+    <text x="504" y="46" class="ttl" text-anchor="middle">④ 套图例</text>
+    <text x="504" y="70" class="s" text-anchor="middle">B · I · ATT</text>
+
+    <rect class="bx4" x="582" y="16" width="128" height="66" rx="5"/>
+    <text x="646" y="46" class="ttl" text-anchor="middle">⑤ 标注文字</text>
+    <text x="646" y="70" class="s" text-anchor="middle">DLI · DCO · LE</text>
+
+    <rect class="bx3" x="724" y="16" width="128" height="66" rx="5"/>
+    <text x="788" y="46" class="ttl" text-anchor="middle">⑥ 统数量</text>
+    <text x="788" y="70" class="s" text-anchor="middle">数据提取·核对</text>
+
+    <rect class="bx3" x="866" y="16" width="128" height="66" rx="5"/>
+    <text x="930" y="46" class="ttl" text-anchor="middle">⑦ 出图交付</text>
+    <text x="930" y="70" class="s" text-anchor="middle">MV · CTB · PU</text>
+
+    <g class="lb">
+      <line x1="144" y1="49" x2="153" y2="49" marker-end="url(#ar1)"/>
+      <line x1="286" y1="49" x2="295" y2="49" marker-end="url(#ar1)"/>
+      <line x1="428" y1="49" x2="437" y2="49" marker-end="url(#ar1)"/>
+      <line x1="570" y1="49" x2="579" y2="49" marker-end="url(#ar1)"/>
+      <line x1="712" y1="49" x2="721" y2="49" marker-end="url(#ar1)"/>
+      <line x1="854" y1="49" x2="863" y2="49" marker-end="url(#ar1)"/>
+    </g>
+    <text x="520" y="112" class="s" text-anchor="middle">每一步的核心动作只有 1–3 个命令，其余都是辅助；卡在哪一步就查对应那一节</text>
+    <text x="520" y="130" class="s" text-anchor="middle">灰色框为准备与校核，绿色框为表达与复用，米色框为统计与交付</text>
+  </g>
+</svg>
+<div class="cap">图 1　智控方案 CAD 七步工作流</div>
+</div>
+
+<h2 id="c0">0　常用命令操作流程<span>顶部那张表里的每条命令，这里给完整走法</span></h2>
+
+<p>快捷键只是入口，真正卡住人的是"输完之后该点什么"。这一节把面板里的 31 条命令逐条拆成步骤，按左列顺序排列：<b>图层与块 → 画图与对齐 → 修整 → 标注 → 统计 → 出图</b>。每条最后的黄框是这一步最容易做错的地方。</p>
+
+<div class="principle">
+<b>先记住三个通用动作，所有命令都通用：</b>① 输入命令后按<b>空格</b>执行（空格＝回车）；② 选完对象按<b>回车</b>确认选择集；③ 任何时候按 <b>Esc</b> 退出当前命令。下面每条流程里，"回车"出现的位置就是这三个动作。
+</div>
+
+<div class="fcs">
+<div class="fc">
+  <div class="fch"><b>LA</b>新建图层</div>
+  <ol class="fcs2"><li>输 <code>LA</code> 回车，打开图层管理器</li><li>点左上「新建图层」（或 Alt+N）</li><li>直接输名字，回车确认</li><li>点颜色列选色号（点位用 3 绿、桥架用 4 青）</li><li>关闭对话框，图层已可用</li></ol>
+  <div class="fcn">命名习惯：<code>点位-灯具</code>、<code>路由-桥架</code>，前面带序号更好排序</div>
+</div>
+<div class="fc">
+  <div class="fch"><b>LA</b>复制图层</div>
+  <ol class="fcs2"><li>选中要复制的那一层（不要点开灯泡）</li><li>右键 →「复制图层」（2019 及以上版本）</li><li>改名、改颜色，其余特性全部继承</li></ol>
+  <div class="fcn">老版本无此菜单：新建一层后用 <code>MA</code> 把源层对象的特性刷过来</div>
+</div>
+<div class="fc">
+  <div class="fch"><b>LA</b>设为当前层 / 开关锁定</div>
+  <ol class="fcs2"><li>双击层名 = 设为当前层（前面出现绿勾）</li><li>点「灯泡」列：关 = 看不见也打印不出</li><li>点「锁」列：锁定 = 看得见、能捕捉，但选不中</li></ol>
+  <div class="fcn">底图一定「锁定 + 置灰 + 置后」，避免误删误改</div>
+</div>
+<div class="fc">
+  <div class="fch"><b>B</b>创建块</div>
+  <ol class="fcs2"><li>先把图例画好（一个灯具符号就是一个块）</li><li>输 <code>B</code> 回车，输块名（带型号，如 <code>GS-筒灯</code>）</li><li>点「拾取点」，选图例的<b>中心或插入基准角</b></li><li>点「选择对象」，框选全部图元，回车</li><li>确定。基点选错，后面所有插入都会偏</li></ol>
+  <div class="fcn">基点决定定位精度：能抓圆心就抓圆心，不要随手点</div>
+</div>
+<div class="fc">
+  <div class="fch"><b>CO</b>复制块 / 复制点位</div>
+  <ol class="fcs2"><li>输 <code>CO</code> 回车，选块，回车</li><li>点一个基点（块中心最好）</li><li>点目标位置，可连续点多个</li><li>Esc 结束。要精确就开 F3 抓墙边、轴网交点</li></ol>
+  <div class="fcn">跨图纸搬点位用 <code>Ctrl+Shift+C</code> 带基点复制，落点一次到位</div>
+</div>
+<div class="fc">
+  <div class="fch"><b>I</b>插入块</div>
+  <ol class="fcs2"><li>输 <code>I</code> 回车，列表里选块名</li><li>勾「在屏幕上指定」，确定</li><li>图上点位置；提示缩放与角度时直接回车取默认</li><li>同一块重复插：再按一次 <code>I</code> 或空格重复上一命令</li></ol>
+  <div class="fcn">列表里杂块太多，先 <code>PU</code> 清理一次</div>
+</div>
+<div class="fc">
+  <div class="fch"><b>BE</b>改图例（全图同步）</div>
+  <ol class="fcs2"><li>双击任意一个该图例的块</li><li>进入块编辑器，改线型、加文字都行</li><li>点「关闭块编辑器」→「保存修改」</li><li>全图同名块一次性更新，包括已复制出去的</li></ol>
+  <div class="fcn">不要用 <code>X</code> 炸开再改——炸开后就不再是块，也没法统计</div>
+</div>
+<div class="fc">
+  <div class="fch"><b>ATT</b>加块属性（回路号/地址号）</div>
+  <ol class="fcs2"><li>在图例旁输 <code>ATT</code> 回车</li><li>填「标记」（如 <code>LOOP</code>）、「提示」、「默认值」</li><li>指定文字高度与位置，放在图例下方</li><li>再连同属性一起 <code>B</code> 建成块</li><li>插入时逐块填值；已插入的用 <code>AD</code> 或双击改</li></ol>
+  <div class="fcn">属性是设备清单的字段来源，标签规则（如 GS1A7）要在建块时就定死</div>
+</div>
+<div class="fc">
+  <div class="fch"><b>W</b>存成独立图例文件</div>
+  <ol class="fcs2"><li>输 <code>W</code> 回车，选「对象」</li><li>框选图例，回车</li><li>指定基点（同建块）</li><li>给文件名，保存为独立 DWG，进公司图例库</li></ol>
+  <div class="fcn">以后任何图纸 <code>I</code> 插入即可，不用重画</div>
+</div>
+<div class="fc">
+  <div class="fch"><b>L</b>画线</div>
+  <ol class="fcs2"><li>输 <code>L</code> 回车，点起点</li><li>按 F8 开正交，或 F10 极轴锁角度</li><li>长度已知就输 <code>@3000,0</code>（右 3000）或 <code>@3000&lt;90</code>（向上 3000）</li><li>回车 / Esc 结束</li></ol>
+  <div class="fcn">所有精确作图都靠 <code>@</code> 相对坐标，比拉鼠标靠谱</div>
+</div>
+<div class="fc">
+  <div class="fch"><b>O</b>平行复制（偏移）</div>
+  <ol class="fcs2"><li>输 <code>O</code> 回车，输距离（如 300）</li><li>点原对象，再点<b>要偏的那一侧</b></li><li>继续点可连续偏移多条</li><li>Esc 结束。均分时距离栏直接输 <code>3000/4</code></li></ol>
+  <div class="fcn">墙体、桥架双线、灯带并行线全靠它；偏移后原来的线还在，别忘了删</div>
+</div>
+<div class="fc">
+  <div class="fch"><b>AL</b>图形对齐</div>
+  <ol class="fcs2"><li>输 <code>AL</code> 回车，选要挪的图形，回车</li><li>点第 1 个源点（图形上的特征点）</li><li>点第 1 个目标点（要对到哪）</li><li>同上给第 2 组点（决定旋转方向）</li><li>问「是否基于对齐点缩放」：只要挪动+旋转输 N，要连比例一起对输 Y</li></ol>
+  <div class="fcn">找对齐点用 F3 抓端点，别靠眼估</div>
+</div>
+<div class="fc">
+  <div class="fch"><b>AL</b>块对齐</div>
+  <ol class="fcs2"><li>同样输 <code>AL</code>，选块时整体作为一个对象</li><li>源点抓块的<b>插入点</b>或角点，目标点抓墙线端点</li><li>两组点给完回车；只想平移不必旋转时用 <code>M</code> 更快</li></ol>
+  <div class="fcn">块内若含属性文字，对齐后注意文字角度是否被带歪</div>
+</div>
+<div class="fc">
+  <div class="fch"><b>M</b>移动</div>
+  <ol class="fcs2"><li>输 <code>M</code> 回车，选对象，回车</li><li>点基点（抓端点或圆心）</li><li>点目标点；要精确距离输 <code>@0,500</code> 这类相对值</li></ol>
+  <div class="fcn">移动前确认没锁层，锁层里的对象选不中</div>
+</div>
+<div class="fc">
+  <div class="fch"><b>RO</b>旋转（可连复制）</div>
+  <ol class="fcs2"><li>输 <code>RO</code> 回车，选对象，回车</li><li>点基点（旋转中心）</li><li>输角度（逆时针为正，如 90）</li><li>需要保留原件：命令里先输 <code>C</code> 再给角度</li><li>要按已有角度对齐：输 <code>R</code>，点参照两点再输新角度</li></ol>
+  <div class="fcn">斜房间排灯：<code>RO</code> → <code>C</code> → 打角度，一步出整排</div>
+</div>
+<div class="fc">
+  <div class="fch"><b>SC</b>缩放</div>
+  <ol class="fcs2"><li>输 <code>SC</code> 回车，选对象，回车</li><li>点基点，输比例（放大 2 倍输 2，缩小一半输 0.5）</li><li>按目标尺寸缩：输 <code>R</code> → 点两点给现有长度 → 输目标长度</li><li>也可直接输算式：<code>50/80.25</code></li></ol>
+  <div class="fcn">整图比例不对时用它把底图缩到真实轴距</div>
+</div>
+<div class="fc">
+  <div class="fch"><b>MI</b>镜像</div>
+  <ol class="fcs2"><li>输 <code>MI</code> 回车，选对象，回车</li><li>点镜像线上的两点（对称轴）</li><li>提示「是否删除源对象」：对称房间选 N 保留</li></ol>
+  <div class="fcn">文字反写：先设 <code>MIRRTEXT=0</code> 再镜像</div>
+</div>
+<div class="fc">
+  <div class="fch"><b>AR</b>阵列排灯</div>
+  <ol class="fcs2"><li>输 <code>AR</code> 回车，选对象，回车</li><li>选「矩形」</li><li>给列数、行数与间距（或点「间距」输具体值）</li><li>关闭阵列面板；不满意可双击阵列改参数</li></ol>
+  <div class="fcn">规则吊顶排灯一次成排；不规则布置还是 <code>CO</code> 复制更快</div>
+</div>
+<div class="fc">
+  <div class="fch"><b>DIV</b>沿线等分布点</div>
+  <ol class="fcs2"><li>输 <code>DIV</code> 回车，选线</li><li>输份数（如 8），线上自动生成 7 个节点</li><li>捕捉时用 <code>NOD</code>（节点）抓这些点放图例</li></ol>
+  <div class="fcn">点看不见：格式 → 点样式，把点大小调到 5% 以上</div>
+</div>
+<div class="fc">
+  <div class="fch"><b>TR</b>修剪</div>
+  <ol class="fcs2"><li>输 <code>TR</code> 回车</li><li><b>直接回车</b>（不选边界，全部对象当边界）</li><li>点要剪掉的那一段，或框选一片</li><li>要一笔剪一串：输 <code>F</code> 栏选，画一条线穿过所有要剪的段</li></ol>
+  <div class="fcn">老习惯「先选边界」容易出错，新版空回车最快</div>
+</div>
+<div class="fc">
+  <div class="fch"><b>EX</b>延伸</div>
+  <ol class="fcs2"><li>输 <code>EX</code> 回车，再回车（全部为边界）</li><li>点要延伸的那一端（点哪头往哪头长）</li><li>延伸不到位时，说明边界太远，可选具体边界对象</li></ol>
+  <div class="fcn"><code>EX</code> 里按 Shift 立刻变修剪，反之亦然，不用切命令</div>
+</div>
+<div class="fc">
+  <div class="fch"><b>S</b>拉伸（改尺寸）</div>
+  <ol class="fcs2"><li>输 <code>S</code> 回车</li><li>用<b>窗交</b>选择：从右下往左上框，框住要动的端点</li><li>回车，点基点，点目标点（或输位移 <code>@1000,0</code>）</li></ol>
+  <div class="fcn">框住整条线是移动，框住一端才是拉伸——这是最容易做错的一步</div>
+</div>
+<div class="fc">
+  <div class="fch"><b>F</b>圆角 / 剪角</div>
+  <ol class="fcs2"><li>输 <code>F</code> 回车</li><li>输 <code>R</code> 设半径：要圆角给实际值，<b>要剪角就输 0</b></li><li>依次点两条线，自动连成直角或圆角</li></ol>
+  <div class="fcn">半径 0 的 F 比 TR 还好用，两根不相接的线一步接齐</div>
+</div>
+<div class="fc">
+  <div class="fch"><b>X</b>分解</div>
+  <ol class="fcs2"><li>输 <code>X</code> 回车，选块，回车</li><li>嵌套块要连续执行几次，直到命令行不再提示</li><li>注意：炸开后不再参与块统计，能不炸就不炸</li></ol>
+  <div class="fcn">底图炸不开时先 <code>XC</code> 剪裁本层，再炸</div>
+</div>
+<div class="fc">
+  <div class="fch"><b>DataExtraction</b>数数量出设备清单</div>
+  <ol class="fcs2"><li>输 <code>DATAEXTRACTION</code> 回车（无简写）</li><li>选「新建数据提取」，命名保存</li><li>数据源选「当前图形」，勾选「块」</li><li>勾要统计的块名（灯具、面板、传感器）</li><li>输出选「表格」，插入图纸或导出 Excel</li></ol>
+  <div class="fcn">点位不是块就统计不出来——这是统计失败的第一原因</div>
+</div>
+<div class="fc">
+  <div class="fch"><b>QSELECT</b>按块名查数量</div>
+  <ol class="fcs2"><li>输 <code>QSELECT</code> 回车</li><li>对象类型选「块参照」，特性选「名称」</li><li>运算符「=」，值下拉选块名，确定</li><li>状态栏/特性面板立刻显示选中数量</li></ol>
+  <div class="fcn">报量前逐个块名核一遍，比肉眼数图可靠</div>
+</div>
+<div class="fc">
+  <div class="fch"><b>DLI</b>标尺寸（线性）</div>
+  <ol class="fcs2"><li>输 <code>DLI</code> 回车</li><li>点第一条尺寸界线原点（墙边、轴线）</li><li>点第二条原点</li><li>点尺寸线摆放位置，完成</li></ol>
+  <div class="fcn">先标第一条，后面的连续标注才有起点</div>
+</div>
+<div class="fc">
+  <div class="fch"><b>DCO</b>连续标注</div>
+  <ol class="fcs2"><li>先有一条 <code>DLI</code> 标注</li><li>输 <code>DCO</code> 回车，自动接上一条</li><li>依次点后续各点，尺寸自动串起来</li><li>回车结束；一排房间开间一次标完</li></ol>
+  <div class="fcn">标出来的字太小/太大：<code>D</code> 改标注样式里的文字高度与全局比例</div>
+</div>
+<div class="fc">
+  <div class="fch"><b>LE</b>引线＋回路号</div>
+  <ol class="fcs2"><li>输 <code>LE</code> 回车</li><li>点箭头落点（指向设备）</li><li>点文字位置</li><li>输文字（如 <code>L1-03 至面板P2</code>），回车两次结束</li></ol>
+  <div class="fcn">引线箭头与字高也在标注样式里统一，别每根单独调</div>
+</div>
+<div class="fc">
+  <div class="fch"><b>DT</b>写字（单行/多行）</div>
+  <ol class="fcs2"><li>单行输 <code>DT</code>：点起点 → 输字高 → 输角度（0）→ 打字 → 回车两次</li><li>多行输 <code>MT</code>：框一个矩形 → 弹窗里打字 → 关闭</li><li>字高按出图比例定：1:100 用 250~300</li></ol>
+  <div class="fcn">字号样式先建好（<code>ST</code>），别每次现调</div>
+</div>
+<div class="fc">
+  <div class="fch"><b>Ctrl+P</b>打印出图</div>
+  <ol class="fcs2"><li><code>Ctrl+P</code> 打开打印对话框</li><li>打印机选 DWG To PDF 或实际打印机</li><li>图纸尺寸、打印区域（窗口 / 范围）</li><li>勾「居中打印」，打印样式表选公司 CTB</li><li>预览确认 → 确定出图</li></ol>
+  <div class="fcn">线宽靠 CTB 按颜色控制；预览里线粗了细了改 CTB，不要改图层线宽</div>
+</div>
+<div class="fc">
+  <div class="fch"><b>Z+E</b>显示全图</div>
+  <ol class="fcs2"><li>输 <code>Z</code> 回车，再输 <code>E</code> 回车</li><li>或直接<b>双击鼠标滚轮</b>，更快</li><li>看局部：滚轮缩放，按住滚轮拖动平移</li></ol>
+  <div class="fcn">图「丢了」先双击滚轮；还看不见就是图层被关了</div>
+</div>
+<div class="fc">
+  <div class="fch"><b>Ctrl+9</b>找回命令行</div>
+  <ol class="fcs2"><li>按 <code>Ctrl+9</code>，命令行开关切换</li><li>界面乱了按 <code>Ctrl+0</code> 清理屏幕</li><li>命令输错按 Esc 退出，不要连按回车</li></ol>
+  <div class="fcn">命令行被关掉时，一切快捷键都失效，这是新手最常见的事故</div>
+</div>
+</div>
+
+<h2 id="c1">1　接底图：剪裁、清理、锁层<span>建筑/装修底图进来后的前 10 分钟，决定后面一天的效率</span></h2>
+<table>
+<caption>表 1　接底图阶段的命令</caption>
+<thead><tr><th style="width:11%">命令</th><th style="width:17%">全名</th><th>智控场景下怎么用</th></tr></thead>
+<tbody>
+<tr class="star"><td class="k">XC</td><td class="c">XCLIP</td><td><b>先剪裁再动手</b>：底图整栋都进来了，只框本层/本防火分区，文件立刻轻一半，误碰也少</td></tr>
+<tr><td class="k">X</td><td class="c">EXPLODE</td><td>底图是块/组时炸开才能捕捉。嵌套块要<b>连续炸几次</b>，炸到命令行不再提示为止</td></tr>
+<tr class="star"><td class="k">LA</td><td class="c">LAYER</td><td>底图单独建层（如 <code>0-底图</code>），颜色改 8 号灰、<b>锁定</b>；自己画的内容按系统分层（点位/桥架/文字/图框）</td></tr>
+<tr><td class="k">PU</td><td class="c">PURGE</td><td>清掉底图带来的无用块、图层、标注样式，交图前再清一次</td></tr>
+<tr class="star"><td class="k">MA</td><td class="c">MATCHPROP</td><td>格式刷。把一条线的图层/颜色/线型刷给一片，比逐条改快</td></tr>
+<tr><td class="k">AL</td><td class="c">ALIGN</td><td>底图没对齐坐标时，两点对齐一次到位（平移+旋转，可选缩放）</td></tr>
+<tr><td class="k">SC</td><td class="c">SCALE</td><td>图纸比例不对：<b>选参照 R</b>，指一段已知轴距缩到真实值，比算比例因子可靠</td></tr>
+<tr><td class="k">DR</td><td class="c">DRAWORDER</td><td>把底图<b>置为后置</b>，否则新画的点位会被墙线压住看不见</td></tr>
+<tr><td class="k">Ctrl+1</td><td class="c">PROPERTIES</td><td>批量改选中对象的颜色、线型、图层；核图时查坐标也用它</td></tr>
+<tr><td class="k">UN</td><td class="c">UNITS</td><td>确认单位是毫米，避免整张图差 1000 倍</td></tr>
+</tbody>
+</table>
+
+<h2 id="c2">2　布点位：灯具、面板、传感器、网关<span>智控点位图 80% 的时间在这一步</span></h2>
+<table>
+<caption>表 2　布点位阶段的命令</caption>
+<thead><tr><th style="width:11%">命令</th><th style="width:17%">全名</th><th>智控场景下怎么用</th></tr></thead>
+<tbody>
+<tr class="star"><td class="k">CO</td><td class="c">COPY</td><td>主力。放好第一个图例块后连续复制；<b>带基点复制 Ctrl+Shift+C</b> 跨图搬运点位</td></tr>
+<tr class="star"><td class="k">AR</td><td class="c">ARRAY</td><td>办公/open office 规则排灯、车库灯带：矩形阵列给行列数与间距；灯带用路径阵列</td></tr>
+<tr><td class="k">MI</td><td class="c">MIRROR</td><td>对称房间只画一半；完成后选"删除源对象"一步到位。<b>文字反写设 MIRRTEXT=0</b></td></tr>
+<tr><td class="k">O</td><td class="c">OFFSET</td><td>墙边退距（距墙 500/800）、灯带并行线；<b>距离栏可输 3000/4 均分</b></td></tr>
+<tr class="star"><td class="k">DIV</td><td class="c">DIVIDE</td><td><b>沿走廊定数等分</b>：把走廊中线 8 等分，捕捉节点放灯，间距自动均</td></tr>
+<tr><td class="k">ME</td><td class="c">MEASURE</td><td>定距等分：按固定间距（如 6m 一个探测器）沿线布点，走廊尽头余量自动留在末端</td></tr>
+<tr><td class="k">RO</td><td class="c">ROTATE</td><td>斜房间/异形空间：命令内选 <code>C</code> 复制并旋转，图例不歪</td></tr>
+<tr><td class="k">M / S</td><td class="c">MOVE / STRETCH</td><td>整体挪点位用 M；调整已有排布、拉长走廊点位带用 S（<b>必须窗交选择</b>）</td></tr>
+<tr><td class="k">F3 / F8 / F11</td><td class="c">—</td><td>捕捉常开、正交锁直、对象追踪找对齐；<b>捕捉失灵先看这三个键</b></td></tr>
+<tr><td class="k">G</td><td class="c">GROUP</td><td>一组点位（如一个会议室的 6 盏灯+2 个面板）编组，整体移动不散</td></tr>
+</tbody>
+</table>
+
+<h3>2.1　特例：天幕点位图怎么画</h3>
+
+<p>天幕（SDL）跟常规点位图不是一套画法：它不是"布灯"，是<b>按网格排灯板</b>，一个灯盘内 6×6 块灯板、间距 100 mm，整片就是一个规整矩阵。画错一格，现场就错一位，所以顺序和图层要卡死。</p>
+
+<ol class="pit">
+<li><b>四个图层分开</b>：<code>SDL-轮廓</code>（灯盘外框）、<code>SDL-灯片</code>（灯板块）、<code>SDL-路径</code>（串的走向与箭头）、<code>SDL-文字</code>（串号、控制器号）。不要和常规灯具层混用。</li>
+<li><b>房间按实际尺寸画</b>，灯盘 600×600 用 <code>AR</code> 矩形阵列：先算列数与排数（如 6 列 × 4 排），列距＝灯盘宽、行距＝灯盘高，一次成图。</li>
+<li><b>灯板做成 75×75 的块</b>（按实际模组尺寸），在灯盘内 <code>AR</code> 6 列 × 6 行、间距 100 mm；再用 <code>B</code> 存成独立图例，全项目复用。</li>
+<li><b>路径用 <code>PL</code> 画蛇形折线</b>，只画一条串的走向，加箭头表示首尾；每串起点就是控制器出线的第一块灯板，起点的位置必须与现场一致。</li>
+<li><b>统计靠数据提取</b>：<code>QSELECT</code> 按块名数灯板，或用数据提取出"灯板数／灯盘数／串数"三列；不要用眼睛数，一块错就是 36 点错。</li>
+<li><b>出图比例 1:50</b>（局部大样 1:20），字高 3.5，路径线用虚线以区别于强电。</li>
+</ol>
+
+<div class="note"><b>两个易错点：</b>① 被吊顶遮挡的灯盘<b>也要画</b>——它仍在串上，漏画会让后面所有点的序号错位；② 路径之间<b>不要连成一条</b>，每条串独立起落（CAD 里就是多个独立多段线），现场在平台上也是逐条右键收尾。</div>
+
+<h2 id="c3">3　走桥架与线管<span>智控路由图：桥架、JDG 管、回路走向</span></h2>
+<table>
+<caption>表 3　桥架与线管阶段的命令</caption>
+<thead><tr><th style="width:11%">命令</th><th style="width:17%">全名</th><th>智控场景下怎么用</th></tr></thead>
+<tbody>
+<tr class="star"><td class="k">PL</td><td class="c">PLINE</td><td>桥架/管路一笔画完，转角连续；可设<b>全局宽度</b>表现桥架宽，也可画箭头标走向</td></tr>
+<tr><td class="k">O</td><td class="c">OFFSET</td><td>单线桥架偏成双线（200/100 宽），管线路由沿墙偏移</td></tr>
+<tr class="star"><td class="k">TR</td><td class="c">TRIM</td><td><b>空回车全边界</b>，然后框选剪掉交叉多余段；命令内按 <code>F</code> 栏选可一笔剪一串</td></tr>
+<tr class="star"><td class="k">EX</td><td class="c">EXTEND</td><td>管线接不到箱体时延伸到位；<b>EX 中按 Shift 直接变 TR</b>，反之亦然</td></tr>
+<tr><td class="k">F</td><td class="c">FILLET</td><td>桥架转角倒圆角；<b>半径设 0 就是剪角神器</b>，两根线一步接齐</td></tr>
+<tr><td class="k">CHA</td><td class="c">CHAMFER</td><td>桥架 45° 斜切转角，两段距离可不一样</td></tr>
+<tr><td class="k">J</td><td class="c">JOIN</td><td>断开的桥架线接成一条；交给别人改图前先接干净</td></tr>
+<tr><td class="k">PE</td><td class="c">PEDIT</td><td>散线合并成多段线（选 <code>J</code>），之后 O 能整体偏移、AA 能直接算长度</td></tr>
+<tr><td class="k">H</td><td class="c">HATCH</td><td>区域标识（禁装区、设备间）；<b>复杂区域先 PL/BO 建边界</b>再选边界填充</td></tr>
+<tr><td class="k">BO</td><td class="c">BOUNDARY</td><td>在闭合区域内点一下生成边界多段线，用于填充与算面积</td></tr>
+</tbody>
+</table>
+
+<h2 id="c4">4　套图例：块与属性<span>把点位、设备做成标准图例，是智控方案能复用、能统计的前提</span></h2>
+<div class="grid2">
+<table>
+<caption>表 4　图例制作（左）</caption>
+<thead><tr><th style="width:14%">命令</th><th>用法</th></tr></thead>
+<tbody>
+<tr class="star"><td class="k">B</td><td>建内部块：一个图例（灯具/面板/传感器/网关）一个块，命名带型号</td></tr>
+<tr><td class="k">W</td><td>写块到独立 DWG，攒成公司标准图例库，跨项目复用</td></tr>
+<tr><td class="k">I</td><td>插入块；插入时可直接给缩放与旋转</td></tr>
+<tr class="star"><td class="k">ATT</td><td>定义属性：回路号、地址号（GS1A7 规则）、点位编号，进块后可批量改</td></tr>
+<tr><td class="k">AD</td><td>编辑属性值；双击带属性块更快</td></tr>
+<tr><td class="k">BE</td><td>块编辑器：一次改图例，全图同步更新（双击块等效）</td></tr>
+<tr><td class="k">G</td><td>编组：不炸开即可整体选中编辑，适合临时成组的点位</td></tr>
+</tbody>
+</table>
+<table>
+<caption>表 5　图例复用与维护（右）</caption>
+<thead><tr><th style="width:14%">命令</th><th>用法</th></tr></thead>
+<tbody>
+<tr><td class="k">Ctrl+Shift+V</td><td>粘贴为块：临时图例快速成块，不用走 B 命令</td></tr>
+<tr><td class="k">Ctrl+Shift+C</td><td>带基点复制：跨图搬点位，落点准</td></tr>
+<tr><td class="k">X</td><td>分解：改单块的形状时用，注意炸开后不再参与统计</td></tr>
+<tr><td class="k">DRAWORDER</td><td>图例压在文字上方时调整显示次序</td></tr>
+<tr><td class="k">QSELECT</td><td>按块名一次选中全图同类图例，改图层、查数量</td></tr>
+<tr><td class="k">PU</td><td>清掉没用上的图例块，避免插入对话框里一堆杂块</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2 id="c5">5　标注与文字<span>尺寸、回路编号、设备说明</span></h2>
+<table>
+<caption>表 6　标注与文字命令</caption>
+<thead><tr><th style="width:11%">命令</th><th style="width:17%">全名</th><th>智控场景下怎么用</th></tr></thead>
+<tbody>
+<tr class="star"><td class="k">DLI</td><td class="c">DIMLINEAR</td><td>轴网、开间、设备定位尺寸；先标第一条，再往下接 DCO</td></tr>
+<tr class="star"><td class="k">DCO</td><td class="c">DIMCONTINUE</td><td>连续标注：一排灯位/一排房间尺寸，一次串下来，不用逐条点</td></tr>
+<tr><td class="k">DBA</td><td class="c">DIMBASELINE</td><td>基线标注：从同一基准累加，适合桥架标高、层高标注</td></tr>
+<tr><td class="k">DAL</td><td class="c">DIMALIGNED</td><td>斜向管线路由、斜墙上的定位</td></tr>
+<tr><td class="k">D</td><td class="c">DIMSTYLE</td><td>按出图比例建样式（1:100 用字高 2.5，1:50 用 3.5），样式选错是标注难看的根源</td></tr>
+<tr class="star"><td class="k">LE</td><td class="c">QLEADER</td><td>引线标注：回路编号、设备型号、安装高度，一条线带一段说明</td></tr>
+<tr><td class="k">DT</td><td class="c">TEXT</td><td>单行文字：图例名、房间名，短文字最快</td></tr>
+<tr><td class="k">MT</td><td class="c">MTEXT</td><td>多行文字：设计说明、施工要求，支持堆叠与项目符号</td></tr>
+<tr><td class="k">ST</td><td class="c">STYLE</td><td>文字样式：建 2–3 套字号，别每次现调</td></tr>
+<tr><td class="k">ED</td><td class="c">DDEDIT</td><td>改文字内容；改标注文字也用它，双击等效</td></tr>
+<tr class="star"><td class="k">FIND</td><td class="c">FIND</td><td><b>批量替换回路编号</b>：L1-01 全改 L2-01，一次到底，比逐个改稳</td></tr>
+</tbody>
+</table>
+
+<h2 id="c6">6　统数量与核对<span>智控方案报价和清单的源头，靠 CAD 而不是靠数</span></h2>
+<table>
+<caption>表 7　统计与查询命令</caption>
+<thead><tr><th style="width:11%">命令</th><th style="width:19%">全名</th><th>智控场景下怎么用</th></tr></thead>
+<tbody>
+<tr class="star"><td class="k">DATAEXTRACTION</td><td class="c">数据提取</td><td><b>核心工具</b>：选全图 → 按块名提取 → 出块数量表，直接导出 Excel 当设备清单。点位全是块才有效</td></tr>
+<tr class="star"><td class="k">QSELECT</td><td class="c">快速选择</td><td>按"块参照 + 块名"筛选，状态栏立刻显示数量；报量前用它逐个核对</td></tr>
+<tr><td class="k">FILTER</td><td class="c">FILTER</td><td>多条件筛选（图层+颜色+块名），复杂选择集用它</td></tr>
+<tr><td class="k">LI</td><td class="c">LIST</td><td>闭合多段线直接读面积与周长，机房/设备间面积核对</td></tr>
+<tr><td class="k">AA</td><td class="c">AREA</td><td>非多段线的闭合区域算面积（先 BO 建边界更准）</td></tr>
+<tr><td class="k">DI</td><td class="c">DIST</td><td>量两点距离，核桥架长度、灯间距</td></tr>
+<tr><td class="k">RE</td><td class="c">REGEN</td><td>圆显示成多边形、虚线异常时刷新显示，出图前顺手执行</td></tr>
+</tbody>
+</table>
+<div class="note">
+<b>统计对不上，九成是这三个原因：</b>① 点位是散图元不是块（没法按块名统计）；② 有块被 <code>X</code> 炸开过，数量少了几只；③ 同一位置重复叠了两个块。用 QSELECT 按块名逐个核对，比肉眼数图可靠得多。
+</div>
+
+<h2 id="c7">7　出图与交付<span>布局、视口、打印样式</span></h2>
+<table>
+<caption>表 8　出图与交付命令</caption>
+<thead><tr><th style="width:11%">命令</th><th style="width:17%">全名</th><th>智控场景下怎么用</th></tr></thead>
+<tbody>
+<tr><td class="k">MV</td><td class="c">MVIEW</td><td>布局里开视口，一个视口放全图、一个放局部放大</td></tr>
+<tr><td class="k">PS / MS</td><td class="c">PSPACE / MSPACE</td><td>图纸空间与模型空间互切（双击视口内外等效）</td></tr>
+<tr><td class="k">Ctrl+P</td><td class="c">PLOT</td><td>出图。线宽靠<b>打印样式表（CTB）按颜色</b>控制，这是国内常规做法</td></tr>
+<tr><td class="k">LTS</td><td class="c">LTSCALE</td><td>虚线显示成实线就调它；模型与布局比例不同要分别看</td></tr>
+<tr class="star"><td class="k">ETRANSMIT</td><td class="c">电子传递</td><td><b>打包交图</b>：把底图参照、字体、打印样式一起打包，避免对方打开缺东西</td></tr>
+<tr><td class="k">W</td><td class="c">WBLOCK</td><td>出标准图例、图框给同事复用</td></tr>
+<tr><td class="k">DRM</td><td class="c">图形修复管理器</td><td>崩溃后取自动保存文件；把 OP 里保存间隔调到 10 分钟</td></tr>
+</tbody>
+</table>
+
+<h2 id="c8">8　十个反复踩的坑<span>每条一句话，看一遍省半天</span></h2>
+<div class="grid2 keep">
+<ol class="pit">
+<li><b>底图炸不开</b>：嵌套块要连炸几次；实在炸不动先 XC 剪裁再试。</li>
+<li><b>捕捉不到点</b>：先看 F3 是否关闭，再看 OS 里端点/中点是否勾选。</li>
+<li><b>画的点位看不见</b>：被墙线压住，DRAWORDER 把底图后置。</li>
+<li><b>虚线变实线</b>：LTS 线型比例不对，不是线型没加载。</li>
+<li><b>镜像后文字反了</b>：设 <code>MIRRTEXT=0</code>，改完重镜像一次。</li>
+</ol>
+<ol class="pit" style="counter-reset:pit 5">
+<li><b>偏移点不准</b>：捕捉被正交/极轴带偏，临时 Shift+右键指定捕捉。</li>
+<li><b>阵列后数量翻倍</b>：原对象没删，阵列前先确认选择集。</li>
+<li><b>文件越来越大</b>：底图直接粘进来而非参照，且从未 PU。</li>
+<li><b>打印少线</b>：图层被设为"不打印"，或线宽为 0 又被 CTB 忽略。</li>
+<li><b>交付对方缺参照</b>：没有 ETRANSMIT 打包，外部参照路径是绝对路径。</li>
+</ol>
+</div>
+
+<h2 id="p2" class="partstart">第二篇　命令全表</h2>
+
+<p>这一篇不管工序，按功能分类，供"想不起来某条命令叫什么"时查。带<b>浅色底纹</b>的行是智控方案高频项，与第一篇重合的部分不再重复解释，只补全名与参数。</p>
+
+<h2 id="c9">9　功能键 F1–F12</h2>
+<table>
+<caption>表 9　功能键</caption>
+<thead><tr><th style="width:10%">按键</th><th style="width:22%">功能</th><th>要点</th></tr></thead>
+<tbody>
+<tr><td class="k">F1</td><td>帮助</td><td>很少用，要查命令直接在命令行输入 help</td></tr>
+<tr><td class="k">F2</td><td>文本窗口切换</td><td>查看历史命令与提示，查错误信息第一现场</td></tr>
+<tr class="star"><td class="k">F3</td><td>对象捕捉 开/关</td><td>最常用开关之一；捕捉没反应先看它和状态栏</td></tr>
+<tr><td class="k">F4</td><td>三维对象捕捉 开/关</td><td>老版本为数字化仪控制，基本不用</td></tr>
+<tr><td class="k">F5</td><td>等轴测平面切换</td><td>画轴测图时切左/上/右面</td></tr>
+<tr><td class="k">F6</td><td>动态 UCS 开/关</td><td>老版本为坐标显示方式切换</td></tr>
+<tr><td class="k">F7</td><td>栅格显示 开/关</td><td>绘图背景网格，配合栅格捕捉用</td></tr>
+<tr class="star"><td class="k">F8</td><td>正交 开/关</td><td>强制水平/垂直，画墙线、管线必备；画斜线时记得关</td></tr>
+<tr><td class="k">F9</td><td>栅格捕捉 开/关</td><td>按设定间距步进；画自由曲线时关掉</td></tr>
+<tr><td class="k">F10</td><td>极轴追踪 开/关</td><td>按设定角度增量吸附（如 15°、30°），比正交灵活</td></tr>
+<tr class="star"><td class="k">F11</td><td>对象捕捉追踪 开/关</td><td>捕捉点悬停后引出对齐虚线，找交点、对齐位置全靠它</td></tr>
+<tr><td class="k">F12</td><td>动态输入 开/关</td><td>光标旁的输入框；有人觉得碍眼可在草图设置里关</td></tr>
+</tbody>
+</table>
+
+<h2 id="c10">10　Ctrl / Shift 组合键</h2>
+<table>
+<caption>表 10　Ctrl / Shift 组合键</caption>
+<thead><tr><th style="width:18%">按键</th><th style="width:26%">功能</th><th>要点</th></tr></thead>
+<tbody>
+<tr><td class="k">Ctrl+N / O / S / P</td><td>新建 / 打开 / 保存 / 打印</td><td>文件四件套，与所有 Windows 软件一致</td></tr>
+<tr><td class="k">Ctrl+Shift+S</td><td>另存为</td><td>出不同版本图纸时用</td></tr>
+<tr><td class="k">Ctrl+Z / Y</td><td>放弃 / 重做</td><td>配对使用；Ctrl+Y 在部分版本需自定义后可用</td></tr>
+<tr><td class="k">Ctrl+X / C / V</td><td>剪切 / 复制 / 粘贴</td><td>剪贴板复制，可跨文件</td></tr>
+<tr class="star"><td class="k">Ctrl+Shift+C</td><td>带基点复制</td><td>先指定基点再复制，粘贴时位置一次到位</td></tr>
+<tr class="star"><td class="k">Ctrl+Shift+V</td><td>粘贴为块</td><td>把复制来的散对象直接粘成块，快速建块的取巧办法</td></tr>
+<tr class="star"><td class="k">Ctrl+1</td><td>特性面板 开/关</td><td>查看并批量改对象所有属性；<code>CH</code> / <code>PR</code> 等价</td></tr>
+<tr><td class="k">Ctrl+2</td><td>设计中心</td><td>跨文件拖拽图块、图层、标注样式</td></tr>
+<tr><td class="k">Ctrl+3</td><td>工具选项板</td><td>常用图块、填充、命令面板</td></tr>
+<tr><td class="k">Ctrl+8</td><td>快速计算器</td><td>命令 <code>QC</code> 等价</td></tr>
+<tr class="star"><td class="k">Ctrl+9</td><td>命令行 开/关</td><td>命令行被误关时靠它找回，新手常见事故</td></tr>
+<tr><td class="k">Ctrl+0</td><td>清理屏幕（全屏）</td><td>隐藏工具栏与面板，看大图用</td></tr>
+<tr><td class="k">Ctrl+F / G / B / L / U / W</td><td>捕捉 / 栅格 / 捕捉步进 / 正交 / 极轴 / 追踪</td><td>分别同 F3 / F7 / F9 / F8 / F10 / F11</td></tr>
+<tr><td class="k">Ctrl+Tab</td><td>切换打开的文件</td><td>多图切换；加 Shift 反向</td></tr>
+<tr><td class="k">Ctrl+A</td><td>选择全部对象</td><td>配合删除、移动做整图操作</td></tr>
+</tbody>
+</table>
+
+<h2 id="c11">11　绘图命令</h2>
+<table>
+<caption>表 11　绘图命令</caption>
+<thead><tr><th style="width:12%">别名</th><th style="width:20%">全命令</th><th>功能与用法要点</th></tr></thead>
+<tbody>
+<tr class="star"><td class="k">L</td><td class="c">LINE</td><td>直线。使用频率最高；连续指定点连续画，空回车结束</td></tr>
+<tr><td class="k">XL</td><td class="c">XLINE</td><td>构造线。两端无限延伸，作图辅助线用</td></tr>
+<tr><td class="k">RAY</td><td class="c">RAY</td><td>射线。一端无限延伸，作用类似构造线</td></tr>
+<tr class="star"><td class="k">PL</td><td class="c">PLINE</td><td>多段线。整条是一个对象，可设全局宽度、可画箭头；填充前先用 PL 勾边界可省机器分析时间；算面积周长也用它</td></tr>
+<tr><td class="k">POL</td><td class="c">POLYGON</td><td>正多边形。属性闭合，可设全局宽度</td></tr>
+<tr class="star"><td class="k">REC</td><td class="c">RECTANG</td><td>矩形。属性闭合；配合相对坐标 <code>@600,300</code> 一次画准尺寸</td></tr>
+<tr><td class="k">A</td><td class="c">ARC</td><td>圆弧。默认三点画弧，另有起点圆心端点等方式</td></tr>
+<tr><td class="k">C</td><td class="c">CIRCLE</td><td>圆。指定圆心 + 半径，或两点、三点、相切相切半径</td></tr>
+<tr><td class="k">SPL</td><td class="c">SPLINE</td><td>样条曲线。画不规则曲线，如等高线、示意流线</td></tr>
+<tr><td class="k">EL</td><td class="c">ELLIPSE</td><td>椭圆；命令中选 A 可画椭圆弧</td></tr>
+<tr><td class="k">PO</td><td class="c">POINT</td><td>点。看不见时改点样式（格式 → 点样式）</td></tr>
+<tr class="star"><td class="k">DIV</td><td class="c">DIVIDE</td><td>定数等分。按份数等分放点，画细部省计算</td></tr>
+<tr><td class="k">ME</td><td class="c">MEASURE</td><td>定距等分。按指定间距放点</td></tr>
+<tr class="star"><td class="k">H</td><td class="c">HATCH</td><td>图案填充。复杂区域先建边界再选边界；区域内有文字时一并选中，文字不被填充且留空隙</td></tr>
+<tr><td class="k">GD</td><td class="c">GRADIENT</td><td>渐变色。二维制图极少用</td></tr>
+<tr><td class="k">REG</td><td class="c">REGION</td><td>面域。带物理性质的闭合区域，二维算面积，三维建模常用</td></tr>
+<tr class="star"><td class="k">BO</td><td class="c">BOUNDARY</td><td>创建闭合边界。在封闭区域内点一下即生成多段线边界</td></tr>
+<tr><td class="k">ML</td><td class="c">MLINE</td><td>多线。一次画多条平行线，画墙常用（240/120 墙厚）</td></tr>
+<tr><td class="k">REVC</td><td class="c">REVCLOUD</td><td>修订云线。圈改图、强调区域用</td></tr>
+<tr><td class="k">DO</td><td class="c">DONUT</td><td>圆环。实心圆点常用（内径 0）</td></tr>
+<tr><td class="k">DT</td><td class="c">TEXT</td><td>单行文字。标注文字都很短，用它最快</td></tr>
+<tr><td class="k">MT / T</td><td class="c">MTEXT</td><td>多行文字。大段说明文字，支持 Word 式排版</td></tr>
+<tr><td class="k">TB</td><td class="c">TABLE</td><td>表格。可用 Excel 编辑后选择性粘贴为 CAD 图元</td></tr>
+</tbody>
+</table>
+
+<h2 id="c12">12　修改命令</h2>
+<table>
+<caption>表 12　修改命令</caption>
+<thead><tr><th style="width:12%">别名</th><th style="width:20%">全命令</th><th>功能与用法要点</th></tr></thead>
+<tbody>
+<tr><td class="k">E</td><td class="c">ERASE</td><td>删除。Delete 键等同；误删可 <code>OOPS</code> 只恢复删除不影响其它操作</td></tr>
+<tr class="star"><td class="k">CO / CP</td><td class="c">COPY</td><td>复制。新版支持连续复制</td></tr>
+<tr><td class="k">MI</td><td class="c">MIRROR</td><td>镜像。对称图形画一半；完成后按提示选"删源对象"即不必再删</td></tr>
+<tr class="star"><td class="k">O</td><td class="c">OFFSET</td><td>偏移。<b>支持除法</b>：间距 100 均分三份输 <code>100/3</code>；不支持加减乘。异形多边形偏移需闭合</td></tr>
+<tr class="star"><td class="k">AR</td><td class="c">ARRAY</td><td>阵列。矩形（行列间距）、环形（中心+角度）、路径</td></tr>
+<tr><td class="k">M</td><td class="c">MOVE</td><td>移动。高频命令，嫌 M 不顺手可在 PGP 里改到左手键</td></tr>
+<tr><td class="k">RO</td><td class="c">ROTATE</td><td>旋转。命令内选 <code>C</code> 可"复制并旋转"；选 <code>R</code> 按现有角度参照对齐</td></tr>
+<tr><td class="k">SC</td><td class="c">SCALE</td><td>缩放。<b>支持除法</b>：80.25 缩到 50 输 <code>50/80.25</code>；选 <code>C</code> 可复制缩放</td></tr>
+<tr class="star"><td class="k">S</td><td class="c">STRETCH</td><td>拉伸。<b>必须窗交选择</b>（从右下往左上框）选端点侧；块与外部参照除外</td></tr>
+<tr><td class="k">LEN</td><td class="c">LENGTHEN</td><td>拉长。按增量、百分比、总长或动态改线长</td></tr>
+<tr class="star"><td class="k">TR</td><td class="c">TRIM</td><td>修剪。<b>空回车 = 全边界</b>；按 <code>F</code> 栏选可一笔剪一串</td></tr>
+<tr class="star"><td class="k">EX</td><td class="c">EXTEND</td><td>延伸。空回车全边界；EX 中按 Shift 变 TR，反之亦然</td></tr>
+<tr><td class="k">BR</td><td class="c">BREAK</td><td>打断。两断点分离；打断于点用命令内选项</td></tr>
+<tr><td class="k">J</td><td class="c">JOIN</td><td>合并。同方向相邻两线合一；打断的反操作</td></tr>
+<tr><td class="k">CHA</td><td class="c">CHAMFER</td><td>倒直角。两边距离可不同</td></tr>
+<tr><td class="k">F</td><td class="c">FILLET</td><td>倒圆角。<b>半径 0 可当修剪/延伸用</b>，很多场景比 TR 快</td></tr>
+<tr><td class="k">X</td><td class="c">EXPLODE</td><td>分解。块炸开失去块属性；嵌套块需多次执行</td></tr>
+<tr><td class="k">AL</td><td class="c">ALIGN</td><td>对齐。两对点即可平移+旋转（可选缩放）一次到位</td></tr>
+<tr><td class="k">PE</td><td class="c">PEDIT</td><td>编辑多段线。对散线执行会提示合并（选 <code>J</code>），是合并散线的标准做法</td></tr>
+<tr><td class="k">MA</td><td class="c">MATCHPROP</td><td>特性匹配（格式刷）。图层、颜色、线型、文字样式一次刷过去</td></tr>
+<tr><td class="k">MIRRTEXT</td><td class="c">系统变量</td><td>镜像文字不想反写：设 <code>MIRRTEXT=0</code></td></tr>
+</tbody>
+</table>
+
+<h2 id="c13">13　标注命令</h2>
+<table>
+<caption>表 13　标注命令</caption>
+<thead><tr><th style="width:12%">别名</th><th style="width:20%">全命令</th><th>功能与用法要点</th></tr></thead>
+<tbody>
+<tr class="star"><td class="k">DLI</td><td class="c">DIMLINEAR</td><td>线性标注。水平/垂直；基线、连续标注前先标一条</td></tr>
+<tr><td class="k">DAL</td><td class="c">DIMALIGNED</td><td>对齐标注。可标斜线，标注线与被标线平行</td></tr>
+<tr><td class="k">DRA</td><td class="c">DIMRADIUS</td><td>半径标注（R）</td></tr>
+<tr><td class="k">DDI</td><td class="c">DIMDIAMETER</td><td>直径标注（Ø）</td></tr>
+<tr><td class="k">DAN</td><td class="c">DIMANGULAR</td><td>角度标注</td></tr>
+<tr><td class="k">DAR</td><td class="c">DIMARC</td><td>弧长标注</td></tr>
+<tr><td class="k">DOR / DIMORD</td><td class="c">DIMORDINATE</td><td>坐标标注。标点的 X/Y 坐标值</td></tr>
+<tr><td class="k">JOG</td><td class="c">DIMJOGGED</td><td>折弯标注。大圆弧只有一小段、半径线放不下时用</td></tr>
+<tr><td class="k">DBA</td><td class="c">DIMBASELINE</td><td>基线标注。共用第一条尺寸界线，从同一基准累加</td></tr>
+<tr class="star"><td class="k">DCO</td><td class="c">DIMCONTINUE</td><td>连续标注。首尾相接，房间开间轴网标注主力</td></tr>
+<tr><td class="k">QDIM</td><td class="c">QDIM</td><td>快速标注。框选多个点一次性生成标注</td></tr>
+<tr class="star"><td class="k">LE</td><td class="c">QLEADER / MLEADER</td><td>引线标注。材料说明、索引符号；MLD 为新版多重引线</td></tr>
+<tr><td class="k">TOL</td><td class="c">TOLERANCE</td><td>形位公差。也有公司用它做材料标识符，比块灵活</td></tr>
+<tr><td class="k">DCE</td><td class="c">DIMCENTER</td><td>圆心标记。十字线，大小在标注样式里改</td></tr>
+<tr><td class="k">D</td><td class="c">DIMSTYLE</td><td>标注样式管理器。改字高、箭头、比例；按出图比例建多套</td></tr>
+<tr><td class="k">DED</td><td class="c">DIMEDIT</td><td>编辑标注。改文字、旋转文字、倾斜尺寸界线</td></tr>
+<tr><td class="k">DIMTED</td><td class="c">DIMTEDIT</td><td>编辑标注文字位置。左/右/居中/角度</td></tr>
+</tbody>
+</table>
+
+<h2 id="c14">14　对象捕捉</h2>
+<p>对象捕捉是 CAD 的命根子。这些三字母代号既出现在捕捉设置列表里，也可以在命令中途<b>直接输入</b>临时启用一次（例如画线时输入 <code>M2P</code> 捕捉两点中点）。</p>
+<table>
+<caption>表 14　对象捕捉代号</caption>
+<thead><tr><th style="width:12%">代号</th><th style="width:22%">捕捉对象</th><th>说明</th></tr></thead>
+<tbody>
+<tr class="star"><td class="k">END</td><td>端点</td><td>线段、圆弧端点，最常用</td></tr>
+<tr class="star"><td class="k">MID</td><td>中点</td><td>线段、圆弧中点</td></tr>
+<tr><td class="k">INT</td><td>交点</td><td>两对象交点</td></tr>
+<tr><td class="k">CEN</td><td>圆心</td><td>圆 / 圆弧中心</td></tr>
+<tr><td class="k">QUA</td><td>象限点</td><td>圆的 0°/90°/180°/270° 点</td></tr>
+<tr><td class="k">TAN</td><td>切点</td><td>与圆 / 弧相切</td></tr>
+<tr><td class="k">PER</td><td>垂足</td><td>垂直落点</td></tr>
+<tr><td class="k">NOD</td><td>节点</td><td>点对象（DIV/ME 生成的等分点）</td></tr>
+<tr><td class="k">NEA</td><td>最近点</td><td>对象上离光标最近的点</td></tr>
+<tr><td class="k">PAR</td><td>平行</td><td>捕捉与已有线平行的方向</td></tr>
+<tr><td class="k">FRO</td><td>基点偏移</td><td>从捕捉到的基点再偏移指定坐标</td></tr>
+<tr class="star"><td class="k">M2P</td><td>两点中点</td><td>临时捕捉两个点的中点，定位神器</td></tr>
+<tr><td class="k">OS / DS</td><td class="c">OSNAP</td><td>草图设置：设置哪些捕捉常开；F3 总开关也在这</td></tr>
+<tr><td class="k">SE</td><td class="c">DDOSNAP</td><td>旧版捕捉设置对话框</td></tr>
+</tbody>
+</table>
+
+<h2 id="c15">15　图层、特性与查询</h2>
+<table>
+<caption>表 15　图层、特性与查询命令</caption>
+<thead><tr><th style="width:12%">别名</th><th style="width:20%">全命令</th><th>功能与用法要点</th></tr></thead>
+<tbody>
+<tr class="star"><td class="k">LA</td><td class="c">LAYER</td><td>图层管理器。建层、调颜色线型、开关冻结锁定全在这</td></tr>
+<tr><td class="k">COL</td><td class="c">COLOR</td><td>颜色设置。工程惯例随层（ByLayer）</td></tr>
+<tr><td class="k">LT</td><td class="c">LINETYPE</td><td>线型管理。虚线点划线先加载再用</td></tr>
+<tr><td class="k">LW</td><td class="c">LWEIGHT</td><td>线宽设置。如今多用颜色控制打印粗细</td></tr>
+<tr class="star"><td class="k">LTS</td><td class="c">LTSCALE</td><td>线型比例。虚线显示成实线，八成是它没调好</td></tr>
+<tr><td class="k">MO / CH / PR</td><td class="c">PROPERTIES</td><td>特性面板（同 Ctrl+1），批量改属性最方便</td></tr>
+<tr><td class="k">ST</td><td class="c">STYLE</td><td>文字样式。先建 2–3 套字号样式，随用随切</td></tr>
+<tr><td class="k">UN</td><td class="c">UNITS</td><td>单位设置。新建选公制默认毫米</td></tr>
+<tr><td class="k">OP</td><td class="c">OPTIONS</td><td>选项。显示、保存、打印、自动保存时间都在这</td></tr>
+<tr><td class="k">SN</td><td class="c">SNAP</td><td>捕捉（栅格步长）设置；斜向图形可把光标角度转过来再画</td></tr>
+<tr class="star"><td class="k">DR</td><td class="c">DRAWORDER</td><td>显示次序。两图形重叠时谁在上谁在下</td></tr>
+<tr class="star"><td class="k">DI</td><td class="c">DIST</td><td>测距。两点距离与角度，日常校核尺寸最常用</td></tr>
+<tr><td class="k">AA</td><td class="c">AREA</td><td>测面积周长；多段线闭合图形用 LI 更快</td></tr>
+<tr><td class="k">LI / LS</td><td class="c">LIST</td><td>对象清单。闭合多段线直接读面积周长</td></tr>
+<tr><td class="k">ID</td><td class="c">ID</td><td>点坐标查询</td></tr>
+<tr><td class="k">RE</td><td class="c">REGEN</td><td>重生成；<code>REA</code> 重生成所有视口</td></tr>
+<tr><td class="k">PU</td><td class="c">PURGE</td><td>清理。删掉未使用的块、样式、图层，交图前必做</td></tr>
+<tr class="star"><td class="k">OOPS</td><td class="c">OOPS</td><td>恢复上一次删除的对象，<b>不影响其它操作</b>：删杂线 → 建边界 → 填充 → OOPS 找回</td></tr>
+<tr><td class="k">QC</td><td class="c">QUICKCALC</td><td>快速计算器（Ctrl+8），支持几何计算</td></tr>
+<tr><td class="k">AP</td><td class="c">APPLOAD</td><td>加载 LSP 等应用程序</td></tr>
+<tr><td class="k">DRM</td><td class="c">DRAWINGRECOVERY</td><td>图形修复管理器。崩溃后取回自动保存文件</td></tr>
+<tr><td class="k">TOOL</td><td class="c">TOOLBAR</td><td>工具栏显隐管理</td></tr>
+</tbody>
+</table>
+
+<h2 id="c16">16　块、编组与外部参照</h2>
+<table>
+<caption>表 16　块、编组与外部参照命令</caption>
+<thead><tr><th style="width:12%">别名</th><th style="width:20%">全命令</th><th>功能与用法要点</th></tr></thead>
+<tbody>
+<tr class="star"><td class="k">B</td><td class="c">BLOCK</td><td>创建内部块。新版创建后双击可进块编辑器直接改</td></tr>
+<tr class="star"><td class="k">W</td><td class="c">WBLOCK</td><td>写块。把对象/块存成独立 DWG，跨文件复用</td></tr>
+<tr class="star"><td class="k">I</td><td class="c">INSERT</td><td>插入块。对话框列出文件内所有块，杂块多先 PU</td></tr>
+<tr class="star"><td class="k">ATT</td><td class="c">ATTDEF</td><td>定义属性。做带属性的图块（图框编号、设备标签）</td></tr>
+<tr><td class="k">AD</td><td class="c">ATTEDIT</td><td>编辑块属性值；双击带属性块也可直接改</td></tr>
+<tr><td class="k">BE</td><td class="c">BEDIT</td><td>块编辑器。双击块等效</td></tr>
+<tr><td class="k">G</td><td class="c">GROUP</td><td>编组。不炸开即可编辑成员，又支持整体复制</td></tr>
+<tr><td class="k">XA</td><td class="c">XATTACH</td><td>附着外部参照。底图联动更新的正路做法</td></tr>
+<tr><td class="k">XR</td><td class="c">XREF</td><td>外部参照管理器</td></tr>
+<tr><td class="k">XC</td><td class="c">XCLIP</td><td>参照剪裁。只显示参照的一部分</td></tr>
+<tr><td class="k">XB</td><td class="c">XBIND</td><td>绑定参照依赖符号（图层、样式等）</td></tr>
+</tbody>
+</table>
+
+<h2 id="c17">17　视图、布局与显示</h2>
+<table>
+<caption>表 17　视图与布局操作</caption>
+<thead><tr><th style="width:14%">操作</th><th style="width:22%">功能</th><th>说明</th></tr></thead>
+<tbody>
+<tr class="star"><td class="k">Z + A</td><td>显示全图（范围）</td><td>图"丢了"先按这套找回来；<code>ZE</code> 同效</td></tr>
+<tr><td class="k">Z + P</td><td>上一视图</td><td>看细部后跳回原视角</td></tr>
+<tr><td class="k">Z 空格 空格</td><td>实时缩放</td><td>拖动放大缩小；滚轮更常用</td></tr>
+<tr><td class="k">P</td><td class="c">PAN 实时平移</td><td>按住中键拖动等效</td></tr>
+<tr class="star"><td class="k">鼠标滚轮</td><td>缩放 / 双击 = 范围缩放</td><td>双击滚轮 = Z+E，最高频操作</td></tr>
+<tr class="star"><td class="k">MV</td><td class="c">MVIEW</td><td>布局空间建视口（矩形/多边形/由对象生成）</td></tr>
+<tr><td class="k">MS</td><td class="c">MSPACE</td><td>布局中进入模型空间；双击视口内等效</td></tr>
+<tr><td class="k">PS</td><td class="c">PSPACE</td><td>回到图纸空间；双击视口外等效</td></tr>
+<tr><td class="k">AV</td><td class="c">DSVIEWER</td><td>鸟瞰视图。大图导航，用的人少了</td></tr>
+<tr><td class="k">V</td><td class="c">VIEW</td><td>视图管理器。保存命名视图</td></tr>
+</tbody>
+</table>
+
+<h2 id="c18">18　三维常用命令</h2>
+<p>照明工程主要做二维，三维仅作了解，需要效果图时一般走 3ds Max / SketchUp。</p>
+<table>
+<caption>表 18　三维命令</caption>
+<thead><tr><th style="width:12%">别名</th><th style="width:20%">全命令</th><th>功能</th></tr></thead>
+<tbody>
+<tr><td class="k">BOX</td><td class="c">BOX</td><td>长方体</td></tr>
+<tr><td class="k">WE</td><td class="c">WEDGE</td><td>楔体</td></tr>
+<tr><td class="k">EXT</td><td class="c">EXTRUDE</td><td>拉伸成型（二维面域/闭合多段线拉成实体）</td></tr>
+<tr><td class="k">REV</td><td class="c">REVOLVE</td><td>旋转成型</td></tr>
+<tr><td class="k">SL</td><td class="c">SLICE</td><td>剖切实体</td></tr>
+<tr><td class="k">SU / UNI / IN</td><td class="c">SUBTRACT / UNION / INTERSECT</td><td>差集 / 并集 / 交集（布尔运算）</td></tr>
+<tr><td class="k">SEC</td><td class="c">SECTION</td><td>截面</td></tr>
+<tr><td class="k">3A / 3F</td><td class="c">3DARRAY / 3DFACE</td><td>三维阵列 / 三维面</td></tr>
+<tr><td class="k">HI / SHA</td><td class="c">HIDE / SHADEMODE</td><td>消隐 / 着色</td></tr>
+<tr><td class="k">3DO</td><td class="c">3DORBIT</td><td>三维动态观察</td></tr>
+<tr><td class="k">RR / RMAT</td><td class="c">RENDER / MATERIALS</td><td>渲染 / 材质</td></tr>
+</tbody>
+</table>
+
+<h2 id="p3" class="partstart">第三篇　自定义与提速</h2>
+
+<p>前两篇解决"会画"，这一篇解决"画得快"。CAD 提速的本质不是背更多命令，而是<b>左手键盘、右手鼠标、眼睛看屏幕</b>——所有命令都落在左手能够到的键位上。</p>
+
+<h2 id="c19">19　acad.pgp：别名怎么改</h2>
+<p>所有别名都定义在 <code>acad.pgp</code>（AutoCAD）或国产平台对应的参数文件里。打开路径：<b>工具 → 自定义 → 编辑程序参数（acad.pgp）</b>。文件每行一条，左列是别名，右列是全命令，改左列即可。修改后重启 CAD（或 <code>REINIT</code>）生效。</p>
+
+<div class="formula">
+; 修改前先备份：把 acad.pgp 复制一份为 acad.pgp.bak<br>
+; 示例：把复制改到单键 C，圆让位给 CI<br>
+C,        *COPY<br>
+CI,       *CIRCLE
+</div>
+
+<div class="note">
+<b>改键两条原则：</b>① 一个字母的键位留给使用频率最高的命令，两个字母次之；② 别人的方案只能当起点。<b>改前务必备份</b>，改完自己用两周，不顺手再微调。
+</div>
+
+<h2 id="c20">20　左手键方案</h2>
+<p>原理：<b>左手键盘左半区、右手鼠标、眼睛看屏幕</b>，命令全部落在 15 个字母上——QWERTASDFGZXCVB 和空格键。右手只在输入尺寸时去数字小键盘。这套方案需要把 acad.pgp 整表替换，以下是社区流传最广的版本（原文中的拼写错误已修正）。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 330" role="img" aria-label="左手键键盘分区">
+  <text x="480" y="26" class="ttl" text-anchor="middle" style="font-size:13px">左手键分区：命令全部落在键盘左半区</text>
+  <g>
+    <rect class="bx2" x="100" y="46" width="52" height="52" rx="6"/><text x="126" y="78" class="kcap" text-anchor="middle">Q</text>
+    <rect class="bx2" x="158" y="46" width="52" height="52" rx="6"/><text x="184" y="78" class="kcap" text-anchor="middle">W</text>
+    <rect class="bx2" x="216" y="46" width="52" height="52" rx="6"/><text x="242" y="78" class="kcap" text-anchor="middle">E</text>
+    <rect class="bx2" x="274" y="46" width="52" height="52" rx="6"/><text x="300" y="78" class="kcap" text-anchor="middle">R</text>
+    <rect class="bx2" x="332" y="46" width="52" height="52" rx="6"/><text x="358" y="78" class="kcap" text-anchor="middle">T</text>
+    <rect class="bx" x="390" y="46" width="52" height="52" rx="6"/><text x="416" y="78" class="s" text-anchor="middle" fill="#9AB">…</text>
+    <rect class="bx" x="448" y="46" width="52" height="52" rx="6"/><text x="474" y="78" class="s" text-anchor="middle" fill="#9AB">…</text>
+    <rect class="bx" x="506" y="46" width="52" height="52" rx="6"/><text x="532" y="78" class="s" text-anchor="middle" fill="#9AB">…</text>
+    <rect class="bx" x="564" y="46" width="52" height="52" rx="6"/><text x="590" y="78" class="s" text-anchor="middle" fill="#9AB">…</text>
+    <rect class="bx" x="622" y="46" width="52" height="52" rx="6"/><text x="648" y="78" class="s" text-anchor="middle" fill="#9AB">…</text>
+    <rect class="bx" x="680" y="46" width="52" height="52" rx="6"/><text x="706" y="78" class="s" text-anchor="middle" fill="#9AB">…</text>
+
+    <rect class="bx2" x="120" y="104" width="52" height="52" rx="6"/><text x="146" y="136" class="kcap" text-anchor="middle">A</text>
+    <rect class="bx2" x="178" y="104" width="52" height="52" rx="6"/><text x="204" y="136" class="kcap" text-anchor="middle">S</text>
+    <rect class="bx2" x="236" y="104" width="52" height="52" rx="6"/><text x="262" y="136" class="kcap" text-anchor="middle">D</text>
+    <rect class="bx2" x="294" y="104" width="52" height="52" rx="6"/><text x="320" y="136" class="kcap" text-anchor="middle">F</text>
+    <rect class="bx2" x="352" y="104" width="52" height="52" rx="6"/><text x="378" y="136" class="kcap" text-anchor="middle">G</text>
+    <rect class="bx" x="410" y="104" width="52" height="52" rx="6"/><text x="436" y="136" class="s" text-anchor="middle" fill="#9AB">…</text>
+    <rect class="bx" x="468" y="104" width="52" height="52" rx="6"/><text x="494" y="136" class="s" text-anchor="middle" fill="#9AB">…</text>
+    <rect class="bx" x="526" y="104" width="52" height="52" rx="6"/><text x="552" y="136" class="s" text-anchor="middle" fill="#9AB">…</text>
+    <rect class="bx" x="584" y="104" width="52" height="52" rx="6"/><text x="610" y="136" class="s" text-anchor="middle" fill="#9AB">…</text>
+    <rect class="bx" x="642" y="104" width="52" height="52" rx="6"/><text x="668" y="136" class="s" text-anchor="middle" fill="#9AB">…</text>
+
+    <rect class="bx2" x="140" y="162" width="52" height="52" rx="6"/><text x="166" y="194" class="kcap" text-anchor="middle">Z</text>
+    <rect class="bx2" x="198" y="162" width="52" height="52" rx="6"/><text x="224" y="194" class="kcap" text-anchor="middle">X</text>
+    <rect class="bx2" x="256" y="162" width="52" height="52" rx="6"/><text x="282" y="194" class="kcap" text-anchor="middle">C</text>
+    <rect class="bx2" x="314" y="162" width="52" height="52" rx="6"/><text x="340" y="194" class="kcap" text-anchor="middle">V</text>
+    <rect class="bx2" x="372" y="162" width="52" height="52" rx="6"/><text x="398" y="194" class="kcap" text-anchor="middle">B</text>
+    <rect class="bx" x="430" y="162" width="52" height="52" rx="6"/><text x="456" y="194" class="s" text-anchor="middle" fill="#9AB">…</text>
+    <rect class="bx" x="488" y="162" width="52" height="52" rx="6"/><text x="514" y="194" class="s" text-anchor="middle" fill="#9AB">…</text>
+    <rect class="bx" x="546" y="162" width="52" height="52" rx="6"/><text x="572" y="194" class="s" text-anchor="middle" fill="#9AB">…</text>
+    <rect class="bx" x="604" y="162" width="52" height="52" rx="6"/><text x="630" y="194" class="s" text-anchor="middle" fill="#9AB">…</text>
+
+    <rect class="bx4" x="120" y="220" width="440" height="46" rx="6"/>
+    <text x="340" y="248" class="ttl" text-anchor="middle" style="font-size:11.5px">空格 = 确认 / 重复上一命令</text>
+    <rect class="bx" x="580" y="220" width="120" height="46" rx="6"/>
+    <text x="640" y="241" class="s" text-anchor="middle" style="font-size:10.5px">数字小键盘</text>
+    <text x="640" y="256" class="s" text-anchor="middle" style="font-size:9px">右手输尺寸</text>
+  </g>
+  <text x="100" y="300" class="s">左手：QWERT ASDFG ZXCVB 共 15 个字母 + 空格　｜　右手：鼠标 + 数字小键盘输入尺寸</text>
+</svg>
+<div class="cap">图 2　左手键分区：15 个字母覆盖全部高频命令，右手只负责鼠标与尺寸输入</div>
+</div>
+
+<table class="fixed">
+<caption>表 19　左手键方案 · 常用表（先练熟这批）</caption>
+<thead><tr><th style="width:12%">别名</th><th style="width:22%">全命令</th><th>功能</th></tr></thead>
+<tbody>
+<tr><td class="k">A</td><td class="c">ARC</td><td>圆弧</td></tr>
+<tr><td class="k">AG</td><td class="c">ALIGN</td><td>对齐</td></tr>
+<tr><td class="k">AR</td><td class="c">ARRAY</td><td>阵列</td></tr>
+<tr><td class="k">B</td><td class="c">BLOCK</td><td>创建块</td></tr>
+<tr><td class="k">BR</td><td class="c">BREAK</td><td>打断</td></tr>
+<tr><td class="k">C</td><td class="c">CIRCLE</td><td>圆</td></tr>
+<tr><td class="k">CC</td><td class="c">COPY</td><td>复制</td></tr>
+<tr><td class="k">CF</td><td class="c">CHAMFER</td><td>倒角</td></tr>
+<tr><td class="k">D</td><td class="c">DIMSTYLE</td><td>标注样式</td></tr>
+<tr><td class="k">DA</td><td class="c">DIMANGULAR</td><td>角度标注</td></tr>
+<tr><td class="k">DD</td><td class="c">DIMDIAMETER</td><td>直径标注</td></tr>
+<tr><td class="k">DE</td><td class="c">DIMLINEAR</td><td>线性标注</td></tr>
+<tr><td class="k">DG</td><td class="c">DIMALIGNED</td><td>对齐标注</td></tr>
+<tr><td class="k">DR</td><td class="c">DIMRADIUS</td><td>半径标注</td></tr>
+<tr><td class="k">E</td><td class="c">ERASE</td><td>删除</td></tr>
+<tr><td class="k">ES</td><td class="c">ELLIPSE</td><td>椭圆</td></tr>
+<tr><td class="k">EX</td><td class="c">EXTEND</td><td>延伸</td></tr>
+<tr><td class="k">F</td><td class="c">FILLET</td><td>倒圆角</td></tr>
+<tr><td class="k">FC</td><td class="c">POLYGON</td><td>正多边形</td></tr>
+<tr><td class="k">FF</td><td class="c">LINE</td><td>直线</td></tr>
+<tr><td class="k">FS</td><td class="c">OFFSET</td><td>偏移</td></tr>
+<tr><td class="k">FV</td><td class="c">MOVE</td><td>移动</td></tr>
+<tr><td class="k">R</td><td class="c">PAN</td><td>实时平移</td></tr>
+<tr><td class="k">RA</td><td class="c">RAY</td><td>射线</td></tr>
+<tr><td class="k">RD</td><td class="c">REDO</td><td>重做</td></tr>
+<tr><td class="k">REC</td><td class="c">RECTANG</td><td>矩形</td></tr>
+<tr><td class="k">RT</td><td class="c">ROTATE</td><td>旋转</td></tr>
+<tr><td class="k">SC</td><td class="c">SCALE</td><td>缩放</td></tr>
+<tr><td class="k">T</td><td class="c">TRIM</td><td>修剪</td></tr>
+<tr><td class="k">V</td><td class="c">UNDO</td><td>放弃</td></tr>
+<tr><td class="k">WW</td><td class="c">MIRROR</td><td>镜像</td></tr>
+<tr><td class="k">XX</td><td class="c">XLINE</td><td>构造线</td></tr>
+<tr><td class="k">Z / ZE</td><td class="c">ZOOM / ZOOM Extents</td><td>缩放 / 范围缩放</td></tr>
+</tbody>
+</table>
+
+<table class="fixed">
+<caption>表 20　左手键方案 · 扩充表（同一方案的其余别名）</caption>
+<thead><tr><th style="width:12%">别名</th><th style="width:24%">全命令</th><th>功能</th></tr></thead>
+<tbody>
+<tr><td class="k">AA</td><td class="c">AREA</td><td>面积周长</td></tr>
+<tr><td class="k">AD</td><td class="c">ATTEDIT</td><td>编辑属性</td></tr>
+<tr><td class="k">AP</td><td class="c">APPLOAD</td><td>加载应用程序</td></tr>
+<tr><td class="k">AT</td><td class="c">MATCHPROP</td><td>特性匹配（格式刷）</td></tr>
+<tr><td class="k">ATT</td><td class="c">ATTDEF</td><td>定义属性</td></tr>
+<tr><td class="k">AV</td><td class="c">DSVIEWER</td><td>鸟瞰视图</td></tr>
+<tr><td class="k">BD</td><td class="c">BOUNDARY</td><td>创建边界</td></tr>
+<tr><td class="k">CA</td><td class="c">CAL</td><td>计算器</td></tr>
+<tr><td class="k">CR</td><td class="c">COLOR</td><td>颜色</td></tr>
+<tr><td class="k">DB / DC</td><td class="c">DIMBASELINE / DIMORDINATE</td><td>基线 / 坐标标注</td></tr>
+<tr><td class="k">DT</td><td class="c">DIST</td><td>测距</td></tr>
+<tr><td class="k">DV</td><td class="c">DVIEW</td><td>视图定义</td></tr>
+<tr><td class="k">DZ</td><td class="c">LEADER</td><td>引线</td></tr>
+<tr><td class="k">ED</td><td class="c">DDEDIT</td><td>编辑文字/标注文字</td></tr>
+<tr><td class="k">EG</td><td class="c">LENGTHEN</td><td>拉长</td></tr>
+<tr><td class="k">ER</td><td class="c">LAYER</td><td>图层</td></tr>
+<tr><td class="k">EE</td><td class="c">LINETYPE</td><td>线型</td></tr>
+<tr><td class="k">FD</td><td class="c">OPEN</td><td>打开</td></tr>
+<tr><td class="k">FE</td><td class="c">EXPORT</td><td>输出</td></tr>
+<tr><td class="k">FG</td><td class="c">PLINE</td><td>多段线</td></tr>
+<tr><td class="k">FGE</td><td class="c">PEDIT</td><td>编辑多段线</td></tr>
+<tr><td class="k">FW</td><td class="c">LWEIGHT</td><td>线宽</td></tr>
+<tr><td class="k">FT</td><td class="c">FILTER</td><td>对象选择过滤器</td></tr>
+<tr><td class="k">FX</td><td class="c">PROPERTIES</td><td>特性面板</td></tr>
+<tr><td class="k">G</td><td class="c">GROUP</td><td>编组</td></tr>
+<tr><td class="k">RW</td><td class="c">REDRAW</td><td>刷新</td></tr>
+<tr><td class="k">RE</td><td class="c">REGEN</td><td>重生成</td></tr>
+<tr><td class="k">REE</td><td class="c">RENAME</td><td>重命名</td></tr>
+<tr><td class="k">RR</td><td class="c">RENDER</td><td>渲染</td></tr>
+<tr><td class="k">SA / SV</td><td class="c">SAVEAS / QSAVE</td><td>另存为 / 保存</td></tr>
+<tr><td class="k">SS</td><td class="c">HATCH</td><td>填充</td></tr>
+<tr><td class="k">ST</td><td class="c">STYLE</td><td>文字样式</td></tr>
+<tr><td class="k">TB</td><td class="c">TOOLBAR</td><td>工具栏</td></tr>
+<tr><td class="k">TE</td><td class="c">TOLERANCE</td><td>形位公差</td></tr>
+<tr><td class="k">TT / TTT</td><td class="c">TEXT / MTEXT</td><td>单行 / 多行文字</td></tr>
+<tr><td class="k">VV</td><td class="c">UNITS</td><td>单位</td></tr>
+<tr><td class="k">W</td><td class="c">WBLOCK</td><td>写块</td></tr>
+<tr><td class="k">WE</td><td class="c">WEDGE</td><td>楔体</td></tr>
+<tr><td class="k">X</td><td class="c">EXPLODE</td><td>分解</td></tr>
+<tr><td class="k">XA / XB / XC</td><td class="c">XATTACH / XBIND / XCLIP</td><td>附着 / 绑定 / 剪裁外部参照</td></tr>
+<tr><td class="k">ZA / ZD</td><td class="c">ZOOM All / ZOOM Dynamic</td><td>全部 / 动态缩放</td></tr>
+</tbody>
+</table>
+
+<h2 id="c21">21　设置与选项：OPTIONS 与常用系统变量</h2>
+
+<p>设置不用背，但要<b>知道每一项在哪、默认是什么、出问题时该改谁</b>。<code>OP</code>（OPTIONS）对话框按用途分十个标签，常用设置和系统变量都在里面；改完点"应用"，别直接叉掉。</p>
+
+<table>
+<caption>表 21　OPTIONS 十大标签：每个标签最值得动的设置</caption>
+<thead><tr><th style="width:16%">标签</th><th style="width:40%">关键设置</th><th>建议</th></tr></thead>
+<tbody>
+<tr><td class="k">文件</td><td>支持文件搜索路径、自动保存位置、打印机支持路径</td><td>把自己的 DWT 样板目录加进来，<code>QNEW</code> 才能直接选到</td></tr>
+<tr><td class="k">显示</td><td>十字光标大小、圆弧圆平滑度、显示精度</td><td>十字光标拉满 100 更顺手；圆平滑度 5000，圆不再变多边形</td></tr>
+<tr><td class="k">打开和保存</td><td>自动保存间隔、缩略图、最近打开文件数</td><td>自动保存设 <b>10 分钟</b>；关掉"显示数字签名信息"</td></tr>
+<tr><td class="k">打印和发布</td><td>默认打印设备、后台打印、打印戳记</td><td>成套出图勾"后台打印"，出图不卡操作</td></tr>
+<tr><td class="k">系统</td><td>硬件加速、启动方式</td><td>图卡顿先查这里；启动显示"开始"选项卡可关</td></tr>
+<tr><td class="k">用户系统配置</td><td>右键自定义、插入比例、双击编辑</td><td><b>源内容单位与目标单位都设"毫米"</b>，块插入不缩放；右键第二键设"重复上一命令"最省手</td></tr>
+<tr><td class="k">绘图</td><td>自动捕捉标记大小、靶框大小、捕捉提示</td><td>标记和靶框调大一档，密点区域捕捉更准；<b>别关自动捕捉</b></td></tr>
+<tr><td class="k">选择集</td><td>拾取框、夹点大小、先选择后执行</td><td>按手感调；"用 Shift 添加到选择集"保持不勾（默认加选）</td></tr>
+<tr><td class="k">三维建模</td><td>三维光标、视口显示</td><td>画平面图不用动</td></tr>
+<tr><td class="k">配置</td><td>配置档的保存 / 重置</td><td>改乱后选"<b>重置</b>"，只恢复当前配置档；重要设置先"<b>输出</b>"存一份</td></tr>
+</tbody>
+</table>
+
+<table>
+<caption>表 22　常用设置类系统变量（命令行直接输变量名回车）</caption>
+<thead><tr><th style="width:18%">变量</th><th style="width:12%">默认</th><th style="width:12%">建议</th><th>作用</th></tr></thead>
+<tbody>
+<tr><td class="k">SAVETIME</td><td class="c">10</td><td class="c">10</td><td>自动保存间隔（分钟）。断电救图就靠它，配合 <code>SAVEFILEPATH</code> 找自动存档</td></tr>
+<tr><td class="k">MIRRTEXT</td><td class="c">1</td><td class="c">0</td><td>镜像时文字是否反转。<b>必改 0</b>，否则 MI 之后回路号全是反字</td></tr>
+<tr><td class="k">PICKADD</td><td class="c">2</td><td class="c">1</td><td>加选模式：1 = 点第二个对象时累加，不用按住 Shift</td></tr>
+<tr><td class="k">OSMODE</td><td class="c">4133</td><td class="c">按需</td><td>运行捕捉组合（端点 1、中点 2、交点 32、延伸 4096…）；嫌捕捉乱先查它</td></tr>
+<tr><td class="k">LTSCALE</td><td class="c">1</td><td class="c">随图</td><td>全局线型比例。虚线显示成实线，多半是它没随出图比例调</td></tr>
+<tr><td class="k">PSLTSCALE</td><td class="c">1</td><td class="c">1</td><td>布局视口内线型比例随图纸单位，出图线型一致的关键</td></tr>
+<tr><td class="k">DIMSCALE</td><td class="c">1</td><td class="c">随图</td><td>标注全局比例，1:100 出图一般设 100，别去改单个箭头大小</td></tr>
+<tr><td class="k">DIMASSOC</td><td class="c">2</td><td class="c">2</td><td>标注与图形关联，改图形标注跟着变；0 = 无关联，最忌讳</td></tr>
+<tr><td class="k">INSUNITS</td><td class="c">4</td><td class="c">4</td><td>插入单位 = 毫米，跨图插块不错比例</td></tr>
+<tr><td class="k">XDWGFADECTL</td><td class="c">50</td><td class="c">50–70</td><td>外部参照淡显程度，底图垫在下面画点位全靠它调轻重</td></tr>
+<tr><td class="k">STARTUP</td><td class="c">3</td><td class="c">0</td><td>0 = 新建图直接用样板，不弹启动页；配合 <code>QNEW</code> 最快</td></tr>
+<tr><td class="k">PROXYNOTICE</td><td class="c">1</td><td class="c">0</td><td>打开含天正等代理对象的图不再弹"代理对象"警告</td></tr>
+<tr><td class="k">SECURELOAD</td><td class="c">1</td><td class="c">按需</td><td>LISP 加载安全检查；加载自己写的 LISP 时弹"安全警告"就是它</td></tr>
+<tr><td class="k">ANNOMONITOR</td><td class="c">-1</td><td class="c">-1</td><td>注释性监视，弹黄色角标提示比例不符；不用注释性就关</td></tr>
+</tbody>
+</table>
+
+<table>
+<caption>表 23　界面与配置类命令</caption>
+<thead><tr><th style="width:18%">命令</th><th style="width:30%">全称</th><th>用途</th></tr></thead>
+<tbody>
+<tr><td class="k">OP</td><td class="c">OPTIONS</td><td>选项对话框，设置的总入口</td></tr>
+<tr><td class="k">CUI</td><td class="c">自定义用户界面</td><td>改快捷键、面板、双击行为；改前导出备份 .cuix</td></tr>
+<tr><td class="k">CUILOAD / UNLOAD</td><td class="c">加载 / 卸载自定义文件</td><td>换别人的界面方案时用</td></tr>
+<tr><td class="k">WS</td><td class="c">WORKSPACE</td><td>切换 / 保存工作区；界面乱了 <code>WS</code> → 重置</td></tr>
+<tr><td class="k">TP</td><td class="c">TOOLPALETTES</td><td>工具选项板（<code>Ctrl+3</code>），块库调用的入口</td></tr>
+<tr><td class="k">Ctrl+2</td><td class="c">ADCENTER 设计中心</td><td>浏览别的 dwg 的块 / 图层 / 样式，直接拖用</td></tr>
+<tr><td class="k">AP</td><td class="c">APPLOAD</td><td>加载 LISP 工具（如 ZNK-TOOLS），可加入启动组</td></tr>
+<tr><td class="k">REINIT</td><td class="c">重新初始化</td><td>改完 acad.pgp 不重启就生效</td></tr>
+<tr><td class="k">XP / -P</td><td class="c">启动开关</td><td><code>acad.exe /p 配置档</code> 用指定配置启动；<code>/t 样板</code> 指定样板新建</td></tr>
+</tbody>
+</table>
+
+<div class="note"><b>设置三原则：</b>① 改任何设置前先在"配置"标签里<b>输出一份</b>；② 一台电脑只维护一个配置档，多配置档最后一定会乱；③ 设置项背不住没关系，知道"哪类问题该去哪个标签"就够——线型显示怪查 LTSCALE/PSLTSCALE，捕捉怪查 OSMODE，块插错比例查 INSUNITS。</div>
+
+<div class="note"><b>想一键回到出厂默认：</b>见附录 B，三种程度的恢复方法都在那里，包括 2026-11-17 实操过的彻底重置全流程。</div>
+
+<h2 id="p4" class="partstart">第四篇　制图规范与交付审查</h2>
+
+<p>前两篇解决“画得快”，这一篇解决“画得对、交得掉”。图例对不回在售产品、线型分不清通道、标注缺项、图签不完整——每一类都会让图纸退回，跟命令用得多熟没有关系。</p>
+
+<h2 id="c22">22　图层与线型：图面的语法</h2>
+
+<p><b>单位与比例先定死。</b>DWG 一律按毫米公制建模（<code>INSUNITS=4</code>、<code>MEASUREMENT=1</code>），模型空间按 1:1 实际尺寸绘制；比例只出现在图签的比例栏里，不在图名里自行放大缩小。平面图常用 1:100，大空间 1:150～1:200，详图 1:20～1:50。图幅按 GB/T 50001 选 A0～A4，同一套图尽量统一幅面。</p>
+
+<p><b>图层按“前缀-用途”命名，一层绑一套颜色、线型、线宽。</b>这是让图能被别人读懂的底线，也是审查时最先被看的地方。</p>
+
+<table>
+<caption>表 24　照明专业图层体系</caption>
+<thead><tr><th style="width:22%">图层名（示例）</th><th style="width:34%">内容</th><th style="width:14%">颜色</th><th style="width:16%">线型</th><th>出图线宽</th></tr></thead>
+<tbody>
+<tr><td><code>E-建筑-底图</code></td><td>墙体、门窗、轴网（外部参照或淡显）</td><td>8/9 灰</td><td>Continuous</td><td>0.15</td></tr>
+<tr><td><code>E-照明-灯具</code></td><td>灯具图块（点位）</td><td>2 黄/白</td><td>Continuous</td><td>0.25</td></tr>
+<tr><td><code>E-照明-干线</code></td><td>配电箱至灯具的配电干线</td><td>1 红</td><td>Continuous</td><td>0.50</td></tr>
+<tr><td><code>E-照明-支线</code></td><td>开关出线、灯间连接线</td><td>4 青</td><td>Continuous</td><td>0.25</td></tr>
+<tr><td><code>E-照明-控制</code></td><td>智能总线（OBUS／DALI／RS485）</td><td>5 蓝</td><td>DASHED</td><td>0.18</td></tr>
+<tr><td><code>E-应急-灯具</code></td><td>应急照明与疏散指示</td><td>3 绿</td><td>Continuous</td><td>0.25</td></tr>
+<tr><td><code>E-应急-线路</code></td><td>应急回路导线</td><td>6 紫</td><td>DASHED</td><td>0.25</td></tr>
+<tr><td><code>E-标注-文字</code></td><td>回路编号、设备标注、引线文字</td><td>3 绿/白</td><td>Continuous</td><td>0.18</td></tr>
+<tr><td><code>E-标注-尺寸</code></td><td>定位尺寸</td><td>2 黄</td><td>Continuous</td><td>0.18</td></tr>
+</tbody>
+</table>
+
+<p><b>三条图层纪律</b>：交付前删掉全部未用图层与“修改过程层”（<code>修改校对</code>、<code>日期+修改</code> 这类）；同一实体只属于一个图层；<code>Defpoints</code> 层不留可打印内容。外审曾见过 205 个图层只用 48 个、大量 <code>XREF-…$0$…</code> 残留的案例，这是“图面脏”的第一来源。</p>
+
+<p><b>线型不是画法，是通道。</b>强电、DALI、OBUS、RS485、干接点在图上必须一眼可分——施工方是照着线型去配线的，画错线型等于给错料。</p>
+
+<table>
+<caption>表 25　线缆类型、图纸表示与典型规格</caption>
+<thead><tr><th style="width:20%">线缆类型</th><th style="width:24%">图纸表示</th><th style="width:24%">典型规格</th><th>用途</th></tr></thead>
+<tbody>
+<tr><td>强电照明回路</td><td>粗实线，标 WL1/WL2…</td><td>BV／BYJ 3×2.5</td><td>配电箱 → 灯具供电</td></tr>
+<tr><td>DALI 总线</td><td>细虚线（两线）</td><td>RVVP 2×1.5</td><td>网关 → 灯具驱动，手拉手 ≤64 节点</td></tr>
+<tr><td>OBUS 总线</td><td>细虚线（四线）</td><td>RVVP 4×1.5</td><td>网关 → 控制模块／面板</td></tr>
+<tr><td>RS485 总线</td><td>细虚线（双绞屏蔽）</td><td>RVSP 2×1.0</td><td>网关 → 第三方设备</td></tr>
+<tr><td>干接点信号</td><td>标注“引自消防”</td><td>普通信号线</td><td>消防主机 → IO 模块／网关 DI</td></tr>
+</tbody>
+</table>
+
+<div class="fig">
+<svg viewBox="0 0 1000 250" role="img" aria-label="组网方案与图纸线型的对应">
+  <defs><marker id="ca" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#12557E"/></marker></defs>
+
+  <rect class="bx2" x="8" y="88" width="176" height="74" rx="6"/>
+  <text x="96" y="116" class="tb" text-anchor="middle" font-size="14">现场能敷设</text>
+  <text x="96" y="140" class="tb" text-anchor="middle" font-size="14">控制线吗</text>
+
+  <path class="lb" d="M184 112 H212 V70 H236" marker-end="url(#ca)" fill="none"/>
+  <path class="lb" d="M184 138 H212 V180 H236" marker-end="url(#ca)" fill="none"/>
+  <text x="196" y="62" class="s" font-size="12">能</text>
+  <text x="196" y="198" class="s" font-size="12">不能</text>
+
+  <rect class="bx4" x="240" y="30" width="330" height="80" rx="6"/>
+  <text x="405" y="58" class="tb" text-anchor="middle" font-size="14">OBUS 直控／OBUS+DALI 混合</text>
+  <text x="405" y="82" class="s" text-anchor="middle" font-size="12">控制总线画细虚线：OBUS 四线、DALI 两线</text>
+  <text x="405" y="100" class="s" text-anchor="middle" font-size="12">手拉手，DALI ≤64 节点</text>
+
+  <rect class="bx" x="240" y="140" width="330" height="80" rx="6"/>
+  <text x="405" y="168" class="tb" text-anchor="middle" font-size="14">蓝牙 Mesh／2.4G 自组网</text>
+  <text x="405" y="192" class="s" text-anchor="middle" font-size="12">不画控制线，只画电源与网关上行网线</text>
+  <text x="405" y="210" class="s" text-anchor="middle" font-size="12">网关位置要标，且靠近灯具、无遮挡</text>
+
+  <path class="lb" d="M570 70 H604" marker-end="url(#ca)" fill="none"/>
+  <path class="lb" d="M570 180 H604" marker-end="url(#ca)" fill="none"/>
+
+  <rect class="bx3" x="608" y="30" width="384" height="80" rx="6"/>
+  <text x="800" y="58" class="tb" text-anchor="middle" font-size="14">RS485／Modbus 对接第三方</text>
+  <text x="800" y="82" class="s" text-anchor="middle" font-size="12">单独一条细虚线，注明引自哪台网关</text>
+  <text x="800" y="100" class="s" text-anchor="middle" font-size="12">屏蔽双绞，不与强电同管</text>
+
+  <rect class="bx" x="608" y="140" width="384" height="80" rx="6"/>
+  <text x="800" y="168" class="tb" text-anchor="middle" font-size="14">PLC 电力线载波</text>
+  <text x="800" y="192" class="s" text-anchor="middle" font-size="12">复用电源线，不单独画控制线</text>
+  <text x="800" y="210" class="s" text-anchor="middle" font-size="12">但要在说明里注明“本回路含载波”</text>
+</svg>
+<div class="cap">图 3　组网方案决定线型：能布线就走总线，不能布线就只画电源</div>
+</div>
+
+<h2 id="c23">23　图例与符号：对不回产品就是制图错误</h2>
+
+<p>图例符号必须能对回在售产品树，否则会出现“图上有符号、下单找不到系列”。自创符号要有定义，并在图例表里逐条列出——审查时，图上每一个符号都必须能在图例表里找到出处。</p>
+
+<table>
+<caption>表 26　常用灯具与设备符号</caption>
+<thead><tr><th style="width:22%">符号（示意）</th><th style="width:30%">名称</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>◎ 或 ○ 中加叉</td><td>一般照明灯具（吸顶／明装）</td><td>圆圈内加叉表示一般型，灯型变化用限定符号</td></tr>
+<tr><td>▣ 或内嵌矩形</td><td>嵌入式灯具（筒灯／面板灯）</td><td>方形或菱形表示嵌入安装</td></tr>
+<tr><td>◎ 双同心圆</td><td>应急照明灯具</td><td>与疏散指示灯区分，图例表注明“应急”</td></tr>
+<tr><td>→ 箭头块</td><td>疏散方向标志灯</td><td>箭头方向即疏散方向</td></tr>
+<tr><td>门形出口块</td><td>安全出口标志灯</td><td>装在出口门上方</td></tr>
+<tr><td>S／双联 S</td><td>照明开关（单联／双联）</td><td>安装高度默认 1.3 m，特殊高度另标</td></tr>
+<tr><td>波浪／圆点框</td><td>传感器（照度／微波／人体）</td><td>智能灯控必用，注明功能与安装高度</td></tr>
+<tr><td>□ 内写箱号</td><td>照明配电箱 AL1／AL2</td><td>箱体编号与系统图一致</td></tr>
+</tbody>
+</table>
+
+<p>智控项目还要多画四类：<b>网关与模块</b>（画在配电箱内或就近标注）、<b>面板</b>（标底边高度）、<b>传感器</b>（标安装高度与探测半径）、<b>探测覆盖圈</b>（用虚线画出覆盖范围，平面图上直接看出有没有漏覆盖或重叠浪费）。</p>
+
+<div class="note"><b>图例表三件必填：</b>符号、名称与型号、安装方式与高度。缺任何一项，施工方都要打电话来问——这就是“图没画完”的另一种形式。</div>
+
+<h2 id="c24">24　定位与标注：三行字说清一盏灯</h2>
+
+<p>灯具标注按 GB/T 50786 的格式，一行字要包含五件事：</p>
+
+<div class="fmt">a-b  c×d  e-f
+4-OPPLE-TJ-18W  1×18  3.0-吸顶</div>
+
+<p>读法：<b>a</b> 同型数量、<b>b</b> 型号或图例编号、<b>c×d</b> 光源数量 × 单光源功率、<b>e</b> 安装高度（m）、<b>f</b> 安装方式。嵌入式灯具（筒灯、面板灯）不标高度、只标“嵌入”；吸顶、壁装、吊装必须标高度。</p>
+
+<p>同一排同型灯具只在第一只写全标注，其余用编号（如 <code>L1-12</code>）代替，编号与图例表对应。功率若含驱动损耗，要在说明里注明口径，保证与 LPD 核算一致。</p>
+
+<table>
+<caption>表 27　线路标注的写法与读法</caption>
+<thead><tr><th style="width:20%">标注内容</th><th style="width:36%">写法示例</th><th>读法</th></tr></thead>
+<tbody>
+<tr><td>干线（完整）</td><td><code>WL1 BV-3×2.5-SC20-CC</code></td><td>回路 WL1，BV 导线 3 根 2.5 mm²，穿 SC20 钢管，暗敷顶棚内</td></tr>
+<tr><td>支线根数</td><td><code>//3</code> 或 <code>×3</code></td><td>该段 3 根导线（2 根以上必须标注，避免数线出错）</td></tr>
+<tr><td>控制总线</td><td><code>WLK1 WDZ-BYJ-2×1.5-SC15-CC</code></td><td>控制回路、阻燃线缆、穿管敷设</td></tr>
+</tbody>
+</table>
+
+<table>
+<caption>表 28　常用安装高度与间距速查</caption>
+<thead><tr><th style="width:22%">设备</th><th style="width:26%">安装高度</th><th style="width:28%">间距／距离</th><th>避开什么</th></tr></thead>
+<tbody>
+<tr><td>LED 高棚灯（厂房）</td><td>吊装 7～12 m</td><td>灯间距 ≈ 安装高度 × 1.0～1.5</td><td>行车轨道、喷淋头、消防管道</td></tr>
+<tr><td>LED 平板灯（办公）</td><td>嵌入吊顶</td><td>按工位／房间均布</td><td>烟感、喷淋、出风口</td></tr>
+<tr><td>微波传感器</td><td>吸顶 7～12 m</td><td>间距 10～14 m（R＝5～7 m）</td><td>空调风口、震动源、金属遮挡</td></tr>
+<tr><td>四合一传感器</td><td>2.5～3.5 m</td><td>红外 R＝5 m，1 个／房间</td><td>强光直射、空调口</td></tr>
+<tr><td>智能面板</td><td>底边 1.3～1.4 m</td><td>门口内侧、方便触达</td><td>门后、柜后、潮湿处</td></tr>
+<tr><td>照明配电箱</td><td>壁挂底边 1.4 m／落地</td><td>负荷中心、靠近外墙</td><td>潮湿、高温、易燃区</td></tr>
+<tr><td>疏散指示灯</td><td>底边 ≤0.5 m（或门上 0.2 m）</td><td>间距 ≤20 m，拐角必设</td><td>遮挡物</td></tr>
+<tr><td>强弱电线管</td><td>—</td><td>平行间距 ≥300 mm，交叉走垂直</td><td>—</td></tr>
+</tbody>
+</table>
+
+<p><b>三个必背数字</b>：微波传感器装 7～12 m（高了探不到、低了被遮挡）；四合一传感器 2.5～3.5 m（对应办公层高）；<b>灯间距 ≈ 安装高度 × 1.0～1.5</b>——这是照度均匀的核心公式。</p>
+
+<h2 id="c25">25　走线与路由：四条铁律</h2>
+
+<ol class="pit">
+<li><b>横平竖直。</b>所有导线段只画水平或垂直方向，转弯为 90° 折线，禁止斜拉乱穿。</li>
+<li><b>成束走主干。</b>同一回路先沿墙边或轴线走一条主干通道，再垂直引出支线接灯；不要每只灯都从配电箱单独拉一条线。</li>
+<li><b>连接才加点。</b>十字相交且电气相连处画实心圆点；只交叉不相连的地方不许加点，并尽量错位绕行减少交叉。</li>
+<li><b>线不重叠。</b>平行相邻导线保持可分辨间距，一根线不得穿过另一根线的连接点。</li>
+</ol>
+
+<div class="fig">
+<svg viewBox="0 0 1000 200" role="img" aria-label="走线结构：主干成束、垂直分支">
+  <rect class="bx2" x="8" y="76" width="120" height="52" rx="5"/>
+  <text x="68" y="100" class="tb" text-anchor="middle" font-size="13">配电箱</text>
+  <text x="68" y="118" class="s" text-anchor="middle" font-size="11">／网关</text>
+
+  <path class="lb" d="M128 102 H200 V40 H760" fill="none" marker-end="url(#ca)"/>
+  <text x="420" y="32" class="s" font-size="12">主干沿墙边或桥架走 90° 折线，成束</text>
+
+  <g>
+    <line class="lb" x1="300" y1="40" x2="300" y2="96"/>
+    <line class="lb" x1="450" y1="40" x2="450" y2="96"/>
+    <line class="lb" x1="600" y1="40" x2="600" y2="96"/>
+    <circle cx="300" cy="110" r="13" fill="#fff" stroke="#12557E" stroke-width="1.6"/>
+    <circle cx="450" cy="110" r="13" fill="#fff" stroke="#12557E" stroke-width="1.6"/>
+    <circle cx="600" cy="110" r="13" fill="#fff" stroke="#12557E" stroke-width="1.6"/>
+    <text x="300" y="142" class="s" text-anchor="middle" font-size="11">灯具 1</text>
+    <text x="450" y="142" class="s" text-anchor="middle" font-size="11">灯具 2</text>
+    <text x="600" y="142" class="s" text-anchor="middle" font-size="11">灯具 3</text>
+    <circle cx="300" cy="40" r="3.5" fill="#12557E"/>
+    <circle cx="450" cy="40" r="3.5" fill="#12557E"/>
+    <circle cx="600" cy="40" r="3.5" fill="#12557E"/>
+  </g>
+
+  <line x1="700" y1="60" x2="960" y2="160" stroke="#A63A2C" stroke-width="1.6" stroke-dasharray="6 4"/>
+  <text x="836" y="96" class="s" font-size="12" fill="#A63A2C">✕ 斜穿房间、目测搭接</text>
+  <text x="836" y="116" class="s" font-size="11" fill="#A63A2C">施工方会照着这条线拉线</text>
+</svg>
+<div class="cap">图 4　走线结构：主干成束、垂直分支、连接点加点；斜穿是质量红线</div>
+</div>
+
+<div class="note"><b>质量红线：</b>不允许出现“从开关直接斜穿房间连到对角灯”的走线；所有连线端点必须捕捉到图块插入点，不能目测搭上。</div>
+
+<h2 id="c26">26　交付与审查：能不能交，会不会被挑刺</h2>
+
+<p>照明施工图交付六件套：<b>图纸目录、设计施工说明、图例表、照明平面布置图、灯具配电平面图、照明配电系统图</b>，另加应急照明平面图与安装大样。少一件都算未完成，不是“下次补”。</p>
+
+<p><b>图签必须能签得下去</b>：工程名称、图名、图号、比例、设计／制图／校对／审核／批准、日期、版次，八项齐全。同一幅面只保留一套图签——图框块自带图签时，不要再外插重复的图名／图号块，否则打印叠影、图名与图号互相矛盾。图号宜按“专业—分区—序号”编制（如 E-07-301～316），目录张数必须与图签张数一致。</p>
+
+<table>
+<caption>表 29　单张图纸交付前自检清单</caption>
+<thead><tr><th style="width:18%">类别</th><th style="width:22%">自检项</th><th>检查要点</th></tr></thead>
+<tbody>
+<tr><td>内容完整</td><td>无空页缺图</td><td>目录、说明、图例表、平面图、系统图齐全，无空白图框页</td></tr>
+<tr><td>图签</td><td>唯一且完整</td><td>八项签署齐全，无重复叠放图签</td></tr>
+<tr><td>灯具布置</td><td>点位可施工</td><td>有定位尺寸与间距，与吊顶、风口、喷淋无冲突，特殊高度已标</td></tr>
+<tr><td>线路画法</td><td>走线规范</td><td>横平竖直、90° 折线；连接处实心圆点；端点捕捉到图块</td></tr>
+<tr><td>回路编号</td><td>唯一且一致</td><td>平面回路号与系统图一一对应，无同名、漏号</td></tr>
+<tr><td>标注</td><td>完整不压线</td><td>灯具标数量／功率／高度／方式；线路标回路、规格、根数、敷设</td></tr>
+<tr><td>图例符号</td><td>符号有出处</td><td>每个符号都能在图例表找到，自创符号有定义</td></tr>
+<tr><td>应急照明</td><td>自成系统</td><td>应急回路独立不混接，照度与间距按 GB 51309</td></tr>
+<tr><td>图层线型</td><td>图面干净</td><td>无未用图层、无 XREF 与过程层残留，线宽分级正确</td></tr>
+<tr><td>单位比例</td><td>公制正确</td><td><code>INSUNITS=4</code>，比例栏与打印比例一致</td></tr>
+<tr><td>字体</td><td>无乱码隐患</td><td>通用字体或随图打包，文字不重叠、方向正确</td></tr>
+<tr><td>出图验证</td><td>逐张校 PDF</td><td>固定打印方案出图，人工比对图名、叠影、乱码后再交付</td></tr>
+</tbody>
+</table>
+
+<p>最后一步：<code>AUDIT</code> 修复 → <code>PURGE</code> 清理 → 按约定版本另存 → 逐张出 PDF 人工校对；整套图由第二人复核、完成校对与审核签署后再对外交付。</p>
+
+<div class="note"><b>阻塞交付的五种问题：</b>① 图签缺失或叠放；② 回路编号与系统图不一致；③ 灯具没有定位尺寸、无法施工；④ 应急回路与正常照明混接；⑤ 图上符号在图例表里找不到。这五条任何一条存在，图纸都不具备交付条件。</div>
+
+<h2 id="p5" class="partstart">第五篇　工具库与模板</h2>
+
+<p>前面四篇解决"这一张图画得快、画得对"。第五篇解决更上游的问题：<b>下一个项目来了，怎么不用从头开始</b>。核心是把散在几十个 dwg 里的符号、规则、表格收进一套可调用的工具库——四层结构，缺一层就会退回"每次翻旧图"。</p>
+
+<h2 id="c27">27　先分清：哪些能搬，哪些搬不了</h2>
+<p>旧图里有两类东西，价值完全不同。搞混这两类，是"搬过来发现不能用"的根本原因。</p>
+<table>
+<caption>表 30　可复用边界</caption>
+<thead><tr><th style="width:50%">可以搬，而且要永久沉淀</th><th>搬不了，只能重新做</th></tr></thead>
+<tbody>
+<tr><td><b>符号</b>：图框、箱体、网关、面板、传感器、灯具图形<br><b>规则</b>：图例列项、设计说明、回路编号方式、设备代号<br><b>表格</b>：点表口径、设备统计表结构</td><td><b>点位坐标</b>：每栋楼建筑都不同，灯和感应器必须重排<br><b>回路走向</b>：桥架路径、线路长度随建筑变化<br><b>系统图</b>：回路数量、网关带载随项目规模变化</td></tr>
+</tbody>
+</table>
+<p>所以正确的复用姿势是：<b>图形只当参照，规则和符号进库</b>。整图复制过来，坐标必然错位、回路号会撞、字体图层一团乱——返工比重画还久。</p>
+
+<h2 id="c28">28　样板 DWT：图层、文字样式、图框</h2>
+<p>样板是"新建图纸时的默认状态"。从三套旧图里挑<b>最规范的一张</b>，清空图面内容，按下面步骤改造：</p>
+<ol>
+<li><code>SAVEAS</code> 另存 <code>_基图.dwg</code>，原图不动。</li>
+<li>框选全部 → <code>E</code> 删除，只留图框（图框要留）。</li>
+<li><code>PURGE</code> 全清（勾嵌套项目），重复三次到无可清理；<code>AUDIT</code> → <code>Y</code> 修复。</li>
+<li>删空图层：旧图动辄上百个图层，留下的都是以后会选错的。</li>
+<li>加载 <code>ZNK-TOOLS.lsp</code> → <code>ZNK-LAY</code> 建 16 个标准图层、<code>ZNK-STY</code> 建文字样式。</li>
+<li><code>SAVEAS</code> → 类型选 <b>图形样板 (*.dwt)</b> → 存 <code>智控深化-A1.dwt</code>；<code>OPTIONS</code> → 文件 → 样板设置里把它设为默认。</li>
+</ol>
+<p>文字样式两条纪律：高度填 <code>0</code>（0 = 随标注设置，填了固定值以后就不能临时改字号）；中文样式用 <code>txt.shx + gbcbig.shx</code> 大字体组合，别用花体，缺字体就是问号。</p>
+<table>
+<caption>表 31　工具库标准图层（ZNK-LAY 一键建立；与表 24 的中文图层体系二选一，全公司统一即可）</caption>
+<thead><tr><th style="width:24%">图层名</th><th style="width:14%">颜色</th><th>用途</th></tr></thead>
+<tbody>
+<tr><td class="k">A-WALL / A-COLS / A-DOOR</td><td class="c">8 灰</td><td>建筑墙、柱、门窗底图</td></tr>
+<tr><td class="k">A-FURN / A-AXIS</td><td class="c">9 灰 / 1 红</td><td>家具设备；轴网（CENTER 线型）</td></tr>
+<tr><td class="k">E-LITE</td><td class="c">2 黄</td><td>灯具符号</td></tr>
+<tr><td class="k">E-CTRL</td><td class="c">4 青</td><td>面板、传感器</td></tr>
+<tr><td class="k">E-CTRL-BOX</td><td class="c">6 洋红</td><td>智控箱、网关、控制模块</td></tr>
+<tr><td class="k">E-BUS / E-LAN / E-PWR</td><td class="c">3 绿 / 5 蓝 / 1 红</td><td>总线（DALI·CBUS·自组网）/ 网线 / 电源线</td></tr>
+<tr><td class="k">E-TRAY</td><td class="c">30 橙</td><td>桥架、线槽</td></tr>
+<tr><td class="k">E-TXT / E-DIM</td><td class="c">7 白</td><td>引注文字；尺寸标注</td></tr>
+<tr><td class="k">E-LEGEND / E-FRAME</td><td class="c">7 白</td><td>图例表；图框标题栏</td></tr>
+</tbody>
+</table>
+<div class="note"><b>为什么用英文图层名：</b>LISP 脚本读中文易乱码、跨院交换更稳、CTB 按颜色走不依赖名字。含义对照本表即可。</div>
+<p>图框用院方 / 客户认可的那版，从旧图 <code>WBLOCK</code> 出来命名 <code>TB-A1-OPPLE</code> 存进块库，带齐属性：项目名称、图名、图号、设计、制图、审核、日期、比例、版本。</p>
+
+<h2 id="c29">29　块库与工具选项板</h2>
+<p>新建一个 <code>智控块库.dwg</code>（用样板，存固定位置），只存块不画图。收块别一个个 WBLOCK——<b>设计中心批量搬</b>：</p>
+<ol>
+<li>打开块库 dwg，<code>Ctrl+2</code> 设计中心，左侧树展开旧图 → "块"。</li>
+<li>右侧列出全部块带预览，<b>按住 Ctrl 多选</b> → 右键"插入"或直接拖到绘图区，块定义就进了块库。</li>
+<li>收前先 <code>ZNK-BLK</code> 看这张图的块清单（按插入次数排序，同目录出 txt）——次数多的是主力符号，次数 1 的多是垃圾。</li>
+<li>重复名先 <code>RENAME</code> 改名再收，块名重复 CAD 会让你二选一，选错后面全乱。</li>
+</ol>
+<table>
+<caption>表 32　块命名规范：类型前缀 + 规格，英文大写，连字符分隔，≤20 字符</caption>
+<thead><tr><th style="width:14%">前缀</th><th style="width:20%">含义</th><th>示例</th></tr></thead>
+<tbody>
+<tr><td class="k">TB-</td><td>图框</td><td><code>TB-A1-OPPLE</code></td></tr>
+<tr><td class="k">BOX-</td><td>箱体</td><td><code>BOX-CTRL-800x600</code>、<code>BOX-GW-400x300</code></td></tr>
+<tr><td class="k">GW-</td><td>网关 / 控制器</td><td><code>GW-DALI-2</code>、<code>GW-OBUS</code>、<code>GW-BLE</code>、<code>GW-GSLINK</code></td></tr>
+<tr><td class="k">PN-</td><td>面板</td><td><code>PN-86-4K</code>、<code>PN-485-6K</code></td></tr>
+<tr><td class="k">SN-</td><td>传感器</td><td><code>SN-MW-CEIL</code>（微动）、<code>SN-DUAL-CEIL</code>（双鉴）</td></tr>
+<tr><td class="k">LT-</td><td>灯具</td><td><code>LT-TRIPROOF-18</code>、<code>LT-DOWN-12</code></td></tr>
+<tr><td class="k">MOD-</td><td>模块 / 继电器</td><td><code>MOD-DALI-4CH</code>、<code>MOD-RELAY-2CH</code></td></tr>
+<tr><td class="k">LG-</td><td>图例 / 表格</td><td><code>LG-TABLE-A1</code>、<code>LG-NOTE-STD</code></td></tr>
+</tbody>
+</table>
+<p><b>基点决定块好不好用。</b>基点在图外的块，插入瞬间飞出屏幕。修法：<code>BEDIT</code> 进块编辑器 → <code>BASE</code> → 点选基点 → 保存。经验值：符号类放<b>几何中心</b>（好对齐房间），箱体类放<b>左上角</b>（好贴墙）。</p>
+<p>收完用 <code>ZNK-PURGE</code> 清一遍，块库应该干净到：画面上什么都没有，<code>I</code> 插入时能看到全部符号。然后挂选项板：<code>Ctrl+3</code> 新建四个选项卡——<b>通用（图框图例）/ 有线 / 无线 / 自组网</b>；最快的填充方式是把 <code>智控块库.dwg</code> 从资源管理器直接拖进选项板空白处，CAD 会为库里所有块自动生成按钮，再把不要的拖走、按方案归组。每个按钮右键 → 特性可预设比例（图上按 1:1 画，比例就是 1）。<b>最后导出 <code>.xtp</code> 备份</b>——选项板存在用户配置里，重装 CAD 就没了，导入 xtp 才能整套恢复。</p>
+
+<h2 id="c30">30　图例表、设计说明与点表</h2>
+<p>这部分慢，是因为每次都在"重写文字"而不是"改参数"。</p>
+<ul>
+<li><b>图例表</b>：行数常变的用 <code>TABLE</code>（表头存成表格样式），基本固定的做成带属性的块整块插入。列固定为：图例 / 名称 / 功率 / 光束角 / 色温 / 控制协议 / 安装方式 / 供电。</li>
+<li><b>设计说明</b>：写成"条款 + 填空"结构（工程概况、设计依据、系统组成、控制策略、施工要求、调试与验收六章），整段存成多行文字块 <code>LG-NOTE-STD</code>，新项目双击改【】里的内容。</li>
+<li><b>点表</b>：给符号块加四个属性——<code>编号</code>、<code>型号</code>、<code>回路</code>、<code>楼层</code>（<code>BEDIT</code> → <code>ATTDEF</code>）。之后 <code>DATAEXTRACTION</code> 一次导出全图设备清单，按楼层按类型汇总——报量靠 CAD，不靠手数。</li>
+</ul>
+<p>配套 <code>智控工具库\模板\智控图例表-三方案模板.xlsx</code>：有线（DALI·CBUS）、无线（蓝牙 Mesh）、自组网（GS-Linker）三张图例表 + 六章设计说明模板，填上型号整表复制，<code>PASTESPEC</code> → "AutoCAD 图元"直接进图。</p>
+
+<h2 id="c31">31　新项目 SOP 与回路编号规范</h2>
+<p>工具库建好后，每张新图按七步走，不要凭感觉：</p>
+<ol>
+<li><code>QNEW</code> 用样板新建；</li>
+<li><code>XATTACH</code> 附着建筑底图（<b>不要</b>打开底图直接画，更不要 <code>INSERT</code> 当块插）；</li>
+<li>选中底图特性里"淡显"设 30，图层锁定；</li>
+<li>坐标不一致用 <code>ALIGN</code> 按轴网对齐；</li>
+<li>选项板点符号布点，灯具按密度规则先大面后局部；</li>
+<li>总线 <code>PLINE</code> 画在 <code>E-BUS</code> 层，编号文字放 <code>E-TXT</code> 层；</li>
+<li>插入图例块改型号 → <code>DATAEXTRACTION</code> 出点表 → 检查回路号无重复。</li>
+</ol>
+<table>
+<caption>表 33　回路编号：楼层-类型-序号</caption>
+<thead><tr><th style="width:16%">代号</th><th style="width:30%">含义</th><th>适用</th></tr></thead>
+<tbody>
+<tr><td class="k">DL</td><td>DALI 回路</td><td>有线 DALI 方案</td></tr>
+<tr><td class="k">CB</td><td>CBUS 总线回路</td><td>485 面板类</td></tr>
+<tr><td class="k">WL</td><td>无线回路</td><td>蓝牙 Mesh</td></tr>
+<tr><td class="k">ZN</td><td>自组网回路</td><td>GS-Linker</td></tr>
+</tbody>
+</table>
+<div class="note"><b>优先级提醒：</b>先做样板、块库、选项板三层（一周内能完成，立刻见效），属性块留到下一个项目边用边加——不要试图一次改造完所有块，改到一半没心情，就又回到翻旧图了。</div>
+
+<h2 id="cA1">附录 A　十条补充技巧</h2>
+<p>不在工序主线上，但真到用时能省事。前七条在第一篇各节里出现过，这里集中列一遍便于记。</p>
+<div class="grid2 keep">
+<ol class="pit">
+<li><b>OOPS 只反悔删除</b>：删杂线 → BO 建边界 → 填充 → OOPS 找回杂线，中间其它操作不受影响。</li>
+<li><b>偏移与缩放支持除法</b>：<code>100/3</code> 均分、<code>50/80.25</code> 缩到目标宽度。</li>
+<li><b>TR / EX 空回车</b>：不选边界直接回车，全部对象当边界；TR 内按 F 栏选。</li>
+<li><b>F 圆角半径 0</b>：两根不相接的线一步接齐，常常比 TR 快。</li>
+<li><b>RO / SC / CO 命令内选 C</b>：复制旋转、复制缩放，一步顶三步。</li>
+</ol>
+<ol class="pit" style="counter-reset:pit 5">
+<li><b>M2P 捕两点中点</b>：找中点不用画辅助线。</li>
+<li><b>PE → J 合并散线</b>：交图前把散线合成多段线，O 才能整体偏移。</li>
+<li><b>Ctrl+9 找回命令行，Ctrl+0 全屏看图</b>：界面乱了先按这两个。</li>
+<li><b>双击鼠标滚轮 = Z+E</b>：最高频的视图操作，比输入命令快。</li>
+<li><b>@ 相对坐标</b>：<code>@50,0</code> 向右 50，<code>@100&lt;45</code> 长 100 方向 45°，画准尺寸全靠它。</li>
+</ol>
+</div>
+
+<h2 id="cB1">附录 B　恢复默认设置</h2>
+<p>三种情况对应三种程度的恢复，由轻到重：</p>
+<ol>
+<li><b>只乱了个别设置</b>：<code>OP</code> → 配置 → 重置，恢复当前配置档的全部设置，图纸文件不受影响。</li>
+<li><b>界面 / 键位被动过</b>：开始菜单 → AutoCAD 2020 程序组 →「重置设置为默认值」官方工具，或 <code>WS</code> → 工作区重置、<code>CUILOAD</code> 卸载别人的自定义文件。</li>
+<li><b>彻底恢复出厂</b>（2026-11-17 实操过的流程）：
+  <ol>
+  <li>关闭 AutoCAD（任务管理器确认 acad.exe 结束）；</li>
+  <li>备份：注册表 <code>HKCU\Software\Autodesk\AutoCAD\R23.1</code> 整键导出 + <code>%APPDATA%\Autodesk\AutoCAD 2020\R23.1</code> 目录整份拷贝；</li>
+  <li>删除上述注册表键；把 Roaming 下的 <code>R23.1</code> 改名（如 <code>R23.1.old-日期</code>）；</li>
+  <li>重新打开 AutoCAD，首次启动自动重建全部默认配置。</li>
+  </ol></li>
+</ol>
+<div class="note"><b>本次备份位置：</b><code>D:\AIwork 伊尔莱德\workbuddy\CAD配置备份\2026-11-17</code>，内含注册表还原脚本（还原-AutoCAD注册表.ps1）与 Roaming 配置全量。要找回旧设置：关 CAD → 运行还原脚本 → 把 <code>R23.1.old-20261117</code> 改回 <code>R23.1</code>。acad.pgp 自定义别名也在备份里。</div>
+<p>恢复后通常要重调的只有十字光标大小、自动保存间隔几项，都在选项对话框。</p>
+
+<h2 id="cC1">附录 C　版本差异与平台说明</h2>
+<ul>
+<li>本文别名以 AutoCAD 默认 <code>acad.pgp</code> 为准，AutoCAD 2004–2024 各版本高度一致；2006 版起的"修剪框选""复制连续"等增强项已在文中标注。</li>
+<li>浩辰 CAD、中望 CAD 等国产平台默认兼容绝大多数别名，左手键方案同样可用（参数文件入口在各自"自定义"菜单下）。</li>
+<li>Mac 版 AutoCAD 快捷键体系差异较大（以 Ctrl/⌘ 为主的菜单快捷键），本表不适用。</li>
+</ul>
+
+<footer>
+  <div>《CAD 制图指南》V2.0 整合版 · 2026-11-17 · 伊尔莱德技术资料　｜　共五篇 31 节 + 3 个附录</div>
+  <div>配套《智能照明工程基础手册》第六篇（图层规范、图例与出图流程）使用。本篇只解决"手怎么快、命令在哪"，图层与图例的行业规范请回基础手册。</div>
+</footer>
+
+</div>
+</body>
+</html>
