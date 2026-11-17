@@ -1,0 +1,2479 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>欧普自组网技术专家手册</title>
+<style>
+  :root{--ink:#16202B;--muted:#54677A;--brand:#12557E;--deep:#0A3D5C;--acc:#0E6049;--line:#D9E2EA;--bg:#F3F5F8;--soft:#EFF5FA;--warn:#7E5210;--warnbg:#FAF5E9}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC",sans-serif;line-height:1.95;font-size:15.4px}
+  .page{max-width:1000px;margin:0 auto;background:#fff;padding:56px 70px 88px}
+  header{border-bottom:2.5px solid var(--deep);padding-bottom:20px}
+  h1{margin:0;font-size:29px;letter-spacing:.6px;font-weight:700}
+  .sub{color:var(--muted);font-size:14.4px;margin-top:10px;letter-spacing:.3px}
+  .meta{display:flex;flex-wrap:wrap;gap:22px;margin-top:16px;font-size:12.4px;color:var(--muted);border-top:1px solid #EAF0F5;padding-top:12px}
+  .meta i{font-style:normal;color:#93A4B4;margin-right:5px}
+  h2{font-size:21px;margin:58px 0 16px;padding:9px 0 9px 15px;border-left:4px solid var(--brand);background:linear-gradient(90deg,#F1F7FB,#fff);line-height:1.5;font-weight:700}
+  h3{font-size:16.6px;margin:32px 0 8px;color:var(--deep);font-weight:700}
+  h4{font-size:14.6px;margin:22px 0 4px;color:#20384C;font-weight:700}
+  p{margin:12px 0;text-align:justify}
+  ul,ol{margin:9px 0 15px;padding-left:24px}
+  li{margin:6px 0}
+  b{color:#0B2C42;font-weight:700}
+  .principle{background:var(--soft);border-left:3px solid var(--brand);padding:13px 17px;margin:20px 0;font-size:14.4px;border-radius:0 4px 4px 0}
+  .principle b{color:var(--deep)}
+  .note{background:var(--warnbg);border-left:3px solid #B8862B;padding:13px 17px;margin:20px 0;font-size:14.4px;border-radius:0 4px 4px 0}
+  .quote{border-left:2px solid #C4D2DE;padding:2px 0 2px 15px;color:var(--muted);font-size:13.8px;margin:16px 0}
+  code{background:#EEF3F7;border:1px solid #DCE6EE;border-radius:2px;padding:1px 5px;font-size:12.6px;font-family:Consolas,monospace}
+  pre.code{background:#FAFCFD;border:1px solid #D9E2EA;border-left:3px solid var(--brand);border-radius:0 4px 4px 0;padding:13px 16px;margin:14px 0;font-family:Consolas,"Courier New",monospace;font-size:12.6px;line-height:1.8;white-space:pre;overflow-x:auto;color:#123A55}
+  .filetag{display:inline-block;font-family:Consolas,monospace;font-size:12px;background:#0A3D5C;color:#fff;padding:2px 9px;border-radius:4px 4px 0 0;margin:16px 0 -14px;position:relative;top:2px}
+  .toc{background:#FAFCFD;border:1px solid var(--line);border-radius:6px;padding:16px 22px;margin:24px 0 8px;font-size:13.2px}
+  .toc .cols{display:grid;grid-template-columns:1fr 1fr 1fr;column-gap:26px}
+  .toc .cols>div{min-width:0}
+  .toc a{color:var(--ink);text-decoration:none;display:block;padding:1.6px 0;border-bottom:1px dotted #E7EDF2}
+  .toc a:hover{color:var(--brand)}
+  .toc .part{font-weight:700;color:var(--deep);margin-top:8px;border:none;font-size:13.4px}
+  table{width:100%;border-collapse:collapse;margin:20px 0;font-size:13.6px}
+  caption{caption-side:top;text-align:left;color:var(--muted);font-size:12.6px;padding-bottom:6px}
+  table.audit th:last-child,table.audit td:last-child{width:56px;text-align:center;white-space:nowrap}
+  table.audit thead th:nth-child(1){width:22%}
+  table.audit thead th:nth-child(4){width:56px}
+  th,td{border:1px solid #DCE5EC;padding:8px 10px;text-align:left;vertical-align:top}
+  thead th{background:#F0F6FA;color:var(--deep);font-weight:700}
+  tbody th{background:#FAFCFD;font-weight:600;width:18%}
+  .fig{background:#FCFDFE;border:1px solid #E1E8EF;border-radius:6px;padding:14px 16px 6px;margin:24px 0}
+  .fig svg{width:100%;height:auto;display:block}
+  .fig .cap{font-size:12.6px;color:var(--muted);text-align:center;margin:8px 0 4px}
+  .tag{display:inline-block;font-size:11.5px;padding:1px 7px;border-radius:3px;vertical-align:2px;margin-left:6px}
+  .tag-b{background:#E9F2F9;color:#12557E;border:1px solid #C9DFEF}
+  .tag-f{background:#EBF5F1;color:#0E6049;border:1px solid #C9E4D8}
+  .steps{counter-reset:st;list-style:none;padding-left:0}
+  .steps>li{counter-increment:st;position:relative;padding-left:34px;margin:12px 0}
+  .steps>li:before{content:counter(st);position:absolute;left:0;top:2px;width:22px;height:22px;border-radius:3px;background:var(--brand);color:#fff;font-size:12px;text-align:center;line-height:22px;font-weight:700}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:18px 0}
+  .card{border:1px solid var(--line);border-radius:6px;padding:14px 16px;background:#FBFCFD;font-size:14.2px}
+  .card h5{margin:0 0 6px;font-size:14.2px;color:var(--deep)}
+  footer{margin-top:60px;border-top:1px solid var(--line);padding-top:16px;color:var(--muted);font-size:12.2px;line-height:1.85}
+  svg text{font-family:"Microsoft YaHei","PingFang SC",sans-serif}
+  .bx{fill:#fff;stroke:#37596F;stroke-width:1.4}
+  .bx2{fill:#EBF3F9;stroke:#12557E;stroke-width:1.5}
+  .bx3{fill:#F6F1E6;stroke:#B08A2E;stroke-width:1.4}
+  .bx4{fill:#EDF6F2;stroke:#0E6049;stroke-width:1.4}
+  .bxr{fill:#FCF0EE;stroke:#A63A2C;stroke-width:1.4}
+  .tb{font-size:13.6px;font-weight:700;fill:#0F2637}
+  .t{font-size:12.4px;fill:#16202B}
+  .s{font-size:11px;fill:#54677A}
+  .ttl{font-size:12.4px;font-weight:700;fill:#0A3D5C}
+  .ln{stroke:#37596F;stroke-width:1.4;fill:none}
+  .lb{stroke:#12557E;stroke-width:1.6;fill:none}
+  .ld{stroke:#8FA3B4;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+  .lg{stroke:#0E6049;stroke-width:1.4;fill:none}
+  .lr{stroke:#A63A2C;stroke-width:1.5;fill:none}
+  @media print{
+    pre.code{overflow:visible;page-break-inside:avoid}
+    body{background:#fff;font-size:10.4pt}
+    .page{max-width:none;padding:0 0 8mm}
+    h2{page-break-after:avoid;background:none}
+    h3,h4{page-break-after:avoid}
+    .principle,.note,.fig,table{page-break-inside:avoid}
+    @page{size:A4;margin:15mm 14mm}
+  }
+  @media (max-width:820px){
+    .page{padding:26px 18px 50px}
+    h1{font-size:22px}
+    .toc .cols{grid-template-columns:1fr}
+    .grid2{grid-template-columns:1fr}
+    body{font-size:15px}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+<header>
+  <h1>欧普自组网技术专家手册</h1>
+  <div class="sub">一套灯内组网系统，从身份编码、射频组网、光感参数，到手机 App、自有平台与睿壹对接的完整认知</div>
+  <div class="meta">
+    <span><i>适用</i>欧普照明 自组网（格兰斯贝 GS-Link 体系）</span>
+    <span><i>依据</i>GS200 APP 手册 V2.9 / 云平台手册 V2.1 / 现场实测</span>
+    <span><i>版本</i>V1.1　2026-11-05</span>
+  </div>
+</header>
+
+<p>这份手册要解决的不是“会不会点按钮”，而是“遇到没见过的现象，能不能推到原因”。所以它按认知顺序编排：先讲清楚系统里有哪些身份、哪些层，再讲射频与光感的物理约束，然后才是场景、面板、App、平台。操作部分放在第五篇，但每一条操作后面都跟着“为什么是这个顺序”。</p>
+
+<p>全篇只回答三类问题：这个参数改的是哪一层？它背后的依据是什么？改错了，现象会从哪一层冒出来？凡是厂家手册有明确写法的，标 <span class="tag tag-b">手册</span>；凡是手册没写、只能从系统行为反推或来自现场经验的，标 <span class="tag tag-f">现场</span>。两者不混着写，避免把经验当成规格。</p>
+
+<div class="principle">
+<b>一句话先立住：</b>这套系统的“大脑”不在网关，也不在平台，而在每盏灯自己身上——它有自己的网络编码、自己的地址、自己的场景表。网关只是对外的一扇门，平台只是看数据和下策略的窗口。理解这一点，后面所有“网关坏了是不是全瞎了”“断网了灯还听不听话”的问题都不用再问。
+</div>
+
+<div class="toc">
+  <div class="cols">
+  <div>
+  <div class="part">第一篇　系统全景与身份模型</div>
+  <a href="#c11">1.1　三条链路：本地、调试、平台</a>
+  <a href="#c12">1.2　一盏灯的四重身份</a>
+  <a href="#c13">1.3　地址编码：可以改，但必须唯一</a>
+  <a href="#c14">1.4　网络编码：改不了，也看不见</a>
+  <a href="#c15">1.5　区、组、地址为什么分三层</a>
+  <a href="#c16">1.6　场景号是频道，内容是节目</a>
+  <a href="#c17">1.7　“选中态”到底是什么</a>
+  <div class="part">第二篇　无线组网：2.4G、Mesh、信道与容量</div>
+  <a href="#c21">2.1　为什么是 2.4G，代价是什么</a>
+  <a href="#c22">2.2　Mesh 的广播、去重与自愈</a>
+  <a href="#c23">2.3　五个信道轮询：抗干扰的代价</a>
+  <a href="#c24">2.4　“20 米”是链路预算，不是覆盖半径</a>
+  <a href="#c25">2.5　一台网关为什么能带几百盏</a>
+  <a href="#c26">2.6　转发开关改变的是拓扑角色</a>
+  <a href="#c27">2.7　心跳、重发与“假在线”</a>
+  <a href="#c28">2.8　加密狗：射频与钥匙</a>
+  <div class="part">第三篇　光与感知：参数背后的物理量</div>
+  <a href="#c31">3.1　人感的三条技术路线</a>
+  <a href="#c32">3.2　灵敏度与发射功率，调的是两端</a>
+  <a href="#c33">3.3　照度、恒照度与闭环</a>
+  <a href="#c34">3.4　自控与被控：闭环在哪闭合</a>
+  <a href="#c35">3.5　一段/二段延时是一个状态机</a>
+  <a href="#c36">3.6　亮度百分比与人眼非线性</a>
+  <a href="#c37">3.7　色温与双色温混光</a>
+  <a href="#c38">3.8　调光曲线：线性与平方根</a>
+  <a href="#c39">3.9　PWM 频率与频闪</a>
+    </div>
+  <div>
+<div class="part">第四篇　场景、面板与传感器</div>
+  <a href="#c41">4.1　场景表为什么存在灯里</a>
+  <a href="#c42">4.2　“场景有效”是一位掩码</a>
+  <a href="#c43">4.3　按键只发一个编号</a>
+  <a href="#c44">4.4　设备关联的本质是绑定表</a>
+  <a href="#c45">4.5　键值 7～12 与固件门槛</a>
+  <a href="#c46">4.6　按键、场景、灯具的三层绑定</a>
+  <a href="#c47">4.7　传感器不是按键，是自动化</a>
+  <a href="#c48">4.8　按键没反应的六步排查</a>
+  <a href="#c49">4.9　找面板与写情景：默认区组重置法</a>
+  <a href="#c4A">4.10　停车场迎灯跑马：触发脚本的三层结构</a>
+  <div class="part">第五篇　手机 App：全功能操作</div>
+  <a href="#c51">5.1　连接与自检</a>
+  <a href="#c52">5.2　重置、搜灯与定位</a>
+  <a href="#c53">5.3　指哪配哪：12 个控件</a>
+  <a href="#c54">5.4　主界面八个按键</a>
+  <a href="#c55">5.5　情景模式与四种入口</a>
+  <a href="#c56">5.6　快捷配置：批量下发七步</a>
+  <a href="#c57">5.7　面板、传感器、恒照度与其它设备</a>
+  <a href="#c58">5.8　参数字典与默认原则</a>
+  <a href="#c59">5.9　运维工具十项</a>
+  <a href="#c5A">5.10　停车库与三种运行模式</a>
+  <a href="#c5B">5.11　交付前的自检清单</a>
+    </div>
+  <div>
+<div class="part">第六篇　自组网自有平台</div>
+  <a href="#c61">6.1　平台是什么，账号从哪来</a>
+  <a href="#c62">6.2　数据模型：项目—节点—网关—灯</a>
+  <a href="#c63">6.3　把项目接进云平台的十个动作</a>
+  <a href="#c64">6.4　日常控制与地图模式</a>
+  <a href="#c65">6.5　能耗看板的数据是怎么算的</a>
+  <a href="#c66">6.6　本地部署的两条路</a>
+  <div class="part">第七篇　对接睿壹：区组级的那条路</div>
+  <a href="#c71">7.1　三条路径与两种部署形态</a>
+  <a href="#c72">7.2　云上网关是什么</a>
+  <a href="#c73">7.3　两种入网：无线与有线</a>
+  <a href="#c74">7.4　在睿壹里把网关加进来</a>
+  <a href="#c7J">7.5　两份 JSON 与命名规则</a>
+  <a href="#c75">7.6　区组前置与“停止搜灯”</a>
+  <a href="#c76">7.7　能力边界与上线检查</a>
+  <div class="part">第八篇　故障因果链</div>
+  <a href="#c81">8.1　三层归因：没到 / 到了没执行 / 执行不对</a>
+  <a href="#c82">8.2　时好时坏的四个余量</a>
+  <a href="#c83">8.3　上云异常分三段看</a>
+  <a href="#c84">8.4　高频问题对照</a>
+  <a href="#c85">8.5　到点不灭：按“是谁让它亮的”倒查</a>
+  <div class="part">第九篇　分场景配置</div>
+  <a href="#c91">9.1　办公</a>
+  <a href="#c92">9.2　车库</a>
+  <a href="#c93">9.3　厂房与高棚</a>
+  <a href="#c94">9.4　改造项目</a>
+  <div class="part">附录</div>
+  <a href="#cA1">A　术语表</a>
+  <a href="#cA2">B　五个最常见的误解</a>
+  <a href="#cA3">C　依据与免责</a>
+  <a href="#cA4">D　参数核对表（准确定级）</a>  </div>
+  </div>
+</div>
+
+<h2>第一篇　系统全景与身份模型</h2>
+
+<h3 id="c11">1.1　三条链路：本地、调试、平台</h3>
+<p>很多人一上来就记“先插狗、再搜灯、再配场景”，结果现场一变就乱。真正该先建立的是全景：这套系统里同时跑着三条互不依赖的链路，每条链路断掉，后果完全不同。</p>
+
+<p><b>第一条是本地控制链路</b>：人按面板 → 面板发出场景号 → 灯收到后执行自己存的场景内容。这条链路完全在 2.4G 网内闭合，不经过网关、不经过平台、不经过手机。所以断网、断云、网关掉线，面板照样能用，感应照样工作。这是整套系统最硬的一条底线，也是它敢进工厂、进车库的原因。</p>
+
+<p><b>第二条是调试链路</b>：安卓手机 + Type-C 加密狗 → 2.4G 网内 → 灯。它只在调试和维护时存在，用的是私有协议，所以必须有那把“钥匙”。这条链路决定你能不能把灯找出来、编号、配场景。</p>
+
+<p><b>第三条是平台链路</b>：灯 → 云上网关 → 交换机或 4G → 平台。它决定业主能不能远程看、能不能出报表。这条链路断了，前两条都不受影响，但业主会认为“系统坏了”，因为他在平台上什么都看不到。</p>
+
+<p>把三条分开看，排障就有了第一刀：是“现场按键不灵”，还是“手机搜不到”，还是“平台看不到”。这三个现象指向三条完全不同的链路，混在一起查是最费时间的做法。</p>
+
+<div class="fig">
+<svg viewBox="0 0 1000 470" role="img" aria-label="自组网系统三条链路全景">
+  <text x="0" y="18" class="s">现场层</text>
+  <line x1="0" y1="26" x2="1000" y2="26" stroke="#D9E2EA"/>
+
+  <rect class="bx" x="30" y="52" width="150" height="106" rx="6"/>
+  <text x="105" y="80" class="tb" text-anchor="middle">安卓手机</text>
+  <text x="105" y="101" class="t" text-anchor="middle">灯控助手 App</text>
+  <rect class="bx4" x="60" y="112" width="90" height="30" rx="4"/>
+  <text x="105" y="132" class="t" text-anchor="middle">加密狗</text>
+
+  <line class="lb" x1="180" y1="105" x2="236" y2="105" marker-end="url(#a1)"/>
+  <text x="208" y="94" class="s" text-anchor="middle">2.4G</text>
+
+  <rect class="bx2" x="240" y="38" width="330" height="160" rx="8" stroke-dasharray="6 5"/>
+  <text x="256" y="60" class="tb">自组网灯群（Mesh）</text>
+  <g>
+    <circle cx="300" cy="102" r="15" fill="#fff" stroke="#12557E" stroke-width="1.6"/>
+    <circle cx="372" cy="82" r="15" fill="#fff" stroke="#12557E" stroke-width="1.6"/>
+    <circle cx="372" cy="140" r="15" fill="#fff" stroke="#12557E" stroke-width="1.6"/>
+    <circle cx="446" cy="102" r="15" fill="#fff" stroke="#12557E" stroke-width="1.6"/>
+    <circle cx="516" cy="74" r="15" fill="#fff" stroke="#12557E" stroke-width="1.6"/>
+    <circle cx="516" cy="132" r="15" fill="#fff" stroke="#12557E" stroke-width="1.6"/>
+    <line class="ld" x1="315" y1="100" x2="357" y2="86"/>
+    <line class="ld" x1="315" y1="106" x2="357" y2="136"/>
+    <line class="ld" x1="387" y1="86" x2="431" y2="98"/>
+    <line class="ld" x1="387" y1="136" x2="431" y2="108"/>
+    <line class="ld" x1="461" y1="98" x2="501" y2="78"/>
+    <line class="ld" x1="461" y1="106" x2="501" y2="128"/>
+  </g>
+  <text x="404" y="182" class="s" text-anchor="middle">节点互为中继，本地控制不经过网关</text>
+
+  <line class="lb" x1="570" y1="105" x2="616" y2="105" marker-end="url(#a1)"/>
+  <text x="593" y="94" class="s" text-anchor="middle">2.4G</text>
+
+  <rect class="bx2" x="620" y="48" width="180" height="120" rx="6"/>
+  <text x="710" y="76" class="tb" text-anchor="middle">云上网关</text>
+  <text x="710" y="98" class="s" text-anchor="middle">下行 2.4G</text>
+  <text x="710" y="118" class="s" text-anchor="middle">上行 以太网 / 4G</text>
+  <text x="710" y="146" class="t" text-anchor="middle">调试口需插加密狗</text>
+
+  <line class="ln" x1="800" y1="90" x2="836" y2="74" marker-end="url(#a2)"/>
+  <line class="ln" x1="800" y1="122" x2="836" y2="140" marker-end="url(#a2)"/>
+  <rect class="bx" x="840" y="40" width="150" height="64" rx="6"/>
+  <text x="915" y="66" class="tb" text-anchor="middle">睿壹</text>
+  <text x="915" y="86" class="s" text-anchor="middle">区组级：开关＋能耗</text>
+  <rect class="bx" x="840" y="116" width="150" height="64" rx="6"/>
+  <text x="915" y="142" class="tb" text-anchor="middle">格兰斯贝云平台</text>
+  <text x="915" y="162" class="s" text-anchor="middle">单灯级：调光＋看板</text>
+
+  <line class="ld" x1="710" y1="168" x2="710" y2="262" marker-end="url(#a2)"/>
+  <text x="722" y="218" class="s">局域网（本地部署）</text>
+  <rect class="bx" x="520" y="266" width="260" height="76" rx="6"/>
+  <text x="650" y="292" class="tb" text-anchor="middle">本地部署（两种）</text>
+  <text x="650" y="313" class="s" text-anchor="middle">PC 客户端，或睿壹边缘服务器</text>
+
+  <text x="0" y="330" class="s">本地闭环（不经网关）</text>
+  <rect class="bx4" x="30" y="342" width="420" height="86" rx="6"/>
+  <text x="48" y="368" class="tb">面板 / 传感器 → 灯</text>
+  <text x="48" y="390" class="t">人在场：按键发场景号，灯执行自己存的内容</text>
+  <text x="48" y="412" class="t">人不在场：传感器按延时与亮度规则自动动作</text>
+  <text x="470" y="368" class="s">断网、断云、网关掉线，</text>
+  <text x="470" y="390" class="s">这一条仍然工作。</text>
+  <text x="470" y="412" class="s">这三条链路互不替代。</text>
+
+  <defs>
+    <marker id="a1" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#12557E"/></marker>
+    <marker id="a2" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#37596F"/></marker>
+  </defs>
+</svg>
+<div class="cap">图 1　三条链路：本地闭环、手机调试、平台上行</div>
+</div>
+
+<h3 id="c12">1.2　一盏灯的四重身份</h3>
+<p>在 App 里，一盏灯显示成“0 区 0 组、地址 1043”这样一行字。但在系统内部，它同时挂着四种身份。这四种身份各有各的规则、各有各的修改权限，混为一谈就会犯两类典型错误：把不该改的改了，或者以为改不了其实能改。</p>
+
+<p><b>网络编码</b>是出厂固化的唯一标识，相当于身份证号。它<b>不可修改</b>，在 App 界面上<b>看不到</b>。它决定了系统凭什么把同一盏灯认成同一盏——搜十次还是它，换网关还是它，重启还是它。换灯时能把旧灯的参数搬到新灯上，靠的也是这两个编码的对应关系。</p>
+
+<p><b>地址编码</b>是灯在自己组内的门牌号，<b>可以改</b>，App 里能看到，出厂带一个默认值。现场绝大多数情况不动它，因为默认值通常已经是唯一的；但它<b>必须唯一</b>，一旦两盏灯同号，控制就会串。</p>
+
+<p><b>区与组</b>是人为规划的管理边界与联动边界，可以改，也是调试时改得最多的两项。区管“哪一片”，组管“谁跟谁一起动”。</p>
+
+<p><b>场景表</b>是它的应用身份：场景 1 到 6 各是什么亮度、什么色温、什么感应方式。这份内容存在灯自己的存储里，不在云端也不在手机里。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 400" role="img" aria-label="一盏灯的四重身份">
+  <rect class="bx2" x="360" y="150" width="240" height="100" rx="8"/>
+  <text x="480" y="186" class="tb" text-anchor="middle">一盏自组网灯具</text>
+  <text x="480" y="210" class="s" text-anchor="middle">内部同时持有四种身份</text>
+  <text x="480" y="232" class="s" text-anchor="middle">彼此独立，不能互相替代</text>
+
+  <line class="ld" x1="360" y1="170" x2="252" y2="96"/>
+  <line class="ld" x1="360" y1="230" x2="252" y2="304"/>
+  <line class="ld" x1="600" y1="170" x2="708" y2="96"/>
+  <line class="ld" x1="600" y1="230" x2="708" y2="304"/>
+
+  <rect class="bx3" x="40" y="46" width="212" height="92" rx="6"/>
+  <text x="56" y="70" class="tb">网络编码</text>
+  <text x="56" y="92" class="t">出厂固化 · 不可改</text>
+  <text x="56" y="112" class="t">App 内不可见</text>
+  <text x="56" y="131" class="s">决定“它是哪一盏”</text>
+
+  <rect class="bx4" x="40" y="262" width="212" height="92" rx="6"/>
+  <text x="56" y="286" class="tb">地址编码</text>
+  <text x="56" y="308" class="t">可改 · 有默认值</text>
+  <text x="56" y="328" class="t">组内定位，必须唯一</text>
+  <text x="56" y="347" class="s">决定“组里第几盏”</text>
+
+  <rect class="bx" x="708" y="46" width="212" height="92" rx="6"/>
+  <text x="724" y="70" class="tb">区 / 组</text>
+  <text x="724" y="92" class="t">可改 · 按图纸规划</text>
+  <text x="724" y="112" class="t">区＝管理边界</text>
+  <text x="724" y="131" class="s">组＝联动边界</text>
+
+  <rect class="bx" x="708" y="262" width="212" height="92" rx="6"/>
+  <text x="724" y="286" class="tb">场景表</text>
+  <text x="724" y="308" class="t">可改 · 存在灯里</text>
+  <text x="724" y="328" class="t">场景 1～6（可扩 7～12）</text>
+  <text x="724" y="347" class="s">决定“收到号后怎么亮”</text>
+</svg>
+<div class="cap">图 2　一盏灯的四重身份与修改权限</div>
+</div>
+
+<h3 id="c13">1.3　地址编码：可以改，但必须唯一</h3>
+<p>这一节是现场最容易漏掉的一条，也是我最初写手册时漏掉的：<b>地址编码在 App 里是可以改的</b>。它出厂带一个默认值，多数项目直接沿用，所以很多人以为它跟网络编码一样是死的。不是。它能改，但改的代价比改区组大得多。</p>
+
+<p>先说它为什么存在。一个组里可能有几十盏灯，平台要能指出“第 37 号那盏”，就得有个组内编号。区解决“哪一片”，组解决“哪一排”，地址解决“这一排的第几个”。三层缺一层，落到单灯就没有句柄。所以地址不是装饰，它是单灯操作唯一的入口。</p>
+
+<p>再说为什么“一般不动”。出厂默认值通常是按模块序列生成、在整批里不重复的，直接沿用就等于被动拿到了唯一性。而一旦人去改，就有了撞号的可能。撞号的后果不是“两盏灯都不亮”，恰恰相反——<b>两盏灯都会亮，而且一起亮、一起灭、一起调光</b>。因为系统按地址发命令，两盏同号的灯都认为这条命令是给它的。这类故障在现场极难自查，因为你看到的是“两盏灯行为完全同步”，很容易误判成“分组分错了”或者“这盏灯被关联到两组了”。</p>
+
+<div class="principle">
+<b>判断口诀：</b>如果两盏灯在<b>所有</b>操作下都完全同步——不管你怎么单独调、怎么单独开关，它俩永远一起动——那不是分组问题，是地址重复。分组错了只会在某个场景下同步，地址重了是“任何时候都同步”。
+</div>
+
+<p>什么情况下会真的去改地址？三种：一是换灯之后新灯的默认地址与旧灯记录冲突，需要对齐；二是批量编号时起始号预留不当，与已有号段重叠；三是甲方要求“灯号必须与图纸点位号一致”，需要按图赋号。三种都合理，但都要求同一件事：<b>改之前先有一张全量地址表</b>，改完逐个核对，不要凭印象。</p>
+
+<p>批量编号是撞号的高发环节。指哪配哪的“起始号”如果不填，系统会按当前列表顺序自动排；如果填了，就从那个号开始往后排。两种做法都可能覆盖已有号段——尤其是分区施工、分批交付的项目，第二批的起始号如果从 1 开始，就会和第一批撞。所以现场纪律是：<b>起始号要接着上一批的末尾往下排，而不是每批都从 1 开始。</b></p>
+
+<p>还有一条容易被忽略：<b>地址重复不会报错</b>。系统不会弹窗告诉你“这个号已存在”，它会安静地写进去，然后你在一周后发现两盏灯同步。所以核对只能靠人：改完用列表导出或逐盏读取，确认没有重号。这也是为什么“字典导出”这件事在现场这么重要——它不只是备份，它是唯一一份可以离线核对的地址台账。</p>
+
+<h3 id="c14">1.4　网络编码：改不了，也看不见</h3>
+<p>与地址编码相反，网络编码是<b>不可修改</b>的，而且在 App 里<b>看不到</b>。它不是“隐藏功能”，而是根本不在用户界面上暴露——因为它属于生产与售后体系，不属于调试体系。</p>
+
+<p>它承担三件事。第一，<b>去重</b>。搜灯时同一盏灯可能被多个路径重复上报（Mesh 里多路径到达是常态），系统靠网络编码判断“这几条报文说的是同一盏灯”，否则列表里会出现一堆重复项。第二，<b>身份延续</b>。今天搜到它、明天再搜到它，系统知道这是同一盏，不会当成新设备重新分配。第三，<b>售后追溯</b>。模块的生产批次、出厂信息与这个编码绑定，返修、换货、批次质量分析都靠它。</p>
+
+<p>因为它不可见也不可改，现场能做的只有两件事：<b>记录安装位置与灯具标签的对应关系</b>，以及<b>换灯时用“一键换灯”而不是直接换</b>。直接换上一盏新灯，新灯的网络编码是新的、地址是默认的、场景表是空的，等于这盏灯“失忆”了；走一键换灯，系统把旧灯的逻辑身份和场景内容搬到新灯上，外观上你换了一盏灯，系统里它还是“原来那盏”。</p>
+
+<div class="note">
+<b>不要把两个编码搞反：</b>网络编码是“你是谁”，改不了、看不见；地址编码是“你住几号”，能改、要唯一。现场所有台账记的是区、组、地址与安装位置，永远不要试图去记网络编码——你也看不到。
+</div>
+
+<h3 id="c15">1.5　区、组、地址为什么分三层</h3>
+<p>如果只是“给灯编个号”，一层就够了，为什么非要三层？因为无线是共享介质，一条命令发出去，网内所有灯都听得到。层数不是为了管理好看，而是为了<b>控制命令的扇出范围</b>。</p>
+
+<p>设想一个两千盏灯的车库。如果只有单灯地址，那么“全开”就意味着发两千条单播命令；空口被占满，响应会出现肉眼可见的延迟，末尾的灯要等好几秒才亮。而有了“区”和“组”，一条组播命令就能让一片灯同时动作，空口上只跑一帧。层的本质是<b>广播域的划分</b>，它把 N 条命令压缩成 1 条。</p>
+
+<p>三层还对应三种完全不同的语义。<b>区</b>是管理边界：平台按区统计能耗、按区授权、按区展示。它对应物理空间，通常跟防火分区、楼层、房间对齐。<b>组</b>是联动边界：同一个组里的灯，在感应联动、场景切换时会被一起考虑。它对应“使用逻辑”，比如“靠窗一排”“靠墙一排”。<b>地址</b>是定位边界：它是单灯唯一的句柄，只用于精确定位，不承担任何联动含义。</p>
+
+<p>这也解释了为什么“组”不能随便设。组设大了，一盏灯触发会带动一片，看起来像误报；组设小了，联动又不到位，人走到两排灯中间会有一段黑。组的划分依据是“人的行走路径与视线连续性”，不是“灯的安装密度”。</p>
+
+<h4>分区编组四条现场纪律</h4>
+<p><b>先规划后施工。</b>按楼层、区域、房间出一份《区组编号表》，现场照表编，不要到了现场再想。表里至少写清“区号-组号-位置-灯具编号”，验收时按表抽查。</p>
+
+<p><b>区号代表物理空间，组号代表控制逻辑。</b>区是“哪一片地方”，组是“哪些灯一起动作”，两者组合唯一、都不能重号。把这两个含义混着用，后面配场景时一定会乱：同一个区里出现两组同号，或者同一组跨了两个区。</p>
+
+<p><b>每个区预留 10%～20% 空号。</b>后期加灯、改布局是常态，不预留就得整片重编，而重编意味着所有场景、面板绑定、平台点位表全要跟着改。</p>
+
+<p><b>不同批次的灯，默认区组往往相同，一上电就串区。</b>所以进场第一件事是<b>统一复位、再统一编址</b>，不要拿来就用。这一条在多批次到货的项目里几乎必踩，现象是“新装的一排灯跟着老区的面板一起亮”。</p>
+<div class="fig">
+<svg viewBox="0 0 900 330" role="img" aria-label="区组地址三层身份与命令扇出">
+  <rect class="bx2" x="26" y="46" width="336" height="222" rx="7"/>
+  <text x="42" y="70" class="tb" font-size="14">区 603</text>
+  <text x="348" y="70" class="s" text-anchor="end" font-size="11.5">管理边界：能耗、授权、展示</text>
+
+  <rect class="bx3" x="54" y="82" width="280" height="156" rx="6"/>
+  <text x="70" y="104" class="tb" font-size="13.5">组 1</text>
+  <text x="320" y="104" class="s" text-anchor="end" font-size="11.5">联动边界：感应、场景</text>
+
+  <rect class="bx4" x="82" y="116" width="224" height="100" rx="5"/>
+  <text x="98" y="140" class="tb" font-size="13.5">地址 1…N</text>
+  <text x="292" y="140" class="s" text-anchor="end" font-size="11.5">定位边界</text>
+  <text x="98" y="166" class="s" font-size="11.5">只回答“是哪一盏”，</text>
+  <text x="98" y="186" class="s" font-size="11.5">不承担联动含义</text>
+  <text x="98" y="206" class="s" font-size="11.5" fill="#0E6049">组按行走路径划，不按灯距划</text>
+
+  <rect class="bxr" x="392" y="46" width="482" height="94" rx="6"/>
+  <text x="410" y="70" class="tb" font-size="13.5" fill="#A63A2C">只有单灯地址时</text>
+  <text x="410" y="94" class="t" font-size="12.5">“全开” ＝ 发 2000 条单播</text>
+  <text x="410" y="118" class="s" font-size="11.5">空口被占满，末尾的灯要等好几秒才亮</text>
+
+  <rect class="bx4" x="392" y="164" width="482" height="94" rx="6"/>
+  <text x="410" y="188" class="tb" font-size="13.5" fill="#0E6049">有区 + 组时</text>
+  <text x="410" y="212" class="t" font-size="12.5">“全开” ＝ 发 1 条组播</text>
+  <text x="410" y="236" class="s" font-size="11.5">空口上只跑一帧，一片灯同时动作</text>
+
+  <text x="450" y="302" class="s" text-anchor="middle" font-size="12.5" fill="#0A3D5C">层的本质是划分广播域：把 N 条命令压成 1 条，不是为了“管理好看”</text>
+</svg>
+<div class="cap">图 3　区、组、地址是三种语义：管理边界、联动边界、定位边界</div>
+</div>
+
+
+
+<h3 id="c16">1.6　场景号是频道，内容是节目</h3>
+<p>面板按一下，到底发生了什么？很多人以为是“面板告诉灯要变成 80% 亮度、4000K”，其实不是。面板发出的只是一个很短的命令：<b>调用场景 3</b>。至于场景 3 是什么，由收到命令的灯自己决定。</p>
+
+<p>这个设计叫“控制与内容解耦”，它带来两个直接好处。第一，<b>改场景不用碰面板</b>：业主想把场景 1 从全亮改成 50%，你在 App 里改灯的场景 1 就行，面板一根线都不用动。第二，<b>同一个键可以分区不同效果</b>：大厅面板的场景 1 是“全亮”，走廊面板的场景 1 是“感应”，因为绑的灯不同、灯里存的场景 1 不同，但按键发的号是一样的。</p>
+
+<p>代价也很直接：<b>灯没配好，按键就是空的</b>。这就是“面板按了没反应”在现场如此常见的原因——不是面板坏，是它发的号在灯那里没有对应内容，或者被“场景无效”挡住了。理解“发号”与“执行”是两件事，排查顺序自然就有了：先确认号发出去了（面板关联、按键正常），再确认灯收到了（同区、在网），最后确认灯有内容可执行（场景已保存、未设无效）。</p>
+
+<p>还可以用一个更形象的比喻：场景号是<b>频道</b>，场景内容是<b>各台电视自己录的节目</b>。调到 3 频道，每家电视放的都是自己那份录像。所以“同一个场景号在不同区组效果不同”不是 bug，是设计。</p>
+
+<h3 id="c17">1.7　“选中态”到底是什么</h3>
+<p>指哪配哪退出之后，列表里还留着几盏灯，它们保持浅绿、呼吸。这时候你去快捷配置改参数，会发现“只有那几盏变了”。很多人以为是 App 的 bug，其实是“选中态”还在。</p>
+
+<p>选中态不是 App 里的一个勾选框，它是<b>灯自身的一个状态位</b>。被选中的灯会进入一种“等待配置”的状态，App 后续下发的参数默认只发给处于这个状态的灯。这意味着两件事：一是它与 App 是否关闭无关，退出界面甚至断开重连都还在；二是它<b>只能由“全部取消”清除</b>，不能靠退出或杀进程清掉。</p>
+
+<p>为什么这样设计？因为现场常用“圈一片、调一片”的方式工作：先用指哪配哪把一片灯圈进来，再逐项下发。如果选中态跟着界面走，一切换页面就丢了，就得反复圈。设计成灯侧状态位，才能支撑“多次、分步下发”。</p>
+
+<p>代价是新人极容易踩坑：上一次调试留下的选中态，会让这一次的整组下发只作用于几盏灯，而现象是“我明明选了整组，怎么只有两盏变了”。所以现场纪律是：<b>每次进快捷配置之前，先去指哪配哪点一次“全部取消”</b>。这一条比记任何参数都重要。</p>
+
+<h2>第二篇　无线组网：2.4G、Mesh、信道与容量</h2>
+
+<h3 id="c21">2.1　为什么是 2.4G，代价是什么</h3>
+<p>2.4GHz 是一个不需要牌照的 ISM 频段，芯片便宜、天线小、全球通用，这是它被选中的现实原因。但物理规律不讲情面，选它就要接受三个代价。</p>
+
+<p>第一个代价是<b>绕射能力弱</b>。2.4G 的波长约 12.5 厘米，遇到尺寸远大于波长的物体（墙角、柱子、金属货架）基本走直线，绕不过去，只能靠反射。反射带来多径：同一个信号从几条路径到达接收端，相位不同，叠加后可能增强也可能抵消。抵消的位置就是“死点”，站在那儿信号突然变差。</p>
+
+<p>第二个代价是<b>人体吸收</b>。人体含水，2.4G 在人体上的吸收很明显。这不是理论推演，是现场能直接观察到的现象：同一个位置，人少的时候信号好好的，中午人多就开始迟钝。所以布点时“人流量”是一个必须考虑的变量，而不是只算距离。</p>
+
+<p>第三个代价是<b>频段拥挤</b>。2.4G 上跑着 Wi-Fi、无线键鼠、蓝牙、无线摄像头、微波炉、对讲机。这些设备不会跟你的灯商量，它们只管发。工厂里尤其明显：AP 一多，空口就忙，重传率上去，灯的反应就慢。这也是为什么同样的配置，在写字楼里好好的，搬到车间就“时好时坏”——不是设备变了，是电磁环境变了。</p>
+
+<div class="principle">
+<b>布点的本质是“给信号找一条能走的路”，不是“把网关放在几何中心”。</b>几何中心是二维图纸上的概念，射频是三维的：吊顶里的风管、桥架、金属龙骨都会改变路径。所以现场判断永远是“站在灯下看能不能看见网关”，而不是“量图纸上多少米”。
+</div>
+
+<h3 id="c22">2.2　Mesh 的广播、去重与自愈</h3>
+<p>这套网络是去中心化的：没有主节点，每盏灯既是终端也是中继。一条命令从网关发出，第一跳的灯收到后转发给邻居，邻居再转发，逐层扩散，直到覆盖全网。这个过程像水波，也像 rumor 传播，所以英文里常叫 gossip。</p>
+
+<p>扩散必须解决两个问题：<b>重复</b>和<b>无限循环</b>。</p>
+
+<p>重复靠“消息序号 + 源地址”解决。每条新消息带一个递增序号，灯收到后记在本地缓存里；再收到同样序号、同样源的消息，直接丢弃，不再转发。没有这个机制，一个环状拓扑会让同一条消息永远转下去，空口瞬间被占满。</p>
+
+<p>无限循环靠 <b>TTL（生存时间）</b>解决。每转发一次，TTL 减一，减到 0 就不再转发。所以“跳数”不是一个管理参数，它是刻在报文里的一个计数器，决定了这条消息最远能走多深。</p>
+
+<p>自愈是这套网络最有价值的地方。因为每个节点都保留了到邻居的链路质量，当某一盏灯故障、被拆掉、或者被金属门挡住，它的邻居会自动寻找替代路径——原本走 A 的，改走 B。对上层来说，只是某条路径的跳数从 3 变成了 4，业务不中断。这也是为什么单灯故障很少导致整片黑掉。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 340" role="img" aria-label="Mesh 逐跳转发与 TTL 递减">
+  <text x="0" y="16" class="tb">一跳一跳地传：TTL 每经过一个节点减 1</text>
+
+  <g>
+    <rect class="bx2" x="20" y="60" width="110" height="62" rx="6"/>
+    <text x="75" y="86" class="tb" text-anchor="middle">网关</text>
+    <text x="75" y="108" class="s" text-anchor="middle">发出 TTL=7</text>
+
+    <rect class="bx" x="180" y="60" width="110" height="62" rx="6"/>
+    <text x="235" y="86" class="t" text-anchor="middle">第 1 跳</text>
+    <text x="235" y="108" class="s" text-anchor="middle">TTL=6</text>
+
+    <rect class="bx" x="340" y="60" width="110" height="62" rx="6"/>
+    <text x="395" y="86" class="t" text-anchor="middle">第 2 跳</text>
+    <text x="395" y="108" class="s" text-anchor="middle">TTL=5</text>
+
+    <rect class="bx" x="500" y="60" width="110" height="62" rx="6"/>
+    <text x="555" y="86" class="t" text-anchor="middle">第 3 跳</text>
+    <text x="555" y="108" class="s" text-anchor="middle">TTL=4</text>
+
+    <rect class="bx" x="660" y="60" width="110" height="62" rx="6"/>
+    <text x="715" y="86" class="t" text-anchor="middle">第 4 跳</text>
+    <text x="715" y="108" class="s" text-anchor="middle">TTL=3</text>
+
+    <rect class="bx" x="820" y="60" width="110" height="62" rx="6"/>
+    <text x="875" y="86" class="t" text-anchor="middle">第 5 跳</text>
+    <text x="875" y="108" class="s" text-anchor="middle">继续，直到 0</text>
+
+    <line class="lb" x1="130" y1="91" x2="172" y2="91" marker-end="url(#m1)"/>
+    <line class="lb" x1="290" y1="91" x2="332" y2="91" marker-end="url(#m1)"/>
+    <line class="lb" x1="450" y1="91" x2="492" y2="91" marker-end="url(#m1)"/>
+    <line class="lb" x1="610" y1="91" x2="652" y2="91" marker-end="url(#m1)"/>
+    <line class="lb" x1="770" y1="91" x2="812" y2="91" marker-end="url(#m1)"/>
+  </g>
+
+  <text x="0" y="170" class="tb">同一盏灯可能从多条路径收到同一条消息</text>
+  <g>
+    <rect class="bx" x="60" y="196" width="96" height="46" rx="5"/>
+    <text x="108" y="224" class="t" text-anchor="middle">A</text>
+    <rect class="bx" x="240" y="196" width="96" height="46" rx="5"/>
+    <text x="288" y="224" class="t" text-anchor="middle">B</text>
+    <rect class="bx" x="420" y="196" width="96" height="46" rx="5"/>
+    <text x="468" y="224" class="t" text-anchor="middle">C（目标）</text>
+    <rect class="bx" x="600" y="196" width="96" height="46" rx="5"/>
+    <text x="648" y="224" class="t" text-anchor="middle">D</text>
+    <rect class="bx3" x="790" y="188" width="150" height="62" rx="5"/>
+    <text x="865" y="212" class="t" text-anchor="middle">消息缓存表</text>
+    <text x="865" y="234" class="s" text-anchor="middle">源地址＋序号，重复即丢</text>
+
+    <line class="lb" x1="156" y1="212" x2="232" y2="212" marker-end="url(#m1)"/>
+    <line class="lb" x1="336" y1="212" x2="412" y2="212" marker-end="url(#m1)"/>
+    <line class="lb" x1="516" y1="212" x2="592" y2="212" marker-end="url(#m1)"/>
+    <line class="ld" x1="108" y1="242" x2="108" y2="286"/>
+    <line class="ld" x1="108" y1="286" x2="468" y2="286"/>
+    <line class="ld" x1="468" y1="286" x2="468" y2="246" marker-end="url(#m2)" stroke-dasharray="6 5"/>
+    <text x="260" y="306" class="s">第二条路径晚到，序号已存在，不再转发</text>
+  </g>
+  <defs>
+    <marker id="m1" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#12557E"/></marker>
+    <marker id="m2" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#8FA3B4"/></marker>
+  </defs>
+</svg>
+<div class="cap">图 4　逐跳转发、TTL 递减，以及靠序号去重</div>
+</div>
+
+<h3 id="c23">2.3　五个信道轮询：抗干扰的代价</h3>
+<p>2.4G 不是一个干净的频段。它被切成若干信道，Wi-Fi 通常占 1、6、11 这三个宽信道，再加上无线摄像头、微波炉、无线键鼠、对讲机。如果这套灯固定在某一个信道上工作，一旦那个信道被占，整片灯就一起变慢，甚至掉线。</p>
+
+<p>私有 Mesh 的对策是<b>轮询切换</b>：节点在 <b>5 个信道</b>之间按顺序跳，任一时刻只在一个信道上收发。厂家公开资料把这套机制称为“完全自主知识产权的<b>跳频技术</b>”，用来换取抗干扰能力——这一点与现场观察到的“换信道能绕开干扰”是一致的。</p>
+
+<p>注意“5 个信道”是现场与厂家口径，不是公开标准；公开资料只写了“自主跳频”，没有公布信道数量与轮询周期。所以下面讲的是机制，不是可以拿去写进合同的硬指标。跳频解决的是<b>窄带干扰</b>——干扰只落在某一个信道，轮换过去就避开了；这一时隙丢了包，下一轮换到干净信道上再补回来。所以它的收益是“平均意义上的稳定”，不是“永远不丢包”。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 300" role="img" aria-label="五个信道轮询示意">
+  <text x="0" y="18" class="tb">一轮扫过 5 个信道，谁碰上干扰谁丢包，下一轮补回来</text>
+
+  <rect x="120" y="38" width="780" height="22" fill="#F8E7E4"/>
+  <rect x="120" y="118" width="780" height="22" fill="#F8E7E4"/>
+  <text x="906" y="54" class="s" fill="#A33" text-anchor="end">Wi-Fi 常占</text>
+  <text x="906" y="134" class="s" fill="#A33" text-anchor="end">Wi-Fi 常占</text>
+
+  <g class="s" text-anchor="end">
+    <text x="108" y="56">CH1</text>
+    <text x="108" y="96">CH2</text>
+    <text x="108" y="136">CH3</text>
+    <text x="108" y="176">CH4</text>
+    <text x="108" y="216">CH5</text>
+  </g>
+
+  <g class="s" text-anchor="middle">
+    <text x="165" y="252">t1</text><text x="255" y="252">t2</text><text x="345" y="252">t3</text>
+    <text x="435" y="252">t4</text><text x="525" y="252">t5</text><text x="615" y="252">t6</text>
+    <text x="705" y="252">t7</text><text x="795" y="252">t8</text>
+  </g>
+
+  <g fill="#12557E">
+    <circle cx="165" cy="50" r="7"/><circle cx="255" cy="90" r="7"/><circle cx="345" cy="130" r="7"/>
+    <circle cx="435" cy="170" r="7"/><circle cx="525" cy="210" r="7"/><circle cx="705" cy="90" r="7"/>
+    <circle cx="795" cy="130" r="7"/>
+  </g>
+  <g stroke="#12557E" stroke-width="1.2" stroke-dasharray="4 4" opacity="0.5">
+    <line x1="165" y1="50" x2="255" y2="90"/><line x1="255" y1="90" x2="345" y2="130"/>
+    <line x1="345" y1="130" x2="435" y2="170"/><line x1="435" y1="170" x2="525" y2="210"/>
+    <line x1="525" y1="210" x2="615" y2="50"/><line x1="615" y1="50" x2="705" y2="90"/>
+    <line x1="705" y1="90" x2="795" y2="130"/>
+  </g>
+  <circle cx="615" cy="50" r="9" fill="#fff" stroke="#C0392B" stroke-width="2"/>
+  <line x1="609" y1="44" x2="621" y2="56" stroke="#C0392B" stroke-width="2"/>
+  <line x1="621" y1="44" x2="609" y2="56" stroke="#C0392B" stroke-width="2"/>
+  <line x1="621" y1="60" x2="656" y2="146" stroke="#C0392B" stroke-width="1.2" stroke-dasharray="3 3"/>
+  <text x="664" y="150" class="s" fill="#C0392B">撞上 Wi-Fi，本时隙丢包</text>
+
+  <line x1="120" y1="268" x2="570" y2="268" stroke="#37596F" stroke-width="1.4"/>
+  <line x1="120" y1="263" x2="120" y2="273" stroke="#37596F" stroke-width="1.4"/>
+  <line x1="570" y1="263" x2="570" y2="273" stroke="#37596F" stroke-width="1.4"/>
+  <text x="345" y="286" class="s" text-anchor="middle">一轮 = 扫过 5 个信道</text>
+  <text x="600" y="272" class="s">节点越多、上报越频，一轮越长 → 单灯反应越慢</text>
+</svg>
+<div class="cap">图 5　5 个信道轮询：干扰只影响个别时隙，靠下一轮补回</div>
+</div>
+
+<p>代价有三个。第一是<b>同步开销</b>：收发双方都要知道现在跳到哪个信道、下一个时隙去哪儿，跳得越快，花在同步上的时间占比越高。第二是<b>轮询周期</b>：一轮要扫过 5 个信道，节点越多、每个节点分到的时间片越少，一轮的时间就越长——这就是“灯越多，反应越慢”的物理来源，不是网关性能差。第三是<b>它对宽带遮挡无效</b>：金属吊顶、金属货架、混凝土墙对所有 2.4G 信道一视同仁地衰减，跳频救不了，只能靠加网关、加 PA、改位置。</p>
+
+<p>理解了这一层，三个现场现象就都有解释：为什么这套系统“没有覆盖半径”（不是靠功率打远，是靠节点中继加信道轮询铺开）；为什么“灯多了一定会慢”（轮询周期被摊薄）；为什么“同一个位置，白天慢晚上快”（白天 Wi-Fi 与人在，空口竞争更激烈）。</p>
+
+<h3 id="c24">2.4　“20 米”是链路预算，不是覆盖半径</h3>
+<p>官方安装说明写的是：网关与<b>最近灯具</b>之间直线通信无遮挡，且直线距离<b>不超过 20 米</b>，网关宜与灯具同平面或低于灯具平面；吊顶内不得有金属物体包裹遮挡；铝扣板天花须加 PA 信号放大器。注意措辞：<b>“最近灯具”</b>，不是“最远灯具”，也不是“覆盖半径”。</p>
+
+<p>这两者的差别很大。覆盖半径是“以网关为圆心、半径 R 内的灯都能连上”，暗含“网关直接跟每一盏灯通信”。而这套系统是 Mesh，网关只需要跟<b>最近的一盏或几盏</b>建立一条质量足够好的链路，剩下的灯靠彼此中继延伸出去。所以 20 米约束的是“入口那一段”，不是“全部范围”。</p>
+
+<p>为什么是 20 米？这是一个带余量的工程值。它要保证在最常见的安装条件下——吊顶高度、灯具金属外壳、平时的人流遮挡——这条“种子链路”的接收强度仍然高于解调门限，并且留出衰落余量。它不是理论极限，是“这样装基本不会出问题”的经验边界。</p>
+
+<p>这里有一组容易把人绕晕的数字。厂家早期的模组资料写的是“<b>单跳通信距离 &gt;50 米，可以 3 跳以上通信</b>”，而安装说明要求“最近灯具 <b>≤20 米</b>”。两者并不矛盾：50 米是视距、无遮挡、实验室条件下的单跳能力；20 米是把吊顶、灯具金属外壳、人体走动、多径衰落都算进去之后的工程余量。写方案用 50 米会验收翻车，装现场按 20 米才稳。</p>
+
+<p>所以现场真正的布点判断是两句话：<b>先用 20 米保证“种子链路进得去”，再靠节点中继和 5 个信道轮询向外铺开。</b>前者不过，就挪位置、加 PA 或加网关；后者不过（金属遮挡、同频干扰），就按物理分区拆网关——而不是加节点、加功率，那两样都解决不了遮挡。</p>
+
+<div class="note">
+<b>不要再用“覆盖直径 100～150 米”这种说法。</b>那是把 Mesh 网络当成了 Wi-Fi 接入点。这套系统没有固定覆盖半径，只有“最近灯具 ≤20 米”这一条硬约束，加上“节点中继 + 5 个信道轮询”的软边界。跟甲方讲方案时如果说了“覆盖半径”，验收时就会被按半径量距离。
+</div>
+
+<h3 id="c25">2.5　一台网关为什么能带几百盏</h3>
+<p>现场有项目单网关带 400～500 盏灯。这个数字第一次听到会觉得夸张，但理解了“网关不是 AP”就不奇怪了。</p>
+
+<p>Wi-Fi 接入点是“星型”：每台设备都跟 AP 建一条链路，AP 要维护连接表、要分配时隙、要处理关联与漫游。连接数一多，AP 的管理开销就爆了，所以家用 AP 带到二三十台设备就开始不稳。而这套系统的网关只在 Mesh 网里扮演“一个普通节点 + 一个出口”，它不维护几百条连接，只跟邻近的几盏灯保持链路；其余灯的报文是靠邻居逐跳转过来的，网关并不需要认识每一盏。</p>
+
+<p>真正的瓶颈因此变成了三件事：<b>轮询周期多长</b>、<b>空口多忙</b>、<b>消息多频</b>。轮询周期决定了每个节点多久轮到一次说话的机会，空口决定了同一时刻能有几句话在跑，消息频率决定了每盏灯多久要占用一次空口。三者相乘，才是实际带载能力。</p>
+
+<p>设计时按什么数走？现场实测的口径是<b>单网关 400～500 盏可稳定运行</b>。厂家公开资料给的上限更宽（宣传口径）：GS-Link 体系支持十万级节点，配网关做定时控制时“每个网关支持灯具数量不少于 1000 盏”。所以 400～500 不是上限，是“留了余量、出了问题还好查”的工程值。</p>
+
+<div class="note">
+<b>别把 150 套到自组网上。</b>150 个节点是<b>欧普蓝牙 SigMesh（睿壹蓝牙网关）</b>的口径，出处是《智能照明技术交底手册（睿壹）》3.4.4：“每台网关最大支持 150 个蓝牙节点设备”；同章 3.4.3 还写着单网关覆盖 ≤500 ㎡、设备间距 ≤30 m。自组网是另一套协议、另一套模组，带载能力不在一个量级。方案里把这两个数混用，要么把自组网写小了，要么把蓝牙网写大了，验收时都对不上。
+</div>
+
+<p>这也解释了一个反直觉的现象：<b>把上报频率调高一倍，带载能力会掉一半以上。</b>因为上报不是单播，它在网内要逐跳转发，一条消息在空口上占用的时隙是“转发次数 × 单跳时长”。频率翻倍、拓扑不变，占用就翻倍；而空口忙起来之后重传增加，实际占用还不止翻倍。所以“灯反应慢”的时候，先看是不是有人把心跳、上报、重发全调高了，而不是先怀疑网关不行。</p>
+
+<h3 id="c26">2.6　转发开关改变的是拓扑角色</h3>
+<p>“转发开关”在界面上只是一个小开关，但它改变的是这盏灯在网里的<b>角色</b>：开着，它是中继节点，帮邻居转发；关掉，它是末端节点，只收自己的报文，不帮别人转。</p>
+
+<p>什么情况下关？通常是末端。比如一根长走廊最后一盏灯，它后面没有别的灯了，让它转发只是白白占用它的电和空口。关掉可以省一点功耗、减少一点空口占用。</p>
+
+<p>但要注意两个连带影响。第一，<b>关掉之后，它就不再是别人的路径</b>。如果它恰好是某个角落唯一的通路，关掉会让那片灯掉线，或者被迫绕更远的路。第二，<b>网络设置里的跳数、重发次数，只在“转发＝开”时才有意义</b>——一个不转发的节点，跳数设大设小都不影响任何报文。</p>
+
+<p>所以转发开关的正确用法是：<b>先看拓扑，再决定</b>。批量下发时把它当默认值刷给整组，是常见的错误——整组里一定有中间节点，一关就断链。正确做法是默认全开，只在确认是末端、且关闭后不影响他人时，单独关掉。</p>
+
+<h3 id="c27">2.7　心跳、重发与“假在线”</h3>
+<p>平台上的“在线”是心跳换来的，不是“真的能控”换来的。灯每隔一段时间发一次心跳，网关转上去，平台记为“在线”。心跳间隔越长，平台越省资源，但发现掉线的速度越慢；间隔越短，越灵敏，但空口越忙。这就是“心跳设置”这个参数存在的理由——它在“灵敏度”和“开销”之间取平衡。</p>
+
+<p>“假在线”是现场常见的误判：平台显示在线，但下发命令没反应。原因通常是心跳还在走，但下行路径断了，或者灯的场景内容是空的。所以“在线”只能证明一件事：<b>它的心跳还能到平台</b>。要证明“能控”，必须真的下发一次并观察反馈。</p>
+
+<p>重发次数是另一份预算。无线一定会丢包，重发是必要的；但重发会放大空口占用：一次失败的消息重发三次，就占用了四倍的时隙。如果现场本来空口就忙，把重发调高只会让情况更糟。正确的顺序是：<b>先解决链路质量（位置、遮挡、跳数），再考虑重发</b>；链路好的时候，默认重发就够。</p>
+
+<h3 id="c28">2.8　加密狗：射频与钥匙</h3>
+<p>手机有蓝牙、有 Wi-Fi，为什么不直接控灯？因为这套系统跑的是厂家私有的 2.4G 协议，手机的标准蓝牙栈听不懂，也没有密钥。加密狗补的正是这两样：<b>射频前端 + 协议栈 + 配对密钥</b>。</p>
+
+<p>从接口上看，它就是一个 USB 串口设备。安卓会弹“是否允许访问 CH57x”，允许之后，App 通过串口发指令，狗把指令翻译成 2.4G 帧发出去。所以链路上任何一环断了，表现都是同一个——“串口不绿”：OTG 没开、线只充电不传数据、狗没供电、安卓没授权、App 没拿到串口权限。</p>
+
+<p>“加密”两个字的含义是身份认证：灯只接受持有正确密钥的设备发来的配置命令。这防止隔壁项目、或者随便一个路人用通用工具把你的灯改乱。也正因为如此，这只狗不是“配件”，是“钥匙”——换手机要带着它，换项目也要带着它，苹果手机用不了（没有对应的 OTG 与串口权限模型）。</p>
+
+<p>云上网关为什么也要插？因为网关内置的灯控助手同样需要一个射频端点来做搜灯与配置。不插狗，界面能打开、能点，但搜不到任何灯。这跟手机上的表现完全一致，本质是“App 需要一个能说私有协议的射频外设”。</p>
+
+<h2>第三篇　光与感知：参数背后的物理量</h2>
+
+<h3 id="c31">3.1　人感的三条技术路线</h3>
+<p>“感应”这个词在现场被用得很笼统，实际上它背后可能是三种完全不同的物理原理，误报和漏报的根源也完全不同。不理解这一点，调参数只能靠试。</p>
+
+<p><b>热释电红外（PIR）</b>检测的是视场内红外辐射的“变化”。人体温度高于背景，人一动，落在传感器上的红外能量就变，触发信号。它便宜、功耗极低、不发射任何东西，缺点是<b>只对移动敏感</b>——人坐着不动、只是呼吸，它可能就判“无人”。所以 PIR 适合走廊、过道这种“人一直在走”的场景，不适合工位、会议室这种“人坐着”的场景。它的误报源也很典型：空调出风口让空气温度波动、阳光扫过、暖气片、甚至一只猫。</p>
+
+<p><b>多普勒雷达</b>（常见 5.8G 或 24G）发射电磁波，靠人体移动造成的频率偏移来判断。相比 PIR，它能穿透塑料外壳、不需要开透镜孔，外观更干净，探测距离也更远，而且对“微动”更敏感——人翻个身、抬个手都可能被捕捉到。代价是它更容易被“非人”的东西触发：风扇转、窗帘飘、管道里的水流、门被风吹动、甚至灯具自身的振动，都会产生多普勒频移。这就是为什么雷达灯在空调房、仓库、有吊扇的地方特别容易“自己亮”。</p>
+
+<p><b>毫米波存在式</b>工作在更高频段，能检测到呼吸、心跳带来的胸腔微动，所以人可以坐着不动、甚至躺着，它仍然判“有人”。准确度最高，成本也最高，对安装角度、遮挡更敏感，金属吊顶、灯具外壳、安装高度都会影响效果。会议室、办公工位、需要“人在灯不灭”的场景，才值得上这一类。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 290" role="img" aria-label="三种人感技术对比">
+  <rect class="bx" x="20" y="40" width="290" height="196" rx="8"/>
+  <text x="40" y="68" class="tb">热释电红外 PIR</text>
+  <text x="40" y="94" class="t">探的是：红外辐射的变化</text>
+  <text x="40" y="118" class="t">强项：静止无人时零误报</text>
+  <text x="40" y="142" class="t">短板：坐着不动就判无人</text>
+  <text x="40" y="166" class="t">误报源：风口、阳光、热源</text>
+  <text x="40" y="196" class="s">适合：走廊、过道、楼梯间</text>
+  <text x="40" y="218" class="s">不适合：工位、会议室、阅读区</text>
+
+  <rect class="bx2" x="335" y="40" width="290" height="196" rx="8"/>
+  <text x="355" y="68" class="tb">多普勒雷达 5.8G / 24G</text>
+  <text x="355" y="94" class="t">探的是：移动引起的频移</text>
+  <text x="355" y="118" class="t">强项：穿外壳、探测远、抓微动</text>
+  <text x="355" y="142" class="t">短板：非人移动也会触发</text>
+  <text x="355" y="166" class="t">误报源：风扇、窗帘、水流、振动</text>
+  <text x="355" y="196" class="s">适合：车库、仓库、大空间</text>
+  <text x="355" y="218" class="s">注意：密集安装易饱和</text>
+
+  <rect class="bx4" x="650" y="40" width="290" height="196" rx="8"/>
+  <text x="670" y="68" class="tb">毫米波存在式</text>
+  <text x="670" y="94" class="t">探的是：呼吸、心跳的微动</text>
+  <text x="670" y="118" class="t">强项：坐着、躺着仍判有人</text>
+  <text x="670" y="142" class="t">短板：贵、对角度与遮挡敏感</text>
+  <text x="670" y="166" class="t">误报源：金属反射、安装不当</text>
+  <text x="670" y="196" class="s">适合：办公、会议、久坐场景</text>
+  <text x="670" y="218" class="s">不适合：低成本大面积改造</text>
+
+  <text x="20" y="272" class="s">调参前先问：这盏灯用的是哪种传感？它天生对什么敏感、对什么不敏感？</text>
+</svg>
+<div class="cap">图 6　三条人感路线：探测的物理量不同，误报源也不同</div>
+</div>
+
+<p>把这三条放在一起看，你会发现“感应”不是一个开关，而是“用什么物理量去推断有没有人”。参数调不动的时候，先确认传感类型：如果是 PIR，调再高的灵敏度也解决不了“人坐着不动”；如果是雷达，先把空调风口和吊扇排除掉，比调参数有效。</p>
+
+<h3 id="c32">3.2　灵敏度与发射功率，调的是两端</h3>
+<p>App 里有两个容易混淆的参数：“雷达灵敏度”和“感应距离等级（发射功率）”。它们都能让感应“更远”，但作用的环节完全不同，调错的后果也不同。</p>
+
+<p><b>灵敏度</b>调的是接收端的判断门限。雷达接收到的回波很微弱，系统要设一个阈值：回波强度超过阈值才算“有目标”。阈值调低（灵敏度调高），更弱的回波也会被认成目标，探测距离变远，但同时噪声、杂波、其他灯具的干扰也更容易越过阈值，误报增加。阈值调高，误报少了，但人稍微远一点、动作小一点就检测不到。</p>
+
+<p><b>发射功率</b>调的是发射端的能量。功率越大，打到目标上的能量越强，回波越强，理论上探得更远。代价有三个：待机功耗上升；雷达背面的“反向感应”增强，本来不该探到的方向也开始触发；灯装得密时相互饱和。手册特别提醒，功率加到 3 档以后，密集安装的现场容易“饱和”，表现为要么频繁误报、要么干脆不感应——因为接收前端被强信号压住了，反而分辨不出变化。</p>
+
+<div class="principle">
+<b>正确的调节顺序：</b>先调灵敏度，把误报压下去；不够远再动功率，一次只加一档，加完必须现场走一遍。反过来（先拉满功率再调灵敏度）会让两个变量互相掩盖，最后调到一个“看起来能用、实际不稳”的状态。密集安装的走廊、车库，宁可用低功率加高灵敏度，也不要高功率加低灵敏度。
+</div>
+
+<h3 id="c33">3.3　照度、恒照度与闭环</h3>
+<p>“照度”是落在单位面积上的光通量，单位勒克斯（lx）。它跟“亮度”不是一回事：亮度是眼睛对发光面的感受，照度是到达桌面的光的多少。照明设计里说的“办公 300～500 lx”，指的是桌面照度，不是灯具亮度。</p>
+
+<p>恒照度控制要解决的问题是：外面天亮一点，灯就暗一点；外面天暗了，灯就亮一点，让桌面始终维持在目标照度附近。它是一个典型的<b>负反馈闭环</b>：传感器测当前照度，跟目标值比较，差值送给控制器，控制器调灯的调光比例，再测、再调，直到误差落进可接受范围。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 260" role="img" aria-label="恒照度负反馈闭环">
+  <rect class="bx" x="24" y="96" width="118" height="64" rx="6"/>
+  <text x="83" y="124" class="tb" text-anchor="middle">目标照度</text>
+  <text x="83" y="145" class="s" text-anchor="middle">现场标定后填</text>
+
+  <circle cx="212" cy="128" r="22" fill="#fff" stroke="#12557E" stroke-width="1.6"/>
+  <text x="212" y="134" class="tb" text-anchor="middle">−</text>
+  <text x="212" y="100" class="s" text-anchor="middle">目标 − 实测</text>
+
+  <rect class="bx2" x="290" y="96" width="130" height="64" rx="6"/>
+  <text x="355" y="124" class="tb" text-anchor="middle">控制器</text>
+  <text x="355" y="145" class="s" text-anchor="middle">滤波 + 死区</text>
+
+  <rect class="bx" x="480" y="96" width="120" height="64" rx="6"/>
+  <text x="540" y="124" class="tb" text-anchor="middle">驱动 / 灯具</text>
+  <text x="540" y="145" class="s" text-anchor="middle">调占空比</text>
+
+  <rect class="bx4" x="660" y="96" width="120" height="64" rx="6"/>
+  <text x="720" y="124" class="tb" text-anchor="middle">被照空间</text>
+  <text x="720" y="145" class="s" text-anchor="middle">桌面照度</text>
+
+  <rect class="bx3" x="470" y="26" width="190" height="46" rx="6"/>
+  <text x="565" y="54" class="t" text-anchor="middle">外部光（窗、天光）扰动</text>
+
+  <rect class="bx2" x="660" y="196" width="120" height="46" rx="6"/>
+  <text x="720" y="225" class="t" text-anchor="middle">照度传感器</text>
+
+  <line class="lb" x1="142" y1="128" x2="186" y2="128" marker-end="url(#f1)"/>
+  <line class="lb" x1="234" y1="128" x2="286" y2="128" marker-end="url(#f1)"/>
+  <line class="lb" x1="420" y1="128" x2="476" y2="128" marker-end="url(#f1)"/>
+  <line class="lb" x1="600" y1="128" x2="656" y2="128" marker-end="url(#f1)"/>
+  <line class="ln" x1="585" y1="72" x2="646" y2="94" marker-end="url(#f1b)"/>
+  <line class="lb" x1="720" y1="160" x2="720" y2="192" marker-end="url(#f1)"/>
+  <line class="lb" x1="660" y1="219" x2="212" y2="219"/>
+  <line class="lb" x1="212" y1="219" x2="212" y2="154" marker-end="url(#f1)"/>
+  <text x="436" y="210" class="s">实测照度反馈</text>
+  <defs>
+    <marker id="f1" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#12557E"/></marker>
+    <marker id="f1b" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#37596F"/></marker>
+  </defs>
+</svg>
+<div class="cap">图 7　恒照度是负反馈闭环：测量点、滤波、死区三者决定它稳不稳</div>
+</div>
+
+<p>这个闭环能不能稳，取决于三件事。第一是<b>传感器装在哪</b>。吸顶安装的照度传感器，测到的是天花板附近反射回来的光，跟桌面照度差着一大截，还会受灯具自身出光的直接照射。所以“目标照度值”不能直接填设计值 300 lx，而要在现场用照度计对比，找出“传感器读数”与“桌面实测”的对应关系，再设目标值。第二是<b>调节速度</b>。调得太快会来回振荡（灯忽亮忽暗），调得太慢又跟不上天气变化，所以固件里通常会做滤波。第三是<b>死区</b>。如果目标 300 lx，实测 299 就调、301 也调，系统会一直动；所以要允许一段死区，落进去就不动。</p>
+
+<p>这也解释了为什么“恒照度”在现场经常被设成“无效”。不是功能不好，而是传感器位置、目标值、死区这三样没调好时，它带来的麻烦比收益大。要做，就得按闭环的方法做：先测、再设、再看稳定性，而不是填一个数就交付。</p>
+
+<h3 id="c34">3.4　自控与被控：闭环在哪闭合</h3>
+<p>“自控”和“被控”的区别，本质是<b>闭环在哪儿闭合</b>。</p>
+
+<p><b>自控</b>是灯具自带的光感参与调节，闭环在灯内部：灯自己测、自己算、自己调。优点是每盏灯独立，不依赖外部设备，一盏坏了不影响别的；缺点是每盏灯看到的光环境不同（靠窗的、靠走廊的、被货架挡住的），各自为政，整片区域的一致性差。</p>
+
+<p><b>被控</b>是外部恒照度传感器测光，把照度值广播给一组灯，灯按这个值统一调节。闭环在“传感器—组”这一层：传感器是眼睛，灯是手。优点是整组一致，适合大开间、教室、办公室；缺点是传感器成了单点，它装错位置或被遮挡，整组都跟着错。</p>
+
+<p>手册说“根据光感是 2 合 1 还是独立恒照度，分别选自控或被控”。这句话背后的逻辑是：2 合 1 的光感长在灯上，天然只能做“自”；独立恒照度是外部设备，天然做“被”。现场如果选反了，表现是“灯不跟随”或“跟随得很怪”——因为它根本没用你以为的那个信号源。<b>选哪个，取决于闭环的测量点在哪里，不是哪个更高级。</b></p>
+
+<h3 id="c35">3.5　一段/二段延时是一个状态机</h3>
+<p>一段延时和二段延时经常被当成两个孤立的“时间设置”，其实它们描述的是一个<b>状态机</b>的三段：有人、无人但还没走远、确认无人。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 470" role="img" aria-label="一段二段延时状态机">
+  <text x="140" y="30" class="tb">状态迁移：纵向读，左边是回退路径</text>
+
+  <rect class="bx4" x="140" y="52" width="300" height="64" rx="8"/>
+  <text x="290" y="80" class="tb" text-anchor="middle">有人状态</text>
+  <text x="290" y="102" class="s" text-anchor="middle">输出 = 有人亮度</text>
+
+  <rect class="bx" x="140" y="158" width="300" height="64" rx="8"/>
+  <text x="290" y="186" class="tb" text-anchor="middle">一段延时中</text>
+  <text x="290" y="208" class="s" text-anchor="middle">仍在有人亮度，等确认</text>
+
+  <rect class="bx" x="140" y="264" width="300" height="64" rx="8"/>
+  <text x="290" y="292" class="tb" text-anchor="middle">无人亮度</text>
+  <text x="290" y="314" class="s" text-anchor="middle">10% / 1% / 0%</text>
+
+  <rect class="bx3" x="140" y="370" width="300" height="64" rx="8"/>
+  <text x="290" y="398" class="tb" text-anchor="middle">关灯 / 待机</text>
+  <text x="290" y="420" class="s" text-anchor="middle">二段延时到后进入</text>
+
+  <line class="lb" x1="290" y1="116" x2="290" y2="154" marker-end="url(#g1)"/>
+  <text x="304" y="140" class="s">无人触发</text>
+  <line class="lb" x1="290" y1="222" x2="290" y2="260" marker-end="url(#g1)"/>
+  <text x="304" y="246" class="s">一段延时到</text>
+  <line class="lb" x1="290" y1="328" x2="290" y2="366" marker-end="url(#g1)"/>
+  <text x="304" y="352" class="s">二段延时到</text>
+
+  <path class="lg" d="M140,296 L86,296 L86,84 L136,84" fill="none" marker-end="url(#g2)"/>
+  <path class="lg" d="M140,190 L108,190 L108,84 L136,84" fill="none" stroke-dasharray="5 4"/>
+  <text x="44" y="200" class="s" transform="rotate(-90 44 200)" text-anchor="middle">检测到人 → 立即回有人亮度</text>
+
+  <rect x="520" y="52" width="410" height="150" rx="7" fill="#EFF5FA" stroke="#C9DFEF"/>
+  <text x="540" y="78" class="tb">两段延时各防一件事</text>
+  <text x="540" y="104" class="t">一段延时：防“误判走人”——人可能只是坐着没动，</text>
+  <text x="540" y="126" class="t">或刚好走到感应边缘丢了目标。</text>
+  <text x="540" y="154" class="t">二段延时：防“频繁开关”——确认真的走了才关灯，</text>
+  <text x="540" y="176" class="t">避免灯反复亮灭伤驱动、伤体验。</text>
+
+  <text x="520" y="240" class="s">实际配置里常见的做法：一段 60 秒 / 2 分钟 / 5 分钟，二段再叠加一段时间。</text>
+  <text x="520" y="264" class="s">不要把一段设成 1 秒——感应本身有抖动，1 秒会把抖动当成“人走了”。</text>
+
+  <defs>
+    <marker id="g1" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#12557E"/></marker>
+    <marker id="g2" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#0E6049"/></marker>
+  </defs>
+</svg>
+<div class="cap">图 8　两段延时构成的状态机：任何一段检测到人，都回到有人状态</div>
+</div>
+
+<p>人进入感应区，切到“有人亮度”；人离开后，感应器不再触发，但系统不会立刻关灯，而是先等一段时间（一段延时），确认不是“人只是坐着没动”或“刚好走到感应边缘”，然后降到“无人亮度”；如果继续无人，再等一段时间（二段延时），才关灯或进入更低的待机状态。两段作用不同：一段是防误判，二段是防频繁开关。</p>
+
+<p>为什么不能设 1 秒？因为感应本身有抖动。人在灯下转头、抬手，雷达可能一瞬间丢失目标；通信也有时延，命令不是瞬时到达。如果一段延时只有 1 秒，系统会把“瞬间丢失”当成“人走了”，降亮度；下一秒又检测到人，再升亮度。灯就会反复亮灭，人眼对这种变化极其敏感，体验很差，而且频繁开关会缩短驱动和继电器的寿命。</p>
+
+<p>60 秒、2 分钟、5 分钟这些经验值背后，是对“人离开一个空间需要多久”的估计。走廊、过道可以短一些（60 秒），因为人确实走得快；办公室、会议室要长一些（2～5 分钟），因为人可能坐着不动、只是暂时没被检测到；车库可以更长，因为车进出有惯性。延时不是越长越省电，太长会让“人走了灯还亮着”，也是浪费。</p>
+
+<h3 id="c36">3.6　亮度百分比与人眼非线性</h3>
+<p>“有人亮度 100%、无人亮度 10%”这两个百分比，调的是灯具输出的<b>驱动电流或 PWM 占空比</b>，不是人眼感受到的亮度。这两者之间隔着一条非线性的感知曲线。</p>
+
+<p>人眼对亮度的感知接近幂函数：光通量翻倍，主观亮度并没有翻倍，而是增加一个可感知的“档”。反过来，把占空比从 100% 降到 10%，光通量确实只剩 10%，但人眼看起来可能还有“三成亮”。这就是为什么“无人亮度 10%”在现场看起来并不暗，而“1%”也不是完全看不见。理解这一点，调参数时就不会拿“百分比”当“视觉比例”用。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 300" role="img" aria-label="输出百分比与人眼感知亮度">
+  <line class="ln" x1="80" y1="240" x2="880" y2="240" marker-end="url(#h1)"/>
+  <line class="ln" x1="80" y1="240" x2="80" y2="40" marker-end="url(#h2)"/>
+  <text x="760" y="266" class="s">设定百分比（占空比）</text>
+  <text x="88" y="32" class="s">视觉亮度</text>
+
+  <line x1="80" y1="240" x2="820" y2="60" stroke="#8FA3B4" stroke-width="1.4" stroke-dasharray="5 4"/>
+  <path d="M80,240 C220,190 320,140 420,116 C540,88 660,72 820,62" fill="none" stroke="#0E6049" stroke-width="2.4"/>
+
+  <circle cx="260" cy="186" r="5" fill="#C0392B"/>
+  <line x1="260" y1="186" x2="260" y2="240" stroke="#C0392B" stroke-width="1.2" stroke-dasharray="4 4"/>
+  <text x="266" y="226" class="s" fill="#C0392B">设 20%，看着接近四成</text>
+
+  <circle cx="500" cy="100" r="5" fill="#12557E"/>
+  <line x1="500" y1="100" x2="500" y2="240" stroke="#12557E" stroke-width="1.2" stroke-dasharray="4 4"/>
+  <text x="506" y="126" class="s" fill="#12557E">设 60%，看着已接近八成</text>
+
+  <line x1="620" y1="206" x2="648" y2="206" stroke="#8FA3B4" stroke-width="1.4" stroke-dasharray="5 4"/>
+  <text x="656" y="210" class="s">若为线性：设 50% 就该是一半亮</text>
+  <line x1="620" y1="228" x2="648" y2="228" stroke="#0E6049" stroke-width="2.4"/>
+  <text x="656" y="232" class="s">实际感知：低亮度段被“抬起”</text>
+  <defs>
+    <marker id="h1" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#37596F"/></marker>
+    <marker id="h2" markerWidth="9" markerHeight="9" refX="4.5" refY="7" orient="auto"><path d="M0,9 L4.5,0 L9,9 z" fill="#37596F"/></marker>
+  </defs>
+</svg>
+<div class="cap">图 9　百分比是电学量，视觉亮度是感知量（示意曲线）</div>
+</div>
+
+<p>“0%”是一个特殊值。它意味着输出关断或进入待机，但不同驱动对“0”的实现不一样：有的真关断，有的还有微亮，有的会闪一下。需要“彻底不亮”的场景，要用继电器切断，而不是依赖 0%。调光到 0 不等于电气断开，这是两件事。</p>
+
+<p>无人亮度设多少，本质是在“节能”和“安全/体验”之间取平衡。车库设 10%～20% 是为了保留基本可视、避免全黑带来的安全隐患；办公室可以设 0% 或 1%，因为人走了不需要照明；走廊可以设 10%，起到夜间引导作用。没有统一答案，只有场景答案。</p>
+
+<h3 id="c37">3.7　色温与双色温混光</h3>
+<p>色温用开尔文（K）表示，数值越低越暖（偏黄），越高越冷（偏蓝）。3000K 是暖白，4000K 是中性白，5000～6500K 是冷白。照明设计里选色温，考虑的是场景氛围和生理节律，不是“越亮越好”。</p>
+
+<p>“双色温”灯具内部其实有两组不同色温的 LED（暖白一组、冷白一组），通过分别调两组的电流比例来混合出中间色温。这里有一个容易被忽略的副作用：<b>混光会改变总光通量</b>。两组都开一半，色温在中间，但总亮度可能比单开一组低；所以好的固件会在调色温时做亮度补偿，让“调色不变暗”。现场如果发现“一调色温就变暗”，不是灯坏了，是补偿没做好或驱动能力不够。</p>
+
+<p>“单色温灯具调色温等于等比调亮度”，这是手册里明确写的。原因是它只有一组 LED，没有第二种色温可以混，所谓的“色温参数”落到驱动上只能改电流，于是色温不变、亮度变了。现场遇到“调色温没反应”或“调色温变暗”，先确认这盏灯是不是单色温——这是物理限制，不是参数错误。</p>
+
+<p>至于 6300～6400K 这个区间，属于高色温端。不是所有灯具都能做到，也不是所有场景都适合。现场按灯具规格和业主要求设，不要为了“看起来白”硬拉到最高，高色温蓝光成分高，长时间办公容易疲劳。</p>
+
+<h3 id="c38">3.8　调光曲线：线性与平方根</h3>
+<p>调光曲线描述的是“你给的百分比”和“灯实际输出”之间的映射关系。最常见的两条是线性和平方根。</p>
+
+<p><b>线性曲线</b>是输出与设定成正比：设 50%，输出就是最大的一半。听起来最“公平”，但人眼不是线性传感器。在低亮度段，线性曲线会让 10%、20%、30% 看起来差别很小，一过 30% 又突然变亮，调节手感是“前面拧半天没反应，后面一下就亮”。</p>
+
+<p><b>平方根曲线</b>是把设定值开平方后再映射到输出，低亮度段被“拉开”，高亮度段被“压缩”。这样人眼感觉到的亮度变化更均匀，从 1% 调到 100% 的过程更顺。它本质上是在用数学方法补偿人眼的非线性。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 300" role="img" aria-label="线性与平方根调光曲线">
+  <line class="ln" x1="80" y1="240" x2="880" y2="240" marker-end="url(#q1)"/>
+  <line class="ln" x1="80" y1="240" x2="80" y2="40" marker-end="url(#q2)"/>
+  <text x="740" y="264" class="s">设定值</text>
+  <text x="88" y="32" class="s">输出光通量</text>
+
+  <line x1="80" y1="240" x2="820" y2="60" stroke="#12557E" stroke-width="2.2"/>
+  <text x="700" y="112" class="s" fill="#12557E">线性：输出＝设定</text>
+
+  <path d="M80,240 Q360,120 820,60" fill="none" stroke="#0E6049" stroke-width="2.4"/>
+  <text x="560" y="70" class="s" fill="#0E6049">平方根：低段被拉开</text>
+
+  <line x1="450" y1="60" x2="450" y2="240" stroke="#8FA3B4" stroke-width="1.2" stroke-dasharray="4 4"/>
+  <circle cx="450" cy="150" r="5" fill="#12557E"/>
+  <circle cx="450" cy="132" r="5" fill="#0E6049"/>
+  <text x="456" y="176" class="s">设 50%：线性输出 50%，平方根约 71%</text>
+
+  <text x="80" y="286" class="s">给人用：平方根手感更顺；做能耗核算：线性更可预测。两者都能选，看用途。</text>
+  <defs>
+    <marker id="q1" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#37596F"/></marker>
+    <marker id="q2" markerWidth="9" markerHeight="9" refX="4.5" refY="7" orient="auto"><path d="M0,9 L4.5,0 L9,9 z" fill="#37596F"/></marker>
+  </defs>
+</svg>
+<div class="cap">图 10　线性与平方根：同样的设定值，实际输出不同</div>
+</div>
+
+<p>所以选哪条，不取决于“哪个更准”，而取决于“给谁用”。需要精确按百分比计量（能耗核算、实验场景）用线性；给人用的日常调光，平方根手感更好。手册默认线性，是因为它最可预测、最容易做能耗换算；但会议室、酒店这类注重体验的场景，可以改成平方根。</p>
+
+<p>还有一个隐含条件：<b>低亮度分辨率</b>。如果 PWM 只有 8 位（256 级），1% 根本表达不出来，曲线再好也没用。所以“能不能调到 1%”是硬件能力，不是曲线参数能解决的。</p>
+
+<h3 id="c39">3.9　PWM 频率与频闪</h3>
+<p>LED 调光大多用 PWM：不是改变电流大小，而是快速地开、关，用“开的时间占比”（占空比）来控制平均亮度。开关的频率就是 PWM 频率。</p>
+
+<p>频率太低会被人眼看到闪烁。低于 100Hz 时，很多人能直接看到抖动；100～1000Hz 之间，肉眼可能看不到，但移动的物体（比如手在灯下挥动）会出现“频闪效应”——手的轨迹变成一串断续的影子；用手机拍视频，会出现一条条滚动的黑带。频率越高，这些问题越少，但开关损耗、驱动发热、电磁干扰也会上升。所以频率是一个折中，常见在几千赫兹到几十千赫兹。</p>
+
+<p>现场为什么需要改 PWM？因为旧灯改造时，原来的驱动可能是为工频设计的，跟新的调光模块不匹配，会出现频闪、啸叫、低亮闪烁。改 PWM 频率是在“迁就”驱动：找到一个它稳定工作的频段。手册要求改完<b>下电一分钟再上电</b>，是因为驱动内部有软启动和电容放电，不断电重启，新参数可能不生效，甚至让驱动处于半初始化状态。</p>
+
+<div class="note">
+<b>边界提醒：</b>PWM 频率不是“越高越好”。有些驱动在高频下效率下降、发热增加，甚至触发保护。改之前先看驱动规格书，改之后要连续观察发热和闪烁，不要只按一下“发送”就走。
+</div>
+
+<h2>第四篇　场景、面板与传感器</h2>
+
+<h3 id="c41">4.1　场景表为什么存在灯里</h3>
+<p>一盏灯内部有一张“场景表”，通常有 6 个槽位（场景 1～6，可扩展到 7～12），每个槽位存的是这个场景下的完整参数：亮灯模式、有人亮度、无人亮度、色温、感应模式、一段/二段延时、恒照度模式。按下场景键，灯不是去问云端“场景 3 是什么”，而是直接读自己表里的第 3 槽。</p>
+
+<p>把场景表放在灯里，而不是放在云端或网关，是一个典型的“边缘优先”设计。它带来三个好处：<b>断网可用</b>，云、网关、手机全都不在，面板按键照样切场景；<b>响应快</b>，不需要一次上行往返；<b>带宽省</b>，只传一个编号，不传一整包参数。代价是：<b>灯与灯之间可能不一致</b>，同一场景号在不同灯里可以是完全不同的内容，这既是灵活性，也是“为什么这盏灯跟那盏灯不一样”的根源。</p>
+
+<p>这也解释了“恢复出厂”为什么要谨慎。恢复出厂清的不只是区组，还有这张场景表。清完之后，灯还在网上、还能被控，但所有场景内容回到默认，按面板可能完全没反应，因为槽位空了。操作上“恢复前先导出字典”，本质就是给这张表做备份。</p>
+
+<h3 id="c42">4.2　“场景有效”是一位掩码</h3>
+<p>“场景有效/无效”不是“这个场景配没配”，而是“这盏灯要不要响应这个场景号”。它更像一个开关位：有效＝允许执行，无效＝收到号也忽略。</p>
+
+<p>为什么需要它？因为面板的 6 个键是固定的，但现场的分组关系不是固定的。比如一个会议室，前区要“全亮”，后区要“投影模式”，中间隔断打开时又要“全亮”。同一块面板的 6 个键，不可能对每个区组都合适。这时就把某些区组的某些场景设为“无效”，让它们“不参与”这个键，而不是“执行一个错误的状态”。</p>
+
+<p>这个设计还有一个容易被忽略的好处：<b>它让“按了没反应”变成一种合法配置</b>，而不是故障。现场遇到某个键对某组灯无效，先查场景有效位，不要急着怀疑面板或网络。反过来说，如果业主要求“这个键必须控制这组灯”，那就要把无效改回有效，并确认这组灯保存过该场景的内容——两件事都做，才真的会动。</p>
+<div class="fig">
+<svg viewBox="0 0 900 340" role="img" aria-label="场景有效位掩码">
+  <text x="20" y="32" class="s" font-size="12.5">“场景有效”是一位掩码：1 ＝ 这盏灯响应这个场景号，0 ＝ 收到号也忽略</text>
+  <text x="208.0" y="66" class="s" text-anchor="middle" font-size="11.5" fill="#7C8FA1">bit7</text><text x="264.0" y="66" class="s" text-anchor="middle" font-size="11.5" fill="#7C8FA1">bit6</text><text x="320.0" y="66" class="s" text-anchor="middle" font-size="11.5" fill="#7C8FA1">bit5</text><text x="376.0" y="66" class="s" text-anchor="middle" font-size="11.5" fill="#7C8FA1">bit4</text><text x="432.0" y="66" class="s" text-anchor="middle" font-size="11.5" fill="#7C8FA1">bit3</text><text x="488.0" y="66" class="s" text-anchor="middle" font-size="11.5" fill="#7C8FA1">bit2</text><text x="544.0" y="66" class="s" text-anchor="middle" font-size="11.5" fill="#7C8FA1">bit1</text><text x="600.0" y="66" class="s" text-anchor="middle" font-size="11.5" fill="#7C8FA1">bit0</text>
+  <text x="20" y="110" class="tb" font-size="13">A 组 前区</text>
+<rect x="180" y="76" width="56" height="52" fill="#F1F4F7" stroke="#C7D2DC" stroke-width="1.4"/>
+<text x="208.0" y="110" class="s" text-anchor="middle" font-size="17" font-weight="700" fill="#9AA9B6">0</text>
+<rect x="236" y="76" width="56" height="52" fill="#F1F4F7" stroke="#C7D2DC" stroke-width="1.4"/>
+<text x="264.0" y="110" class="s" text-anchor="middle" font-size="17" font-weight="700" fill="#9AA9B6">0</text>
+<rect x="292" y="76" width="56" height="52" fill="#F1F4F7" stroke="#C7D2DC" stroke-width="1.4"/>
+<text x="320.0" y="110" class="s" text-anchor="middle" font-size="17" font-weight="700" fill="#9AA9B6">0</text>
+<rect x="348" y="76" width="56" height="52" fill="#F1F4F7" stroke="#C7D2DC" stroke-width="1.4"/>
+<text x="376.0" y="110" class="s" text-anchor="middle" font-size="17" font-weight="700" fill="#9AA9B6">0</text>
+<rect x="404" y="76" width="56" height="52" fill="#EBF3F9" stroke="#12557E" stroke-width="1.4"/>
+<text x="432.0" y="110" class="s" text-anchor="middle" font-size="17" font-weight="700" fill="#0A3D5C">1</text>
+<rect x="460" y="76" width="56" height="52" fill="#EBF3F9" stroke="#12557E" stroke-width="1.4"/>
+<text x="488.0" y="110" class="s" text-anchor="middle" font-size="17" font-weight="700" fill="#0A3D5C">1</text>
+<rect x="516" y="76" width="56" height="52" fill="#EBF3F9" stroke="#12557E" stroke-width="1.4"/>
+<text x="544.0" y="110" class="s" text-anchor="middle" font-size="17" font-weight="700" fill="#0A3D5C">1</text>
+<rect x="572" y="76" width="56" height="52" fill="#EBF3F9" stroke="#12557E" stroke-width="1.4"/>
+<text x="600.0" y="110" class="s" text-anchor="middle" font-size="17" font-weight="700" fill="#0A3D5C">1</text>
+
+  <text x="208.0" y="146" class="s" text-anchor="middle" font-size="12" fill="#54677A">8</text><text x="264.0" y="146" class="s" text-anchor="middle" font-size="12" fill="#54677A">7</text><text x="320.0" y="146" class="s" text-anchor="middle" font-size="12" fill="#54677A">6</text><text x="376.0" y="146" class="s" text-anchor="middle" font-size="12" fill="#54677A">5</text><text x="432.0" y="146" class="s" text-anchor="middle" font-size="12" fill="#54677A">4</text><text x="488.0" y="146" class="s" text-anchor="middle" font-size="12" fill="#54677A">3</text><text x="544.0" y="146" class="s" text-anchor="middle" font-size="12" fill="#54677A">2</text><text x="600.0" y="146" class="s" text-anchor="middle" font-size="12" fill="#54677A">1</text>
+  <text x="20" y="176" class="s" font-size="12" fill="#A63A2C">↑ 场景 3 这一位是 1 → 按情景 3 会响应</text>
+
+  <text x="20" y="230" class="tb" font-size="13">B 组 后区</text>
+<rect x="180" y="196" width="56" height="52" fill="#EBF3F9" stroke="#12557E" stroke-width="1.4"/>
+<text x="208.0" y="230" class="s" text-anchor="middle" font-size="17" font-weight="700" fill="#0A3D5C">1</text>
+<rect x="236" y="196" width="56" height="52" fill="#EBF3F9" stroke="#12557E" stroke-width="1.4"/>
+<text x="264.0" y="230" class="s" text-anchor="middle" font-size="17" font-weight="700" fill="#0A3D5C">1</text>
+<rect x="292" y="196" width="56" height="52" fill="#EBF3F9" stroke="#12557E" stroke-width="1.4"/>
+<text x="320.0" y="230" class="s" text-anchor="middle" font-size="17" font-weight="700" fill="#0A3D5C">1</text>
+<rect x="348" y="196" width="56" height="52" fill="#EBF3F9" stroke="#12557E" stroke-width="1.4"/>
+<text x="376.0" y="230" class="s" text-anchor="middle" font-size="17" font-weight="700" fill="#0A3D5C">1</text>
+<rect x="404" y="196" width="56" height="52" fill="#F1F4F7" stroke="#C7D2DC" stroke-width="1.4"/>
+<text x="432.0" y="230" class="s" text-anchor="middle" font-size="17" font-weight="700" fill="#9AA9B6">0</text>
+<rect x="460" y="196" width="56" height="52" fill="#F1F4F7" stroke="#C7D2DC" stroke-width="1.4"/>
+<text x="488.0" y="230" class="s" text-anchor="middle" font-size="17" font-weight="700" fill="#9AA9B6">0</text>
+<rect x="516" y="196" width="56" height="52" fill="#F1F4F7" stroke="#C7D2DC" stroke-width="1.4"/>
+<text x="544.0" y="230" class="s" text-anchor="middle" font-size="17" font-weight="700" fill="#9AA9B6">0</text>
+<rect x="572" y="196" width="56" height="52" fill="#F1F4F7" stroke="#C7D2DC" stroke-width="1.4"/>
+<text x="600.0" y="230" class="s" text-anchor="middle" font-size="17" font-weight="700" fill="#9AA9B6">0</text>
+
+  <text x="208.0" y="266" class="s" text-anchor="middle" font-size="12" fill="#54677A">8</text><text x="264.0" y="266" class="s" text-anchor="middle" font-size="12" fill="#54677A">7</text><text x="320.0" y="266" class="s" text-anchor="middle" font-size="12" fill="#54677A">6</text><text x="376.0" y="266" class="s" text-anchor="middle" font-size="12" fill="#54677A">5</text><text x="432.0" y="266" class="s" text-anchor="middle" font-size="12" fill="#54677A">4</text><text x="488.0" y="266" class="s" text-anchor="middle" font-size="12" fill="#54677A">3</text><text x="544.0" y="266" class="s" text-anchor="middle" font-size="12" fill="#54677A">2</text><text x="600.0" y="266" class="s" text-anchor="middle" font-size="12" fill="#54677A">1</text>
+  <text x="20" y="296" class="s" font-size="12" fill="#7C8FA1">↑ 场景 3 这一位是 0 → 按情景 3 不响应</text>
+
+  <text x="20" y="326" class="s" font-size="12" fill="#0A3D5C">同一块面板的同一个键，对不同组可以“有效”或“无效”——“按了没反应”可以是合法配置，不一定是故障</text>
+</svg>
+<div class="cap">图 11　场景有效位：不是“配没配”，而是“这盏灯要不要响应这个号”</div>
+</div>
+
+
+
+<h3 id="c43">4.3　按键只发一个编号</h3>
+<p>面板按键的固件里没有“亮度 80%、色温 4000K”这些参数，它只知道“我这一键对应场景 3”。按下之后，它发的是一个很短的命令：调用场景 3。至于场景 3 是什么，由收到命令的灯自己决定。</p>
+
+<p>这种“控制与内容解耦”的设计，带来两个直接好处。第一，<b>改场景不用碰面板</b>：业主想把场景 1 从全亮改成 50%，你在 App 里改灯的场景 1 就行，面板不用重新配置、不用重新绑定。第二，<b>同一键可以分区不同效果</b>：大厅面板的场景 1 是“全亮”，走廊面板的场景 1 是“感应”，因为它们绑定的灯不同、灯里存的场景 1 不同，但按键发的号是一样的。</p>
+
+<p>代价是：<b>灯没配好，按键就是空的</b>。这也是为什么“面板按了没反应”在现场如此常见——不是面板坏了，是它发的号在灯那里没有对应的内容，或者被场景有效位挡住了。理解了“发号”与“执行”是两件事，排查就有了顺序：先确认号发出去了（面板关联、按键正常），再确认灯收到了（同区、在网），最后确认灯有内容可执行（场景已保存、未设无效）。</p>
+
+<h3 id="c44">4.4　设备关联的本质是绑定表</h3>
+<p>“设备关联”在界面上是选一个名字、点一下关联，但它在系统里写的是一张<b>绑定表</b>：这盏灯（或这个组）接受哪块面板的控制。没有这张表，面板发的场景号就是广播，谁收到谁执行，会乱套；有了这张表，只有被绑定的灯才响应，控制范围就被收窄了。</p>
+
+<p>绑定用的是“设备名”，不是地址。名字是索引，地址是内容。所以改名会断绑——你把面板从“501 面板”改成“501 会议室面板”，灯那边的绑定表里还写着旧名字，找不到，就断了。现场换面板、重新起名之后，一定要回到灯具的“设备关联”里重新选一次名字、重新关联。</p>
+
+<p>同理，安全模式里引用的“面板地址”也是名字。面板换了、改名了，安全模式还指向旧名字，就会出现“灯隔一段时间自己进入某个模式”的怪现象——它在等一个已经不存在的面板。这类问题的根因都不是射频，而是“名字作为索引”的设计带来的耦合。</p>
+
+<p>补一个判断依据：<b>关联成功与否，看面板上的指示灯，不看灯具。</b>点“关联”后闪的是面板自己的指示灯，它控制的那盏灯不会闪。这一点容易搞反——站在灯下面等，等不到就以为没关联上，结果重复做了好几遍。</p>
+
+<h3 id="c45">4.5　键值 7～12 与固件门槛</h3>
+<p>一个 6 键面板只能发 1～6 这六个场景号。如果项目需要 12 个场景（比如会议室用两块 6 键面板），就要把第二块面板的键值改成 7～12。这时两块面板发的是不同的号，灯端要能存 12 个场景的内容。</p>
+
+<p>这个功能有明确的门槛：面板固件 5.4.4 以上、6 个场景已配好、灯具已绑定。缺一个都不行。原因不难理解：键值改的是面板发号的映射，如果灯端没有对应的场景槽位，或者场景内容还没配，改了键值也只是发一个空号。</p>
+
+<p>从原理上看，这是“场景号空间”的扩展：1～6 是基础空间，7～12 是扩展空间。它不改变“按键只发号、灯执行内容”的模型，只是把取值范围拉长了。现场做多面板项目时，先在纸上把“哪块面板、哪个键、发几号、控哪组灯”列清楚，再去改键值，比在 App 里试要快得多。</p>
+
+<h3 id="c46">4.6　按键、场景、灯具的三层绑定</h3>
+<p>这是整套面板控制最容易讲不清、也最容易现场翻车的地方。记住一句话：<b>面板按键只发一个“场景号”，灯执行的是它自己保存的那份场景内容。</b></p>
+
+<div class="fig">
+<svg viewBox="0 0 960 330" role="img" aria-label="按键场景灯具三层绑定">
+  <rect class="bx2" x="24" y="40" width="230" height="150" rx="8"/>
+  <text x="139" y="66" class="tb" text-anchor="middle">① 面板按键</text>
+  <g>
+    <rect class="bx" x="44" y="82" width="56" height="30" rx="3"/><text x="72" y="103" class="s" text-anchor="middle">键 1</text>
+    <rect class="bx" x="110" y="82" width="56" height="30" rx="3"/><text x="138" y="103" class="s" text-anchor="middle">键 2</text>
+    <rect class="bx" x="176" y="82" width="56" height="30" rx="3"/><text x="204" y="103" class="s" text-anchor="middle">键 3</text>
+    <rect class="bx" x="44" y="120" width="56" height="30" rx="3"/><text x="72" y="141" class="s" text-anchor="middle">键 4</text>
+    <rect class="bx" x="110" y="120" width="56" height="30" rx="3"/><text x="138" y="141" class="s" text-anchor="middle">键 5</text>
+    <rect class="bx" x="176" y="120" width="56" height="30" rx="3"/><text x="204" y="141" class="s" text-anchor="middle">键 6</text>
+  </g>
+  <text x="139" y="176" class="s" text-anchor="middle">固件里只有“我对应几号”</text>
+
+  <rect class="bx3" x="360" y="60" width="220" height="110" rx="8"/>
+  <text x="470" y="88" class="tb" text-anchor="middle">② 场景号（频道）</text>
+  <text x="470" y="114" class="t" text-anchor="middle">场景 1 … 场景 6</text>
+  <text x="470" y="138" class="t" text-anchor="middle">可扩展到 7～12</text>
+  <text x="470" y="160" class="s" text-anchor="middle">全局编号，本身不含内容</text>
+
+  <rect class="bx4" x="700" y="40" width="236" height="150" rx="8"/>
+  <text x="818" y="66" class="tb" text-anchor="middle">③ 每盏灯自己的场景表</text>
+  <text x="818" y="92" class="t" text-anchor="middle">灯 A：场景 1＝全亮 100%</text>
+  <text x="818" y="114" class="t" text-anchor="middle">灯 B：场景 1＝感应 80%/10%</text>
+  <text x="818" y="136" class="t" text-anchor="middle">灯 C：场景 1＝无效（忽略）</text>
+  <text x="818" y="162" class="s" text-anchor="middle">同一个号，内容各不相同</text>
+
+  <line class="lb" x1="254" y1="115" x2="356" y2="115" marker-end="url(#t1)"/>
+  <text x="305" y="104" class="s" text-anchor="middle">发号</text>
+  <line class="lb" x1="580" y1="115" x2="696" y2="115" marker-end="url(#t1)"/>
+  <text x="638" y="104" class="s" text-anchor="middle">执行</text>
+
+  <rect class="bx" x="24" y="232" width="912" height="72" rx="6"/>
+  <text x="44" y="258" class="tb">由此可以直接推出三个现场结论</text>
+  <text x="44" y="282" class="t">① 同一场景号，0 区 0 组可以全开、邻区可以感应，互不冲突　② 灯没保存过这个号，按键按下去它就不变　③ 场景设“无效”，这盏灯主动忽略该号</text>
+  <defs>
+    <marker id="t1" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#12557E"/></marker>
+  </defs>
+</svg>
+<div class="cap">图 12　三层绑定：按键发号、场景号做频道、灯存内容</div>
+</div>
+
+<p>因为场景内容按灯保存，所以“配场景”这件事的正确做法不是“在面板上配”，而是<b>按区组逐个配</b>：选到 0 区 0 组 → 情景模式 → 场景 1 → 设亮灯模式与参数 → 预览 → 保存及应用 → 切下一个区组重复。同一个场景号在不同区组可以是完全不同的效果，这正是分区差异化的实现方式。</p>
+
+<p>想控邻区、跨区，则要同时满足两个前提，缺一不可：<b>邻区灯已经关联到这块面板</b>，<b>邻区灯保存过这个场景号</b>。只做场景不做关联，按键发不过去；只做关联不做场景，灯收到号也没有内容可执行。跨区场景本身用「工具箱 → 情景模式」的多组模式做：加“灯具框 0”放本区、“灯具框 1”放邻区，分别配效果，再应用。</p>
+
+<h3 id="c47">4.7　传感器不是按键，是自动化</h3>
+<p>面板是“人按一下”，传感器是“条件满足就动作”，两者不冲突，可以同时存在。传感器要生效，靠的不是场景键，而是这几个参数：传感器开关（总开关，关了整套感应失效）、联动开关（是否通知同组邻组一起亮）、触发间隔（两次触发的最小间隔）、一段/二段延时、恒照度模式。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 300" role="img" aria-label="传感器触发链路">
+  <rect class="bx" x="24" y="60" width="150" height="78" rx="7"/>
+  <text x="99" y="88" class="tb" text-anchor="middle">传感器</text>
+  <text x="99" y="110" class="t" text-anchor="middle">检测有人 / 无人</text>
+  <text x="99" y="130" class="s" text-anchor="middle">或检测照度</text>
+
+  <rect class="bx2" x="232" y="60" width="170" height="78" rx="7"/>
+  <text x="317" y="86" class="tb" text-anchor="middle">本地判断</text>
+  <text x="317" y="108" class="t" text-anchor="middle">触发间隔 / 延时</text>
+  <text x="317" y="128" class="t" text-anchor="middle">联动范围</text>
+
+  <rect class="bx2" x="458" y="60" width="150" height="78" rx="7"/>
+  <text x="533" y="88" class="tb" text-anchor="middle">同组灯具</text>
+  <text x="533" y="110" class="t" text-anchor="middle">执行亮度规则</text>
+  <text x="533" y="130" class="s" text-anchor="middle">有人亮 / 无人降</text>
+
+  <rect class="bx4" x="700" y="60" width="236" height="78" rx="7"/>
+  <text x="818" y="88" class="tb" text-anchor="middle">全程不经过网关</text>
+  <text x="818" y="110" class="t" text-anchor="middle">断网、断云照常工作</text>
+  <text x="818" y="130" class="s" text-anchor="middle">这是本地闭环的一部分</text>
+
+  <line class="lb" x1="174" y1="99" x2="228" y2="99" marker-end="url(#u1)"/>
+  <line class="lb" x1="402" y1="99" x2="454" y2="99" marker-end="url(#u1)"/>
+  <line class="lb" x1="608" y1="99" x2="696" y2="99" marker-end="url(#u1)"/>
+
+  <rect class="bx3" x="232" y="184" width="698" height="74" rx="7"/>
+  <text x="252" y="208" class="tb">三个开关决定它会不会动</text>
+  <text x="252" y="230" class="t">传感器开关（总闸）· 联动开关（要不要带邻居一起亮）</text>
+  <text x="252" y="250" class="t">转发开关（要不要替邻居转发报文——关掉就不再是中继）</text>
+
+  <text x="24" y="288" class="s">顺序：先确认总闸开着，再看联动范围，最后才怀疑灵敏度——反过来查会浪费大量时间。</text>
+  <defs>
+    <marker id="u1" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#12557E"/></marker>
+  </defs>
+</svg>
+<div class="cap">图 13　传感器的动作链路：判断与执行都在网内完成</div>
+</div>
+
+<p>独立传感器（座位、人体存在）还要多做一步：与灯具<b>同区</b>、<b>起名</b>、在灯具的“设备关联”里绑定，并且两边都打开联动开关。人体存在传感器还要设两个参数：感应距离（距离门 2～6，每档 0.75m）与灵敏度（高/中/低），两项都选好后点“一键设置”才生效。</p>
+
+<div class="principle">
+<b>一句话分工：</b>面板管“人想让它怎样”，场景存“怎样”，传感器管“没人时自动怎样”。三者都指向同一盏灯，但入口不同——排障时先分清是哪一层没生效。
+</div>
+
+<h3 id="c48">4.8　按键没反应的六步排查</h3>
+<p>“按了没反应”是现场最高频的抱怨，也是误判最多的一类。它几乎从来不是“面板坏了”，而是链路上某一环空了。按下面顺序查，通常一两分钟就能定位：</p>
+
+<ol class="steps">
+<li><b>场景是否“有效”。</b>情景模式里看该场景的“场景有效”位。设成无效时，灯会主动忽略这个号——这是合法配置，不是故障。</li>
+<li><b>灯是否保存过这个场景。</b>进快捷配置 → 基本设置 → 看“当前场景号”；或者直接重新“保存及应用”一次。没有内容，收到号也不会变。</li>
+<li><b>面板是否关联了这盏灯。</b>灯具 → 设备关联 → 看设备框里有没有这块面板的名字。没有绑定，号发不过这盏灯。</li>
+<li><b>面板区号是否与灯一致。</b>设备编号 → 智能面板 → 编号设置。区号不一致，等于两个不同的广播域。</li>
+<li><b>键值是否被改过。</b>键值改到 7～12 之后，按 1～6 号当然找不到对应场景。核对键值与场景号是否对得上。</li>
+<li><b>场景是感应模式但传感器被关。</b>常用设置 → 传感器开关是否为开。感应类场景在总闸关闭时等于“永远无人”。</li>
+</ol>
+
+<p>这六步的顺序不是随意的：它按“改一次的成本”从低到高排。前两步在手机上就能看，第三步要回列表，第四、五步要进设备编号，第六步要进快捷配置。先做便宜的检查，能避免一上来就跑到灯底下拆面板。</p>
+
+<h3 id="c49">4.9　找面板与写情景：默认区组重置法</h3>
+
+<p>面板要联动，第一步不是配场景，而是<b>先在 App 里认出“哪一块面板是你手上的这一块”</b>。现场常见做法是点“搜灯”，结果搜出一堆同名设备，靠按键试错来分辨，既慢又容易配错。正确做法是走“默认区组重置”这条通道——它只让<b>正在被操作的那一块</b>应答。</p>
+
+<p><b>找面板的四步：</b></p>
+
+<ol class="steps">
+<li>打开灯控助手，进入<b>默认区组重置</b>，<b>不要点“搜灯”</b>。搜灯是广播式扫描，会把周围所有设备都列出来。</li>
+<li>走到要配的那块面板前，<b>长按面板按键 10 秒以上</b>，直到面板有反馈。</li>
+<li>此时 App 里<b>第一个跳出来的设备就是这一块面板</b>，其余不会抢先应答。</li>
+<li>立刻给它<b>改名</b>，命名带区组与序号，例如 <code>101102</code>——1 区 1 组第 02 块。改完在面板背面或底盒贴同号标签。</li>
+</ol>
+
+<div class="principle">
+<b>为什么不能先搜灯：</b>搜灯结果按信号强度排序，同一房间内几块面板的 RSSI 往往只差几个 dBm，谁在前谁在后每次都不一样。而长按 10 秒是“物理指定”——只有你手按的那一块会应答，等于用人工动作完成了唯一性筛选。
+</div>
+
+<p><b>接着写情景。</b>面板上六个键对应六个情景，但每个情景要让“哪几个组”响应，由情景模式里的<b>灯具框</b>决定：</p>
+
+<ol class="steps">
+<li>进<b>工具箱 → 情景模式</b>，界面上会出现若干个灯具框（编号 0、1、2……），一个框代表一组灯具的集合。</li>
+<li>以“一区一组要亮、一区二组和三组不响应”为例：<b>灯具框 0 绑定一区一组，设为有效</b>；<b>灯具框 1 绑定一区二、三组，设为无效</b>。按下情景键时，有效框内的灯执行，无效框内的灯忽略。</li>
+<li>按同样方法依次配好<b>情景 1 到情景 6</b>，每个情景对应一组框的有效/无效组合。</li>
+<li>配完后<b>把情景写入面板</b>，写入后逐键试按，确认只有目标组响应。</li>
+</ol>
+
+<table>
+<caption>表 1　情景与灯具框的对应示例（一区）</caption>
+<thead><tr><th>情景键</th><th>灯具框 0<br>一区一组</th><th>灯具框 1<br>一区二三组</th><th>效果</th></tr></thead>
+<tbody>
+<tr><td>情景 1</td><td>有效</td><td>无效</td><td>只有一组亮</td></tr>
+<tr><td>情景 2</td><td>无效</td><td>有效</td><td>只有二三组亮</td></tr>
+<tr><td>情景 3</td><td>有效</td><td>有效</td><td>全区亮</td></tr>
+<tr><td>情景 4～6</td><td colspan="2">按现场需要组合</td><td>留作分区、全关、值班等</td></tr>
+</tbody>
+</table>
+
+<p><b>区号与组号不是固定的。</b>上面这套映射只是“一区一组 / 一区二三组”的例子；换成二区一组、二区三组，勾选方式完全一样，只是把框绑到对应的区组即可。所以现场不必为每个区重新设计一套逻辑，<b>记住“一个框＝一个组集合，有效就响应”这一条，任何区组都能照搬</b>。</p>
+
+<div class="note">
+<b>写不进去的三个常见原因：</b>① 面板没关联灯具（灯具 → 设备关联里没有这块面板的名字）；② 面板区号与灯不一致（设备编号 → 智能面板 → 编号设置）；③ 键值被改到 7～12，而场景只配了 1～6。三条都在 4.8 的六步排查里有对应位置。
+</div>
+
+<h3 id="c4A">4.10　停车场迎灯跑马：触发脚本的三层结构</h3>
+
+<p>迎灯跑马（现场也叫“迎宾”）解决的是一个生理问题：人从亮处进车库，眼睛要 5～10 分钟才适应暗环境，这段时间照度不足就是安全隐患。传统做法是“有人就整片全亮”，代价是能耗和灯具寿命；跑马只点亮人所在位置前后的一段，并跟着人走。它不是一个功能开关，而是三段脚本拼出来的：<b>谁触发、按什么节奏跑、每一盏切到哪个场景</b>。</p>
+
+<div class="fig">
+<svg viewBox="0 0 1000 252" role="img" aria-label="迎灯跑马的三层触发结构">
+  <defs><marker id="a9" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#12557E"/></marker></defs>
+
+  <rect class="bx" x="10" y="30" width="210" height="124" rx="6"/>
+  <text x="115" y="66" class="tb" font-size="15" text-anchor="middle">传感器</text>
+  <text x="115" y="94" class="t" font-size="13.4" text-anchor="middle">区 + 灯号</text>
+  <text x="115" y="116" class="s" font-size="12" text-anchor="middle">间隔：10 秒内不重复</text>
+  <text x="115" y="138" class="s" font-size="12" text-anchor="middle">人／车经过即触发</text>
+
+  <line class="lb" x1="224" y1="90" x2="256" y2="90" marker-end="url(#a9)"/>
+
+  <rect class="bx2" x="260" y="30" width="210" height="124" rx="6"/>
+  <text x="365" y="66" class="tb" font-size="15" text-anchor="middle">触发层 start</text>
+  <text x="365" y="94" class="t" font-size="13.4" text-anchor="middle">type: lamp</text>
+  <text x="365" y="116" class="s" font-size="12" text-anchor="middle">被感应 → 执行动作</text>
+  <text x="365" y="138" class="s" font-size="12" text-anchor="middle">type: not → 收灯</text>
+
+  <line class="lb" x1="474" y1="90" x2="506" y2="90" marker-end="url(#a9)"/>
+
+  <rect class="bx3" x="510" y="30" width="210" height="124" rx="6"/>
+  <text x="615" y="66" class="tb" font-size="15" text-anchor="middle">序列层 demo</text>
+  <text x="615" y="94" class="t" font-size="13.4" text-anchor="middle">type: interval</text>
+  <text x="615" y="116" class="s" font-size="12" text-anchor="middle">间隔 0.3 秒逐条下发</text>
+  <text x="615" y="138" class="s" font-size="12" text-anchor="middle">列表顺序＝点亮顺序</text>
+
+  <line class="lb" x1="724" y1="90" x2="756" y2="90" marker-end="url(#a9)"/>
+
+  <rect class="bx4" x="760" y="30" width="210" height="124" rx="6"/>
+  <text x="865" y="66" class="tb" font-size="15" text-anchor="middle">执行层 控灯指令</text>
+  <text x="865" y="94" class="t" font-size="13.4" text-anchor="middle">单灯 / 标签</text>
+  <text x="865" y="116" class="s" font-size="12" text-anchor="middle">场景号_渐变时间</text>
+  <text x="865" y="138" class="s" font-size="12" text-anchor="middle">1_3 ＝ 场景1、0.3 秒</text>
+
+  <text x="500" y="200" class="s" font-size="12" text-anchor="middle">上层只管“什么时候”，中层只管“什么节奏”，下层只管“哪一盏”——三层分开，改节奏不动灯，换灯不动触发</text>
+  <text x="500" y="228" class="s" font-size="12" text-anchor="middle">少任何一层，表现分别是：不响应 / 不跑 / 不亮</text>
+</svg>
+<div class="cap">图 14　迎灯跑马的三层触发结构：传感器 → start／stop → demo → 控灯指令</div>
+</div>
+
+<table>
+<caption>表 2　三层各自的职责与命名习惯</caption>
+<thead><tr><th style="width:12%">层</th><th style="width:20%">命名习惯</th><th style="width:26%">触发条件</th><th style="width:20%">动作类型</th><th>作用</th></tr></thead>
+<tbody>
+<tr><td>触发层</td><td><code>start1</code> / <code>stop1</code></td><td>传感器感应 / 一段时间没触发</td><td>执行动作</td><td>决定何时起跑、何时收灯</td></tr>
+<tr><td>序列层</td><td><code>demo1</code> / <code>tri1</code></td><td>被别的动作调用</td><td>间隔执行</td><td>决定节奏与方向</td></tr>
+<tr><td>执行层</td><td>不单独命名</td><td>—</td><td>控灯指令</td><td>决定哪一盏、切哪个场景、渐变多久</td></tr>
+</tbody>
+</table>
+
+<p><b>工具与文件。</b>「触发脚本制作工具」是 Windows 桌面程序，安装后运行。界面分两块：左侧是触发器列表，一个触发器一块，含名称、触发条件、触发后的动作；右侧是快捷设置区，把 6 种触发条件和 11 种动作做成按钮，点一下就往当前触发器里加一条。导出的文件名以 trigger 开头、后接日期与时分（如 <code>trigger-2026-11-12-10-39.json</code>），一份场景一个文件，通常十几到几十 KB。建议固定存放目录（例如 F 盘的「格兰斯贝」文件夹），文件名保留时间戳，现场回滚时按时间取上一版。</p>
+
+<p><b>六种触发条件。</b>跑马只用到其中三种，但要认全，避免选错。</p>
+
+<table>
+<caption>表 3　六种触发条件与 JSON 字段</caption>
+<thead><tr><th style="width:24%">界面名称</th><th style="width:32%">判据</th><th style="width:16%">source.type</th><th>典型用法</th></tr></thead>
+<tbody>
+<tr><td>传感器感应触发</td><td>指定区、指定灯号（或标签）被感应到</td><td><code>lamp</code></td><td>车压到该点位，开始跑马</td></tr>
+<tr><td>被别的动作调用</td><td>自身不主动触发，只被其它触发器调用</td><td><code>never</code></td><td>序列组专用</td></tr>
+<tr><td>一段时间没触发才触发</td><td>等待 N 秒，期间该条件没有再次触发</td><td><code>not</code>＋<code>wait</code></td><td>车走后收灯</td></tr>
+<tr><td>情景模式触发</td><td>指定情景被调用</td><td>—</td><td>与面板按键联动</td></tr>
+<tr><td>同时触发才触发</td><td>多个条件同时满足</td><td>—</td><td>双传感器防误判</td></tr>
+<tr><td>有一个条件触发就触发</td><td>任一条件满足即执行</td><td>—</td><td>两端入口任一进车</td></tr>
+</tbody>
+</table>
+
+<p>“传感器感应触发”有三个字段要分清：<b>区域</b>是灯具所在的区，不是网关所在的区；<b>灯号</b>是这一盏灯的地址，也可以填<b>标签</b>，界面原文写着“同时设置标签和灯号，则灯号无效，只使用标签”；<b>间隔</b>是 N 秒内同一盏再次被感应不算触发，相当于冷却时间。</p>
+
+<div class="principle">
+<b>冷却时间不是“延时执行”，而是“防重复”。</b>填 10 秒意味着这辆车在 10 秒内怎么动，序列都不会被重新触发。填太短，同一辆车每经过一盏灯就重置一次，表现为“每盏灯都从头发一遍”；填太长，后车来了不响应。
+</div>
+
+<p><b>十一种动作，跑马只用四个：</b><b>控灯指令</b>（一条控制命令）、<b>间隔执行</b>（按固定间隔逐条执行，跑马主力）、<b>按时执行</b>（每条自带延时，用于错峰）、<b>执行动作</b>（调用另一个触发器，把三层串起来）。其余播放音频、同时执行、乱序执行、循环执行、停止动作、停／启定时任务、停／启触发任务，按字面语义使用即可。</p>
+
+<table>
+<caption>表 4　控灯指令的界面字段与 JSON 字段</caption>
+<thead><tr><th style="width:16%">界面字段</th><th style="width:26%">含义</th><th style="width:18%">JSON 字段</th><th>取值示例</th></tr></thead>
+<tbody>
+<tr><td>模式</td><td>指令类别</td><td><code>type</code></td><td><code>command</code>（控灯指令）</td></tr>
+<tr><td>范围</td><td>单灯还是标签</td><td>—</td><td>单灯控制 / 标签控制</td></tr>
+<tr><td>区号</td><td>灯具所在区</td><td><code>area</code></td><td><code>603</code></td></tr>
+<tr><td>地址</td><td>灯号或标签号</td><td><code>address</code></td><td><code>1</code>～<code>N</code></td></tr>
+<tr><td>动作</td><td>切换方式</td><td><code>action</code></td><td><code>callScene</code>（场景）／<code>callMode2</code>（模式）</td></tr>
+<tr><td>参数</td><td>场景号_渐变时间</td><td><code>params</code></td><td><code>"1_3"</code>、<code>"2_20"</code></td></tr>
+<tr><td>—</td><td>指令码</td><td><code>code</code></td><td><code>100</code> 缓慢切换／<code>200</code> 立即切换</td></tr>
+</tbody>
+</table>
+
+<p>两个容易搞错的点。其一，<b>参数格式是“场景_时间”，时间单位为 0.1 秒</b>，界面提示原文是“2_20 就是 2 秒钟切换到场景 2”，所以 <code>1_3</code> 是切到场景 1、用 0.3 秒渐变，只写 <code>1</code> 则没有渐变，是硬切。其二，<b><code>code</code> 与动作要配套</b>：从两份导出脚本对比可见，带渐变时间的（<code>params</code> 为 <code>1_3</code> 这类）用 <code>100</code>，只有场景号的（<code>params</code> 为 <code>1</code>）用 <code>200</code>。这是实测归纳，不同固件版本可能不同，以工具导出为准，不要手改。</p>
+
+<p><b>节奏怎么定。</b>跑马速度要略快于人的移动速度，否则灯“追不上”人，看起来像断流。单盏步进时间按 <b>间隔 ≤ 灯间距 ÷ 速度</b> 估算：步行 1.2 m/s、灯间距 4 m 时上限 3.3 秒，取 0.3 秒足够；车行 20 km/h（5.6 m/s）、灯间距 4 m 时上限 0.7 秒，取 0.3～0.5 秒。示例脚本用的是 15 盏、间隔 0.3 秒，铺满一条车道约 4.5 秒，渐变 0.3 秒。渐变太短会“跳”，超过 1 秒会拖影，0.3～0.5 秒最自然。</p>
+
+<p><b>方向由列表顺序决定。</b>序列组里的控灯指令按列表顺序执行，<b>列表顺序就是点亮顺序</b>：想让灯依次 1→15 亮，就按 1、2、3…15 的顺序添加；想反向亮，就倒着添加，或在“已经选择的动作”面板里拖动调整。双向车道要两套触发——A 端传感器触发正向组，B 端触发反向组；收灯同理，从远端往近端灭，视觉上才连贯。</p>
+
+<table>
+<caption>表 5　双向车道的八个触发器（15 盏灯、两端进车）</caption>
+<thead><tr><th style="width:12%">触发器</th><th style="width:32%">触发条件</th><th style="width:32%">动作</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td><code>start1</code></td><td>传感器 区603 灯号1，冷却 10 秒</td><td>执行 demo1</td><td>A 端来车</td></tr>
+<tr><td><code>demo1</code></td><td>被别的动作调用</td><td>间隔 0.3 秒：灯 1→15 缓慢切场景1（<code>1_3</code>）</td><td>正向点亮</td></tr>
+<tr><td><code>stop1</code></td><td>10 秒内灯 1 无新触发</td><td>执行 tri1</td><td>车已走</td></tr>
+<tr><td><code>tri1</code></td><td>被别的动作调用</td><td>间隔 0.3 秒：灯 15→1 缓慢切场景2（<code>2_3</code>）</td><td>反向熄灭</td></tr>
+<tr><td><code>start2</code></td><td>传感器 区603 灯号15，冷却 10 秒</td><td>执行 demo2</td><td>B 端来车</td></tr>
+<tr><td><code>demo2</code></td><td>被别的动作调用</td><td>间隔 0.3 秒：灯 15→1 缓慢切场景1</td><td>反向点亮</td></tr>
+<tr><td><code>stop2</code></td><td>10 秒内灯 15 无新触发</td><td>执行 tri2</td><td>车已走</td></tr>
+<tr><td><code>tri2</code></td><td>被别的动作调用</td><td>间隔 0.3 秒：灯 1→15 缓慢切场景2</td><td>正向熄灭</td></tr>
+</tbody>
+</table>
+
+<p><b>脚本骨架。</b>下面是单方向的最小可用结构，另一方向照抄并把顺序倒过来即可。</p>
+
+<pre class="code">{
+  "start1": {
+    "source": {
+      "type": "lamp", "area": "603", "address": "1", "interval": "10"
+    },
+    "command": { "type": "run", "trigger": "demo1" }
+  },
+  "demo1": {
+    "source": { "type": "never" },
+    "command": {
+      "type": "interval",
+      "interval": "0.3",
+      "actions": [
+        { "code": 100, "area": "603", "address": "1",
+          "action": "callScene", "params": "1_3", "type": "command" },
+        { "code": 100, "area": "603", "address": "2",
+          "action": "callScene", "params": "1_3", "type": "command" },
+        { "code": 100, "area": "603", "address": "3",
+          "action": "callScene", "params": "1_3", "type": "command" }
+      ]
+    }
+  },
+  "stop1": {
+    "source": {
+      "type": "not", "wait": "10",
+      "trigger": {
+        "type": "lamp", "area": "603", "address": "1", "interval": "10"
+      }
+    },
+    "command": { "type": "run", "trigger": "tri1" }
+  }
+}</pre>
+
+<p>三个关键字值得记住：<code>run</code> 是调用另一个触发器，也是把三层串起来的唯一方式；<code>interval</code> 是延时执行，单位秒，写 <code>"0.3"</code> 或 <code>3</code> 都可以；<code>not</code> 加 <code>wait</code> 是等待窗口，含义是“这么久没再触发才执行”，收灯就靠它。</p>
+
+<p><b>调试七步。</b>顺序不能颠倒，否则分不清是脚本问题还是灯的问题。</p>
+
+<ol class="steps">
+<li><b>先单独测序列。</b>手动执行 demo1，掐表看 15 盏是否按 0.3 秒步进；步进不对就是 interval 的问题，与触发无关。</li>
+<li><b>再测触发。</b>人走过 1 号点位，看是否从 1 号起亮，而不是从中间或末端起亮。</li>
+<li><b>测反向。</b>从 15 号点位触发，看是否倒序亮。</li>
+<li><b>测收灯。</b>离开后等 10 秒，看是否按相反方向依次熄灭。</li>
+<li><b>测冷却。</b>10 秒内连续触发两次，第二次应被忽略，序列不应从 1 号重头再跑一遍。</li>
+<li><b>测覆盖。</b>两端同时触发，后触发者接管，前一条序列不报错、不叠加。</li>
+<li><b>测掉电。</b>断电重上电，脚本应自动恢复，不需要人工重新导入。</li>
+</ol>
+
+<table>
+<caption>表 6　迎灯跑马的七种典型故障</caption>
+<thead><tr><th style="width:28%">现象</th><th style="width:32%">最可能原因</th><th>处理</th></tr></thead>
+<tbody>
+<tr><td>触发完全无响应</td><td>区号填成了网关区</td><td>改成灯具所在区</td></tr>
+<tr><td>只亮不灭</td><td>缺 stop，或 wait 未设</td><td>补“一段时间没触发”，wait 填 10</td></tr>
+<tr><td>跑马断流、跟不上</td><td>步进间隔大于“灯间距÷速度”</td><td>按公式重算，一般 0.3～0.5 秒</td></tr>
+<tr><td>反复从头亮</td><td>冷却时间太短，被同一辆车重复触发</td><td>加大感应触发的间隔值</td></tr>
+<tr><td>反向不亮</td><td>只配了单向 start</td><td>补反向 start 与对应序列组</td></tr>
+<tr><td>切换是硬跳、没有渐变</td><td>用了 <code>code 200</code></td><td>改用“缓慢切换场景”</td></tr>
+<tr><td>亮度或色温不对</td><td>场景内容本身错了</td><td>先单独调场景，再挂脚本</td></tr>
+</tbody>
+</table>
+
+<p><b>能耗账。</b>以 100 盏 30 W 车道灯、每日营业 12 小时、车流 200 次、每次亮 15 盏 30 秒为例：常亮为 3 kW × 12 h ＝ 36 kWh／日；跑马为待机 10%（0.3 kW）× 24 h ＋ 15×30 W×30 s×200 次 ≈ 8 kWh／日。按 0.8 元／kWh 计，单条车道一年差约 8000 元。这个数字随待机亮度和车流变化很大，但量级关系不变：<b>跑马的收益主要来自待机亮度，不是来自“点亮的那几秒”</b>。</p>
+
+<div class="note">
+<b>一句话记住：</b>start 决定“什么时候开始”，demo 决定“怎么跑”，控灯指令决定“哪一盏切哪个场景”。三段都配齐才动；少任何一段，表现分别是“不响应”“不跑”“不亮”。
+</div>
+
+<h2>第五篇　手机 App：全功能操作</h2>
+
+<p>这一篇是操作，但写法跟前四篇一致：每一步后面都跟着“为什么”。因为现场真正会出问题的不是“不会点”，而是“顺序错了”。顺序错的原因往往是不理解这一步在系统里改了什么，所以先看流程，再看每一步的细节。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 420" role="img" aria-label="APP 调试主流程">
+  <text x="0" y="16" class="tb">从插狗到交付：一条因果顺序，不是界面顺序</text>
+
+  <g>
+    <rect class="bx2" x="20" y="40" width="150" height="66" rx="6"/>
+    <text x="95" y="68" class="t" text-anchor="middle">① 建立链路</text>
+    <text x="95" y="90" class="s" text-anchor="middle">插狗 · OTG · 串口绿</text>
+
+    <rect class="bx" x="200" y="40" width="150" height="66" rx="6"/>
+    <text x="275" y="68" class="t" text-anchor="middle">② 重置</text>
+    <text x="275" y="90" class="s" text-anchor="middle">清掉历史残留</text>
+
+    <rect class="bx" x="380" y="40" width="150" height="66" rx="6"/>
+    <text x="455" y="68" class="t" text-anchor="middle">③ 搜灯</text>
+    <text x="455" y="90" class="s" text-anchor="middle">近距搜 · 闪停核对</text>
+
+    <rect class="bx" x="560" y="40" width="150" height="66" rx="6"/>
+    <text x="635" y="68" class="t" text-anchor="middle">④ 指哪配哪</text>
+    <text x="635" y="90" class="s" text-anchor="middle">写区 / 组 / 地址</text>
+
+    <rect class="bx3" x="740" y="40" width="150" height="66" rx="6"/>
+    <text x="815" y="68" class="t" text-anchor="middle">⑤ 全部取消</text>
+    <text x="815" y="90" class="s" text-anchor="middle">复位选中态</text>
+  </g>
+
+  <line class="lb" x1="170" y1="73" x2="196" y2="73" marker-end="url(#v1)"/>
+  <line class="lb" x1="350" y1="73" x2="376" y2="73" marker-end="url(#v1)"/>
+  <line class="lb" x1="530" y1="73" x2="556" y2="73" marker-end="url(#v1)"/>
+  <line class="lb" x1="710" y1="73" x2="736" y2="73" marker-end="url(#v1)"/>
+
+  <path class="lb" d="M815,106 L815,132 L95,132 L95,158" fill="none" marker-end="url(#v1)"/>
+
+  <g>
+    <rect class="bx" x="20" y="162" width="150" height="66" rx="6"/>
+    <text x="95" y="190" class="t" text-anchor="middle">⑥ 配六个场景</text>
+    <text x="95" y="212" class="s" text-anchor="middle">按区组逐个配</text>
+
+    <rect class="bx" x="200" y="162" width="150" height="66" rx="6"/>
+    <text x="275" y="190" class="t" text-anchor="middle">⑦ 预览</text>
+    <text x="275" y="212" class="s" text-anchor="middle">看实际效果</text>
+
+    <rect class="bx" x="380" y="162" width="150" height="66" rx="6"/>
+    <text x="455" y="190" class="t" text-anchor="middle">⑧ 保存并应用</text>
+    <text x="455" y="212" class="s" text-anchor="middle">不点等于没配</text>
+
+    <rect class="bx2" x="560" y="162" width="150" height="66" rx="6"/>
+    <text x="635" y="190" class="t" text-anchor="middle">⑨ 批量下发</text>
+    <text x="635" y="212" class="s" text-anchor="middle">快捷配置七步</text>
+
+    <rect class="bx4" x="740" y="162" width="150" height="66" rx="6"/>
+    <text x="815" y="190" class="t" text-anchor="middle">⑩ 绑面板传感器</text>
+    <text x="815" y="212" class="s" text-anchor="middle">写绑定表</text>
+  </g>
+
+  <line class="lb" x1="170" y1="195" x2="196" y2="195" marker-end="url(#v1)"/>
+  <line class="lb" x1="350" y1="195" x2="376" y2="195" marker-end="url(#v1)"/>
+  <line class="lb" x1="530" y1="195" x2="556" y2="195" marker-end="url(#v1)"/>
+  <line class="lb" x1="710" y1="195" x2="736" y2="195" marker-end="url(#v1)"/>
+
+  <rect class="bx3" x="20" y="266" width="440" height="76" rx="7"/>
+  <text x="40" y="292" class="tb">四道最容易被跳过的闸</text>
+  <text x="40" y="316" class="t">② 不重置：上一次搜到的灯会一起被刷</text>
+  <text x="40" y="336" class="t">⑤ 不取消：后续设置只对那几盏生效</text>
+
+  <rect class="bx3" x="480" y="266" width="460" height="76" rx="7"/>
+  <text x="500" y="292" class="tb">另外两道</text>
+  <text x="500" y="316" class="t">⑧ 只保存不应用：灯不会变；只应用不保存：切走就丢</text>
+  <text x="500" y="336" class="t">⑨ 批量前不确认传感器开关：整组感应直接失效</text>
+
+  <text x="20" y="386" class="s">上系统是第十一步：加云上网关 → 导入 JSON → 平台添加 → 按区组搜灯 → 停止搜灯。详见第七篇。</text>
+  <defs>
+    <marker id="v1" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#12557E"/></marker>
+  </defs>
+</svg>
+<div class="cap">图 15　App 调试主线：每道闸对应一个曾经踩过的坑</div>
+</div>
+
+<h3 id="c51">5.1　连接与自检</h3>
+<p>准备三样东西：安卓手机（苹果用不了）、Type-C 蓝牙加密传输器（俗称加密狗、USB 控制器）、Type-C 转 USB3.0 的转接头（视手机接口而定）。App 用「灯控助手」，版本 1.1.303 以上。</p>
+
+<ol class="steps">
+<li>把加密狗插进手机。狗上一般有指示灯，亮起说明供电正常。</li>
+<li>打开手机的 <b>OTG</b>。安卓默认关闭，不打开手机根本不认这只狗，表现为“插了但没反应”。</li>
+<li>打开灯控助手，会弹“要允许灯控助手访问 CH57x 吗”，点<b>确定</b>。这个 CH57x 就是狗内部的串口芯片，不允许就等于没插。</li>
+<li>如果不弹窗，点右上角的<b>重置串口</b>再试一次。还不行就拔插一次、换转接头、换手机。</li>
+<li>看顶部状态：<b>串口变绿</b>才算就绪。串口不绿，后面所有操作都是空转，不要往下走。</li>
+</ol>
+
+<p>这里有一个必须知道的前提：<b>OTG 闲置约 5 分钟会自动关闭</b>。所以“调着调着突然控不了”的第一反应不是灯坏了，而是 OTG 被系统关了。重新打开 OTG，或者拔插一次狗，就恢复了。这个机制是手机省电策略，不是 App 的 bug。</p>
+
+<p>为什么必须用狗？因为链路是“手机 → 串口 → 狗内的射频与协议栈 → 2.4G 帧”。手机本身没有这套私有协议栈，也没有密钥。狗承担的是“翻译 + 认证”两个角色，所以它不是可选配件，是钥匙。换手机要带它，换项目也要带它。</p>
+
+<h3 id="c52">5.2　重置、搜灯与定位</h3>
+<p>进场第一件事不是搜灯，是<b>重置</b>。位置在设备列表里，点开列表会看到一个“重置”（部分版本这个动作叫<b>“全部取消”</b>，作用一致：清空列表并复位灯的选中态）。它清的是“上一次留在列表里的灯”，不清灯的配置。为什么必须先做？因为列表残留会让你在后面“整组下发”时，把历史搜到的灯一起刷进去——那些灯可能属于别的区组、甚至别的项目。</p>
+
+<p>搜灯之前把区组筛选改成 <b>0 区 0 组</b>。这是“未编组”的默认区组，新灯、没配过的灯都在这里。如果筛选停在上次的区组，你会看到“一盏都搜不到”，然后误判成信号问题。</p>
+
+<p>搜灯有两个动作要分清：<b>搜灯</b>是把网内能响应的都列出来；<b>近距搜灯</b>只列信号强于门限的，也就是“手机附近这一片”。近距搜灯需要灯具固件 V5.3.33 以上，老固件只能用普通搜灯。搜到数量稳定后，点<b>停止搜灯</b>——不是礼貌动作，是防止后续动作还在持续枚举。</p>
+
+<p>搜到之后必须<b>核对位置</b>。用“闪 / 停”让某一盏灯闪，人站在现场看是哪一盏。这一步看起来笨，但它是后面所有工作的基础：编号是按列表顺序或按圈选范围写的，位置错了，编号就错，而编号错了要到验收才会发现。</p>
+
+<p>还有三条搜灯纪律，都是从返工里换来的。<b>一是等数量不再增长再停。</b>列表还在跳就点停止，后面那几盏就漏了；漏掉的灯会留在 0 区 0 组，等你验收“整片都亮了”时它不亮。<b>二是不要一边搜灯一边改配置。</b>搜的过程还在枚举，这时候下发的参数会落到不确定的对象上，改完自己都说不清改给了谁。<b>三是搜完先命名、再编号。</b>先给每盏灯一个能对得上现场的标签（位置或图号），再写区组；反过来先编号后补名字，一旦发现编号错了，已经分不清哪盏是哪盏。</p>
+
+<h3 id="c53">5.3　指哪配哪：12 个控件</h3>
+<p>“指哪配哪”是这套 App 里信息密度最高的一个界面。它的作用是：<b>把手机附近的一片灯圈进来，然后一次性给它们写区、组、起始地址</b>。界面上的每一个控件都在影响“圈进来的范围”，所以必须逐个理解。</p>
+
+<p><b>上下翻转</b>：把设备列表的排序反过来。它不是“旋转屏幕”，而是改变列表顺序，从而改变“按顺序编号”的方向。现场如果灯的物理排列与列表顺序相反，用它可以对齐。</p>
+
+<p><b>区组筛选</b>：只显示指定区组的灯。配网时一般筛 0 区 0 组，改配时筛目标区组。</p>
+
+<p><b>区号 / 组号</b>：这一批灯要写进哪个区、哪个组。这是“目的地”，不是“筛选条件”。</p>
+
+<p><b>起始号</b>：这一批灯从几号开始编号。留空则按列表顺序自动排；填了就从该号往后排。<b>分批施工时这里最容易撞号</b>——第二批要从上一批末尾接着排，不要每批都从 1 开始。</p>
+
+<p><b>灯具列表</b>：已经圈进来的灯，可以拖动排序。拖动改变的是编号顺序，不是物理位置。</p>
+
+<p><b>选灯距离</b>：一个滑块，左边近、右边远。它调的不是“米”，而是<b>接收信号强度门限</b>（-20 到 -120 dBm 量级）。所以同一个刻度在不同现场对应的实际距离不同：空旷车间可能十几米，隔墙的办公室可能只有三五米。这是它最容易被误解的地方——不要拿它当卷尺用。</p>
+
+<p><b>自动选中</b>：打开后每 0.5 秒自动按当前门限扫一次，把新出现的灯加进列表。适合“边走边圈”的用法。</p>
+
+<p><b>选中</b>：按当前门限执行一次圈选。</p>
+
+<p><b>开始编号</b>：把列表里的灯按区、组、起始号写入。这是真正“落笔”的动作，点之前要确认列表。</p>
+
+<p><b>取消</b>：把某一盏灯从列表里移除，不影响灯本身。</p>
+
+<p><b>全部取消</b>：清空列表<b>并复位灯的选中态</b>。这是退出前必须做的一步。</p>
+
+<table>
+  <caption>表 7　指哪配哪：三个最容易被误解的点</caption>
+  <thead><tr><th>控件</th><th>以为是</th><th>实际是</th></tr></thead>
+  <tbody>
+    <tr><th>选灯距离</th><td>距离，单位米</td><td>接收信号强度门限；同一刻度在不同现场对应的距离不同</td></tr>
+    <tr><th>全部取消</th><td>清空界面显示</td><td>同时复位灯侧的选中态；不做这一步，后续设置只对残留的几盏生效</td></tr>
+    <tr><th>起始号</th><td>随便填，系统会自己排</td><td>写死起始地址；分批施工从 1 开始就会与上一批撞号</td></tr>
+  </tbody>
+</table>
+
+<h3 id="c54">5.4　主界面八个按键</h3>
+<p>主界面有八个动作键，它们下发的是“临时状态”，不是场景，也不会覆盖灯里存的场景表。这一点很关键：用这八个键调出来的效果，断电或切场景后就没了，不要拿它当“配置”用。</p>
+
+<table>
+  <caption>表 8　八个动作键的语义与用途</caption>
+  <thead><tr><th>按键</th><th>实际下发</th><th>什么时候用</th><th>注意</th></tr></thead>
+  <tbody>
+    <tr><th>感应</th><td>切到感应模式</td><td>验证感应是否工作</td><td>传感器开关关着时，等于常灭</td></tr>
+    <tr><th>常亮</th><td>切到常亮，通常满功率</td><td>找灯、验收照度</td><td>不受延时与照度影响</td></tr>
+    <tr><th>常灭</th><td>切到关闭</td><td>清场、演示对比</td><td>不是断电，驱动仍待机</td></tr>
+    <tr><th>闪一闪</th><td>周期性闪烁</td><td>定位“哪一盏是它”</td><td>必须用“停止闪”收尾，否则一直闪</td></tr>
+    <tr><th>停止闪</th><td>退出闪烁</td><td>核对完位置</td><td>不会恢复原状态，需重新切场景</td></tr>
+    <tr><th>调光调色</th><td>改亮度 / 色温</td><td>单灯或整组微调</td><td>单色温灯具调色温＝等比调亮度</td></tr>
+    <tr><th>七彩球泡</th><td>进入 RGB 取色</td><td>RGB 灯具</td><td>普通照明灯具不支持</td></tr>
+    <tr><th>休眠</th><td>进入低功耗 / 微亮</td><td>夜间值守、展厅待机</td><td>不是断电；亮度语义按项目定义</td></tr>
+  </tbody>
+</table>
+
+<p>这八个键最实用的场景是<b>“找灯”</b>：搜到一批灯之后，逐个点“闪一闪”，看现场哪一盏在闪，就能把“列表里的第几项”和“天花板上的哪一盏”对上。这个动作看起来低效，但它决定了后面编号的正确性，值得花时间。</p>
+
+<h3 id="c55">5.5　情景模式与四种入口</h3>
+<p>一个“场景”就是一份完整的灯光状态：哪些灯、什么亮度、什么色温、什么感应方式。App 提供场景 1～6，对应面板的 6 个键（键值可扩到 7～12）。</p>
+
+<p>场景内的参数有九项：场景有效、亮灯模式（感应/常亮/常灭）、色彩模式（色温/五彩）、有人亮度、无人亮度、色温、感应模式（一段/二段）、一段与二段延时、恒照度模式（无效/自控/被控）。配完点<b>预览</b>看实际效果，符合预期再点<b>保存及应用</b>。</p>
+
+<table>
+  <caption>表 9　配置场景的四种入口，各自适合什么</caption>
+  <thead><tr><th>方式</th><th>入口</th><th>适用</th><th>局限</th></tr></thead>
+  <tbody>
+    <tr><th>① 主界面情景模式</th><td>左下“情景模式”→ 选区组 → 进场景 → 配参数 → 预览 → 保存及应用</td><td>单组，最常用</td><td>一次只管一个区组</td></tr>
+    <tr><th>② 工具箱情景模式</th><td>工具箱 → 情景模式 → 加“灯具框” → 各组分别配 → 预览/应用当前场景</td><td>多组，一个场景里不同组不同效果</td><td>操作复杂；可存/调场景文件复用到同类案场</td></tr>
+    <tr><th>③ 主界面长按保存</th><td>选区组 → 用八键调出想要的状态 → 长按“情景模式X”→ 确认保存</td><td>单组、不需要感应的快速抓拍</td><td>只能存静态状态，配不了感应参数</td></tr>
+    <tr><th>④ 快捷配置保存</th><td>快捷配置 → 基本配置调参 → “情景设置”下拉选场景 → 保存</td><td>单组、调完参数顺手存</td><td>无法设“场景无效”</td></tr>
+  </tbody>
+</table>
+
+<div class="note">
+<b>只保存不应用，灯不会变；只应用不保存，切走再回来就丢。</b>这两个动作在界面上挨得很近，是现场返工的高频原因。养成习惯：点完“保存及应用”，再用“读取配置”回读一次，确认真的写进去了。
+</div>
+
+<p>六个场景要不要全配？要。面板有 6 个键，只配场景 1 的话，按其他键要么没反应、要么回到旧状态。标准做法是：场景 1 配常用，场景 2～6 按业主需求配；<b>不用的场景设为“无效”，而不是留空</b>。无效是“明确不参与”，留空是“内容未定义”，两者在现场表现不一样，前者可预期，后者不可预期。</p>
+
+<h3 id="c56">5.6　快捷配置：批量下发七步</h3>
+<p>灯已分好组、场景已配好，用这套动作把参数一次刷到整组。这是现场提效的关键，也是顺序最不能错的一段。</p>
+
+<ol class="steps">
+<li>首页底部进<b>快捷配置</b>，上方选目标<b>区 + 组</b>。</li>
+<li><b>地址编码留空</b>，确保作用于整组而不是单灯。填了号就只对那一盏生效。</li>
+<li>下滑到设备列表，先点<b>重置</b>，再点<b>近距离搜灯</b>，把该组灯收齐。</li>
+<li>看<b>常用设置</b>：传感器开关<b>必须开</b>；联动、转发按项目定。</li>
+<li>区组无法在常用设置里批量改，继续下滑到<b>基本设置</b>，找到<b>当前场景号</b>。</li>
+<li>把当前场景号改成预设场景（如场景 1），点<b>保存并应用</b>。</li>
+<li>点<b>读取配置</b>回读核对，确认整组都变成该场景。</li>
+</ol>
+
+<p>这七步里，第 2、3、4 步各自对应一个事故。<b>地址不空</b>，整组只改一盏，你会以为“批量功能坏了”。<b>不重置</b>，历史搜到的灯一起被刷，别的区组的灯被误改。<b>传感器开关关着</b>，整组灯看着都正常，但永远不感应，第二天业主投诉“人来了不亮”。</p>
+
+<p>还要注意一个前提：这一批灯<b>不能有残留的选中态</b>。如果上一次在指哪配哪里圈过几盏没点“全部取消”，这次批量下发仍然只作用于那几盏，而列表里显示的是整组。现象是“我明明搜了整组，怎么只有两盏变了”。</p>
+
+<h3 id="c57">5.7　面板、传感器、恒照度与其它设备</h3>
+
+<h4>无线面板</h4>
+<p>接面板三步：工具箱 → 功能选择切<b>完整模式</b>（停车库模式下不显示面板参数）；快捷配置 → 右上角<b>设备编号</b> → 设备类型选“智能面板” → 区组设“所有区/所有组”；长按面板左上键<b>3 秒</b>放开，指示灯跑马灯＝进入配置态，设备自动出现在列表。</p>
+
+<p>之后是改区号、起名、关联：选中新出现的面板 → 编号设置里把<b>区号</b>改成与要控制的灯一致 → 在“设备名”里命名 → 点<b>起名</b>生效 → 回到“灯具”类型 → 选组或单灯 → 设备关联下拉选面板名字 → 点<b>关联</b>，<b>面板上的指示灯</b>闪一下即成功。</p>
+
+<p>这里的反馈要看对地方：<b>闪的是面板自己的指示灯，不是它控制的那盏灯。</b>很多人站在灯底下等它闪，等不到就以为关联失败，反复重做——其实早就成功了。反过来也一样：如果面板指示灯没反应，才说明这一条绑定没写进去。</p>
+
+<p>这里有两个硬约束：<b>面板必须先起名才能被关联</b>；<b>名字改了，原关联会断</b>，要重新关联。安全模式里引用面板名字的，也要同步改。原因在 4.4 讲过：绑定表用名字做索引。</p>
+
+<div class="note">
+<b>只在输入框里改文字，不算写入。</b>名字和编号都必须点一次<b>“起名”</b>或<b>“设置”</b>把值下发到设备，才算真的改了。这是现场最常见的“改了没生效”：界面上显示的是新名字，设备里还是旧的，所以关联对不上、断电后打回原形。判断方法很简单——改完退出重进，看显示的是不是新值；更稳的办法是断电重启再看一次。
+</div>
+
+<h4>恒照度传感器</h4>
+<p>接入与面板类似：完整模式 → 设备编号 → 类型选“照度传感器” → 区组设“XX 区/所有组” → 搜灯 → 选中 → 命名 → 起名 → 把区号改成与灯具一致 → 回“灯具”类型 → 设备关联里选该传感器 → 关联。</p>
+
+<p>四个参数：<b>目标照度值</b>（装完后按实测调，不能直接填设计值）、<b>发射开关</b>（传感器是否把光感数据发给灯具，关了就不跟随）、<b>最小亮度因子</b>（实际照度超过目标后灯被压到的最低亮度，0% 即允许灭灯）、<b>实际照度</b>（读取配置后显示的实时值，用来判断目标值设得对不对）。</p>
+
+<p>还有一条容易漏：<b>灯已经配过情景的，只改快捷配置的“恒照度模式”不生效</b>，必须进对应场景把“无效”改成“被控”，再预览、保存及应用。因为场景表在灯里，场景里的那份内容才是它执行的东西。</p>
+
+<h4>独立传感器、语音、窗帘、继电器</h4>
+<p><b>独立传感器</b>（座位、人体存在）：设备编号 → 类型选“独立传感器” → 搜灯 → 多台时分不清就用“闪灯看蓝灯”或遥控器“发 ID”确认位置 → 与要控制的灯设在<b>同一区</b> → 命名 → 回“灯具”类型 → 选灯 → 设备关联里选该名字 → 关联。<b>两边都要打开联动开关</b>。</p>
+
+<p><b>人体存在传感器</b>还有两个参数：感应距离（距离门 2～6，2＝1.5m、6＝4.5m，每档 0.75m）、灵敏度（高/中/低）。有空调、新风、绿植等波动源时适当降灵敏度。<b>两项都选好后点“一键设置”才生效。</b></p>
+
+<p><b>语音控制器</b>：与灯具同区、起名；在灯具的“设备关联”里关联语音控制器名字，即可语音控制已关联灯具的开关与情景。</p>
+
+<p><b>窗帘控制器</b>：先用窗帘自带遥控器把行程设好 → 设备编号选“窗帘控制器”→ 与灯具同区 → 关联面板或语音 → 在各情景里定义窗帘动作并逐项测试。</p>
+
+<p><b>智能继电器</b>：设备编号选“智能继电器”改区组；需要联动就关联面板/独立传感器。之后切到“灯具”类型调常用配置与基本配置：联动开关开、转发按需开；基本配置里亮灯模式设“感应”、无人亮度 0%、按需设一段延时。</p>
+
+<h3 id="c58">5.8　参数字典与默认原则</h3>
+<p>这一节是全篇最该被打印出来贴在工具箱里的一页。原则只有一条：<b>参数分三类，只有前两类该动。</b>身份参数按图纸改，体验参数按业主要求改，射频与协议参数是厂家调好的工程平衡点，没有明确问题不要动。</p>
+
+<table>
+  <caption>表 10　常用设置与基本设置</caption>
+  <thead><tr><th>参数</th><th>作用</th><th>默认</th><th>改了会怎样</th></tr></thead>
+  <tbody>
+    <tr><th>传感器开关</th><td>感应功能总闸</td><td>开</td><td>关掉后整套感应失效，灯只会被按键/平台控制</td></tr>
+    <tr><th>联动开关</th><td>是否通知同组、邻组一起动作</td><td>按空间</td><td>开＝一片一起亮；关＝各亮各的</td></tr>
+    <tr><th>转发开关</th><td>是否替邻居转发报文</td><td>开</td><td>关掉变末端节点；若它是唯一通路，后面一片会掉线</td></tr>
+    <tr><th>运行模式</th><td>分组 / 深度学习 / 简易</td><td>深度学习（新固件）</td><td>车位用分组，车道用深度学习，小区域可用简易</td></tr>
+    <tr><th>亮灯模式</th><td>感应 / 常亮 / 常灭</td><td>感应</td><td>直接决定灯在无人时的行为</td></tr>
+    <tr><th>有人亮度</th><td>检测到人时的输出</td><td>100%</td><td>调低＝节能但可能不够亮</td></tr>
+    <tr><th>无人亮度</th><td>延时后的输出</td><td>10% / 0%</td><td>0% 不一定真灭，取决于驱动</td></tr>
+    <tr><th>一段延时</th><td>无人后多久降亮度</td><td>60 秒</td><td>太短会反复亮灭；太长费电</td></tr>
+    <tr><th>二段延时</th><td>再多久关灯/待机</td><td>按项目</td><td>太短会频繁开关，伤驱动</td></tr>
+    <tr><th>当前场景号</th><td>该灯当前执行哪个场景</td><td>场景 1</td><td>批量下发的“落点”，最常改的一项</td></tr>
+    <tr><th>恒照度模式</th><td>无效 / 自控 / 被控</td><td>无效</td><td>已配情景的灯必须在场景里改，见 5.7</td></tr>
+  </tbody>
+</table>
+
+<table>
+  <caption>表 11　进阶参数：默认不动，动了要知道代价</caption>
+  <thead><tr><th>参数</th><th>调的是什么</th><th>建议</th></tr></thead>
+  <tbody>
+    <tr><th>调光四速度</th><td>亮灯、灭灯、色温升、色温降的速度</td><td>要线性调光，四项保持同一秒数</td></tr>
+    <tr><th>感应距离等级</th><td>雷达发射功率档位</td><td>默认即可；密集安装不要拉到 3 档以上</td></tr>
+    <tr><th>雷达灵敏度</th><td>接收判断门限</td><td>按误报/漏报微调，一次一档</td></tr>
+    <tr><th>电源工频</th><td>50Hz / 60Hz</td><td>默认 50Hz，非专业人士不要改</td></tr>
+    <tr><th>遥控器</th><td>是否接受遥控器</td><td>默认，按需</td></tr>
+    <tr><th>安全模式</th><td>面板失效时的兜底动作</td><td>默认；换面板后必须同步“面板地址”</td></tr>
+    <tr><th>心跳开关与间隔</th><td>上报在线的频率</td><td>默认；调密会让空口更忙</td></tr>
+    <tr><th>调光曲线</th><td>线性 / 平方根</td><td>默认线性；注重手感可改平方根</td></tr>
+    <tr><th>射频功率</th><td>0～9 档</td><td>默认；不要自行拉满</td></tr>
+    <tr><th>能耗参数</th><td>额定功率等</td><td>必须按实际灯具填，能耗统计全靠它</td></tr>
+    <tr><th>PWM 设置</th><td>调光频率</td><td>默认；改完必须下电一分钟再上电</td></tr>
+    <tr><th>网络设置</th><td>数据跳数、传感器跳数、重发次数、转发开关</td><td>默认；且只在“转发＝开”时才有意义</td></tr>
+  </tbody>
+</table>
+
+<div class="principle">
+<b>现场只做两件事：设区组号、设情景号。</b>其余参数，业主没有明确要求就保持默认。有要求就记下来，回去和技术方案一起讨论，不要在现场随手试——因为这些参数之间是耦合的，改一个可能让另一个原本正常的现象变坏，而现场没有条件做对比测试。
+</div>
+
+<h3 id="c59">5.9　运维工具十项</h3>
+<p><b>远程协助。</b>现场侧：主界面下方“远程协助”或工具箱进入 → 左上滑到“接受远程控制” → 下方生成设备名，手填一个设备密码 → 点“开启连接” → 二维码左侧变“等待连接”。支持侧：左上滑到“控制远端设备” → 输入现场的设备名与密码 → 开启连接 → 显示“已连接”即可接管。连接后现场不要操作手机，把页面截图留档。</p>
+
+<p><b>异常日志上传。</b>工具箱底部显示 App 版本号（如 v1.1.303），<b>快速连点 6 次</b>，出现“上传”“调试模式”（以及“自动飞升”“恢复出厂”）→ 点上传，日志自动传后台。这是排查“偶发、不可复现”问题的唯一有效材料，遇到怪现象先传日志再动现场。</p>
+
+<p><b>恢复出厂。</b>同一个隐藏入口 → 恢复出厂 → 选区组或单灯 → 点红色“恢复出厂设备”。恢复后区组、参数、关联、场景表全部清空，<b>不可撤销</b>，操作前先导出字典。</p>
+
+<p><b>OTA 固件飞升。</b>工具箱 → 固件飞升 → 打开手机蓝牙 → 选区组或单灯 → 加载飞升文件（厂家提供）→ 点固件飞升，看进度条。<b>升级过程不能断电</b>；隐藏入口里的“自动飞升”同理。高风险，非必要不做。</p>
+
+<p><b>字典导入导出。</b>工具箱 → 字典管理 → 保存字典，生成 <code>.nms</code> 文件，存在手机存储的 <code>Documents\GroundSpace</code>；发给同事后，对方从微信保存到 <code>Download\WeiXin</code>，再在字典管理里导入。适合同类案场快速复制配置，也是唯一一份可离线核对的地址台账。</p>
+
+<p><b>定时任务（网关）。</b>前提：网关能上外网，或选用带 RTC 时钟的网关（否则断网后时间不准，定时会错点）。编辑 <code>schedule.json</code>：<code>timers</code> 写切换时间点，<code>commands</code> 写每个时间点对应的区号、灯具标签、动作（callScene）、情景号。手机直连网关，点“发送定时任务”选文件；网关提示“定时任务已更新”、指定灯具闪一次即成功。也可把文件放 U 盘（U 盘内不能有 exe 等文件）插网关 USB3.0 口导入。</p>
+
+<p><b>连多网关。</b>不用平台，只靠网关：工具箱 → 连多网关 → 同一局域网内自动列出已联网网关 → 起别名 → 输入各网关远程密码 → 点连接符号。之后退到其它界面即可远程控制，可同时连多台。</p>
+
+<p><b>数据上云。</b>工具箱 → 数据上云 → 填 ProductKey / DeviceName / DeviceSecret（供应商提供）→ 开启连接。作用是手机临时当网关把数据送上去；<b>厂家已配好的项目不要动</b>。</p>
+
+<p><b>一键换灯。</b>选中原灯 → 一键读取（读出原灯全部参数）→ 装上新灯 → 点一键换灯，新灯继承原灯的区组、情景与参数。直接换新灯不继承，等于这盏灯失忆。</p>
+
+<p><b>蓝牙信标。</b>里面有开关、1 米信号强度、发送间隔。这是厂家出厂调好的射频参数，改了会影响定位与组网稳定性；确需调整，先联系厂家技术人员。</p>
+
+<h3 id="c5A">5.10　停车库与三种运行模式</h3>
+<p>工具箱最上方“功能选择”：<b>停车库 / 完整模式 / 自定义</b>。选停车库后，各界面只显示与车库相关的参数，减少误改；做面板、传感器、恒照度时必须切回完整模式。</p>
+
+<table>
+  <caption>表 12　三种运行模式的适用</caption>
+  <thead><tr><th>区域</th><th>运行模式</th><th>关键设置</th></tr></thead>
+  <tbody>
+    <tr><th>车位灯</th><td>分组</td><td>用指哪配哪编组；关闭车位灯联动，避免车过道时车位灯乱亮</td></tr>
+    <tr><th>车道灯</th><td>深度学习</td><td>附近灯具数量：单列 4、双列 8；新固件出厂默认深度学习</td></tr>
+    <tr><th>小区域、规则简单</th><td>简易</td><td>设“亮灯范围”，触发后联动附近一定范围</td></tr>
+  </tbody>
+</table>
+
+<p>学习错了怎么办？安装期间人走来走去，灯会记住错误路径。交付前在运行模式里点<b>清除数据</b>，再用交通工具按正常路线走 <b>3～5 次</b>，学习完成再验收。这一步不做，验收时会出现“车还没到，前面一排灯先亮了”的尴尬。</p>
+
+<h3 id="c5B">5.11　交付前的自检清单</h3>
+<p>下面这份清单建议打印出来，逐项打勾。它按“别人最容易挑出问题”的顺序排，不是按界面顺序排。</p>
+
+<table>
+  <caption>表 13　交付自检清单</caption>
+  <thead><tr><th>序</th><th>检查项</th><th>通过标准</th></tr></thead>
+  <tbody>
+    <tr><th>1</th><td>区组与地址</td><td>与图纸一致，无 0 区 0 组残留，<b>无重号</b></td></tr>
+    <tr><th>2</th><td>场景 1～6</td><td>逐个预览过；不用的设“无效”，没有留空</td></tr>
+    <tr><th>3</th><td>批量下发</td><td>整组回读一致，传感器开关均为开</td></tr>
+    <tr><th>4</th><td>面板</td><td>每键逐个按过，动作与场景定义一致</td></tr>
+    <tr><th>5</th><td>感应</td><td>走进走出各 3 次，延时与亮度符合设定</td></tr>
+    <tr><th>6</th><td>恒照度</td><td>遮光/照光各一次，灯能跟随且不振荡</td></tr>
+    <tr><th>7</th><td>断电恢复</td><td>断总电再上电，场景与参数不丢</td></tr>
+    <tr><th>8</th><td>字典备份</td><td>已导出 .nms，并另存一份到项目资料</td></tr>
+    <tr><th>9</th><td>平台/网关</td><td>如已上线：在线、可控、能耗有数</td></tr>
+    <tr><th>10</th><td>资料移交</td><td>区组表、地址表、场景说明、账号密码</td></tr>
+  </tbody>
+</table>
+
+<h2>第六篇　自组网自有平台</h2>
+
+<h3 id="c61">6.1　平台是什么，账号从哪来</h3>
+<p>很多人把“上系统”直接等同于“接睿壹”，这是不完整的。自组网本身有自己的一套平台，能力比睿壹那一层强得多：单灯识别、单灯调光、能耗看板、地图模式、告警、定时情景、日志报表，都是它原生支持的。睿壹只是把这套能力“按区组”暴露给第三方平台的一个子集。</p>
+
+<p>云平台地址是 <b><code>http://iot.ground-space.com/</code></b>，注意是 http，不是 https。电脑浏览器直接打开；手机浏览器也能开，但要把浏览器的 UA 标识从“手机版”改成“电脑版”，否则页面会挤在一起，按钮点不准。</p>
+
+<p>账号是<b>分配制</b>，不是自己注册：由格兰斯贝后台或上级经销商分配用户名与初始密码。平台内部有三级角色——管理员、客户（按项目）、操作人员，各自绑定的项目范围不同。所以“看不到某个项目”通常不是权限 bug，是这个账号没绑那个项目。</p>
+
+<p>能力定位要说清一句话：<b>这套自有平台不比睿壹弱，在“图纸与点位”和“单灯级控制”上还更细。</b>睿壹强在生态与统一管理（照明只是它的一部分），格兰斯贝平台强在对这套灯的理解深度——单灯场景、逐灯故障、CAD 图对图点位，都是原生的。所以选型不是“谁更高级”，而是“业主要把照明并进哪个体系”。</p>
+
+<p>如果项目不允许设备出外网，还有本地部署这条路，而且有两条：把平台装到一台 PC 上（本地客户端），或者用睿壹边缘服务器把整套睿壹系统下沉到机房。两条的具体差别见 6.6。</p>
+
+<h3 id="c62">6.2　数据模型：项目—节点—网关—灯</h3>
+<p>理解平台，关键不是记菜单，而是记它的<b>数据模型</b>。这套平台是四层树：项目 → 节点 → 网关 → 灯。所有操作都是在这棵树上挂东西，所有“看不到、加不进、搜不到”的问题，都是这棵树某一层没挂对。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 330" role="img" aria-label="平台数据模型四层树">
+  <rect class="bx2" x="24" y="30" width="200" height="60" rx="6"/>
+  <text x="124" y="55" class="tb" text-anchor="middle">项目</text>
+  <text x="124" y="76" class="s" text-anchor="middle">对应一个实际案场</text>
+
+  <rect class="bx" x="300" y="30" width="200" height="60" rx="6"/>
+  <text x="400" y="55" class="tb" text-anchor="middle">节点（区域）</text>
+  <text x="400" y="76" class="s" text-anchor="middle">按网关覆盖范围划分</text>
+
+  <rect class="bx" x="576" y="30" width="180" height="60" rx="6"/>
+  <text x="666" y="55" class="tb" text-anchor="middle">网关</text>
+  <text x="666" y="76" class="s" text-anchor="middle">一台设备一个条目</text>
+
+  <rect class="bx4" x="800" y="30" width="140" height="60" rx="6"/>
+  <text x="870" y="55" class="tb" text-anchor="middle">灯</text>
+  <text x="870" y="76" class="s" text-anchor="middle">单灯为一等公民</text>
+
+  <line class="lb" x1="224" y1="60" x2="296" y2="60" marker-end="url(#w1)"/>
+  <line class="lb" x1="500" y1="60" x2="572" y2="60" marker-end="url(#w1)"/>
+  <line class="lb" x1="756" y1="60" x2="796" y2="60" marker-end="url(#w1)"/>
+
+  <line class="ld" x1="400" y1="90" x2="400" y2="120"/>
+  <rect class="bx" x="300" y="122" width="200" height="54" rx="6"/>
+  <text x="400" y="146" class="t" text-anchor="middle">子节点（可选）</text>
+  <text x="400" y="166" class="s" text-anchor="middle">如按防火分区再分</text>
+
+  <line class="ld" x1="666" y1="90" x2="666" y2="120"/>
+  <rect class="bx" x="566" y="122" width="200" height="54" rx="6"/>
+  <text x="666" y="146" class="t" text-anchor="middle">同一节点下多台网关</text>
+  <text x="666" y="166" class="s" text-anchor="middle">共同覆盖一个区域</text>
+
+  <rect class="bx3" x="24" y="210" width="916" height="96" rx="6"/>
+  <text x="44" y="236" class="tb">两条硬规则，违反了就会报错或数据错乱</text>
+  <text x="44" y="262" class="t">① 一盏灯只能属于一个节点——已在别的节点录入过，就不能重复录</text>
+  <text x="44" y="286" class="t">② 网关必须先在后端注册过——未注册的网关在“添加网关”时会直接失败</text>
+  <defs>
+    <marker id="w1" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#12557E"/></marker>
+  </defs>
+</svg>
+<div class="cap">图 16　平台的四层数据模型：所有操作都是在树上挂东西</div>
+</div>
+
+<p>节点怎么划分？手册的口径是“按网关覆盖范围”：几台网关共同覆盖的地库建一个节点，单台网关覆盖的办公室单独建一个节点。这一条比“按楼层”更实用，因为平台是按节点做搜灯与展示的，一个节点对应一组网关，搜灯才不会串。</p>
+
+<h3 id="c63">6.3　把项目接进云平台的十个动作</h3>
+<p>顺序很重要：<b>先线下调好，再上线</b>。反过来做（先上线，再回头调灯）会导致平台里的数据与实际不符，后面要反复删了重加。</p>
+
+<ol class="steps">
+<li><b>先下线调试完</b>：用手机 App 把灯具调好、区组分好，准备区组划分表；要地图模式就再准备带灯具位置的图纸。</li>
+<li>记录每台<b>网关背面信息</b>，先与格兰斯贝后台确认<b>网关已在后台注册</b>。没注册，后面添加必然失败。</li>
+<li>云平台 → 项目管理 → <b>新建</b>项目，填全信息确认（填了所在地，项目会自动上图）。</li>
+<li>项目右侧<b>操作配置</b> → 打开右下“自动更新” → 左上“区域选择” → <b>节点配置</b> → 新增根节点。</li>
+<li>节点按<b>网关覆盖范围</b>划分；需要再细分就建子节点（如按防火分区）。</li>
+<li>选中节点 → 类型选“网关”→ <b>添加网关</b>，把该节点下所有网关依次加完，核对与实际安装一致。</li>
+<li>点“灯”类型 → <b>添加灯</b> → 填正确<b>区号</b>与<b>网络密码</b> → <b>网关搜灯</b> → 勾选属于该节点的灯 → 确认添加。</li>
+<li>所有节点重复上述动作。注意<b>一盏灯只能属于一个节点</b>。</li>
+<li>要定时：更多操作 → 情景模式 → 定时情景 → 添加（任务名、执行模式、执行时间、调用情景、添加灯）。</li>
+<li>要地图：地图模式 → 编辑模式 → 导入该节点地图 → 把灯拖到实际位置 → 回“日常操作模式”。</li>
+</ol>
+
+<div class="note">
+<b>最容易卡住的一步是第 7 步的“网络密码”。</b>它不是平台账号密码，是这套灯网的网络密码；填错的表现是“搜灯一直转圈、搜不到任何设备”，而不是报错。现场如果卡在这里，先确认这个值，再怀疑网络。
+</div>
+
+<h3 id="c64">6.4　日常控制与地图模式</h3>
+<p>日常远程操作按范围分五档：<b>场所灯 / 区 / 单灯 / 群组 / 标签</b>。右侧填区、组、号或标签来确定范围，确定后可以直接“常亮 / 常灭 / 闪灯”，改参数或区组编号进“更多操作”。</p>
+
+<p>这五档的差别不是界面，而是<b>寻址粒度</b>。“场所灯”是整个项目，“区”是一片，“单灯”是具体一盏，“群组”是跨区的逻辑集合，“标签”是按业务属性打的标记。所以同一个动作（比如常灭），用不同档下发，影响面完全不同——这也是平台比 App 强的地方：它能把“一层所有靠窗的灯”这种跨区需求，用标签一次表达出来。</p>
+
+<p>地图模式下，灯、网关、地图都有右键菜单。它的价值不在于“好看”，而在于把“区组编号”这种抽象标识映射回空间位置：业主报“B2 区 37 号不亮”，运维不用查表，直接在地图上点那盏灯。前提是编辑模式里把灯拖到了实际位置，否则地图只是个背景图。</p>
+
+<p>这套地图能力比“贴一张平面图”要强一层：平台支持把<b>CAD 平面图</b>作为底图导入，把每一盏灯拖到图纸上的实际点位，形成一份<b>图对图的点位表</b>。完成后，点位不只是坐标，它同时挂着区、组、地址、状态、能耗与告警——这就是“点位分析”的基础：点一个点位，能看到这盏灯现在亮不亮、多少功率、属于哪个区组、最近有没有报警；反过来，从告警列表也能直接跳到图上那个点。</p>
+
+<p>这一步对交付的价值很大。传统做法是交一张 Excel 点位表，业主看一眼就压箱底；图对图之后，业主的运维人员可以“看图找灯”，不需要先学会区组编号。所以做地图模式的成本不在技术，而在<b>图纸质量与点位标注的准确度</b>：图上标错一个点，后面所有基于点位的分析都是错的。</p>
+
+<h3 id="c65">6.5　能耗看板的数据是怎么算的</h3>
+<p>平台上的能耗不是“测”出来的，大多数情况下是“算”出来的：<b>额定功率 × 实际运行时长 × 调光比例</b>，再按时间积分。灯本身通常没有精密电表，它上报的是状态（开/关、亮度、时长），平台按你填的额定功率折算。所以“额定功率填错”是能耗数据失真的第一原因——填 18W 实际 24W，所有统计都会低 25%。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 300" role="img" aria-label="理论能耗与实际能耗">
+  <text x="0" y="16" class="tb">同一段时间里，两条线的差就是“控制省下来的电”</text>
+  <line class="ln" x1="70" y1="240" x2="600" y2="240"/>
+  <line class="ln" x1="70" y1="240" x2="70" y2="40"/>
+
+  <rect x="110" y="90" width="52" height="150" fill="#D9E6F2" stroke="#12557E"/>
+  <rect x="182" y="140" width="52" height="100" fill="#D9E6F2" stroke="#12557E"/>
+  <rect x="254" y="70" width="52" height="170" fill="#D9E6F2" stroke="#12557E"/>
+  <rect x="326" y="120" width="52" height="120" fill="#D9E6F2" stroke="#12557E"/>
+  <rect x="398" y="96" width="52" height="144" fill="#D9E6F2" stroke="#12557E"/>
+  <rect x="470" y="150" width="52" height="90" fill="#D9E6F2" stroke="#12557E"/>
+
+  <polyline points="136,150 208,178 280,140 352,172 424,158 496,196" fill="none" stroke="#0E6049" stroke-width="2.4"/>
+  <circle cx="136" cy="150" r="4" fill="#0E6049"/>
+  <circle cx="208" cy="178" r="4" fill="#0E6049"/>
+  <circle cx="280" cy="140" r="4" fill="#0E6049"/>
+  <circle cx="352" cy="172" r="4" fill="#0E6049"/>
+  <circle cx="424" cy="158" r="4" fill="#0E6049"/>
+  <circle cx="496" cy="196" r="4" fill="#0E6049"/>
+
+  <text x="110" y="262" class="s" text-anchor="middle">周一</text>
+  <text x="182" y="262" class="s" text-anchor="middle">周二</text>
+  <text x="254" y="262" class="s" text-anchor="middle">周三</text>
+  <text x="326" y="262" class="s" text-anchor="middle">周四</text>
+  <text x="398" y="262" class="s" text-anchor="middle">周五</text>
+  <text x="470" y="262" class="s" text-anchor="middle">周六</text>
+
+  <rect x="640" y="60" width="14" height="14" fill="#D9E6F2" stroke="#12557E"/>
+  <text x="662" y="73" class="t">理论能耗（按全功率估算）</text>
+  <line x1="640" y1="100" x2="654" y2="100" stroke="#0E6049" stroke-width="2.4"/>
+  <text x="662" y="105" class="t">实际能耗（按真实亮度与时长）</text>
+  <text x="640" y="140" class="s">两者的差，来自感应、恒照度、</text>
+  <text x="640" y="160" class="s">分时控制与调光。</text>
+  <text x="640" y="190" class="s">差值不是“省出来的营销数字”，</text>
+  <text x="640" y="210" class="s">是这三件事真实发生的效果。</text>
+</svg>
+<div class="cap">图 17　理论能耗与实际能耗：差额就是控制策略的效果</div>
+</div>
+
+<p>“理论能耗”和“实际能耗”的差别，来自调光与感应。理论值通常按“全功率运行”估算，实际值按真实亮度与运行时长积分；两者一对比，就能看出感应、恒照度、分时控制省了多少。数据大屏上红线是理论、蓝线是实际，说的就是这件事。</p>
+
+<p>更精确的做法是加<b>智能电表</b>，直接测电流电压、算有功功率。电表的数据是“真值”，但成本高、要接线、要配点位；灯具自身的能耗是“估算值”，成本为零、精度取决于额定功率和调光系数的准确性。做节能验收时，用哪个要看合同口径：按估算值验收，就要把额定功率校准；按电表验收，就要保证电表点位与区组对应。</p>
+
+<h3 id="c66">6.6　本地部署的两条路</h3>
+<p>“本地部署”在现场常被当成一件事，其实是两条完全不同的路：一条是把<b>格兰斯贝平台</b>装到一台电脑上，另一条是把<b>睿壹系统</b>下沉到一台边缘服务器上。两者都能做到“设备不出外网”，但跑的系统不同、网关接入方式不同、后续维护的责任人也不同。</p>
+
+<p>先说要本地部署的动因。常见三种：业主是涉密单位或金融、国企总部，明确不允许设备出外网；现场根本没有可用的外网，只有内部局域网；或者业主已有自己的平台体系，要求照明数据并入本地机房。三种动因对应的选择不一样——前两种两条路都行，第三种通常只能走睿壹边缘服务器，因为要并进的是睿壹那套体系。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 520" role="img" aria-label="两种本地部署拓扑">
+  <text x="0" y="18" class="tb">A　格兰斯贝本地客户端：平台装在一台 PC 上</text>
+
+  <rect class="bx" x="40" y="40" width="150" height="54" rx="6"/>
+  <text x="115" y="64" class="t" text-anchor="middle">云上网关 1</text>
+  <text x="115" y="84" class="s" text-anchor="middle">插加密狗</text>
+  <rect class="bx" x="40" y="112" width="150" height="54" rx="6"/>
+  <text x="115" y="136" class="t" text-anchor="middle">云上网关 2</text>
+  <text x="115" y="156" class="s" text-anchor="middle">插加密狗</text>
+
+  <rect class="bx2" x="270" y="68" width="150" height="70" rx="6"/>
+  <text x="345" y="98" class="tb" text-anchor="middle">交换机</text>
+  <text x="345" y="120" class="s" text-anchor="middle">同一局域网</text>
+
+  <rect class="bx4" x="500" y="58" width="220" height="90" rx="6"/>
+  <text x="610" y="84" class="tb" text-anchor="middle">一台 PC</text>
+  <text x="610" y="106" class="t" text-anchor="middle">格兰斯贝本地客户端</text>
+  <text x="610" y="128" class="s" text-anchor="middle">Win10 64 位以上</text>
+
+  <line class="lb" x1="190" y1="67" x2="230" y2="67"/>
+  <line class="lb" x1="230" y1="67" x2="230" y2="103" />
+  <line class="lb" x1="190" y1="139" x2="230" y2="139"/>
+  <line class="lb" x1="230" y1="139" x2="230" y2="103"/>
+  <line class="lb" x1="230" y1="103" x2="266" y2="103" marker-end="url(#dl1)"/>
+  <line class="lb" x1="420" y1="103" x2="496" y2="103" marker-end="url(#dl1)"/>
+  <text x="452" y="94" class="s" text-anchor="middle">网线</text>
+
+  <text x="740" y="88" class="s">· 同局域网：本地扫描添加</text>
+  <text x="740" y="110" class="s">· 跨公网：远程码 + 密码</text>
+  <text x="740" y="132" class="s">→ 分别记为本地网关 / 远程网关</text>
+
+  <line x1="0" y1="196" x2="960" y2="196" stroke="#D9E2EA"/>
+
+  <text x="0" y="228" class="tb">B　睿壹边缘服务器：整套睿壹系统下沉到机房</text>
+
+  <rect class="bx" x="40" y="250" width="150" height="54" rx="6"/>
+  <text x="115" y="274" class="t" text-anchor="middle">云上网关 1</text>
+  <text x="115" y="294" class="s" text-anchor="middle">插加密狗</text>
+  <rect class="bx" x="40" y="322" width="150" height="54" rx="6"/>
+  <text x="115" y="346" class="t" text-anchor="middle">云上网关 2</text>
+  <text x="115" y="366" class="s" text-anchor="middle">插加密狗</text>
+
+  <rect class="bx2" x="270" y="278" width="150" height="70" rx="6"/>
+  <text x="345" y="308" class="tb" text-anchor="middle">交换机</text>
+  <text x="345" y="330" class="s" text-anchor="middle">弱电间 / 机房</text>
+
+  <rect class="bx3" x="500" y="262" width="230" height="106" rx="6"/>
+  <text x="615" y="286" class="tb" text-anchor="middle">睿壹边缘服务器</text>
+  <text x="615" y="308" class="t" text-anchor="middle">RY-IOT-EDGE-E01</text>
+  <text x="615" y="330" class="s" text-anchor="middle">AC220V，内置整套睿壹系统</text>
+  <text x="615" y="350" class="s" text-anchor="middle">本地实时控制 / 离线运行</text>
+
+  <rect class="bx4" x="790" y="280" width="150" height="70" rx="6"/>
+  <text x="865" y="308" class="tb" text-anchor="middle">监控客户端</text>
+  <text x="865" y="330" class="s" text-anchor="middle">局域网内访问</text>
+
+  <line class="lb" x1="190" y1="277" x2="230" y2="277"/>
+  <line class="lb" x1="230" y1="277" x2="230" y2="313"/>
+  <line class="lb" x1="190" y1="349" x2="230" y2="349"/>
+  <line class="lb" x1="230" y1="349" x2="230" y2="313"/>
+  <line class="lb" x1="230" y1="313" x2="266" y2="313" marker-end="url(#dl1)"/>
+  <line class="lb" x1="420" y1="313" x2="496" y2="313" marker-end="url(#dl1)"/>
+  <line class="lb" x1="730" y1="313" x2="786" y2="313" marker-end="url(#dl1)"/>
+
+  <text x="40" y="418" class="s">两条路的差别不在“本地”，在跑的是哪套系统：</text>
+  <text x="40" y="440" class="s">A 跑格兰斯贝平台（单灯级，可导入 CAD 图纸做图对图点位）；</text>
+  <text x="40" y="462" class="s">B 跑睿壹系统（区组级对接亦可，整套睿壹功能齐备）。</text>
+  <text x="40" y="492" class="s">两者都要做“断网测试”：拔掉外网，看还能不能控、数据还存不存。</text>
+  <defs>
+    <marker id="dl1" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#12557E"/></marker>
+  </defs>
+</svg>
+<div class="cap">图 18　两种本地部署：PC 装平台，或边缘服务器下沉整套系统</div>
+</div>
+
+<h4>路线 A：格兰斯贝本地客户端（PC）</h4>
+<p>把客户端装在一台 PC 上，网关通过网线进同一台交换机。硬件要求不低：建议 i5 十三代以上、内存 32G、固态硬盘剩余 500G（不要机械盘），系统 Win10 64 位以上；厂家不建议用笔记本或服务器做主机。装之前如果这台机器装过老版本，要先卸干净，否则会报 JAVA 错误。</p>
+
+<p>还有一条硬门槛常被忽略：<b>网关固件版本</b>。本地客户端对网关有明确要求——经济款 4G 网关需 1.0.45 以上，但定时任务只支持 8 条、不支持安全模式，且必须能上外网（4G 卡或可出外网的局域网）；安卓网关需 1.1.319 以上，功能不限制，但不能上外网的局域网要校准服务器时间；安卓 RTC 网关需 1.1.309 以上，同样不限功能，但断网场景要校准网关时间。版本不够就升级，别在现场硬配，配到一半功能对不上最费时间。</p>
+
+<p>网关有两种接法，平台里也分成两类：<b>同局域网</b>时用“本地扫描”，平台会自动把网内的网关列出来，添加后记为“本地网关”；<b>跨公网</b>时要用网关背面的远程二维码与远程密码，添加后记为“远程网关”。这两种混在一个项目里是正常的，但排障时要先分清是哪一类——本地网关掉线查交换机与网线，远程网关掉线先查公网与端口。</p>
+
+<p>容量有一个实测参考：i5-8250U / 16G 的机器带 7600 盏灯，CPU 占用约 25%、内存 0.8～1.5G、磁盘读写 8%。这个数据说明“几千盏灯用一台 PC 是够的”，但也说明它吃的是<b>单机资源</b>：这台机器一关机、一中病毒、一重装系统，平台就没了。所以本地客户端项目的交付，必须包含数据备份与移交——平台支持把整个项目的数据导出备份，也可以在新机器上导入恢复，这是换机与移交的标准动作。</p>
+
+<h4>路线 B：睿壹边缘服务器</h4>
+<p>睿壹这条路不是装软件，而是上一台设备：<b>睿壹边缘服务器 RY-IOT-EDGE-E01</b>，AC220V 供电，放在机房或弱电间，用网线接到交换机；各台云上网关也用网线接到同一台交换机。服务器里已经集成了整套睿壹系统，所以它做的是“本地实时控制 + 离线运行”，不依赖外网，也能作为第三方对接的落点。资料口径的接入规模是不超过 5000 个设备。</p>
+
+<p>这条路适合两类项目：业主已经统一用睿壹，照明只是其中一部分，数据要并进同一个体系；或者项目明确要求“本地化 + 可对接第三方”，需要一个能长期放在机房里的服务端，而不是一台办公电脑。它的维护责任也更清楚——服务器在机房，由业主 IT 或弱电运维负责供电与网络，我方负责平台与网关。</p>
+
+<p>本地部署有两个固定入口，记住能省很多时间：<b>边缘服务器的默认地址是 <code>192.168.1.100</code></b>，浏览器直接进就是睿壹；<b>网关后台在 <code>192.168.1.x</code> 网段</b>，把电脑改成同网段（如 192.168.1.1），按住网关的<b>第二个按键约 10 秒</b>进入配置页。云上部署的网关一般不需要改后台 IP；如果排除了线路问题仍然搜不到灯，先尝试升级固件，仍不行就换一台正常网关做交叉验证，把故障机单独处理。</p>
+
+<table>
+  <caption>表 14　两条本地部署路线的差别</caption>
+  <thead><tr><th>维度</th><th>A　格兰斯贝本地客户端</th><th>B　睿壹边缘服务器</th></tr></thead>
+  <tbody>
+    <tr><th>承载形态</th><td>一台 PC + 客户端软件</td><td>专用服务器设备（RY-IOT-EDGE-E01），AC220V</td></tr>
+    <tr><th>跑的是哪套系统</th><td>格兰斯贝平台</td><td>睿壹系统（整套内置）</td></tr>
+    <tr><th>网关接入</th><td>同网段本地扫描，或远程码 + 密码</td><td>网线接同一交换机</td></tr>
+    <tr><th>控制粒度</th><td>单灯级：单灯识别、调光、逐灯故障</td><td>整套睿壹能力；接自组网走商照网关时为区组级</td></tr>
+    <tr><th>图纸与点位</th><td>支持导入 CAD 平面图，图对图点位部署与点位分析</td><td>支持地图与点位管理（以睿壹版本为准）</td></tr>
+    <tr><th>容量参考</th><td>实测 7600 盏（i5-8250U/16G）</td><td>资料口径 ≤5000 个设备</td></tr>
+    <tr><th>主要风险</th><td>单机故障、重装丢数据，必须做备份与移交</td><td>设备与机房环境，需明确供电与网络责任人</td></tr>
+  </tbody>
+</table>
+
+<div class="note">
+<b>一个容易混淆的点：</b>“本地部署”不等于“功能缩水”。这两条路在本地都能做完整的控制与数据，差别在<b>跑的是哪套系统</b>，以及<b>自组网以什么身份接进去</b>——接进睿壹的“商照网关”只暴露区组级能力；跑格兰斯贝自有平台则是单灯级。这句话在方案阶段就要说清，否则验收时会被拿单灯的标准来对比区组的功能。
+</div>
+
+<p>不管走哪条路，验收都要多测一项：<b>断网测试</b>。把外网拔掉，看平台还能不能控、数据还能不能存、重启后能不能自己起来。如果这时系统失效，说明它并不是真的本地部署，只是把云平台放在了局域网里。</p>
+
+<h2>第七篇　对接睿壹：区组级的那条路</h2>
+
+<h3 id="c71">7.1　三条路径与两种部署形态</h3>
+<p>同一套自组网灯具，有<b>三条</b>“看它、控它”的路径，能力完全不同，别混着承诺给业主。这一节先把边界划清，后面几节再讲具体怎么做。</p>
+
+<p>先把最容易混的一件事说清：<b>能力由“跑哪套系统”决定，不由“云还是本地”决定。</b>格兰斯贝平台和睿壹系统，各自都能部署在云上，也都能部署在本地（格兰斯贝装 PC，睿壹上边缘服务器）；同一套系统，云端版本和本地版本的功能是一致的，差别只在数据落在哪、断网谁保证。所以选型不是“云 or 本地”，而是先选系统，再选部署形态。</p>
+
+<p>第二个要分清的是<b>“谁接谁”</b>。自组网接进睿壹，走的是“第三方设备 → 商照网关”这个入口，这个入口只暴露到区组级；而睿壹自己那一整套（边缘服务器 + 睿壹网关与模块）是全功能的。所以“睿壹只能做区组”这句话只对“自组网对接进去”这一种情形成立，不能拿去否定睿壹本身，更不能拿去否定自组网——自组网在自家平台上就是单灯级的。</p>
+
+<p>第三个要分清的是<b>“这本手册不覆盖什么”</b>。有线 DALI / OBUS、蓝牙 SigMesh、SDL 天幕这三条线，属于睿壹自己的体系（网关中心、要布总线或网关网线），另见配套的<b>《欧普睿壹系统技术手册》</b>。本篇只讲“自组网怎么接进睿壹”，不重复讲有线怎么布线、DALI 怎么寻址——混在一起讲，最容易把两套带载口径搞串。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 380" role="img" aria-label="三条接入路径决策">
+  <rect class="bx2" x="330" y="20" width="300" height="56" rx="8"/>
+  <text x="480" y="54" class="tb" text-anchor="middle">业主要什么？</text>
+
+  <line class="ln" x1="480" y1="76" x2="480" y2="104"/>
+  <line class="ln" x1="160" y1="104" x2="800" y2="104"/>
+  <line class="ln" x1="160" y1="104" x2="160" y2="132" marker-end="url(#x1)"/>
+  <line class="ln" x1="480" y1="104" x2="480" y2="132" marker-end="url(#x1)"/>
+  <line class="ln" x1="800" y1="104" x2="800" y2="132" marker-end="url(#x1)"/>
+
+  <rect class="bx" x="30" y="136" width="260" height="96" rx="8"/>
+  <text x="160" y="162" class="tb" text-anchor="middle">只要现场好用</text>
+  <text x="160" y="186" class="t" text-anchor="middle">感应、场景、面板</text>
+  <text x="160" y="208" class="s" text-anchor="middle">不远程、不要报表</text>
+
+  <rect class="bx3" x="350" y="136" width="260" height="96" rx="8"/>
+  <text x="480" y="162" class="tb" text-anchor="middle">要远程总控与能耗</text>
+  <text x="480" y="186" class="t" text-anchor="middle">按区组开关 + 能耗看数</text>
+  <text x="480" y="208" class="s" text-anchor="middle">业主已统一用睿壹，或要本地化</text>
+
+  <rect class="bx4" x="670" y="136" width="260" height="96" rx="8"/>
+  <text x="800" y="162" class="tb" text-anchor="middle">要单灯、调光、看板</text>
+  <text x="800" y="186" class="t" text-anchor="middle">逐灯识别与调光</text>
+  <text x="800" y="208" class="s" text-anchor="middle">能耗报表、地图、告警、点位</text>
+
+  <rect class="bx" x="30" y="268" width="260" height="82" rx="8"/>
+  <text x="160" y="296" class="tb" text-anchor="middle">不用网关</text>
+  <text x="160" y="320" class="t" text-anchor="middle">手机 + 加密狗即可交付</text>
+  <text x="160" y="340" class="s" text-anchor="middle">成本最低</text>
+
+  <rect class="bx3" x="350" y="268" width="260" height="82" rx="8"/>
+  <text x="480" y="294" class="tb" text-anchor="middle">云上网关 + 睿壹</text>
+  <text x="480" y="316" class="t" text-anchor="middle">云端，或睿壹边缘服务器</text>
+  <text x="480" y="338" class="s" text-anchor="middle">商照网关入口 → 区组级</text>
+
+  <rect class="bx4" x="670" y="268" width="260" height="82" rx="8"/>
+  <text x="800" y="294" class="tb" text-anchor="middle">云上网关 + 自有平台</text>
+  <text x="800" y="316" class="t" text-anchor="middle">格兰斯贝云，或本地客户端</text>
+  <text x="800" y="338" class="s" text-anchor="middle">单灯级，含 CAD 图对图点位</text>
+
+  <line class="ld" x1="160" y1="232" x2="160" y2="264" marker-end="url(#x2)"/>
+  <line class="ld" x1="480" y1="232" x2="480" y2="264" marker-end="url(#x2)"/>
+  <line class="ld" x1="800" y1="232" x2="800" y2="264" marker-end="url(#x2)"/>
+  <defs>
+    <marker id="x1" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#37596F"/></marker>
+    <marker id="x2" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#8FA3B4"/></marker>
+  </defs>
+</svg>
+<div class="cap">图 19　三条路径：需求决定路径，不是设备决定路径</div>
+</div>
+
+<div class="principle">
+<b>对业主的口径要提前说死：</b>“自组网接进睿壹，看到的是<b>区组</b>；要单灯、要调光、要图对图点位，用自有平台。”这不是谁强谁弱——睿壹本身是完整系统，自有平台也不弱——是两个入口各自开到哪一层。这句话在方案阶段讲，比在验收时争论有价值得多。
+</div>
+
+<h3 id="c72">7.2　云上网关是什么</h3>
+<p>它是一台类安卓盒子设备，可以接显示器（HDMI），开机自动启动内置的灯控助手，所以它本身就具备灯具调控能力。上行是以太网或 4G，下行是对灯具的 2.4G 私有 Mesh。</p>
+
+<p>以官方安装说明里的 <b>GS9200-111-A</b> 为例，看参数就能对上现场那台盒子：4 核 ARM Cortex、2G 内存 + 16G 存储、2.4G Wi-Fi、100M 自适应以太网、RJ45 / HDMI / USB 三个外设口、DC 5V 输入（额定 2A）、整机功耗小于 10 瓦、无风扇外壳、支持上电自运行。配件是主机、电源适配器、USB 控制器（加密狗）、HDMI 线——<b>少哪一样都装不起来</b>，尤其是那支 USB 控制器。</p>
+
+<p>关键的一点：<b>网关本体不带射频调试能力，必须插 USB 加密狗。</b>把手机上用的那支 Type-C 加密传输器插到网关的 USB 口，网关才能搜灯；不插，进了灯控助手也搜不到任何灯。原因跟手机一样——灯控助手需要一个能说私有协议的射频外设。</p>
+
+<div class="grid2">
+  <div class="card">
+    <h5>上电顺序</h5>
+    接显示器（可选）→ 插加密狗 → 接网线或 4G → 上电。等系统启动，灯控助手自动打开，确认顶部<b>串口为绿</b>。
+  </div>
+  <div class="card">
+    <h5>串口不绿怎么办</h5>
+    依次：拔插加密狗 → 换 USB 口 → 重启网关。三步都做过还不绿，再怀疑加密狗本身。
+  </div>
+</div>
+
+<p>要不要网关、用哪种网关，取决于项目要不要“上系统”。现场常见三种形态：<b>纯本地</b>——不装网关，只要灯具、面板、遥控与感应，场景在灯里跑；<b>局域网加云</b>——用 GS-Linker 网线进交换机，数据上 <code>iot.ground-space.com</code>；<b>现场没有外网</b>——用 4G 版网关，插卡上网。第四种是“本地部署”（数据不出内网），见 6.6 的两条路。</p>
+
+<h3 id="c73">7.3　两种入网：无线与有线</h3>
+<p>网关要先“知道连哪个网、在平台上叫什么”，这一步靠 JSON 文件注入。无线方式要两个文件：一个写 WiFi 名称与密码，一个写睿壹对接的设备名。有线方式只要后一个，因为不需要连 WiFi。</p>
+
+<p>做法是把文件放 U 盘，插进网关 USB 口，<b>等约 10 秒</b>后拔出，网关自动记忆；联上网之后自动对接睿壹。10 秒不是精确值，它的含义是“网关在启动时读一次配置，读完写入本地存储”，所以 U 盘只是“送配置进去”的载体，不是持续依赖。</p>
+
+<p>U 盘有两条讲究。<b>一是用空 U 盘，根目录只放这两个 json。</b>网关是按文件名索引的，U 盘里如果还躺着别的项目留下的 <code>emq.json</code>，插上去可能把这一台改成别的名字，一次改错两台设备。<b>二是文件名一个字都不能差。</b>现场常有人把 <code>emq.json</code> 写成 <code>emp.json</code>，读音像、看着也像，但网关只认前者，插了不会有任何反应，也不报错——这类“U 盘插了没反应”，先看文件名，再看扩展名。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 360" role="img" aria-label="云上网关入网与对接流程">
+  <text x="0" y="16" class="tb">从准备文件到平台可见：五步</text>
+
+  <rect class="bx" x="20" y="40" width="160" height="86" rx="7"/>
+  <text x="100" y="66" class="tb" text-anchor="middle">① 准备 JSON</text>
+  <text x="100" y="90" class="s" text-anchor="middle">无线：WiFi + 对接</text>
+  <text x="100" y="110" class="s" text-anchor="middle">有线：只要对接</text>
+
+  <rect class="bx" x="212" y="40" width="160" height="86" rx="7"/>
+  <text x="292" y="66" class="tb" text-anchor="middle">② U 盘导入</text>
+  <text x="292" y="90" class="s" text-anchor="middle">插入约 10 秒</text>
+  <text x="292" y="110" class="s" text-anchor="middle">拔出后自动记忆</text>
+
+  <rect class="bx" x="404" y="40" width="160" height="86" rx="7"/>
+  <text x="484" y="66" class="tb" text-anchor="middle">③ 联网</text>
+  <text x="484" y="90" class="s" text-anchor="middle">有线进交换机</text>
+  <text x="484" y="110" class="s" text-anchor="middle">或连上指定 WiFi</text>
+
+  <rect class="bx" x="596" y="40" width="160" height="86" rx="7"/>
+  <text x="676" y="66" class="tb" text-anchor="middle">④ 平台添加</text>
+  <text x="676" y="90" class="s" text-anchor="middle">第三方设备</text>
+  <text x="676" y="110" class="s" text-anchor="middle">商照网关 + 设备名</text>
+
+  <rect class="bx4" x="788" y="40" width="152" height="86" rx="7"/>
+  <text x="864" y="66" class="tb" text-anchor="middle">⑤ 按区组搜灯</text>
+  <text x="864" y="90" class="s" text-anchor="middle">搜完必须</text>
+  <text x="864" y="110" class="s" text-anchor="middle">点“停止搜灯”</text>
+
+  <line class="lb" x1="180" y1="83" x2="208" y2="83" marker-end="url(#y1)"/>
+  <line class="lb" x1="372" y1="83" x2="400" y2="83" marker-end="url(#y1)"/>
+  <line class="lb" x1="564" y1="83" x2="592" y2="83" marker-end="url(#y1)"/>
+  <line class="lb" x1="756" y1="83" x2="784" y2="83" marker-end="url(#y1)"/>
+
+  <rect class="bx3" x="20" y="164" width="440" height="150" rx="7"/>
+  <text x="40" y="190" class="tb">前置条件：现场必须先分好区组</text>
+  <text x="40" y="216" class="t">网关按“区组号”搜灯。没编组时搜出来全是 0 区 0 组，</text>
+  <text x="40" y="238" class="t">平台侧就无法按区组管理，等于白搜一遍。</text>
+  <text x="40" y="266" class="t">顺序必须是：手机编组 → 网关按区组搜 → 进睿壹。</text>
+  <text x="40" y="294" class="s">这一步跳过去，后面所有数据都要删了重来。</text>
+
+  <rect class="bx3" x="500" y="164" width="440" height="150" rx="7"/>
+  <text x="520" y="190" class="tb">不点“停止搜灯”的后果</text>
+  <text x="520" y="216" class="t">网关会一直搜。下一台网关再搜时，两台的灯具混在一起，</text>
+  <text x="520" y="238" class="t">造成误传——灯被写到错误的网关/区组下。</text>
+  <text x="520" y="266" class="t">这是多网关项目最常见的现场事故，且很难事后拆开。</text>
+  <text x="520" y="294" class="s">纪律：一台搜完、停下、再搜下一台。</text>
+
+  <text x="20" y="344" class="s">有线优于无线的理由不是“少一个文件”，而是 Wi-Fi 是共享介质、竞争接入，工厂环境下不可控变量太多。</text>
+  <defs>
+    <marker id="y1" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#12557E"/></marker>
+  </defs>
+</svg>
+<div class="cap">图 20　网关入网五步，以及两个最容易跳过的前置条件</div>
+</div>
+
+<p>为什么不推荐无线？不是因为无线不能用，而是因为 Wi-Fi 是共享介质、竞争接入。工厂里 2.4G 频段挤满了 AP、无线摄像头、对讲机、微波炉，信道竞争非常激烈；AP 漫游、信号强度波动、地址租约、甚至访客网络隔离，都会让网关“时通时断”。网关一断，平台就看不到数据，业主就会认为“这套系统不稳定”。而有线是全双工、独享带宽、没有空口竞争，只要交换机配置正确，稳定性高一个量级。<b>能拉网线就拉网线</b>，这不是保守，是把不可控变量降到最少。</p>
+
+<h3 id="c74">7.4　在睿壹里把网关加进来</h3>
+<p>三个动作：睿壹系统 → <b>新增设备</b> → <b>第三方设备</b> → <b>商照网关</b>；输入之前写在 JSON 里的<b>设备名称</b>；确认添加。网关联网后会自动对接，平台侧显示在线即成功。</p>
+
+<p>这里的关键是“设备名称必须一致”。它是这台网关在睿壹里的唯一标识，也是两边匹配的唯一依据。所以这个名字要在项目层面统一规划，不能现场随手起——起错了，平台里加不进来，或者加进来的是另一台。</p>
+
+<div class="note">
+<b>换网关时，平台侧不要先删旧记录。</b>正确顺序是：现场断电拆下故障机 → 新网关把 <code>DeviceName</code> 配成原来那个名字 → 上线接替 → 平台侧记录不动。先删记录等于把这台网关下的点位、能耗历史、场景绑定一起清掉，后面要重建；而保留记录、只换硬件，平台看到的是“同一台设备恢复在线”。这条和 5.9 的“一键换灯”是同一个思路：换硬件，不换身份。
+</div>
+
+<h3 id="c7J">7.5　两份 JSON：原文、字段与命名规则</h3>
+<p>网关入网靠两个文件，文件名是<b>固定的</b>，不能自己起：<code>wifi.json</code> 放 WiFi 名称与密码，<code>emq.json</code> 放上云参数（服务器地址、端口、SSL、三元信息、账号）。网关启动时会按文件名去 U 盘根目录索引这两个文件，读到就写入本地存储——所以“插 10 秒拔掉”就够，它不是持续依赖 U 盘。</p>
+
+<p>下面两份是按厂家《Android 安卓上云网关配置与安装说明》里的示例整理出来的，字段名一个都不能改（区分大小写），只需要改值。</p>
+
+<div class="filetag">wifi.json</div>
+<pre class="code">{
+  "ssid": "GS",
+  "password": "Gs123456"
+}</pre>
+
+<p>两个字段：<code>ssid</code> 是 Wi-Fi 名称，<code>password</code> 是密码。三个注意点：网关只支持 <b>2.4GHz</b>，5G 的 SSID 填了也连不上；SSID 区分大小写，带空格要照抄；中文 SSID 兼容性差，尽量让甲方给一个英文或拼音的 IoT 专用 SSID。</p>
+
+<div class="filetag">emq.json（接入私有服务器 / 对接平台）</div>
+<pre class="code">{
+  "TargetServerUri": "101.71.2.18",
+  "Port": "443",
+  "SSL": true,
+  "ProductKey": "hu",
+  "DeviceName": "gs08291110",
+  "UserName": "mosto",
+  "UserPassword": "6Nji9"
+}</pre>
+
+<table>
+  <caption>表 15　emq.json 字段含义</caption>
+  <thead><tr><th>字段</th><th>含义</th><th>怎么填</th></tr></thead>
+  <tbody>
+    <tr><th>TargetServerUri</th><td>平台服务器地址</td><td>IP 或域名，<b>不带</b> http:// 前缀</td></tr>
+    <tr><th>Port</th><td>接入端口</td><td>字符串形式；SSL 用 443 或 8883，明文常用 1883</td></tr>
+    <tr><th>SSL</th><td>是否走加密通道</td><td>布尔值 true / false，与端口要匹配</td></tr>
+    <tr><th>ProductKey</th><td>产品/项目标识</td><td>平台侧分配，同一项目内一致</td></tr>
+    <tr><th>DeviceName</th><td><b>这台网关的唯一设备名</b></td><td>就是在睿壹“商照网关”里要填的那个名字</td></tr>
+    <tr><th>UserName / UserPassword</th><td>接入账号与密码</td><td>平台或服务器分配的 MQTT 账号</td></tr>
+  </tbody>
+</table>
+
+<div class="note">
+<b>最容易出错的地方，不在字段，在文件本身：</b>Windows 默认隐藏扩展名，用记事本另存为“wifi.json”经常变成 <code>wifi.json.txt</code>，网关按名索引找不到，表现就是“插了 U 盘没反应”。其次是中文引号——从微信、Word 里复制过来的引号是 “ ” 而不是 " "，JSON 解析直接失败。第三是尾逗号，最后一项后面多一个逗号就是非法 JSON。
+</div>
+
+<p>还有一条安全纪律：<b>带 emq.json 的 U 盘不要随手插到别的网关上。</b>这个文件里写着 DeviceName，插到另一台网关上，会把那台的设备名改掉，两台重名之后平台侧就分不清谁是谁——这类故障排查起来非常费时，因为现象是“两台网关轮流掉线”，而不是报错。</p>
+
+<h4>设备命名规则</h4>
+<p>厂家示例里的 <code>gs08291110</code> 是研发调试用的形态，不作为现场规则。现场实际用的是<b>“GS + 网关编号 + 楼栋层码”</b>，例如 <code>GS1A7</code>：<code>GS</code> 是固定前缀（格兰斯贝 / GS-Link 体系），<code>1</code> 是这台网关在本项目里的<b>设备编号</b>，<code>A7</code> 是位置码——<b>A 栋 7 层</b>。名字一眼就能看出“第几台、装在哪”。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 262" role="img" aria-label="网关设备名拆解">
+  <text x="0" y="18" class="tb">一个网关名，三段信息</text>
+
+  <rect class="bx4" x="60" y="40" width="120" height="58" rx="6"/>
+  <text x="120" y="76" class="tb" text-anchor="middle" style="font-size:19px">GS</text>
+  <text x="120" y="118" class="s" text-anchor="middle">固定前缀</text>
+  <text x="120" y="136" class="s" text-anchor="middle">体系标识，不随项目变</text>
+
+  <rect class="bx3" x="220" y="40" width="120" height="58" rx="6"/>
+  <text x="280" y="76" class="tb" text-anchor="middle" style="font-size:19px">1</text>
+  <text x="280" y="118" class="s" text-anchor="middle">设备编号</text>
+  <text x="280" y="136" class="s" text-anchor="middle">项目内第几台，从 1 起</text>
+
+  <rect class="bx2" x="380" y="40" width="150" height="58" rx="6"/>
+  <text x="455" y="76" class="tb" text-anchor="middle" style="font-size:19px">A7</text>
+  <text x="455" y="118" class="s" text-anchor="middle">位置码</text>
+  <text x="455" y="136" class="s" text-anchor="middle">A 栋 7 层（楼栋＋楼层）</text>
+
+  <text x="566" y="76" class="tb">＝ GS1A7</text>
+  <text x="566" y="100" class="s">1 号网关，A 栋 7 层</text>
+
+  <line x1="0" y1="164" x2="960" y2="164" stroke="#D9E2EA"/>
+
+  <text x="0" y="192" class="tb">同一张卡片上，还有一条“区域”路径，两者分工不同</text>
+  <text x="0" y="218" class="t">区域：城市 › 大楼 › 楼层 › 用途（例：城市,大楼,楼层,自组网测试）——回答“属于哪一层组织”</text>
+  <text x="0" y="244" class="t">设备名：GS＋编号＋楼栋层——回答“具体是哪一台、装在哪”；两者都要填，但不要互相替代</text>
+</svg>
+<div class="cap">图 21　设备名三段式：GS ＋ 设备编号 ＋ 楼栋层码</div>
+</div>
+
+<p>几个配套规则，现场照做就不会乱。编号按<b>项目内</b>连续排，不按楼层重头来——A 栋 1 层是 1 号，A 栋 7 层可能就是 5 号，看安装顺序，不看位置；这样全项目不会出现第二个 GS1。楼栋层码用<b>字母＋数字</b>：A7 就是 A 栋 7 层，B12 就是 B 栋 12 层，地下层用 B1F 这类写法要全项目统一（别一半写 B1、一半写 B-1）。楼层是两位数时不补零，写 A12 而不是 A012，读起来更接近现场叫法。</p>
+
+<p>改名的动作在 App 里是点名字旁边的铅笔图标，改完保存。改之前建议先点一次“识别”，确认弹出来的确实是眼前这台设备，再动手——尤其一个弱电间里放了好几台网关时，改错一台，后面所有搜灯都会串到别的区。</p>
+
+<table>
+  <caption>表 16　命名规则（现场实际用法）</caption>
+  <thead><tr><th>对象</th><th>规则</th><th>示例</th></tr></thead>
+  <tbody>
+    <tr><th>网关 DeviceName</th><td><b>GS + 设备编号 + 楼栋层码</b>；编号项目内连续，不按楼层重排</td><td><b>GS1A7</b>＝1 号网关、A 栋 7 层；GS2B3＝2 号、B 栋 3 层；GS10C12＝10 号、C 栋 12 层</td></tr>
+    <tr><th>区域路径</th><td>城市 › 大楼 › 楼层 › 用途，四段用逗号分隔</td><td>城市,大楼,楼层,自组网测试</td></tr>
+    <tr><th>节点名</th><td>与区域路径对应，落到“哪一片由哪几台网关覆盖”</td><td>A栋7层-办公区</td></tr>
+    <tr><th>灯具设备名</th><td>区-组-地址，或图纸点位号</td><td>03-02-017</td></tr>
+    <tr><th>场景名</th><td>功能名，不带编号</td><td>上班、午休、下班、投影</td></tr>
+  </tbody>
+</table>
+
+<p>为什么强调“进平台后不再改”？因为这套系统里，<b>名字是索引</b>：灯的绑定表里存的是面板名字，安全模式里存的是面板地址名字，定时任务里存的是灯具标签。改一次名，所有引用它的地方都断掉，而断掉的表现往往不是报错，是“按了没反应”。所以命名要在做点位表的时候一次定死，后面只读不改。</p>
+
+<p>还有一个实操建议：<b>DeviceName 要和安装位置一一对应，并写进点位表</b>。因为网关背面只贴了远程码，没贴你给它起的名字；三个月后现场再出问题，能对上“这台是哪一层哪一面”的，只有那张表。</p>
+
+<h3 id="c75">7.6　区组前置与“停止搜灯”</h3>
+<p>这两件事前面提过，但值得单独成节，因为它们是这条路上<b>唯一两个“做错了要重来”的动作</b>，其他步骤错了都能改。</p>
+
+<p><b>区组前置。</b>网关搜灯是按区组号搜的。如果现场还没分区组，搜出来全是 0 区 0 组，平台侧无法按区组管理。所以顺序必须是“先用手机把区组编好 → 再在网关上按区组搜 → 再进睿壹”。跳过去，后面所有数据都要删了重来。</p>
+
+<p><b>停止搜灯。</b>网关点“搜灯”之后会持续枚举，不点“停止搜灯”它不会自己停。下一台网关再搜时，两台的结果会混在一起，造成误传——灯被写到错误的网关或区组下。这是多网关项目最常见的现场事故，而且事后很难拆：你无法从平台数据看出哪盏灯是被哪台网关误写的。</p>
+
+<div class="note">
+<b>纪律：</b>一台搜完、确认数量、点停止、再切下一台。这条纪律比任何参数都重要，因为它是唯一一个“错了不可逆”的动作。
+</div>
+
+<h3 id="c76">7.7　能力边界与上线检查</h3>
+<table>
+  <caption>表 17　自组网接进睿壹 vs 跑自有平台</caption>
+  <thead><tr><th>能力</th><th>接进睿壹（商照网关）</th><th>自有平台（云 / 本地）</th></tr></thead>
+  <tbody>
+    <tr><th>按区组开关</th><td>支持</td><td>支持</td></tr>
+    <tr><th>能耗数据</th><td>支持（区组/回路汇总）</td><td>支持（单灯/区组/项目）</td></tr>
+    <tr><th>单灯识别</th><td>不支持</td><td>支持</td></tr>
+    <tr><th>单灯调光</th><td>不支持</td><td>支持</td></tr>
+    <tr><th>逐灯故障定位</th><td>不支持</td><td>支持</td></tr>
+    <tr><th>场景下发</th><td>区组级</td><td>单灯 / 区组 / 群组 / 标签</td></tr>
+    <tr><th>地图与点位</th><td>不支持</td><td>支持，可导入 CAD 图做图对图点位</td></tr>
+    <tr><th>定时情景</th><td>不支持</td><td>支持</td></tr>
+    <tr><th>告警与报表</th><td>有限</td><td>支持</td></tr>
+  </tbody>
+</table>
+
+<p>这张表说的是<b>“自组网接进睿壹”</b>这一种情形，不是睿壹平台本身的能力。睿壹自己那一整套（边缘服务器 + 睿壹网关与模块）是完整系统，单灯、场景、能耗、地图都有；限制来自“第三方设备 → 商照网关”这个接入模型只映射到区组。把这两件事分开，跟业主沟通才不会自相矛盾：不是“睿壹不行”，也不是“自组网不行”，是<b>这个对接入口只开到区组这一层</b>。</p>
+
+<p>还有一条要单独说清：<b>自组网灯具接入睿壹后，目前不能调光。</b>能做的只有按区组开关，以及能耗数据回读；调光要在灯控助手或格兰斯贝自有平台里做。所以方案阶段遇到“要接入睿壹、又要调光”的需求，先确认是“在睿壹里调”还是“在自有平台里调”——前者现在做不到，后者可以。这也是为什么“要逐灯控制与单灯故障，走有线 DALI”这句话在睿壹体系里依然成立。</p>
+
+<p>再往里看一层，限制来自<b>数据模型</b>，不是射频能力。用“商照网关”接入时，对象只建到“区组”：一个网关下挂若干区组，开关与能耗都按区组汇总；单灯的短地址、场景表、故障状态没有对应的字段，平台自然“认不出哪一盏”。同一套硬件，换一个对象模型（自有平台的“项目—节点—网关—灯”），能力就出来了。</p>
+
+<table>
+  <caption>表 18　网关上线检查清单</caption>
+  <thead><tr><th>序</th><th>检查项</th><th>通过标准</th></tr></thead>
+  <tbody>
+    <tr><th>1</th><td>现场区组已编好</td><td>App 里区组、地址正确，无 0 区 0 组残留</td></tr>
+    <tr><th>2</th><td>网关插狗、上电</td><td>灯控助手自启，串口绿</td></tr>
+    <tr><th>3</th><td>JSON 导入</td><td>插入约 10 秒、拔出后重启，配置仍在</td></tr>
+    <tr><th>4</th><td>网络连通</td><td>有线：网口灯正常、能出网；无线：信号稳定不掉线</td></tr>
+    <tr><th>5</th><td>睿壹添加</td><td>第三方设备→商照网关→设备名匹配→显示在线</td></tr>
+    <tr><th>6</th><td>按区组搜灯</td><td>数量与现场一致，<b>已点停止搜灯</b></td></tr>
+    <tr><th>7</th><td>平台验证</td><td>区组开关有反应、能耗有数据；单灯不作为验收项</td></tr>
+  </tbody>
+</table>
+
+<h2>第八篇　故障因果链</h2>
+
+<h3 id="c81">8.1　三层归因</h3>
+<p>所有“灯不听话”的问题，都可以先归到三类，再往下拆：<b>命令没到</b>（传输层）、<b>到了没执行</b>（执行层）、<b>执行了不对</b>（输出层）。这个分法比“按故障现象背答案”可靠，因为它对应系统的三层结构。</p>
+
+<div class="fig">
+<svg viewBox="0 0 960 400" role="img" aria-label="故障三层归因决策树">
+  <rect class="bx2" x="360" y="16" width="240" height="50" rx="7"/>
+  <text x="480" y="47" class="tb" text-anchor="middle">灯不听话</text>
+
+  <path class="ln" d="M480,66 L480,90 L160,90 L160,112" fill="none" marker-end="url(#z1)"/>
+  <path class="ln" d="M480,66 L480,112" fill="none" marker-end="url(#z1)"/>
+  <path class="ln" d="M480,66 L480,90 L800,90 L800,112" fill="none" marker-end="url(#z1)"/>
+
+  <rect class="bx" x="30" y="116" width="260" height="54" rx="6"/>
+  <text x="160" y="140" class="tb" text-anchor="middle">怎么按都没反应</text>
+  <text x="160" y="160" class="s" text-anchor="middle">命令没到</text>
+
+  <rect class="bx" x="350" y="116" width="260" height="54" rx="6"/>
+  <text x="480" y="140" class="tb" text-anchor="middle">动了，但不是要的效果</text>
+  <text x="480" y="160" class="s" text-anchor="middle">到了没执行</text>
+
+  <rect class="bx" x="670" y="116" width="260" height="54" rx="6"/>
+  <text x="800" y="140" class="tb" text-anchor="middle">亮度/色温/延时不对</text>
+  <text x="800" y="160" class="s" text-anchor="middle">执行了不对</text>
+
+  <line class="ln" x1="160" y1="170" x2="160" y2="196" marker-end="url(#z1)"/>
+  <line class="ln" x1="480" y1="170" x2="480" y2="196" marker-end="url(#z1)"/>
+  <line class="ln" x1="800" y1="170" x2="800" y2="196" marker-end="url(#z1)"/>
+
+  <rect class="bx3" x="20" y="200" width="280" height="158" rx="7"/>
+  <text x="40" y="226" class="t">· 灯不在网（被拆、断电、超出中继范围）</text>
+  <text x="40" y="250" class="t">· 面板没关联到这盏灯</text>
+  <text x="40" y="274" class="t">· 面板区号与灯不一致</text>
+  <text x="40" y="298" class="t">· 选中态残留，只发给了几盏</text>
+  <text x="40" y="322" class="t">· 网关下行路径断了</text>
+  <text x="40" y="348" class="s">判定：用手机近场直接控这盏灯</text>
+
+  <rect class="bx3" x="340" y="200" width="280" height="158" rx="7"/>
+  <text x="360" y="226" class="t">· 场景没保存</text>
+  <text x="360" y="250" class="t">· 场景被设为“无效”</text>
+  <text x="360" y="274" class="t">· 当前场景号不是那个</text>
+  <text x="360" y="298" class="t">· 亮灯模式与预期不符</text>
+  <text x="360" y="322" class="t">· 传感器开关被关</text>
+  <text x="360" y="348" class="s">判定：读当前场景号 + 看有效位</text>
+
+  <rect class="bx3" x="660" y="200" width="280" height="158" rx="7"/>
+  <text x="680" y="226" class="t">· 有人/无人亮度设错</text>
+  <text x="680" y="250" class="t">· 调光曲线不合适</text>
+  <text x="680" y="274" class="t">· 低亮度分辨率不够</text>
+  <text x="680" y="298" class="t">· 单色温灯具调色温</text>
+  <text x="680" y="322" class="t">· PWM 频段与驱动不匹配</text>
+  <text x="680" y="348" class="s">判定：回读参数 + 单灯调光看输出</text>
+
+  <text x="20" y="382" class="s">三层的排查成本完全不同：传输可远程看在线与关联；执行要读配置；输出必须到现场看光。先分层，能避免“一上来就拆灯”或“一上来就改参数”。</text>
+  <defs>
+    <marker id="z1" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#37596F"/></marker>
+  </defs>
+</svg>
+<div class="cap">图 22　三层归因：先判断“命令到没到”，再往下拆</div>
+</div>
+
+<p><b>命令没到</b>是传输层的问题。表现是“怎么按都没反应”，但灯本身亮着、能闪、能被搜到。判断方法：用手机近场直接控这盏灯。手机能控，说明灯和射频没问题，问题在面板/网关那条路径；手机也控不了，问题在灯本身或它所在的网。</p>
+
+<p><b>命令到了没执行</b>是执行层的问题。表现是“灯有反应（比如闪一下、或者状态变了一下又回去），但不是你要的效果”。判断方法：进“基本设置”看当前场景号，进“情景模式”看场景有效位，两个都对，再看亮灯模式。</p>
+
+<p><b>执行了不对</b>是输出层的问题。表现是“灯确实按命令动了，但亮度/色温/延时不对”。判断方法：先把参数读回来，确认不是“以为改了其实没发下去”；再用单灯调光调色，看输出是否线性、是否到得了最暗；最后才怀疑驱动。</p>
+
+<h3 id="c82">8.2　时好时坏的四个余量</h3>
+<p>“时好时坏”比“彻底坏”难查，因为它往往不是某一个点坏了，而是某个余量被吃掉了。最常见的四种余量：<b>信号余量</b>（接收强度刚好在门限附近，人一多、门一关就掉）、<b>链路余量</b>（刚好卡在门限，多一个人、关一扇门就掉）、<b>空口余量</b>（上报频繁、重发多，忙时丢包）、<b>供电余量</b>（驱动或电源接近满载，电压一波动就复位）。</p>
+
+<p>排查时不要问“它为什么坏”，要问“它好的时候和坏的时候，差在哪”。差在人？差在门开没开？差在某个设备启没启动？差在时间段？把这些变量找出来，往往比换设备有效。比如“车间行车一开就掉线”，那不是灯的问题，是行车金属结构改变了多径；“中午人多就迟钝”，那是人体对 2.4G 的吸收。</p>
+
+<h3 id="c83">8.3　上云异常分三段看</h3>
+<p>上云异常要分三段：<b>网关在不在线</b>（平台能不能看到网关）、<b>灯在不在网关下</b>（网关能不能搜到灯）、<b>数据对不对</b>（能耗、状态是否合理）。</p>
+
+<p>网关不在线，查供电、网线、WiFi、注册；网关在线但灯不在，查区组、搜灯有没有停、链路质量；都正常但数据不对，查额定功率、区组绑定、上报间隔。三段分开，才不会把“网线没插”当成“平台有 bug”。</p>
+
+<p>还有一个“假在线”的坑：平台显示在线，但下发命令没反应。原因是心跳还在走，但下行路径断了，或者灯的场景内容是空的。所以“在线”只能证明一件事——它的心跳还能到平台。要证明“能控”，必须真的下发一次并观察反馈。</p>
+
+<h3 id="c84">8.4　高频问题对照</h3>
+<table>
+  <caption>表 19　现场高频问题：现象 → 最可能原因 → 处理</caption>
+  <thead><tr><th>现象</th><th>最可能的原因</th><th>处理</th></tr></thead>
+  <tbody>
+    <tr><th>搜不到灯</th><td>串口没绿 / OTG 被关 / 区组筛选停在其他区 / 固件低于 V5.3.33</td><td>按 5.1 查连接；区组改回 0；老固件改用普通搜灯</td></tr>
+    <tr><th>用着用着突然控不了</th><td>OTG 闲置 5 分钟自动关闭</td><td>重新打开 OTG，或拔插加密狗</td></tr>
+    <tr><th>整组设置没反应</th><td>残留在指哪配哪选中态 / 地址码填了单灯号</td><td>回指哪配哪点“全部取消”；地址码清空</td></tr>
+    <tr><th>两盏灯永远同步</th><td><b>地址编码重复</b></td><td>核对地址表，改掉其中一个；分批施工注意起始号</td></tr>
+    <tr><th>灯不感应</th><td>传感器开关被关 / 一段延时过短 / 感应距离太近</td><td>打开传感器开关；延时改 60 秒以上；按 3.2 调灵敏度</td></tr>
+    <tr><th>场景按了不切换</th><td>场景设了“无效”/ 没点保存及应用 / 当前场景号不对</td><td>改回有效；重新保存并应用；核对当前场景号</td></tr>
+    <tr><th>灯反复亮灭（自激）</th><td>雷达灵敏度过高 / 发射功率 3 档以上 / 触发间隔太短</td><td>恢复默认灵敏度与低功率；加大触发间隔</td></tr>
+    <tr><th>面板按键无反应</th><td>面板没关联灯具 / 键值被改 / 场景无效</td><td>重新做设备关联；核对键值；检查场景有效</td></tr>
+    <tr><th>换过面板后灯自己进模式</th><td>安全模式里“面板地址”还是旧名字</td><td>到安全模式把面板地址改成新名字</td></tr>
+    <tr><th>换灯后参数全丢</th><td>没走“一键换灯”</td><td>用一键读取 → 换灯流程重做</td></tr>
+    <tr><th>能耗显示为 0 或不准</th><td>额定功率没填 / 填错</td><td>快捷配置里逐灯读功率、手填正确值并发送</td></tr>
+    <tr><th>定时任务不执行</th><td>网关无 RTC 且断网 / 时间不对 / 文件格式错</td><td>换带 RTC 网关；检查 schedule.json 名称与结构</td></tr>
+    <tr><th>车道灯跟着人乱跑</th><td>深度学习记了安装期的错误路径</td><td>清除数据，按正常路线走 3～5 次重学</td></tr>
+    <tr><th>平台看不到数据</th><td>网关离线 / 未注册 / 设备名不匹配</td><td>按 8.3 三段查；核对 JSON 里的设备名</td></tr>
+  </tbody>
+</table>
+
+<h3 id="c85">8.5　到点不灭：按“是谁让它亮的”倒查</h3>
+<p>“人走了灯不灭”“到点了还亮着”是自组网项目最常见的投诉，也是最容易被当成“灯坏了”的一类。它几乎从来不是硬件问题，而是<b>还有另一条规则在让它亮</b>。所以排查方向不是“为什么不灭”，而是“现在是谁在让它亮”。</p>
+
+<p>按可能性从高到低，有四种“元凶”。</p>
+
+<p><b>第一种：延时设得太长，或者干脆被设成了常亮。</b>一段延时设成半小时、二段延时又叠加一段，人走了灯当然还亮着；更常见的是某个场景的亮灯模式被配成了“常亮”，一切到这个场景就永远不灭。判断方法很简单：进情景模式看这个场景的“亮灯模式”和两段延时，再看这盏灯的“当前场景号”是不是那个场景。</p>
+
+<p><b>第二种：感应器持续被触发。</b>探头对着空调出风口、风管、窗帘、门口，气流和门开合都会触发；雷达能穿薄隔断，隔壁走廊有人也会触发；小动物、飞虫、灯具自身发热、暖气片同样会误动；灵敏度过高、发射功率拉满时，这些误触发会被放大。判断方法：把传感器开关关掉，看灯还会不会自己亮——还亮，说明不是感应；不亮，就是感应链路的问题。</p>
+
+<p><b>第三种：场景与定时互相打架。</b>定时关灯执行了，又被一个常亮场景或面板状态覆盖回来；或者分组里有一盏灯没加进去，整组的判断被它带偏。这类问题的特征是“有时间规律”——每天固定某个点之后开始不灭，或者每次按过某个面板之后不灭。判断方法：看平台的事件与操作日志，对时间点。</p>
+
+<p><b>第四种：通信失联，关灯指令没送到。</b>网关或中间节点离线，平台显示“已下发”，灯根本没收到。这类问题的特征是“偶发、成片”——同一片区域的灯一起不灭，或者某几盏在特定时间掉线。</p>
+
+<div class="principle">
+<b>四步倒查法：</b>先看平台在线状态与最后指令时间 → 再单独下发一次关灯 → 能关，说明通信正常，是规则问题（前三种）；不能关，用面板或遥控器试 → 面板能关，说明是网络或平台下发链路；面板也不能关，再复位重配。批量出现同一现象，先查固件版本是否一致——混批次的灯固件不同，同组行为会不一致。
+</div>
+
+<p>这套顺序的价值在于“先分层再动手”。多数人一上来就调灵敏度，结果把“人在也不亮”调出来了，问题从“不灭”变成“不亮”，更难查。先用一次“平台直接下发关灯”把问题切成“通信”还是“规则”，后面就只剩一半的可能。</p>
+
+<h2>第九篇　分场景配置</h2>
+
+<h3 id="c91">9.1　办公</h3>
+<p>以分组为主，按房间或工位分区；感应优先用存在式或毫米波，因为办公场景人是久坐的，PIR 会频繁误判无人。延时偏长（2～5 分钟），无人亮度可到 0～10%。场景常用“上班 / 午休 / 下班 / 投影”。恒照度可选，靠窗区域收益最大——那一排灯白天可以压到很低的输出，而内侧不受影响。</p>
+
+<h3 id="c92">9.2　车库</h3>
+<p>车位用分组，车道用深度学习。车位灯关掉联动，避免车过道时整片车位灯亮；车道“附近灯具数量”单列 4、双列 8；延时偏长，无人亮度 10%～20% 保留基本可视；交付前清除学习数据，按正常路线走 3～5 次。车库还有一个容易忽略的点：<b>灯具装在管道下方时，雷达会被管道反射干扰</b>，安装位置要避开正对管道的角度。</p>
+<p>要做“车到灯亮、车走灯灭”的迎灯跑马，见 4.10 的三层脚本结构——触发、序列、指令分开配，缺一层就不动。</p>
+
+<h3 id="c93">9.3　厂房与高棚</h3>
+<p>空间高、灯具稀、金属遮挡多。优先保证“视线可达”，网关按防火分区或物理隔断分布；感应以雷达为主，注意行车、吊车、风扇的误触发；调光以分组为主，不做过度精细的分区。高棚场景里，<b>金属屋架与行车比“20 米”更容易成为瓶颈</b>：它们对所有 2.4G 信道一视同仁地衰减，灯具又沿屋架排成长链，中继路径被迫拉长。所以高棚的布点不是“按面积均分”，而是“按结构分段”，每跨一个金属隔断就考虑补一台网关。</p>
+
+<h3 id="c94">9.4　改造项目</h3>
+<p>不动线、换灯即组网。重点是“旧灯的光品质与外观能不能接受”，以及“原有面板/开关怎么处理”。如果保留旧面板，要确认它是不是智能面板；如果不是，只能靠感应或新面板，不要承诺“旧开关还能调光”。改造项目还有一条隐性成本：<b>原有回路可能是按整片开关设计的</b>，换灯后如果要做分区，就得重新拉线，这部分要在报价前说清。</p>
+
+<h2>附录</h2>
+
+<h3 id="cA1">A　术语表</h3>
+<table>
+  <caption>表 20　常用术语</caption>
+  <thead><tr><th>术语</th><th>含义</th></tr></thead>
+  <tbody>
+    <tr><th>网络编码</th><td>出厂固化、唯一、不可改、App 内不可见；决定“它是哪一盏”</td></tr>
+    <tr><th>地址编码</th><td>组内门牌号，可改、有默认值、必须唯一；决定“组里第几盏”</td></tr>
+    <tr><th>区 / 组 / 地址</th><td>管理边界 / 联动边界 / 定位边界，三层寻址</td></tr>
+    <tr><th>场景号</th><td>面板发出的编号，本身不含内容</td></tr>
+    <tr><th>场景表</th><td>存在灯里的 6 个（可扩 12 个）槽位，存每个场景的完整参数</td></tr>
+    <tr><th>选中态</th><td>灯自身的一个状态位，不是 App 的勾选；只能“全部取消”清除</td></tr>
+    <tr><th>信道轮询</th><td>节点在 5 个 2.4G 信道之间轮换收发，用来避开固定干扰</td></tr>
+    <tr><th>RSSI</th><td>接收信号强度，负值，越接近 0 越强</td></tr>
+    <tr><th>照度</th><td>落到单位面积的光，单位 lx</td></tr>
+    <tr><th>色温</th><td>光的冷暖，单位 K</td></tr>
+    <tr><th>占空比</th><td>PWM 一个周期里“开”的比例</td></tr>
+    <tr><th>自控 / 被控</th><td>灯具自带光感自主调节 / 接受独立恒照度传感器控制</td></tr>
+  </tbody>
+</table>
+
+<h3 id="cA2">B　五个最常见的误解</h3>
+<p><b>误解一：网关是路由器，带不动就是网关不行。</b>网关是桥，不是 AP。带载能力取决于轮询周期、空口占用和消息频率，不取决于“连接数”。换更贵的网关，往往不如减少上报、拆分区、恢复转发。</p>
+
+<p><b>误解二：平台显示在线，就一定能控。</b>在线只证明“心跳上去了”。下行通不通、灯有没有执行，是另外两件事。在线但控不了，先近场用手机试。</p>
+
+<p><b>误解三：场景存在云端，断网就没了。</b>场景表在灯里。断网、断云、网关掉线，面板按键照样切场景；反过来，云端改了场景但没下发到灯，断网后灯还是旧的。</p>
+
+<p><b>误解四：调光 10% 就是看起来 10% 亮。</b>百分比是电流或占空比，人眼感知是非线性的。10% 的输出，看起来可能有三成亮；1% 也不是全黑。</p>
+
+<p><b>误解五：有 5 个信道轮询，就不怕干扰。</b>轮询只能躲开“窄带干扰”——干扰占了一个信道，换一个就绕开。它躲不开<b>宽带遮挡</b>：金属吊顶、金属货架、混凝土墙对所有 2.4G 信道一样衰减。所以现场遇到“加功率也没用、换信道也没用”，八成是遮挡，不是干扰，处理办法是挪位置、加 PA、拆网关。</p>
+
+<h3 id="cA3">C　依据与免责</h3>
+<p>本手册的参数与操作路径，主要依据格兰斯贝《GS200 平台手机 APP 使用手册 V2.9》与《云平台使用手册 V2.1》，并结合现场实测与调试经验整理。凡涉及射频、生理感知、协议行为的部分，属于通用原理层面的解释，用于建立判断框架；具体固件的实现细节以厂家规格为准。</p>
+
+<p>标注“现场”的条目——包括八键语义、一段延时经验值、快捷配置批量流、一键换灯、蓝牙信标告警、地址编码的唯一性纪律——来自实际项目经验，未在官方手册中逐条对应，首次使用请在现场复核。</p>
+
+<p><b>关于早前整理的几份 HTML 手册</b>（技术方案总索引、照明方案与产品设计、网络调试与运维手册、项目管理与施工标准、CAD 制图技术要求、第三方对接指导、项目全流程执行指南）：它们是长期积累的成果，数据与案例仍有参考价值，因此<b>全部保留、不作删改</b>；但它们属于二手整理稿，其中若干口径（例如自组网网关“覆盖半径”、把 OBUS 的 A/B 电压当判据）已被现场实测推翻。所以本手册<b>不把它们作为参数依据</b>，只作背景阅读。凡引用其中的数字或结论，都要先与厂家手册或现场实测对一遍；对不上时，以厂家文件与实测为准。一句话：<b>取其案例与结构，不取其未经核实的参数。</b></p>
+
+<p>界面名称、按钮位置随 App 版本变化，以现场实际为准；参数默认值以设备出厂固件为准。本手册不替代厂家的正式规格书与安装说明。</p>
+
+<h3 id="cA4">D　参数核对表（准确定级）</h3>
+<p>下面这张表是一次完整的核对结果：把手册里所有能被验证的数字与结论逐条列出，标明它来自哪份文件、核对到什么程度。做这张表的目的，是让你在把手册交给别人之前，知道<b>哪些话可以原样引用，哪些话只能当经验讲</b>。</p>
+
+<p>记号说明：<b>✔</b> 与官方文件原文一致（可直接引用）；<b>◐</b> 现场口径，官方文件未写明（可以讲，但要说明是经验值）；<b>○</b> 仅见内部资料，待厂家确认（不要写进合同或投标文件）。</p>
+
+<table class="audit">
+  <caption>表 21　关键参数与结论的核对结果</caption>
+  <thead><tr><th>项目</th><th>手册取值</th><th>依据</th><th>级别</th></tr></thead>
+  <tbody>
+    <tr><th>网关与最近灯具距离</th><td>≤20 m，通信无遮挡，宜同平面或略低</td><td>《安卓上云网关安装说明》3.1</td><td>✔</td></tr>
+    <tr><th>吊顶与铝扣板</th><td>避开金属包裹；铝扣板加 PA</td><td>同上 3.3 / 3.4</td><td>✔</td></tr>
+    <tr><th>单跳能力</th><td>&gt;50 m，可 3 跳以上（视距条件）</td><td>格兰斯贝公开方案资料</td><td>✔</td></tr>
+    <tr><th>网关型号与硬件</th><td>GS9200-111-A；4 核 ARM、2G+16G、2.4G Wi-Fi、100M 网口、DC5V 2A、&lt;10W</td><td>同上「硬件说明」</td><td>✔</td></tr>
+    <tr><th>配件清单</th><td>主机、电源适配器、USB 控制器、HDMI 线</td><td>同上</td><td>✔</td></tr>
+    <tr><th>wifi.json 字段</th><td>ssid / password</td><td>同上 1.3（示例原文）</td><td>✔</td></tr>
+    <tr><th>emq.json 字段</th><td>TargetServerUri / Port / SSL / ProductKey / DeviceName / UserName / UserPassword</td><td>同上 2.1 / 2.2（示例原文）</td><td>✔</td></tr>
+    <tr><th>三元信息与查看路径</th><td>ProductKey / DeviceName / DeviceSecret；工具箱→数据上云</td><td>同上 1.2</td><td>✔</td></tr>
+    <tr><th>APP 版本</th><td>灯控助手 1.1.303 以上</td><td>《GS200 手机 APP 手册 V2.9》</td><td>✔</td></tr>
+    <tr><th>串口识别</th><td>允许访问 CH57x；右上「重置串口」；串口变绿</td><td>同上</td><td>✔</td></tr>
+    <tr><th>OTG</th><td>闲置 5 分钟自动关闭</td><td>同上</td><td>✔</td></tr>
+    <tr><th>近距搜灯</th><td>需灯具固件 V5.3.33 以上</td><td>同上</td><td>✔</td></tr>
+    <tr><th>键值 7～12</th><td>需面板固件 5.4.4 以上</td><td>同上</td><td>✔</td></tr>
+    <tr><th>深度学习默认</th><td>V5.3.40 以上出厂默认</td><td>同上</td><td>✔</td></tr>
+    <tr><th>人体存在感应距离</th><td>距离门 2～6，2＝1.5 m、6＝4.5 m，每档 0.75 m</td><td>同上</td><td>✔</td></tr>
+    <tr><th>车道灯联动数量</th><td>单列 4、双列 8</td><td>同上</td><td>✔</td></tr>
+    <tr><th>隐藏入口</th><td>连点版本号 6 次 → 上传 / 调试模式 / 自动飞升 / 恢复出厂</td><td>同上</td><td>✔</td></tr>
+    <tr><th>字典文件</th><td>.nms，存 Documents\GroundSpace</td><td>同上</td><td>✔</td></tr>
+    <tr><th>定时任务文件</th><td>必须命名为 schedule.json</td><td>同上</td><td>✔</td></tr>
+    <tr><th>场景槽位</th><td>6 个（可扩 7～12）</td><td>APP 手册 + 公开资料「不少于 6 种情景模式」</td><td>✔</td></tr>
+    <tr><th>云平台地址</th><td>http://iot.ground-space.com/</td><td>《云平台使用手册 V2.1》</td><td>✔</td></tr>
+    <tr><th>地图模式</th><td>导入图纸，灯拖到实际点位；灯/网关/地图右键菜单</td><td>云平台手册 2.6 + 本地客户端手册 3.5</td><td>✔</td></tr>
+    <tr><th>本地客户端硬件</th><td>i5 十三代以上 / 32G / SSD 余 500G / Win10 64 位以上</td><td>《本地客户端手册 V1.2》</td><td>✔</td></tr>
+    <tr><th>本地客户端容量实测</th><td>i5-8250U / 16G 带 7600 盏；CPU 25%、内存 0.8～1.5G、磁盘 8%</td><td>同上「测试数据」</td><td>✔</td></tr>
+    <tr><th>本地客户端对网关固件</th><td>4G 款 ≥1.0.45；安卓 ≥1.1.319；安卓 RTC ≥1.1.309</td><td>同上「网关要求」</td><td>✔</td></tr>
+    <tr><th>信道轮询数量</th><td>5 个信道轮换</td><td>现场口径；公开资料仅称「自主跳频技术」</td><td>◐</td></tr>
+    <tr><th>单网关带载</th><td>400～500 盏（实测）；公开资料「≥1000 盏」为上限口径</td><td>现场经验 + 公开资料</td><td>◐</td></tr>
+    <tr><th>地址编码 / 网络编码</th><td>地址可改且须唯一；网络编码不可改、不可见</td><td>现场实测</td><td>◐</td></tr>
+    <tr><th>网关命名</th><td>GS + 设备编号 + 楼栋层码（GS1A7）</td><td>现场截图与口述</td><td>◐</td></tr>
+    <tr><th>自组网接入睿壹</th><td>可开关、可读能耗；<b>不可调光</b></td><td>现场实测</td><td>◐</td></tr>
+    <tr><th>自组网面板 / 感应参数语义</th><td>八键语义、延时经验值、批量下发流程</td><td>现场经验</td><td>◐</td></tr>
+    <tr><th>睿壹边缘服务器型号与容量</th><td>RY-IOT-EDGE-E01；≤5000 设备</td><td>内部方案资料</td><td>○</td></tr>
+  </tbody>
+</table>
+
+<p><b>核对结论。</b>表内共 32 项：<b>✔ 25 项</b>全部与厂家文件原文一致，可直接引用；<b>◐ 6 项</b>为现场口径，已逐条标注来源，与官方文件不冲突（其中“5 个信道”与公开资料的“自主跳频”互为印证，“400～500 盏”也与公开资料的上限口径相容）；<b>○ 1 项</b>（睿壹边缘服务器型号与容量）只在内部资料里出现，公开渠道查不到，建议在对外文件里写成“睿壹边缘服务器（具体型号以项目配置为准）”。</p>
+
+<p>换句话说：<b>凡是写进方案、投标、验收的数字，都能在这张表里找到出处</b>；找不到出处的，手册里都标了“现场”或“经验值”，不会冒充硬指标。这也是这份手册与网上那些“参数罗列型”资料最大的区别——它知道自己哪句话是硬的、哪句话是软的。</p>
+
+<footer>
+  <b>欧普自组网技术专家手册　V1.0</b>　编制日期 2026-11-05<br>
+  覆盖：身份与编码模型、无线组网、光与感知、场景与面板、手机 App、自有平台、睿壹对接、故障因果链、分场景配置。<br>
+  与旧版《欧普自组网 APP 现场操作 SOP》《欧普自组网系统原理与参数详解》的关系：本手册为二者的整合与修订版，旧版已归档，不再作为引用依据。<br>
+  文中数值如与厂家最新规格不一致，以厂家最新文件为准。
+</footer>
+
+</div>
+</body>
+</html>
