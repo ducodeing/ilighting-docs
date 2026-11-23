@@ -1259,7 +1259,7 @@
 
 <h3 id="c66">6.6　天幕控制器与模组</h3>
 
-<p>天幕不属于灯具，而属于发光面系统，其控制器与模组单独成类。控制器按接入方式分为 Wi-Fi 版与以太网版，每台提供 2 路输出，一台主机可级联最多 19 台从机。模组按块计，逐块拼接为面。</p>
+<p>天幕不属于灯具，而属于发光面系统，其电源、控制器与模组单独成类。供电侧为昆仑II 24 V 恒压电源：220 V 进，24 V 与 GND 出，本身不含控制与信号。控制器按输出路数分为<b>单路</b>与<b>双路</b>：单路带一串、走蓝牙协议，现场必须配蓝牙网关；双路带两串、多一个网口，可经网线直连公网或本地平台。一台主机可级联最多 19 台从机，模组按块计、逐块拼接为面。</p>
 
 <p>该子系统的设计约束与前六章不同：其性能由<b>几何尺寸</b>决定，而非电气参数。相关内容独立成第 9 章，此处仅明确其计价与设计单位：天幕按模组块数与控制器台数计价，不按灯具套数计价；其光学边界由腔体几何决定，不能通过调光参数修正。</p>
 
@@ -1708,7 +1708,7 @@
     <tr><th>DALI 总线</th><td>RVVP 2×1.5（屏蔽）<br>或 RVSP 2×1.5（双绞屏蔽）</td><td>300 m（1.5 mm²）<br>200 m（1.0 mm²）</td><td>两值对应相同压降，见 8.7</td></tr>
     <tr><th>OBUS 总线</th><td>RVVP / RVSP 4×1.0～4×2.0<br>或 CAT5E 及以上</td><td>500 m（网关至最远端）</td><td>含供电与信号四芯</td></tr>
     <tr><th>以太网</th><td>CAT5E 及以上，屏蔽型为宜</td><td>90 m（链路）</td><td>超长应设中继或光纤</td></tr>
-    <tr><th>天幕模组串</th><td>网线（36 V / GND / SIG）</td><td>按压降核算，见 9.3</td><td>串长受末端压降限制</td></tr>
+    <tr><th>天幕模组串</th><td>网线（24 V 或 36 V，按机型 / GND / SIG）</td><td>按压降核算，见 9.3</td><td>串长受末端压降限制</td></tr>
   </tbody>
 </table>
 
@@ -2033,7 +2033,7 @@ S＝2.5 mm²：R ＝ 7.0 Ω　　　　　　　　　　　 →　ΔU ＝ 1.75 
 
 <h3 id="c93">9.3　电气结构与压降</h3>
 
-<p>天幕是恒压驱动：控制器输出 36 V 直流，一串模组并排挂在这条线上。选 36 V 而不是 24 V，是因为同样电流下能带更多模组。麻烦在于，线路上损耗的那一两伏，在 36 V 系统里占 5%，肉眼就能看出末端偏暗；在 220 V 系统里只占零点几，根本看不出来。所以天幕对串长和线径比普通照明敏感得多。</p>
+<p>天幕是恒压驱动，一串模组并排挂在同一条线上。供电口径有两代，现场须先确认手上模组的额定电压，不能混接：<b>现行 SDL 模组配昆仑II 24 V 恒压电源</b>（220 V 进、24 V 与 GND 出，信号由控制器给出）；<b>早期机型为 36 V</b>（对应厂家《天幕解决方案 2.0》所列 P150 / P120-100 串模组）。两者拓扑完全相同，差别只在电压与压降判据。麻烦在于，线路上损耗的那一两伏，在 24 V 系统里占 4%～5%，肉眼就能看出末端偏暗；在 220 V 系统里只占零点几，根本看不出来。所以天幕对串长和线径比普通照明敏感得多。</p>
 
 <p>恒压系统的固有问题在于：串首至串尾的线路电阻逐段累积，末端模组获得的电压低于首端，表现为“末端偏暗”。压降与串长、总电流成正比，与导体截面成反比：</p>
 
@@ -2041,7 +2041,7 @@ S＝2.5 mm²：R ＝ 7.0 Ω　　　　　　　　　　　 →　ΔU ＝ 1.75 
 ΔU ＝ I_串 × R_往返 ＝ (N × I_模组) × (ρ × 2L / S)
 
 N：单串模组数　I_模组：单模组工作电流　L：串长　S：导体截面
-判据：ΔU ≤ 36 V × 5% ＝ 1.8 V
+判据：ΔU ≤ U额 × 5%　——　24 V 机型 1.2 V；36 V 机型 1.8 V
 </div>
 
 <p>拆串的作用可由上式直接看出。若将一条串长为 L、模组数为 N 的串，拆为两条串长为 L/2、模组数为 N/2 的串，则电流减半、线路长度减半，压降降至原来的四分之一。这一结论是“增加控制器”的真实动因：并非扩容，而是缩短单串以控制压降。</p>
@@ -2073,7 +2073,7 @@ N：单串模组数　I_模组：单模组工作电流　L：串长　S：导体
   <text x="80" y="324" class="s">这也解释了控制器的 2 路输出设计：其工程意义在于“天生支持拆两串”，而非单纯的端口数量。</text>
   <text x="80" y="346" class="s">若仍超限，可选加粗供电芯线、将控制器移至串中部就近供电，或继续拆串。</text>
 </svg>
-<div class="cap">图 28　串长与末端压降的关系</div>
+<div class="cap">图 28　串长与末端压降的关系（纵轴以 36 V 机型为例；24 V 机型按 1.2 V 判据换算）</div>
 </div>
 
 <p><b>算例。</b>假设单模组工作电流 0.4 A，模组间距 0.5 m，采用 0.5 mm² 导体（网线规格），单串 13 块，串长 6 m：</p>
@@ -2094,99 +2094,83 @@ I ＝ 2.8 A，R ＝ 0.0175 × 6 / 0.5 ＝ 0.21 Ω
 <b>现场判据：</b>若天幕呈现“自某一侧起逐渐变暗”，属压降问题，处理方向为拆串或加粗供电线；若呈现“周期性亮斑”，属几何问题，处理方向为调整间距或槽深。两类现象的形状不同，不应混用同一套处置手段。
 </div>
 
-<p><b>接线怎么落地，一图说清。</b>220 V 进各台控制器（L / N / PE，就近取电，同一回路带断路器保护）；每台控制器两路输出，每路三芯经一根网线（36 V / GND / SIG）手拉手串起一串模组，一进一出、不星型分支；主从之间另走一根级联线，主机统一下发时基与画面。控制器到首块模组 ≤5 m、线径 ≥1.0 mm²，两条都是硬约束——超了参数配得再对，末端也会偏暗。</p>
+<p><b>接线怎么落地，一图说清。</b>220 V 先进昆仑II 恒压电源（L / N / PE，就近取电，同一回路带断路器保护），电源出 24 V 与 GND 送控制器；控制器再出 <b>24 V / GND / 信号</b>三线到灯片首端。灯片之间串联成一回路，一进一出、不星型分支；<b>末端从同一路 24 V 再并两根电源线（24 V + GND），经接线端子接到末块灯片，信号线不接</b>——这就是首尾供电。控制器到首块灯片 ≤5 m、线径 ≥1.0 mm²，是硬约束；主从之间另走级联线，画面与时基只由主机下发。</p>
 
 <div class="fig">
-<svg viewBox="0 0 960 500" role="img" aria-label="天幕接线示意">
-  <text x="0" y="15" class="ttl">接线：220 V 进各台控制器，36 V 两路出串，模组手拉手；主从之间另走一根级联线</text>
+<svg viewBox="0 0 860 400" role="img" aria-label="天幕接线示意">
+  <text x="0" y="15" class="ttl">接线：220 V 进昆仑II 电源，24 V 三线到灯片首端；灯片串联，末端并两根电源线成首尾供电</text>
 
-  <rect class="bx3" x="40" y="62" width="104" height="52" rx="4"/>
-  <text x="92" y="84" class="t" text-anchor="middle">220 V 配电</text>
-  <text x="92" y="103" class="s" text-anchor="middle">L / N / PE</text>
+  <rect class="bx3" x="30" y="44" width="96" height="54" rx="4"/>
+  <text x="78" y="68" class="t" text-anchor="middle" font-size="13">220 V 配电</text>
+  <text x="78" y="87" class="s" text-anchor="middle" font-size="12">L / N / PE</text>
 
-  <line x1="146" y1="88" x2="200" y2="88" stroke="#A63A2C" stroke-width="1.8" marker-end="url(#kar)"/>
-  <text x="173" y="80" class="s" text-anchor="middle" fill="#A63A2C" font-size="11">220 V</text>
+  <line x1="128" y1="71" x2="146" y2="71" stroke="#A63A2C" stroke-width="1.6" marker-end="url(#kw1)"/>
 
-  <rect x="206" y="50" width="148" height="74" rx="4" fill="#EBF3F9" stroke="#12557E" stroke-width="1.2"/>
-  <text x="280" y="76" class="tb" text-anchor="middle">天幕控制器（主）</text>
-  <text x="280" y="96" class="s" text-anchor="middle">2 路输出</text>
-  <text x="280" y="114" class="s" text-anchor="middle">拨码 M · 内容源</text>
+  <rect x="150" y="40" width="150" height="62" rx="4" fill="#EBF3F9" stroke="#12557E" stroke-width="1.2"/>
+  <text x="225" y="64" class="tb" text-anchor="middle" font-size="14">昆仑II 恒压电源</text>
+  <text x="225" y="84" class="s" text-anchor="middle" font-size="12">220 V 进 · 24 V / GND 出</text>
+  <text x="225" y="98" class="s" text-anchor="middle" font-size="11.5">仅电源，不含信号</text>
 
-  <rect x="416" y="50" width="136" height="74" rx="4" fill="#FBFCFD" stroke="#54677A" stroke-width="1"/>
-  <text x="484" y="76" class="tb" text-anchor="middle">控制器（从 1）</text>
-  <text x="484" y="96" class="s" text-anchor="middle">2 路输出</text>
-  <text x="484" y="114" class="s" text-anchor="middle">拨码 S</text>
+  <line x1="302" y1="71" x2="326" y2="71" stroke="#12557E" stroke-width="1.6" marker-end="url(#kw2)"/>
 
-  <rect x="612" y="50" width="136" height="74" rx="4" fill="#FBFCFD" stroke="#54677A" stroke-width="1"/>
-  <text x="680" y="76" class="tb" text-anchor="middle">控制器（从 2）</text>
-  <text x="680" y="96" class="s" text-anchor="middle">2 路输出</text>
-  <text x="680" y="114" class="s" text-anchor="middle">拨码 S</text>
+  <rect x="330" y="40" width="170" height="62" rx="4" fill="#EDF6F2" stroke="#0E6049" stroke-width="1.2"/>
+  <text x="415" y="64" class="tb" text-anchor="middle" font-size="14">天幕控制器</text>
+  <text x="415" y="84" class="s" text-anchor="middle" font-size="12">出 24 V / GND / SIG 三线</text>
+  <text x="415" y="98" class="s" text-anchor="middle" font-size="11.5">单路 1 串 · 双路 2 串</text>
 
-  <line x1="356" y1="82" x2="412" y2="82" stroke="#0E6049" stroke-width="1.4" stroke-dasharray="5 3" marker-end="url(#kgr)"/>
-  <line x1="554" y1="82" x2="608" y2="82" stroke="#0E6049" stroke-width="1.4" stroke-dasharray="5 3" marker-end="url(#kgr)"/>
-  <text x="480" y="42" class="s" text-anchor="middle" fill="#0E6049">主从级联（网线，随设备配）· 最多 1 主 19 从</text>
+  <rect class="bx3" x="520" y="40" width="310" height="62" rx="4"/>
+  <text x="534" y="62" class="t" font-size="12.5">单路：蓝牙 Mesh，现场须配蓝牙网关</text>
+  <text x="534" y="82" class="t" font-size="12.5">双路：多一个网口，网线直连公网 / 平台</text>
+  <text x="534" y="98" class="s" font-size="11">主从 1 主 19 从；拨码改后须断电重启</text>
 
-  <line x1="484" y1="150" x2="484" y2="130" stroke="#A63A2C" stroke-width="1.4" marker-end="url(#kar)"/>
-  <text x="484" y="166" class="s" text-anchor="middle" fill="#A63A2C" font-size="11">220 V</text>
-  <line x1="680" y1="150" x2="680" y2="130" stroke="#A63A2C" stroke-width="1.4" marker-end="url(#kar)"/>
-  <text x="680" y="166" class="s" text-anchor="middle" fill="#A63A2C" font-size="11">220 V</text>
+  <circle cx="360" cy="102" r="3" fill="#0E6049"/><circle cx="420" cy="102" r="3" fill="#0E6049"/>
 
-  <circle cx="250" cy="126" r="3" fill="#12557E"/><circle cx="330" cy="126" r="3" fill="#12557E"/>
-  <path d="M250,126 V215 H780" fill="none" stroke="#12557E" stroke-width="1.8"/>
-  <path d="M330,126 V290 H700" fill="none" stroke="#12557E" stroke-width="1.8"/>
-  
-  <path d="M322,215 A8,8 0 0 1 338,215" fill="none" stroke="#FBFCFD" stroke-width="5"/>
-  
-  <path d="M322,215 A8,8 0 0 1 338,215" fill="none" stroke="#12557E" stroke-width="1.5"/>
+  <path d="M360,102 V190 H470" fill="none" stroke="#12557E" stroke-width="1.8"/>
+  <text x="366" y="162" class="s" fill="#12557E" font-size="12">24 V / GND / SIG</text>
 
-  <text x="256" y="205" class="s" fill="#12557E" font-size="11">第 1 路</text>
-  <text x="338" y="262" class="s" fill="#12557E" font-size="11">第 2 路（拆串后更短）</text>
+  <path d="M420,102 V140 H800 V170" fill="none" stroke="#12557E" stroke-width="1.4" stroke-dasharray="5 3"/>
+  <text x="560" y="134" class="s" fill="#12557E" font-size="12">24 V + GND（信号不接）</text>
 
   <g fill="#EBF3F9" stroke="#12557E" stroke-width="0.9">
-    <rect x="380" y="199" width="50" height="32" rx="3"/><rect x="442" y="199" width="50" height="32" rx="3"/><rect x="504" y="199" width="50" height="32" rx="3"/><rect x="566" y="199" width="50" height="32" rx="3"/><rect x="628" y="199" width="50" height="32" rx="3"/><rect x="690" y="199" width="50" height="32" rx="3"/>
+    <rect x="470" y="170" width="80" height="40" rx="3"/>
+    <rect x="566" y="170" width="80" height="40" rx="3"/>
+    <rect x="662" y="170" width="80" height="40" rx="3"/>
   </g>
-  <g class="s" text-anchor="middle" font-size="11" fill="#12557E">
-    <text x="405" y="220">模组</text><text x="467" y="220">模组</text><text x="529" y="220">模组</text><text x="591" y="220">模组</text><text x="653" y="220">模组</text><text x="715" y="220">模组</text>
+  <g class="s" text-anchor="middle" font-size="12.5" fill="#12557E">
+    <text x="510" y="195">灯片</text><text x="606" y="195">灯片</text><text x="702" y="195">灯片</text>
   </g>
-  <g class="s" font-size="11" fill="#54677A">
-    <text x="405" y="192" text-anchor="middle">1</text><text x="467" y="192" text-anchor="middle">2</text><text x="529" y="192" text-anchor="middle">3</text><text x="591" y="192" text-anchor="middle">4</text><text x="653" y="192" text-anchor="middle">5</text><text x="715" y="192" text-anchor="middle">6</text>
-  </g>
+  <text x="748" y="196" class="s" font-size="13" fill="#54677A">⋯</text>
 
-  <g fill="#FBFCFD" stroke="#54677A" stroke-width="0.9">
-    <rect x="400" y="274" width="50" height="32" rx="3"/><rect x="462" y="274" width="50" height="32" rx="3"/><rect x="524" y="274" width="50" height="32" rx="3"/><rect x="586" y="274" width="50" height="32" rx="3"/>
-  </g>
-  <g class="s" text-anchor="middle" font-size="11" fill="#54677A">
-    <text x="425" y="295">模组</text><text x="487" y="295">模组</text><text x="549" y="295">模组</text><text x="611" y="295">模组</text>
-  </g>
+  <rect x="760" y="166" width="80" height="48" rx="3" fill="#FBF6EC" stroke="#D8B87A" stroke-width="1"/>
+  <text x="800" y="186" class="s" text-anchor="middle" font-size="11.5">接线端子</text>
+  <text x="800" y="204" class="s" text-anchor="middle" font-size="11.5" fill="#854F0B">24 V + GND</text>
 
-  <circle cx="780" cy="215" r="3" fill="#12557E"/>
-  <text x="788" y="219" class="s">串尾</text>
-  <text x="788" y="240" class="s" fill="#A63A2C" font-size="11">可并 36 V 补电</text>
-  <text x="788" y="256" class="s" font-size="11">≥1.0 mm² · ≤5 m</text>
+  <text x="470" y="236" class="s" font-size="11.5">灯片之间串联成回路：一进一出，信号随线走</text>
+  <text x="760" y="236" class="s" font-size="11.5" fill="#854F0B">末端只接电源</text>
 
-  <rect class="bx3" x="40" y="330" width="880" height="116" rx="4"/>
-  <text x="58" y="354" class="t">① 模组手拉手：一进一出，不星型分支；串序按排布图，串序错了图案整体错位，返工要拆膜。</text>
-  <text x="58" y="378" class="t">② 控制器到首块模组 ≤5 m、线径 ≥1.0 mm²；控制器就近放天幕上方龙骨内，不放门口配电箱。</text>
-  <text x="58" y="402" class="t">③ 单路 ≤80 点。超限先拆串（多占一路，压降降到 1/4），再考虑加粗线径或串尾补电。</text>
-  <text x="58" y="426" class="t">④ 首次上电先复位：快上下电 5 次，或磁铁靠近驱动 NFC 位，光源闪 3 次后再入网。</text>
+  <rect class="bx3" x="30" y="258" width="800" height="104" rx="4"/>
+  <text x="46" y="281" class="t" font-size="12.5">① 220 V 只进昆仑II 输入端；24 V 与 GND 送控制器，控制器再出三线到灯片首端。</text>
+  <text x="46" y="303" class="t" font-size="12.5">② 灯片串联；末端从同一 24 V 输出并两根电源线，经接线端子接入，信号线不接——首尾供电。</text>
+  <text x="46" y="325" class="t" font-size="12.5">③ 24 V 系统 5% 压降仅 1.2 V，单端供电末端必暗；首尾供电是标准接法，不是补救。早期 36 V 机型拓扑相同，判据 1.8 V。</text>
+  <text x="46" y="347" class="t" font-size="12.5">④ 单路＝1 串＋蓝牙（须配蓝牙网关）；双路＝2 串＋网口。控制器到首块灯片 ≤5 m、线径 ≥1.0 mm²。</text>
 
-  <text x="40" y="472" class="s" font-size="11">线色：<tspan fill="#A63A2C">红＝220 V 强电</tspan>　<tspan fill="#12557E">蓝＝36 V 直流＋信号（同一根网线三芯）</tspan>　<tspan fill="#0E6049">绿虚线＝主从级联</tspan></text>
+  <text x="30" y="386" class="s" font-size="11.5">线色：<tspan fill="#A63A2C">红＝220 V 强电</tspan>　<tspan fill="#12557E">蓝实线＝首端三线</tspan>　<tspan fill="#12557E">蓝虚线＝末端两根电源线</tspan></text>
 
   <defs>
-    <marker id="kar" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#A63A2C"/></marker>
-    <marker id="kgr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#0E6049"/></marker>
+    <marker id="kw1" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#A63A2C"/></marker>
+    <marker id="kw2" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#12557E"/></marker>
   </defs>
 </svg>
-<div class="cap">图 29　天幕接线示意：220 V 进控制器、36 V 两路出串、模组手拉手、主从另走级联</div>
+<div class="cap">图 29　天幕接线：220 V 进昆仑II 电源、控制器出 24 V 三线、灯片串联、末端并两线成首尾供电（早期 36 V 机型拓扑相同）</div>
 </div>
 
-<p>三个细节决定这张图能不能落地。<b>串序</b>：模组按排布图的顺序串，串序错了图案整体错位，而返工要拆膜，代价远高于布线时多核一遍。<b>拆串</b>：单路超过 80 点必须拆，宁可多占一路，也不要用加粗线径硬扛——压降与电流、长度成正比，拆串是平方级的改善，加粗只是线性。<b>补电</b>：串尾并联一路 36 V 与 GND，线径 ≥1.0 mm²、长度 ≤5 m，只补电源不补信号；补电属补救手段，方案阶段就该把串拆对。从机的两路输出与主机完全一致，区别只在内容：画面与时基由主机统一下发，现场不必也不应在从机上单独配画面。</p>
+<p>三个细节决定这张图能不能落地。<b>串序</b>：模组按排布图的顺序串，串序错了图案整体错位，而返工要拆膜，代价远高于布线时多核一遍。<b>拆串</b>：单路超过 80 点必须拆，宁可多占一路，也不要用加粗线径硬扛——压降与电流、长度成正比，拆串是平方级的改善，加粗只是线性。<b>首尾供电</b>：首端三线、末端两线，两端同时供电，线损路径减半、电流按两端分摊，这是天幕的标准接法而非补救；串仍按 80 点控制，超了先拆串。从机的输出与主机完全一致，区别只在内容：画面与时基由主机统一下发，现场不必也不应在从机上单独配画面。单路与双路的差别在带载与上行：单路 1 串、蓝牙，配蓝牙网关；双路 2 串、带网口，可直连平台。</p>
 
 <h3 id="c94">9.4　主从同步</h3>
 
 <p>大面积天幕由多台控制器驱动，各控制器负责一段模组串。当显示内容为静态画面时，各段独立输出即可；当内容为动效（颜色沿某一方向流动、波纹自中心扩散）时，各段必须在统一时基下执行同一指令，否则动效在段与段的交界处出现断裂。</p>
 
-<p><b>先回答一个更前置的问题：为什么非要拆成多台。</b>根因在负载侧。天幕是 36 V 恒压驱动，单台控制器只有 2 路输出，而每一路串受末端压降限制——现场红线是单路 80 点，超过后离控制器最远的模组明显偏暗。天幕面积一旦超出一台两路的带载能力，就只能拆段、多台分别驱动。这是电气决定的，不是管理选择：不存在"换一台更大的控制器"这个选项，因为限制串长的不是设备功率，而是 36 V 系统里那 5% 的压降。</p>
+<p><b>先回答一个更前置的问题：为什么非要拆成多台。</b>根因在负载侧。天幕是恒压驱动（现行 24 V、早期 36 V），单台控制器 1～2 路输出，而每一路串受末端压降限制——现场红线是单路 80 点，超过后离控制器最远的模组明显偏暗。天幕面积一旦超出一台一两路的带载能力，就只能拆段、多台分别驱动。这是电气决定的，不是管理选择：不存在"换一台更大的控制器"这个选项，因为限制串长的不是设备功率，而是 24 V（或 36 V）系统里那 5% 的压降。</p>
 
 <p>拆开之后问题才出现。每台控制器各自有时基、各自持有图像起点；静态画面看不出差异，内容一旦随时间变化，段与段之间就有了相位差——同一朵云在两段交界处错位、速度不一致，严重时颜色跳变。所以主从的作用不是"方便管理"，而是把"多台各放各的"重新拼回"一片在时间上同步的画面"，具体落在三件事上：<b>其一</b>，主机广播统一时基，从机按拍执行，把段间相位差压到人眼之下；<b>其二</b>，图像与场景只存主机一份，从机只执行，避免各段的明暗、缩放、起点各不相同；<b>其三</b>，下发只对主机，一条指令全网生效，不必逐台配置、也不会漏配某一段。规模上限是一主十九从，共 40 路输出；超过这个数量不是加从机，而是另开一条主从链。</p>
 
@@ -2350,7 +2334,7 @@ I ＝ 2.8 A，R ＝ 0.0175 × 6 / 0.5 ＝ 0.21 Ω
 
   <rect class="bx3" x="24" y="140" width="140" height="30" rx="3"/>
   <text x="94" y="160" class="s" text-anchor="middle">③ 布线与控制器</text>
-  <text x="220" y="160" class="t">36 V 供电、信号线、主从级联</text>
+  <text x="220" y="160" class="t">24 V 供电、信号线、主从级联</text>
   <text x="620" y="160" class="s">控制器就位且可检修；主从拨码已设</text>
 
   <rect class="bx3" x="24" y="176" width="140" height="30" rx="3"/>
@@ -2426,7 +2410,7 @@ I ＝ 2.8 A，R ＝ 0.0175 × 6 / 0.5 ＝ 0.21 Ω
   <text x="680" y="222" class="s">整片不亮 → 控制器供电或主从拨码</text>
   <text x="680" y="244" class="s">单段不亮 → 该台从机失电或级联断</text>
   <text x="680" y="266" class="s">末端偏暗 → 串长超压降允许值</text>
-  <text x="680" y="294" class="s">处置：量 36 V 电压、核拨码并重启、</text>
+  <text x="680" y="294" class="s">处置：量 24 V 电压、核拨码并重启、</text>
   <text x="680" y="316" class="s">拆串或加粗供电线。</text>
   <text x="680" y="340" class="s" fill="#0E6049">可现场处置。</text>
 
@@ -2554,7 +2538,7 @@ I ＝ 2.8 A，R ＝ 0.0175 × 6 / 0.5 ＝ 0.21 Ω
 
 <p>还有一条容易被忽略：<b>被吊顶遮挡的灯盘也必须画进路径。</b>它虽然看不见，但仍在同一条串上；跳过它会让后面所有点的序号错位，图案整体平移。正确的做法是按完整网格画满，遮挡处照画不误。</p>
 
-<p><b>电气侧的红线是单路 80 点。</b>单条回路像素点超过 80，末端压降开始显现，表现为同一串里离控制器最远的那块灯盘偏暗，用户描述通常是“颜色不均匀”。处置有两条：在串尾并联一路 36 V 补电（线径 ≥1.0 mm²、长度 ≤5 m），或者把长串拆成 2+1 分挂控制器的两路。拆串优先——双路本来就空着一路，不必额外布线。</p>
+<p><b>电气侧的红线是单路 80 点。</b>单条回路像素点超过 80，末端压降开始显现，表现为同一串里离控制器最远的那块灯盘偏暗，用户描述通常是“颜色不均匀”。处置有两条：在串尾并接一路电源（24 V 或 36 V，按机型；线径 ≥1.0 mm²、长度 ≤5 m），或者把长串拆成 2+1 分挂控制器的两路。拆串优先——双路本来就空着一路，不必额外布线。</p>
 
 <p><b>装上去之前有三条硬约束</b>，任何一条不满足，参数配得再对也点不亮：① <b>控制器到模组、驱动到模组的线长都 ≤5 m</b>，线径 ≥1.0 mm²——房间对角线往往超过 6 m，所以控制器不能集中在门口配电箱，要就近放在天幕上方龙骨内；② <b>槽深要够</b>，P150 配透镜 ≥100 mm、不配透镜 ≥200 mm，槽深不够就降规格改用 P120 或 P100，此时灯片数要按新间距重算；③ <b>首次上电先复位再入网</b>，快速上下电 5 次，或用磁铁靠近驱动上的 NFC 位置，等光源闪 3 次，之后平台才搜得到。</p>
 
@@ -3114,7 +3098,7 @@ I ＝ 2.8 A，R ＝ 0.0175 × 6 / 0.5 ＝ 0.21 Ω
     <tr><th>天幕槽深</th><td>间距 150 系列 ≤40 mm；120 系列 ≤25 mm</td><td>厂家文件</td></tr>
     <tr><th>天幕间距</th><td>有透镜 150 系列 ≥100 mm / 120 系列 ≥80 mm；无透镜 ≥200 / ≥150 mm</td><td>厂家文件</td></tr>
     <tr><th>天幕单块 / 主从</th><td>长宽 ≤4.2 m；1 主机 + 最多 19 从机</td><td>厂家文件</td></tr>
-    <tr><th>天幕输出</th><td>36 V 恒压，末端压降宜 ≤5%（1.8 V）</td><td>计算值</td></tr>
+    <tr><th>天幕输出</th><td>24 V（现行）/ 36 V（早期）恒压，末端压降 ≤5%（1.2 V / 1.8 V）</td><td>计算值</td></tr>
     <tr><th>平台端口</th><td>网关 TCP 80 + UDP 65501；客户端 TCP 80 + 443</td><td>厂家文件</td></tr>
     <tr><th>网络质量</th><td>带宽 &gt;1 Mbit/s，延时 &lt;300 ms</td><td>厂家文件</td></tr>
   </tbody>
